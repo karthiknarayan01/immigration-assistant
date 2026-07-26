@@ -5,6 +5,11 @@ import httpx
 from google.adk.tools import FunctionTool
 from loguru import logger
 
+_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 immigration-assistant/1.0"
+)
+
 FORM_MAP = {
     "H1B": ["I-129"],
     "F1": ["I-539"],
@@ -32,7 +37,9 @@ def get_processing_times(visa_category: str) -> dict:
     for form in forms:
         try:
             url = f"https://egov.uscis.gov/processing-times/api/processingtime/IV/{form}"
-            resp = httpx.get(url, timeout=15, follow_redirects=True)
+            resp = httpx.get(
+                url, timeout=15, follow_redirects=True, headers={"User-Agent": _USER_AGENT}
+            )
             if resp.status_code == 200:
                 results[form] = {
                     "form": form,
