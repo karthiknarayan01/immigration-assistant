@@ -1,6 +1,11 @@
 """
-Live web search. Uses Serper API if key is set, otherwise falls back
+Live web search. Uses Serper API if a real key is set, otherwise falls back
 to direct USCIS scraping. Always fetches fresh — never cached.
+
+Never raises: if Serper is unavailable or misconfigured, or the USCIS
+fallback scrape fails too, this returns an empty result with an 'error'
+field instead of blowing up the agent turn. The specialist is instructed
+to answer with whatever other tools did succeed rather than stall on this.
 """
 import httpx
 from bs4 import BeautifulSoup
@@ -11,8 +16,13 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from config.settings import settings
 from rag.sources import LIVE_SEARCH_DOMAINS
 
+_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0 Safari/537.36 immigration-assistant/1.0"
+)
+_PLACEHOLDER_SERPER_KEY = "your_serper_api_key_here"
 
-@retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=10))
+
 def search_immigration_news(
     query: str,
     visa_category: str,
@@ -30,16 +40,25 @@ def search_immigration_news(
 
     Returns:
         dict with 'results' list containing title, snippet, url, date.
+        On failure, 'results' is empty and an 'error' key explains why —
+        this is never raised as an exception.
     """
     domain_filter = " OR ".join(f"site:{d}" for d in LIVE_SEARCH_DOMAINS)
     full_query = f"{query} {visa_category} ({domain_filter})"
 
-    if settings.serper_api_key:
-        return _serper_search(full_query, recency_days)
-    else:
-        return _fallback_uscis_scrape(query, visa_category)
+    has_real_key = (
+        settings.serper_api_key and settings.serper_api_key != _PLACEHOLDER_SERPER_KEY
+    )
+    if has_real_key:
+        try:
+            return _serper_search(full_query, recency_days)
+        except Exception as e:
+            logger.warning(f"Serper search failed, falling back to USCIS scrape: {e}")
+
+    return _fallback_uscis_scrape(query, visa_category)
 
 
+@retry(stop=stop_after_attempt(2), wait=wait_exponential(min=1, max=10))
 def _serper_search(query: str, recency_days: int) -> dict:
     headers = {"X-API-KEY": settings.serper_api_key, "Content-Type": "application/json"}
     payload = {"q": query, "num": 8, "tbs": f"qdr:{'m3' if recency_days <= 90 else 'y1'}"}
@@ -61,10 +80,13 @@ def _serper_search(query: str, recency_days: int) -> dict:
 
 
 def _fallback_uscis_scrape(query: str, visa_category: str) -> dict:
-    """Fallback: directly fetch USCIS news page when Serper not configured."""
+    """Fallback: directly fetch USCIS news page when Serper not configured or unavailable."""
     url = "https://www.uscis.gov/newsroom/news-releases"
     try:
-        resp = httpx.get(url, timeout=15, follow_redirects=True)
+        resp = httpx.get(
+            url, timeout=15, follow_redirects=True, headers={"User-Agent": _USER_AGENT}
+        )
+        resp.raise_for_status()
         soup = BeautifulSoup(resp.text, "lxml")
         items = soup.select("article.news-item")[:5]
         results = []
@@ -83,7 +105,12 @@ def _fallback_uscis_scrape(query: str, visa_category: str) -> dict:
         return {"results": results, "total": len(results)}
     except Exception as e:
         logger.error(f"Fallback scrape failed: {e}")
-        return {"results": [], "total": 0, "error": str(e)}
+        return {
+            "results": [],
+            "total": 0,
+            "error": str(e),
+            "note": "Live web search unavailable — answer using RAG/other tool results instead.",
+        }
 
 
 web_search_tool = FunctionTool(func=search_immigration_news)
