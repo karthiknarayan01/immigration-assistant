@@ -1,0 +1,21 @@
+services:
+  immigration_assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["adk", "web", "--host", "0.0.0.0", "--port", "8001"]
+    env_file:
+      - .env
+    environment:
+      # Ollama runs on the host, not in compose — reach it via the
+      # host.docker.internal gateway (native on Docker Desktop; extra_hosts
+      # below makes the same name resolve on Linux, e.g. Oracle Cloud).
+      OLLAMA_API_BASE: http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Persisted RAG index — built once via scripts/build_index.py, then
+      # reused across container rebuilds instead of re-indexing every deploy.
+      - ./chroma_db:/app/chroma_db
+    ports:
+      - "8001:8001"

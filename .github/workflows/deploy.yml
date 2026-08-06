@@ -1,0 +1,28 @@
+name: Deploy to Oracle Cloud
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.ORACLE_SSH_HOST }}
+          username: ${{ secrets.ORACLE_SSH_USER }}
+          key: ${{ secrets.ORACLE_SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/immigration-assistant
+            git fetch origin main
+            git reset --hard origin/main
+            docker compose up -d --build
+            # Rebuild the RAG index only if it doesn't exist yet (first deploy) —
+            # chroma_db/ persists across deploys via the compose volume mount.
+            if [ -z "$(ls -A chroma_db 2>/dev/null)" ]; then
+              docker compose run --rm immigration_assistant python scripts/build_index.py
+            fi
+            docker image prune -f

@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.git/
+
+# secrets / local state — mounted as volumes at runtime, never baked into the image
+.env
+chroma_db/
+immigration_agent/.adk/
