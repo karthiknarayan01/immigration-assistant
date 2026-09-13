@@ -1,0 +1,162 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --surface: #1a1a1a;
+  --surface-hover: #262626;
+  --elevated: #262626;
+  --border: #2e2e2e;
+  --border-strong: #3d3d3d;
+  --foreground: #eeeeee;
+  --muted: #929292;
+  --accent: #4f7dff;
+  --accent-strong: #3b63e6;
+  --accent-foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-elevated: var(--elevated);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-foreground: var(--accent-foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+* {
+  scrollbar-color: var(--border) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-message-in {
+  animation: message-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.streaming-caret::after {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: currentColor;
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-overlay-in {
+  animation: overlay-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Voice conversation orb — soft glowing sphere, phase communicated purely
+   through motion + glow intensity rather than text (matches ChatGPT Voice). */
+.voice-orb {
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, var(--accent) 45%, var(--accent-strong) 100%);
+  box-shadow:
+    0 0 40px 8px rgba(79, 125, 255, 0.45),
+    0 0 90px 26px rgba(79, 125, 255, 0.22);
+}
+
+@keyframes orb-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.07);
+  }
+}
+
+@keyframes orb-think {
+  0% {
+    transform: rotate(0deg) scale(0.97);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.03);
+  }
+  100% {
+    transform: rotate(360deg) scale(0.97);
+  }
+}
+
+@keyframes orb-speak {
+  0%,
+  100% {
+    transform: scale(0.97);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  60% {
+    transform: scale(0.99);
+  }
+}
+
+.orb-listening {
+  animation: orb-breathe 2.6s ease-in-out infinite;
+}
+
+.orb-thinking {
+  animation: orb-think 1.8s ease-in-out infinite;
+}
+
+.orb-speaking {
+  animation: orb-speak 1s ease-in-out infinite;
+}

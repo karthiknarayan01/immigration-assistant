@@ -1,0 +1,123 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+import * as db from "@/lib/db";
+import { KEEP_RAW_MESSAGES, SUMMARY_TRIGGER_MESSAGES } from "@/lib/constants";
+import { Message } from "@/lib/types";
+
+export function useChatSession() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [summary, setSummary] = useState("");
+  const [summarizedUpTo, setSummarizedUpTo] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const summarizingRef = useRef(false);
+
+  useEffect(() => {
+    (async () => {
+      const [storedMessages, meta] = await Promise.all([db.getMessages(), db.getMeta()]);
+      setMessages(storedMessages);
+      setSummary(meta?.summary ?? "");
+      setSummarizedUpTo(meta?.summarizedUpTo ?? 0);
+      setIsLoaded(true);
+    })();
+  }, []);
+
+  // Runs in the background after a reply finishes — never blocks the next
+  // query. Folds everything except the most recent messages into a rolling
+  // summary so the context sent per-request stays small as the chat grows.
+  const maybeSummarize = useCallback(
+    async (allMessages: Message[], currentSummary: string, currentSummarizedUpTo: number) => {
+      const unsummarizedCount = allMessages.length - currentSummarizedUpTo;
+      if (unsummarizedCount < SUMMARY_TRIGGER_MESSAGES || summarizingRef.current) return;
+
+      const cutoff = allMessages.length - KEEP_RAW_MESSAGES;
+      const toFold = allMessages.slice(currentSummarizedUpTo, cutoff);
+      if (toFold.length === 0) return;
+
+      summarizingRef.current = true;
+      try {
+        const res = await fetch("/api/summarize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            existingSummary: currentSummary,
+            messages: toFold.map((m) => ({ role: m.role, content: m.content })),
+          }),
+        });
+        if (!res.ok) return;
+        const { summary: newSummary } = (await res.json()) as { summary: string };
+        setSummary(newSummary);
+        setSummarizedUpTo(cutoff);
+        await db.setMeta({ summary: newSummary, summarizedUpTo: cutoff });
+      } finally {
+        summarizingRef.current = false;
+      }
+    },
+    []
+  );
+
+  const sendMessage = useCallback(
+    async (text: string) => {
+      const trimmed = text.trim();
+      if (!trimmed || isSending) return;
+
+      const userMessage: Message = {
+        id: crypto.randomUUID(),
+        role: "user",
+        content: trimmed,
+        createdAt: Date.now(),
+      };
+      const priorMessages = messages;
+      setIsSending(true);
+      setMessages((prev) => [...prev, userMessage]);
+      await db.addMessage(userMessage);
+
+      const assistantId = crypto.randomUUID();
+      setMessages((prev) => [...prev, { id: assistantId, role: "assistant", content: "", createdAt: Date.now() }]);
+
+      let full = "";
+      try {
+        const recentMessages = priorMessages.slice(summarizedUpTo).map((m) => ({ role: m.role, content: m.content }));
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ summary, recentMessages, newMessage: trimmed }),
+        });
+        if (!res.body) throw new Error("No response body");
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          full += decoder.decode(value, { stream: true });
+          setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: full } : m)));
+        }
+      } catch {
+        full = "Something went wrong reaching the assistant. Please try again.";
+        setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: full } : m)));
+      } finally {
+        setIsSending(false);
+      }
+
+      const finalAssistant: Message = { id: assistantId, role: "assistant", content: full, createdAt: Date.now() };
+      await db.addMessage(finalAssistant);
+
+      const allMessages = [...priorMessages, userMessage, finalAssistant];
+      void maybeSummarize(allMessages, summary, summarizedUpTo);
+
+      return full;
+    },
+    [isSending, messages, summary, summarizedUpTo, maybeSummarize]
+  );
+
+  const clearSession = useCallback(async () => {
+    await db.clearAll();
+    setMessages([]);
+    setSummary("");
+    setSummarizedUpTo(0);
+  }, []);
+
+  return { messages, sendMessage, clearSession, isSending, isLoaded };
+}
