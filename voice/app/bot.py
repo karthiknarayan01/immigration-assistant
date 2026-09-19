@@ -26,6 +26,7 @@ from app.prompt import (
     SYSTEM_INSTRUCTION,
     TURN_COMPLETION_INSTRUCTIONS,
 )
+from app.tools.registry import build_tools
 
 
 def _build_llm() -> GeminiLiveVertexLLMService:
@@ -35,7 +36,9 @@ def _build_llm() -> GeminiLiveVertexLLMService:
             "see voice/.env.example."
         )
 
-    return GeminiLiveVertexLLMService(
+    tools_schema, handlers = build_tools()
+
+    llm = GeminiLiveVertexLLMService(
         # All credential paths are optional: on Cloud Run both are empty and
         # the service falls back to Application Default Credentials.
         credentials=settings.google_vertex_credentials or None,
@@ -43,6 +46,7 @@ def _build_llm() -> GeminiLiveVertexLLMService:
         project_id=settings.google_cloud_project_id,
         location=settings.google_cloud_location,
         system_instruction=SYSTEM_INSTRUCTION,
+        tools=tools_schema,
         settings=GeminiLiveVertexLLMSettings(
             model=settings.gemini_model,
             voice=settings.gemini_voice,
@@ -63,6 +67,18 @@ def _build_llm() -> GeminiLiveVertexLLMService:
             context_window_compression={"enabled": True},
         ),
     )
+
+    for name, handler in handlers.items():
+        llm.register_function(
+            name,
+            handler,
+            timeout_secs=settings.tool_timeout_secs,
+            # If the user starts talking again, whatever we were looking up is
+            # no longer what they asked. Abandon it rather than answering late.
+            cancel_on_interruption=True,
+        )
+
+    return llm
 
 
 async def run_bot(webrtc_connection) -> None:

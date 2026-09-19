@@ -19,8 +19,22 @@ class Settings(BaseSettings):
     # Turn detection. Defaults are deliberately more patient than Gemini's:
     # users are disproportionately non-native English speakers, who pause
     # mid-sentence more often and for longer. See bot.py for sensitivity.
-    vad_silence_duration_ms: int = 1000
+    vad_silence_duration_ms: int = 1500
     vad_prefix_padding_ms: int = 300
+
+    # Search providers. Each tool activates only if its key is present, so the
+    # agent degrades to answering from its own knowledge rather than failing.
+    # Note: uscis.gov blocks datacenter traffic (403), so official sources are
+    # reached through these providers' crawlers, never fetched directly.
+    tavily_api_key: str = ""
+    exa_api_key: str = ""
+    firecrawl_api_key: str = ""
+    parallel_api_key: str = ""
+    xai_api_key: str = ""
+
+    # How long a tool may run before the agent gives up and says so. Voice has
+    # no tolerance for dead air, even with filler speech covering the gap.
+    tool_timeout_secs: float = 8.0
 
     # Browser clients POST WebRTC offers cross-origin from the Vercel app.
     allowed_origins: str = "*"
