@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import * as db from "@/lib/db";
 import { KEEP_RAW_MESSAGES, SUMMARY_TRIGGER_MESSAGES } from "@/lib/constants";
-import { Message } from "@/lib/types";
+import { Message, Role } from "@/lib/types";
 
 export function useChatSession() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -119,5 +119,13 @@ export function useChatSession() {
     setSummarizedUpTo(0);
   }, []);
 
-  return { messages, sendMessage, clearSession, isSending, isLoaded };
+  // Voice turns already happened on the voice service, so they're recorded
+  // straight into the transcript rather than sent anywhere.
+  const appendMessage = useCallback(async (role: Role, content: string) => {
+    const message: Message = { id: crypto.randomUUID(), role, content, createdAt: Date.now() };
+    setMessages((prev) => [...prev, message]);
+    await db.addMessage(message);
+  }, []);
+
+  return { messages, sendMessage, appendMessage, clearSession, isSending, isLoaded };
 }

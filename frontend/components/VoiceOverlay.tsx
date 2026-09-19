@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { useVoiceConversation, VoicePhase } from "@/hooks/useVoiceConversation";
+import { Role } from "@/lib/types";
 
 interface VoiceOverlayProps {
-  onSend: (text: string) => Promise<string | undefined>;
+  onTranscript: (role: Role, text: string) => void;
   onClose: () => void;
 }
 
-export default function VoiceOverlay({ onSend, onClose }: VoiceOverlayProps) {
-  const { phase, toggleMute, sendText, sttSupported, ttsSupported } = useVoiceConversation({ onSend });
+export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProps) {
+  const { phase, liveTranscript, error, toggleMute, sendText } = useVoiceConversation({ onTranscript });
   const [typedText, setTypedText] = useState("");
 
   const submitTyped = () => {
@@ -28,15 +29,14 @@ export default function VoiceOverlay({ onSend, onClose }: VoiceOverlayProps) {
 
       <div className="flex flex-1 flex-col items-center justify-end gap-6 pb-16">
         <Orb phase={phase} />
-        {!sttSupported && (
-          <p className="max-w-xs text-center text-xs text-muted">
-            Speech input isn&apos;t supported in this browser — type below instead.
-          </p>
+        {phase === "connecting" && (
+          <p className="text-xs text-muted">Connecting…</p>
         )}
-        {sttSupported && !ttsSupported && (
-          <p className="max-w-xs text-center text-xs text-muted">
-            This browser can&apos;t speak replies aloud — you&apos;ll see them in the chat after you exit.
-          </p>
+        {phase === "error" && (
+          <p className="max-w-xs text-center text-xs text-muted">{error}</p>
+        )}
+        {liveTranscript && phase === "listening" && (
+          <p className="max-w-md text-center text-base text-foreground/80">{liveTranscript}</p>
         )}
       </div>
 
@@ -81,13 +81,21 @@ export default function VoiceOverlay({ onSend, onClose }: VoiceOverlayProps) {
   );
 }
 
+const ORB_ANIMATION: Partial<Record<VoicePhase, string>> = {
+  connecting: "orb-thinking",
+  listening: "orb-listening",
+  thinking: "orb-thinking",
+  speaking: "orb-speaking",
+};
+
 function Orb({ phase }: { phase: VoicePhase }) {
-  const orbClass =
-    phase === "thinking" ? "orb-thinking" : phase === "speaking" ? "orb-speaking" : phase === "listening" ? "orb-listening" : "";
+  const dimmed = phase === "muted" || phase === "error";
 
   return (
     <div
-      className={`voice-orb h-32 w-32 transition-opacity ${orbClass} ${phase === "muted" ? "opacity-30 grayscale" : ""}`}
+      className={`voice-orb h-32 w-32 transition-opacity ${ORB_ANIMATION[phase] ?? ""} ${
+        dimmed ? "opacity-30 grayscale" : ""
+      }`}
     />
   );
 }

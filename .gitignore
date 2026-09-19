@@ -6,5 +6,10 @@ __pycache__/
 .adk/
 .vercel
 frontend/.env*
+!frontend/.env.example
 frontend/node_modules/
 frontend/.next/
+
+# Voice service
+voice/.venv/
+!voice/.env.example
