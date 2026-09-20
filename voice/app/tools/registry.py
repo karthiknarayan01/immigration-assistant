@@ -88,9 +88,12 @@ async def search_community_experiences(params: FunctionCallParams):
         })
         return
 
-    # Domain-restricted rather than a "site:" operator, which these providers
-    # treat as literal query text rather than a filter.
-    hits = await providers.search(query, domains=["reddit.com"], limit=8)
+    # Searched unconstrained, then filtered to forum sources — not restricted
+    # to reddit.com up front. Constraining the domain collapses provider
+    # relevance: the same query returns r/nsfw and r/runescape at 0.02 when
+    # pinned to reddit.com, but a genuinely relevant r/h1b thread at 0.70 when
+    # left open. Exa returns no Reddit results at all either way.
+    hits = await providers.search(f"{query} reddit", limit=10)
     anecdotal = [h for h in hits if h.tier is SourceTier.ANECDOTAL]
 
     kept, corroborated = filter_anecdotes(
@@ -115,17 +118,34 @@ async def search_community_experiences(params: FunctionCallParams):
         })
         return
 
+    reports = [
+        {
+            "story": a.text[:700],
+            "url": a.url,
+            "when": a.published.date().isoformat() if a.published else "date unknown",
+        }
+        for a in kept[:MAX_SPOKEN_HITS]
+    ]
+    undated = any(r["when"] == "date unknown" for r in reports)
+
     await params.result_callback({
-        "reports": [{"excerpt": a.text[:400], "url": a.url} for a in kept[:MAX_SPOKEN_HITS]],
+        "reports": reports,
         "corroborated": corroborated,
         "guidance": (
-            "These are individual accounts, not rules. Describe them as what "
-            "some people report. "
+            "These are individual accounts, not rules. Retell them as stories — "
+            "what this person was going through and how it turned out — rather "
+            "than compressing them into a statistic. "
             + (
-                "Several independent people report this, so you may call it a pattern."
+                "Several independent people report this, so you may call it a pattern. "
                 if corroborated
-                else "Too few independent reports to call this a pattern — mention it "
-                     "as a single person's experience at most, or not at all."
+                else "Too few independent reports to call this a pattern — present it "
+                     "as one person's experience. "
+            )
+            + (
+                "At least one of these has no date, so say plainly that you do not "
+                "know when it was posted and that the rules may have changed since."
+                if undated
+                else ""
             )
         ),
     })

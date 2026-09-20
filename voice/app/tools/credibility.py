@@ -63,20 +63,24 @@ def _topic_max_age(topic: str) -> int:
     return MAX_AGE_DAYS.get(topic, DEFAULT_MAX_AGE_DAYS)
 
 
-#: Topics where an undated anecdote is still usable. General web search
-#: providers rarely return dates for forum posts, so rejecting every undated
-#: item silently disables community search entirely. Procedural mechanics
-#: ("which form goes with which") change slowly enough that an undated post
-#: is acceptable; timelines and enforcement patterns are not — a stale report
-#: there is worse than no report. A Reddit-native provider with real date
-#: filtering (e.g. Parallel) would remove this compromise.
-UNDATED_OK_TOPICS = frozenset({"procedure"})
+#: Topics where an undated anecdote must be dropped outright. The line is
+#: between a stale *number* and a stale *story*: "premium processing takes 15
+#: days" is simply false if the fee schedule changed, whereas "here is what
+#: my RFE was like" stays true even if it is old — it just may not be current,
+#: which the agent is required to say out loud.
+#:
+#: General web search providers almost never date forum posts (Exa returns no
+#: Reddit results at all; Tavily returns them undated), so rejecting every
+#: undated item disabled community search entirely. A Reddit-native source
+#: with real timestamps — Parallel, or Reddit's OAuth API — removes the
+#: compromise.
+UNDATED_REJECTED_TOPICS = frozenset({"processing_times"})
 
 
 def is_fresh(item: Anecdote, topic: str, *, now: datetime | None = None) -> bool:
     """Reject anecdotes old enough to be actively misleading."""
     if item.published is None:
-        return topic in UNDATED_OK_TOPICS
+        return topic not in UNDATED_REJECTED_TOPICS
     now = now or datetime.now(timezone.utc)
     published = item.published
     if published.tzinfo is None:
