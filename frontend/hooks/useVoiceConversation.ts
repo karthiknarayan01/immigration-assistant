@@ -61,6 +61,16 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
           if (data.text?.trim()) onTranscriptRef.current("assistant", data.text.trim());
         },
         onDisconnected: () => setLiveTranscript(""),
+        // The server sends this when the model itself has failed — out of
+        // credit, for instance. Nothing can generate speech at that point, so
+        // the message has to reach the user through the UI instead of silence.
+        onServerMessage: (data: unknown) => {
+          const payload = data as { type?: string; message?: string } | null;
+          if (payload?.type === "session-failure" && payload.message) {
+            setPhase("error");
+            setError(payload.message);
+          }
+        },
         onError: (message) => {
           setPhase("error");
           setError(typeof message === "string" ? message : "Voice connection failed.");

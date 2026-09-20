@@ -17,6 +17,7 @@ import httpx
 from loguru import logger
 
 from app.config import settings
+from app.failures import FailureKind, classify_status
 from app.tools.sources import SourceTier, classify
 
 _TIMEOUT = httpx.Timeout(settings.tool_timeout_secs)
@@ -139,6 +140,36 @@ async def _exa(client: httpx.AsyncClient, query: str, domains: list[str] | None,
     ]
 
 
+#: Failure kind from the most recent search, or None if it succeeded. A
+#: search returning zero hits because the account is out of credit is a very
+#: different thing from one returning zero hits because nothing matched, and
+#: the caller has to be able to tell them apart.
+_last_failure: FailureKind | None = None
+
+
+def _record_failure(error: BaseException) -> None:
+    global _last_failure
+    if isinstance(error, httpx.HTTPStatusError):
+        kind = classify_status(error.response.status_code)
+        logger.warning(
+            f"search provider failed: HTTP {error.response.status_code} ({kind.value})"
+        )
+    else:
+        kind = FailureKind.CONNECTIVITY
+        logger.warning(f"search provider failed: {error!r}")
+    # Funds and auth problems outrank a transient blip when several
+    # providers fail at once.
+    if _last_failure is None or kind in (FailureKind.FUNDS, FailureKind.AUTH):
+        _last_failure = kind
+
+
+def take_last_failure() -> FailureKind | None:
+    """Return and clear the failure recorded by the most recent search."""
+    global _last_failure
+    failure, _last_failure = _last_failure, None
+    return failure
+
+
 def available_providers() -> list[str]:
     names = []
     if settings.tavily_api_key:
@@ -162,6 +193,9 @@ async def search(query: str, *, domains: list[str] | None = None, limit: int = 5
     A provider failing must not fail the turn — a partial answer beats dead
     air — so exceptions are logged and that provider is skipped.
     """
+    # Deliberately not cleared here: search_groups runs several searches and
+    # a later success must not erase an earlier group's billing failure.
+    # take_last_failure() clears on read instead.
     active = available_providers()
     if not active:
         return []
@@ -177,7 +211,7 @@ async def search(query: str, *, domains: list[str] | None = None, limit: int = 5
     merged: dict[str, SearchHit] = {}
     for result in settled:
         if isinstance(result, BaseException):
-            logger.warning(f"search provider failed: {result!r}")
+            _record_failure(result)
             continue
         for hit in result:
             if not hit.url or hit.relevance < MIN_RELEVANCE:

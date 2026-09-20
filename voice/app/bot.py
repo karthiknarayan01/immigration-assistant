@@ -25,6 +25,7 @@ from pipecat.turns.user_turn_strategies import FilterIncompleteUserTurnStrategie
 from pipecat.workers.runner import WorkerRunner
 
 from app.config import settings
+from app.session_health import SessionFailureObserver
 from app.prompt import (
     GREETING_INSTRUCTION,
     SYSTEM_INSTRUCTION,
@@ -139,7 +140,7 @@ async def run_bot(websocket) -> None:
         # The processor handles the protocol; the observer is what actually
         # emits RTVI events onto the wire. Pipecat rejects one without the
         # other, and the session then never becomes ready.
-        observers=[RTVIObserver(rtvi)],
+        observers=[RTVIObserver(rtvi), SessionFailureObserver(rtvi)],
         params=PipelineParams(enable_metrics=True, enable_usage_metrics=True),
     )
 

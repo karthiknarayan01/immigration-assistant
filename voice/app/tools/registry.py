@@ -14,6 +14,7 @@ from pipecat.adapters.schemas.tools_schema import ToolsSchema
 from pipecat.services.llm_service import FunctionCallParams
 
 from app.config import settings
+from app.failures import FailureKind
 from app.tools import providers
 from app.tools.credibility import Anecdote, filter_anecdotes
 from app.tools.sources import SEARCH_GROUPS, SourceTier
@@ -56,8 +57,28 @@ async def search_official_guidance(params: FunctionCallParams):
         return
 
     hits = await providers.search_groups(query, SEARCH_GROUPS, limit=4)
+    failure = providers.take_last_failure()
     official = [h for h in hits if h.tier in (SourceTier.AUTHORITATIVE, SourceTier.PROFESSIONAL)]
-    logger.info(f"official search '{query}' -> {len(official)} usable hits")
+    logger.info(
+        f"official search '{query}' -> {len(official)} usable hits, failure={failure}"
+    )
+
+    # This tool is load-bearing: without it the agent is answering current
+    # policy questions from a training cutoff. A billing failure here has to
+    # reach the user, not be quietly absorbed.
+    if failure in (FailureKind.FUNDS, FailureKind.AUTH) and not official:
+        await params.result_callback({
+            "unavailable": True,
+            "reason": failure.value,
+            "message": (
+                "Search is unavailable right now because of an account problem "
+                "on our side, so you cannot verify current policy. Tell the user "
+                "plainly that you cannot look this up at the moment and that "
+                "anything you say from memory may be out of date. Do not guess "
+                "at current processing times, fees, or dates."
+            ),
+        })
+        return
 
     if not official:
         await params.result_callback({
@@ -94,6 +115,13 @@ async def search_community_experiences(params: FunctionCallParams):
     # pinned to reddit.com, but a genuinely relevant r/h1b thread at 0.70 when
     # left open. Exa returns no Reddit results at all either way.
     hits = await providers.search(f"{query} reddit", limit=10)
+    # Unlike official guidance, this tool is optional: losing it costs colour,
+    # not correctness. A billing failure here degrades quietly rather than
+    # interrupting the answer with an account problem the user cannot act on.
+    failure = providers.take_last_failure()
+    if failure:
+        logger.warning(f"community search degraded ({failure.value})")
+
     anecdotal = [h for h in hits if h.tier is SourceTier.ANECDOTAL]
 
     kept, corroborated = filter_anecdotes(
