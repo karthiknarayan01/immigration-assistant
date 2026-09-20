@@ -1,0 +1,3 @@
+results/*.json
+!results/20260920-201221.json
+!results/20260920-201810.json
