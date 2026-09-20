@@ -1,7 +1,7 @@
 from google.genai import types as genai_types
 from loguru import logger
 from pipecat.audio.vad.silero import SileroVADAnalyzer
-from pipecat.frames.frames import LLMRunFrame
+from pipecat.frames.frames import LLMRunFrame, OutputAudioRawFrame
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.worker import PipelineParams, PipelineWorker
 from pipecat.processors.aggregators.llm_context import LLMContext
@@ -25,6 +25,9 @@ from pipecat.turns.user_turn_strategies import FilterIncompleteUserTurnStrategie
 from pipecat.workers.runner import WorkerRunner
 
 from app.config import settings
+from app.fillers import NUM_CHANNELS as FILLER_CHANNELS
+from app.fillers import SAMPLE_RATE as FILLER_SAMPLE_RATE
+from app.fillers import FillerPicker
 from app.session_health import SessionFailureObserver
 from app.prompt import (
     GREETING_INSTRUCTION,
@@ -146,6 +149,25 @@ async def run_bot(websocket) -> None:
 
     runner = WorkerRunner(handle_sigint=False)
     await runner.add_workers(worker)
+
+    filler = FillerPicker()
+
+    @llm.event_handler("on_function_calls_started")
+    async def on_function_calls_started(_service, function_calls):
+        # Cover the tool call with speech. Gemini stays silent through the
+        # whole call, so without this the user gets several seconds of dead
+        # air with no indication anything is happening.
+        name = getattr(function_calls[0], "function_name", "") if function_calls else ""
+        clip = filler.for_tool(name)
+        if not clip:
+            return
+        await worker.queue_frames([
+            OutputAudioRawFrame(
+                audio=clip,
+                sample_rate=FILLER_SAMPLE_RATE,
+                num_channels=FILLER_CHANNELS,
+            )
+        ])
 
     @rtvi.event_handler("on_client_ready")
     async def on_client_ready(processor):
