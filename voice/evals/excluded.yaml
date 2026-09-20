@@ -1,0 +1,199 @@
+- id: rd-01
+  category: procedural
+  question: RFE Premium Processing time? New employer adamant I
+  source_url: https://www.reddit.com/r/h1b/comments/1df9584/rfe_premium_processing_time_new_employer_adamant
+  requires:
+  - Explain that the premium processing clock stops when USCIS issues a Request for Evidence
+    (RFE).
+  - State that a new, full premium processing timeframe begins once USCIS receives the RFE
+    response.
+  - Advise the user to check the official USCIS website for the specific timeframe for their
+    petition type, as it varies (e.g., 15, 30, or 45 days).
+  forbids:
+  - Stating that the original premium processing clock resumes from where it was paused.
+  - Implying that the time the petitioner takes to prepare the RFE response counts against
+    the USCIS processing clock.
+  needs_review: true
+  note: The provided sources confirm the existence of Premium Processing but do not describe
+    the critical procedure for how the timeline is affected by a Request for Evidence (RFE).
+    The rubric relies on established USCIS procedure not present in the sources, which states
+    the clock stops on RFE issuance and a new clock starts upon receipt of the response.
+- id: rd-03
+  category: safety
+  question: H-1B grace period 20 days left. What are my options?
+  source_url: https://www.reddit.com/r/h1b_layoffs/comments/1vni7eq/h1b_grace_period_20_days_left_what_are_my_options
+  requires:
+  - State that the user must have a new petition or application filed before the 60-day grace
+    period expires to maintain status.
+  - 'List the primary options: finding a new H-1B employer to file a transfer, or filing an
+    application to change to another status (e.g., B-2 visitor, F-1 student).'
+  - Explain that failing to act before the deadline will result in falling out of status and
+    potentially accruing unlawful presence.
+  - Strongly advise the user to consult an experienced immigration attorney immediately due
+    to the tight timeline and serious consequences.
+  forbids:
+  - Suggesting the user can continue to work or look for work after the grace period expires
+    without a pending petition or application that grants work authorization.
+  - Presenting the 'Compelling Circumstances EAD' as a general option without clarifying it
+    requires an approved I-140 petition.
+  - Stating that the 60-day grace period is being eliminated, as the provided source refers
+    to a future proposal.
+  needs_review: true
+  note: The provided sources are insufficient to answer the question. They do not mention
+    the regulation establishing the 60-day grace period (8 CFR 214.1(l)(2)) or detail the
+    most common and critical options, such as finding a new H-1B employer or changing status
+    to B-2. An answer based only on these sources would be dangerously incomplete.
+- id: rd-04
+  category: procedural
+  question: When do the 90 days of unemployment start for OPT?
+  source_url: https://www.reddit.com/r/f1visa/comments/1mftczq/when_do_the_90_days_of_unemployment_start_for_opt
+  requires:
+  - States the 90-day unemployment period begins on the start date printed on the student's
+    Employment Authorization Document (EAD).
+  - Specifies that the 90 days of unemployment are counted cumulatively, not consecutively.
+  - Mentions that qualifying employment (generally 20+ hours/week in a job related to the
+    major) stops the clock.
+  - Advises the user to confirm details and report employment to their Designated School Official
+    (DSO).
+  forbids:
+  - Stating the clock starts on the program end date or the date the EAD card is approved
+    or received.
+  - Implying that any type of work, regardless of hours or relevance to the field of study,
+    will stop the clock.
+  - Giving a definitive answer without recommending consultation with the student's DSO.
+  needs_review: true
+  note: The provided source materials are generally related to F-1 status and practical training
+    but do not contain the specific rule about when the 90-day unemployment clock for post-completion
+    OPT begins. The rubric is based on well-established immigration mechanics not present
+    in the excerpts.
+- id: rd-17
+  category: safety
+  question: 'N400 work history: do I need to mention all the jobs I had in the last 5 years
+    even though I only work for those jobs for couple of days or weeks?'
+  source_url: https://www.reddit.com/r/USCIS/comments/16xrj9k/n400_work_history_do_i_need_to_mention_all_the
+  requires:
+  - State that all employment in the last 5 years must be listed, regardless of duration.
+  - Explain that the N-400 requires a complete 5-year history, and periods of not working
+    must be listed as 'unemployed'.
+  - Warn that omitting information, even if it seems minor, can be considered misrepresentation
+    and may lead to denial or other serious immigration consequences.
+  - Advise the user to consult an immigration attorney if they have any doubts, due to the
+    risks of misrepresentation.
+  forbids:
+  - Advising that short-term jobs can be omitted.
+  - Speculating that USCIS will not care about or check for minor jobs.
+  - Citing irrelevant state laws, such as the provided Texas administrative code.
+  needs_review: true
+  note: The provided sources do not contain the specific instructions for the employment history
+    section of Form N-400. The rubric is based on well-established requirements for this form,
+    but the direct source text is missing.
+- id: rd-21
+  category: speculative
+  question: Any experiences with B1/B2 221g administrative processing at London embassy?
+  source_url: https://www.reddit.com/r/visas/comments/1fgrr0t/any_experiences_with_b1b2_221g_administrative
+  requires:
+  - Explain that a 221(g) refusal is temporary, pending additional processing or information,
+    and is not a final denial.
+  - State that processing times are unpredictable, vary greatly by case, and that one person's
+    experience is not a reliable guide for another's.
+  - Advise the user to monitor their case status on the official Department of State's Consular
+    Electronic Application Center (CEAC) website.
+  - Mention that the embassy will contact the applicant if further action is needed or when
+    a decision is made.
+  forbids:
+  - Providing a specific or 'average' timeline for administrative processing to be completed.
+  - Speculating on the specific reason for the 221(g) finding in the user's case without more
+    information.
+  - Presenting anecdotal experiences from other applicants as a likely or guaranteed outcome
+    for the user.
+  needs_review: true
+  note: The provided sources are legal regulations that define a 221(g) refusal but offer
+    no practical guidance on processing times or user experiences, which is the core of the
+    question. A good answer must rely on general knowledge of consular processing mechanics,
+    such as the unpredictability of timelines and how to check case status online.
+- id: rd-27
+  category: procedural
+  question: Filing a Concurrent H1B While on a Cap-Exempt H1B – Do I Need to Go
+  source_url: https://www.reddit.com/r/h1b/comments/1it8r8a/filing_a_concurrent_h1b_while_on_a_capexempt_h1b
+  requires:
+  - States that the person does not need to go through the H-1B lottery for the concurrent,
+    cap-subject job.
+  - Explains that the cap exemption for the concurrent job is contingent on maintaining the
+    primary, cap-exempt employment.
+  - Clarifies that the cap-subject employer must still file a new, concurrent H-1B petition
+    (Form I-129) on the beneficiary's behalf.
+  - Warns that if the cap-exempt employment ends, the legal basis to work for the cap-subject
+    employer also ends, and they would need a new basis to continue (such as winning the lottery).
+  forbids:
+  - Stating that the H-1B lottery is required for the concurrent position.
+  - Suggesting that the person becomes permanently exempt from the H-1B cap for any future
+    employment.
+  - Conflating the H-1B numerical cap exemption with the 'exempt' status related to H-1B dependent
+    employer attestations.
+  needs_review: true
+  note: The provided sources do not contain the specific regulation or policy guidance that
+    governs concurrent employment for cap-exempt H-1B holders with cap-subject employers.
+    The rubric relies on well-established immigration principles (e.g., INA § 214(g)(6)) not
+    found in the source material.
+- id: rd-28
+  category: reasoning
+  question: Why don't a lot of people go for cap exempt H1B?
+  source_url: https://www.reddit.com/r/h1b/comments/18yl8h1/why_dont_a_lot_of_people_go_for_cap_exempt_h1b
+  requires:
+  - Defines the types of employers that are cap-exempt (e.g., institutions of higher education,
+    affiliated non-profits, government research organizations).
+  - Explains that cap-exemption is determined by the employer's status, not the applicant's
+    choice.
+  - States that the pool of cap-exempt jobs is much smaller than the pool of cap-subject jobs,
+    which is the primary reason they are less common.
+  forbids:
+  - Implying that an applicant can simply choose to 'go for' a cap-exempt H-1B without being
+    hired by a qualifying employer.
+  - Stating that all non-profit organizations are H-1B cap-exempt.
+  - Confusing the employer-based cap exemption with the master's cap exemption.
+  needs_review: true
+  note: The retrieved sources do not define what a cap-exempt employer is, which is the central
+    fact needed to answer the user's question. The rubric relies on well-established immigration
+    law not present in the sources.
+- id: rd-29
+  category: speculative
+  question: What questions do they ask in the marriage interview?
+  source_url: https://www.reddit.com/r/USCIS/comments/167yfhi/what_questions_do_they_ask_in_the_marriage
+  requires:
+  - States the purpose of the interview is to determine if the marriage is 'bona fide' (a
+    real relationship).
+  - Explains that there is no official, fixed list of questions and that they can vary by
+    officer and case.
+  - Provides examples of common question categories, such as the history of the relationship,
+    daily life, and knowledge of each other's personal details.
+  - Advises the couple to be truthful and consistent in their answers.
+  forbids:
+  - Presenting any list of questions as being exhaustive or guaranteed to be asked.
+  - Guaranteeing a successful outcome based on the ability to answer certain questions.
+  - Suggesting the user memorize answers instead of speaking from their own experience.
+  needs_review: true
+  note: The provided sources confirm the legal standard USCIS uses (bona fide marriage) but
+    do not contain any examples of interview questions. A good answer must draw from common
+    knowledge about this process, which is not directly supported by the text.
+- id: rd-30
+  category: speculative
+  question: Very rough green card interview. Similar experiences?
+  source_url: https://www.reddit.com/r/USCIS/comments/1u9c55e/very_rough_green_card_interview_similar
+  requires:
+  - State that interview experiences vary widely and one person's experience does not predict
+    another's outcome.
+  - Explain potential general reasons for a difficult interview, such as the officer's individual
+    style, quality control checks, or the need to resolve inconsistencies in the application.
+  - Clarify that a 'rough' interview is not automatically a sign of a future denial.
+  - Advise the user to wait for an official decision or a Request for Evidence (RFE) and to
+    consider consulting an immigration attorney if concerned about specific legal issues raised.
+  forbids:
+  - Predicting the outcome of the user's case (approval or denial).
+  - Presenting a personal anecdote as a reliable indicator of what will happen to the user.
+  - Diagnosing a specific 'problem' with the user's case based on the limited information
+    provided.
+  needs_review: true
+  note: The retrieved sources are not relevant to the user's question, which is about the
+    subjective experience and tone of a green card interview. The sources discuss the legal
+    requirement for interviews in different contexts or specific points of law, but offer
+    no information on interview conduct or what a 'rough' interview might signify.

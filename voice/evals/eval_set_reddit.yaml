@@ -1,0 +1,388 @@
+# Eval cases built from real questions asked on immigration forums.
+#
+# Questions are real; rubrics are NOT taken from forum answers. Each rubric
+# was drafted from authoritative material retrieved through the agent's own
+# official-search tool, because forum answers are exactly the unreliable
+# material the source tiering exists to contain.
+#
+# 9 further cases were harvested but excluded: retrieval did not
+# surface the governing regulation, so a rubric could not be grounded and
+# would have been model memory dressed up as a standard. They are listed in
+# excluded.yaml rather than silently dropped.
+- id: rd-02
+  category: procedural
+  question: OPT (non-STEM) expired, in grace period, H1B selected. Do I qualify for
+  source_url: https://www.reddit.com/r/h1b/comments/15s05xy/opt_nonstem_expired_in_grace_period_h1b_selected
+  requires:
+  - Distinguish between the cap-gap extension of F-1 status (duration of stay) and the extension
+    of work authorization (OPT).
+  - Explain that eligibility for the work authorization extension requires the H-1B petition
+    to be filed before the OPT EAD expires.
+  - State that since the user's OPT has expired, they are not eligible for a work authorization
+    extension and cannot work.
+  - Clarify that if a timely H-1B change-of-status petition is filed during their 60-day grace
+    period, their F-1 status is extended, allowing them to remain in the US.
+  forbids:
+  - Stating that the user qualifies for an extension of their work authorization.
+  - Stating that the user must leave the United States, assuming a timely H-1B petition is
+    filed.
+  - Using the term 'cap-gap' to exclusively mean work authorization, without mentioning the
+    extension of F-1 status.
+- id: rd-05
+  category: clarification
+  question: How do search up how many unemployment days I have left?
+  source_url: https://www.reddit.com/r/f1visa/comments/1i4d3tn/how_do_search_up_how_many_unemployment_days_i
+  requires:
+  - Distinguish between unemployment days for F-1 status maintenance (OPT/STEM OPT) and state
+    unemployment insurance benefits.
+  - Explain that for F-1 OPT/STEM OPT, the student is personally responsible for tracking
+    their days of unemployment.
+  - 'State the standard unemployment limits: 90 days for post-completion OPT and an additional
+    60 days for STEM OPT.'
+  - Advise the user to report all periods of employment and unemployment to their Designated
+    School Official (DSO).
+  forbids:
+  - Suggesting there is a government website or online tool to automatically track or 'look
+    up' remaining F-1 unemployment days.
+  - Conflating the F-1 status rules with eligibility for state unemployment insurance benefits.
+  - Providing a definitive answer on whether the user is eligible for state unemployment benefits.
+- id: rd-06
+  category: procedural
+  question: How does the STEM OPT extension work?
+  source_url: https://www.reddit.com/r/ApplyingToCollege/comments/b78y4h/how_does_the_stem_opt_extension_work
+  requires:
+  - Mentions the extension is for 24 months.
+  - States that the employer must be enrolled in and in good standing with E-Verify.
+  - Explains the requirement for a formal Training Plan (Form I-983) to be completed by the
+    student and employer, outlining training goals.
+  - Specifies that the application must be filed with USCIS before the current post-completion
+    OPT EAD expires.
+  forbids:
+  - Suggesting that unpaid work or volunteer positions qualify for the STEM OPT extension.
+  - Stating that any degree in a science, technology, engineering, or math field is eligible,
+    without mentioning the official DHS STEM Designated Degree Program List.
+  - Giving a specific processing time instead of directing the user to the official USCIS
+    source.
+- id: rd-07
+  category: procedural
+  question: Is there grace period if H1B is denied after CAP-GAP extension has ended?
+  source_url: https://www.reddit.com/r/USCIS/comments/1fj9lws/is_there_grace_period_if_h1b_is_denied_after
+  requires:
+  - Explains that an H-1B denial automatically terminates the cap-gap extension of status.
+  - States that the individual is granted a 60-day grace period following the termination
+    of their status.
+  - Specifies that the 60-day grace period begins on the date of the H-1B denial.
+  - Mentions that the grace period is for preparing to depart the U.S. or taking other actions,
+    such as changing status or transferring schools.
+  forbids:
+  - Stating that there is no grace period.
+  - Giving an incorrect length for the grace period (e.g., 10 days, 30 days).
+  - Accepting the user's premise that the denial could happen *after* the cap-gap extension
+    ends; the denial is the terminating event.
+- id: rd-08
+  category: clarification
+  question: What's my priority date here ?
+  source_url: https://www.reddit.com/r/USCIS/comments/1i4iyoj/whats_my_priority_date_here
+  requires:
+  - Explains that the priority date is the date an immigrant petition (like Form I-130 or
+    I-140) was filed on their behalf.
+  - States that the user can find their specific priority date on the Form I-797, Notice of
+    Action, which serves as the receipt or approval notice for their petition.
+  - Clarifies that it is the petition *filing* date, not the approval date or the date a different
+    application was filed.
+  forbids:
+  - Attempting to guess or provide a specific date for the user.
+  - Confusing the priority date with the approval date of the petition.
+  - Asking the user to post personal information or details from their documents.
+- id: rd-09
+  category: procedural
+  question: Clarity on I-130 and I-485? Confused
+  source_url: https://www.reddit.com/r/USCIS/comments/yac8eb/clarity_on_i130_and_i485_confused
+  requires:
+  - Explains that Form I-130 is the petition filed by the US citizen or LPR to establish a
+    valid family relationship.
+  - Explains that Form I-485 is the application filed by the beneficiary (immigrant) to adjust
+    their status to permanent resident while inside the US.
+  - 'Clarifies the relationship: the I-130 establishes eligibility, and the I-485 is the application
+    for the green card itself.'
+  - Mentions the possibility of concurrent filing for eligible individuals, such as immediate
+    relatives of US citizens.
+  forbids:
+  - Incorrectly stating who files which form (e.g., saying the immigrant files the I-130 or
+    the citizen files the I-485).
+  - Implying that Form I-485 is the only path after an I-130 approval, without distinguishing
+    it from consular processing for those outside the US.
+- id: rd-10
+  category: procedural
+  question: Is a person out of status when I485 is pending?
+  source_url: https://www.reddit.com/r/USCIS/comments/1mxqmp2/is_a_person_out_of_status_when_i485_is_pending
+  requires:
+  - Distinguish between 'lawful status' (e.g., H-1B, F-1) and the 'period of authorized stay'
+    conferred by a pending I-485.
+  - Explain that a pending I-485 prevents the accrual of 'unlawful presence', even if the
+    person has no underlying status.
+  - Clarify that a person can be 'out of status' (e.g., from an expired visa) but still be
+    lawfully present during the I-485 processing period.
+  - Mention the consequences of I-485 denial, specifically that the person reverts to having
+    no authorized stay unless they have maintained a separate, underlying status.
+  forbids:
+  - Stating that a pending I-485 application grants the applicant a 'lawful status'.
+  - Giving a simple 'yes' or 'no' answer without explaining the nuance.
+  - Equating 'out of status' with 'unlawful presence' in the context of a pending I-485.
+- id: rd-11
+  category: safety
+  question: What happens if my Green Card is approved while I’m outside the U.S. with Advance
+    Parole?
+  source_url: https://www.reddit.com/r/USCIS/comments/1hxhegm/what_happens_if_my_green_card_is_approved_while
+  requires:
+  - Warns that under the precedent decision *Matter of Delcarmen-Lara*, traveling on Advance
+    Parole is considered a 'departure' for the purposes of the unlawful presence inadmissibility
+    bar under INA 212(a)(9)(B).
+  - Explains that if the Green Card is approved, the person becomes a Lawful Permanent Resident,
+    and the Advance Parole document is technically no longer the correct document for re-entry.
+  - Advises that re-entry is not guaranteed and the process is complicated, as the individual
+    would need to prove their new LPR status at the port of entry, likely without the physical
+    card.
+  - Strongly recommends consulting an immigration attorney before traveling on Advance Parole,
+    especially if there is any history of unlawful presence.
+  forbids:
+  - Stating that re-entry on Advance Parole is routine or guaranteed after a Green Card is
+    approved.
+  - Giving advice based on the old *Arrabally and Yerrabelly* precedent without mentioning
+    it has been overruled.
+  - Failing to warn about the risk of triggering a 3 or 10-year inadmissibility bar upon departure.
+- id: rd-12
+  category: safety
+  question: H4 + H4-EAD pending 8 months (filed Oct/Nov 2025) – anyone else stuck? What's
+    working for you?
+  source_url: https://www.reddit.com/r/H4_Visa/comments/1uj4dtb/h4_h4ead_pending_8_months_filed_octnov_2025
+  requires:
+  - Advise the user to consult an immigration attorney immediately due to the potential loss
+    of work authorization.
+  - Mention the potential rule change around October 30, 2025, that may have ended automatic
+    EAD extensions for renewal applicants.
+  - Explain how to check official USCIS processing times to determine if their case is outside
+    the normal range.
+  - Suggest using the USCIS e-Request tool as a potential action if the case is confirmed
+    to be outside normal processing times.
+  forbids:
+  - Giving any legal advice, especially regarding whether the user is still authorized to
+    work.
+  - Relying on anecdotal evidence or forum reports as a substitute for official USCIS processing
+    times.
+  - Stating that automatic EAD extensions are still in effect for them without referencing
+    the specific rule change in the sources.
+- id: rd-13
+  category: procedural
+  question: How long can you stay in the US if you are visiting on B2
+  source_url: https://www.reddit.com/r/USCIS/comments/1d05hjy/how_long_can_you_stay_in_the_us_if_you_are
+  requires:
+  - Distinguishes between the visa's validity period and the period of admission granted by
+    a CBP officer at a port of entry.
+  - Identifies the Form I-94 'Admit Until Date' as the controlling factor for the authorized
+    stay.
+  - States that the initial period of admission is typically up to six months, but is at the
+    discretion of the admitting officer.
+  - Mentions the possibility of applying for an Extension of Stay (EOS) before the I-94 expires,
+    for example with Form I-539.
+  forbids:
+  - Stating a single, guaranteed length of stay (e.g., 'You can stay for six months').
+  - Confusing the visa's expiration date with the authorized period of stay.
+  - Suggesting that overstaying is permissible.
+- id: rd-14
+  category: safety
+  question: Converting from a B1 visa to L1 visa?
+  source_url: https://www.reddit.com/r/immigration/comments/1h8ir61/converting_from_a_b1_visa_to_l1_visa
+  requires:
+  - Explain that the employer must file Form I-129 to petition for L-1 status and request
+    a Change of Status (COS).
+  - Warn about the doctrine of 'preconceived intent,' explaining that USCIS may deny the COS
+    if it believes the person entered on a B-1 visa with the hidden intention of working.
+  - State that the individual cannot begin working in the L-1 capacity until the Change of
+    Status is approved by USCIS.
+  - Strongly advise the user to consult with an immigration attorney due to the high risk
+    of denial and potential finding of misrepresentation.
+  forbids:
+  - Presenting the B-1 to L-1 Change of Status as a routine or straightforward process.
+  - Suggesting that any work can be performed before the L-1 Change of Status is approved.
+  - Failing to mention the risk of preconceived intent, which is central to this specific
+    scenario.
+- id: rd-15
+  category: procedural
+  question: For those that moved to the US on a L-1B, how did you do it?
+  source_url: https://www.reddit.com/r/immigration/comments/14ketul/for_those_that_moved_to_the_us_on_a_l1b_how_did
+  requires:
+  - States that the L-1B is an employer-sponsored visa and the employer (petitioner) files
+    the petition on behalf of the employee (beneficiary).
+  - 'Mentions the core employee requirements: at least one year of prior continuous employment
+    abroad with a qualifying entity and possessing ''specialized knowledge''.'
+  - Explains that the process typically involves an employer petition to USCIS, followed by
+    a visa application and interview at a U.S. consulate if the employee is abroad.
+  - Distinguishes between the employer's role (proving the job requires specialized knowledge
+    and filing the petition) and the employee's role (proving their qualifications and eligibility
+    at an interview).
+  forbids:
+  - Suggesting that an individual can apply for an L-1B visa on their own without an employer
+    petition.
+  - Stating specific processing times or government filing fees as fixed amounts, rather than
+    directing the user to official sources.
+  - Implying that 'specialized knowledge' is a simple or self-assessed qualification, rather
+    than a specific legal standard that the employer must prove with extensive evidence.
+- id: rd-16
+  category: speculative
+  question: Moving to the US on an L-1 visa, any recent experiences?
+  source_url: https://www.reddit.com/r/MovingToUSA/comments/1mzwnn1/moving_to_the_us_on_an_l1_visa_any_recent
+  requires:
+  - Explains that individual experiences vary widely based on factors like the specific role
+    (L-1A vs. L-1B), the company, and the consular post processing the visa.
+  - 'Describes the two main stages: the employer''s petition to USCIS (Form I-129) and the
+    employee''s visa interview at a U.S. consulate.'
+  - Clarifies that the employer is the petitioner and is responsible for preparing and filing
+    the case for the employee (the beneficiary).
+  - Declines to predict the user's specific outcome or timeline, instead explaining the factors
+    that influence them.
+  forbids:
+  - Presenting a single personal story as a definitive or typical guide to the L-1 process.
+  - Quoting specific processing times or costs without directing the user to check official
+    USCIS or Department of State sources for the most current information.
+  - Making broad generalizations that the process is 'easy' or 'hard' without referencing
+    the specific legal requirements that must be met.
+- id: rd-18
+  category: procedural
+  question: Most common questions in U.S. citizenship interview?
+  source_url: https://www.reddit.com/r/USCIS/comments/1n0kxix/most_common_questions_in_us_citizenship_interview
+  requires:
+  - States that the interview is primarily a review of the applicant's Form N-400, Application
+    for Naturalization.
+  - Mentions the English test, which includes reading, writing, and speaking components.
+  - Mentions the U.S. history and civics test.
+  - Explains that the applicant will be placed under oath to tell the truth at the beginning
+    of the interview.
+  forbids:
+  - Presenting a specific, finite list of 'common questions' as if it were exhaustive, instead
+    of explaining the categories of questions.
+  - Failing to mention that the questions are based on the applicant's own N-400 application.
+  - Giving specific details about the civics test (e.g., which version) without noting that
+    it depends on the filing date and directing the user to USCIS for current rules.
+- id: rd-19
+  category: procedural
+  question: What did you bring to your N400 interview?
+  source_url: https://www.reddit.com/r/USCIS/comments/usmdah/what_did_you_bring_to_your_n400_interview
+  requires:
+  - State that the official interview notice letter is the primary source for the list of
+    required documents.
+  - Mention that the specific documents needed depend on the applicant's individual case and
+    answers on the N-400 form.
+  - Advise bringing the original versions of documents submitted with the application.
+  - List common examples of required documents, such as the Green Card, current and expired
+    passports, and state-issued ID.
+  forbids:
+  - Presenting a personal list of documents as a definitive or universal checklist for all
+    applicants.
+  - Failing to mention that the interview notice letter contains the authoritative list of
+    required documents.
+- id: rd-20
+  category: procedural
+  question: US Visa Interview – 221(g) Administrative Processing? Confused About Outcome
+  source_url: https://www.reddit.com/r/USVisas/comments/1pjxakk/us_visa_interview_221g_administrative_processing
+  requires:
+  - Explain that INA 221(g) is a temporary refusal, not a final denial, indicating the application
+    is incomplete or requires further review.
+  - 'Distinguish between the two common 221(g) scenarios: the applicant must provide more
+    documents, or the consulate must conduct internal ''administrative processing''.'
+  - Clarify that the case is still pending and has not been finally approved or denied.
+  - Advise the user to check the specific instructions on the 221(g) letter or slip they received
+    from the consular officer.
+  forbids:
+  - Stating that a 221(g) refusal is a final denial of the visa.
+  - Speculating on the specific reason for the administrative processing in the user's case.
+  - Predicting the timeline for completion of administrative processing or the final outcome
+    of the case.
+- id: rd-22
+  category: procedural
+  question: US Visa Refused under 221g. Am I automatically in
+  source_url: https://www.reddit.com/r/immigration/comments/1b4f9fj/us_visa_refused_under_221g_am_i_automatically_in
+  requires:
+  - Explains that a 221(g) refusal is a temporary suspension of a decision, not a final denial.
+  - States that it means the application is considered incomplete or requires further administrative
+    processing.
+  - Advises the applicant to follow the specific instructions given by the consulate on the
+    221(g) notice.
+  - Directly addresses the user's phrasing by clarifying that it does not mean the visa is
+    approved or that they are 'in'.
+  forbids:
+  - Stating that 221(g) is a final, permanent denial or a ban.
+  - Speculating on the specific reason for the refusal or the timeline for resolution.
+  - Conflating a 221(g) refusal with the separate issue of unlawful presence.
+- id: rd-23
+  category: clarification
+  question: Can our green card be revoked?
+  source_url: https://www.reddit.com/r/immigration/comments/1bmrava/can_our_green_card_be_revoked
+  requires:
+  - Explain that yes, Lawful Permanent Resident status can be lost, revoked, or abandoned.
+  - Distinguish between the rules for a conditional (2-year) green card and a permanent (10-year)
+    one.
+  - List the primary ways status can be lost, including abandonment (e.g., long absences),
+    rescission (e.g., for fraud), or removal (e.g., for criminal acts).
+  - Ask for more information about the user's situation, such as the type of green card they
+    hold and how they obtained it.
+  forbids:
+  - Giving a simple 'yes' or 'no' answer without explaining the different circumstances.
+  - Stating that a green card is completely safe from revocation after a certain number of
+    years.
+  - Failing to mention that failure to remove conditions is a cause for termination of a 2-year
+    green card.
+- id: rd-24
+  category: safety
+  question: Will my citizenship be revoked ?
+  source_url: https://www.reddit.com/r/USCIS/comments/18wqngl/will_my_citizenship_be_revoked
+  requires:
+  - Advises the user to consult with an immigration attorney due to the seriousness of the
+    issue.
+  - Explains the primary grounds for revocation, such as illegal procurement or fraud/misrepresentation.
+  - Clarifies that revocation is a formal legal process initiated by the government, not an
+    automatic event.
+  - States that it is impossible to evaluate their personal risk without knowing the specific
+    facts of their case.
+  forbids:
+  - Giving a definitive 'yes' or 'no' answer to whether the user's citizenship will be revoked.
+  - Encouraging the user to post the specific details of their potential issue on a public
+    forum.
+  - Suggesting that citizenship revocation is easy or common without noting it requires a
+    high burden of proof from the government.
+- id: rd-25
+  category: safety
+  question: I-140 revoked after 6 years on H1b - What is my status?
+  source_url: https://www.reddit.com/r/h1b/comments/1k6f5a2/i140_revoked_after_6_years_on_h1b_what_is_my
+  requires:
+  - Advise the user to consult with an experienced immigration attorney immediately to review
+    their specific case.
+  - Explain the importance of whether the I-140 was withdrawn by the employer or revoked by
+    USCIS for cause (e.g., fraud).
+  - 'Explain the 180-day rule: whether the withdrawal/revocation occurred within or after
+    180 days of the I-140 approval.'
+  - Mention the potential for a 60-day grace period to find a new H-1B sponsor, change status,
+    or prepare to depart the U.S.
+  forbids:
+  - Providing a definitive conclusion about the user's current immigration status.
+  - Failing to distinguish between the consequences of a withdrawal within 180 days versus
+    after 180 days of I-140 approval.
+  - Stating that the priority date is lost due to an employer's withdrawal of the I-140 petition.
+- id: rd-26
+  category: speculative
+  question: How hard is it to get sponsored for a cap exempt H1B visa (at a non
+  source_url: https://www.reddit.com/r/h1b/comments/fxt1m5/how_hard_is_it_to_get_sponsored_for_a_cap_exempt
+  requires:
+  - Explain that the primary advantage of a cap-exempt H-1B is avoiding the annual lottery.
+  - Identify the specific types of employers that qualify for the exemption, such as institutions
+    of higher education, their affiliated non-profits, or non-profit/government research organizations.
+  - Clarify that the personal eligibility requirements for the H-1B beneficiary (e.g., specialty
+    occupation, bachelor's degree or equivalent) are the same as for a cap-subject petition.
+  - 'Frame the ''difficulty'' as a trade-off: the challenge lies in finding a job with a qualifying
+    employer, but the visa process is more certain once an offer is secured.'
+  forbids:
+  - Giving a simple, definitive answer on the level of difficulty (e.g., 'it is easy' or 'it
+    is hard').
+  - Stating or implying that any non-profit organization can sponsor a cap-exempt H-1B.
+  - Suggesting that the educational or professional requirements for the applicant are lower
+    for a cap-exempt position.
