@@ -1,34 +1,21 @@
 import sys
-from contextlib import asynccontextmanager
 
 import uvicorn
-from fastapi import BackgroundTasks, FastAPI
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
-from pipecat.transports.smallwebrtc.request_handler import (
-    SmallWebRTCPatchRequest,
-    SmallWebRTCRequest,
-    SmallWebRTCRequestHandler,
-)
 
 from app.bot import run_bot
 from app.config import settings
 
-webrtc_handler = SmallWebRTCRequestHandler()
+app = FastAPI()
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    yield
-    await webrtc_handler.close()
-
-
-app = FastAPI(lifespan=lifespan)
-
+# The browser connects to /ws directly. CORS still matters for any plain HTTP
+# the page makes; WebSocket origin checks are handled at the route.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in settings.allowed_origins.split(",")],
-    allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -38,21 +25,20 @@ async def health():
     return {"status": "ok"}
 
 
-@app.post("/api/offer")
-async def offer(request: SmallWebRTCRequest, background_tasks: BackgroundTasks):
-    async def webrtc_connection_callback(connection):
-        background_tasks.add_task(run_bot, connection)
-
-    return await webrtc_handler.handle_web_request(
-        request=request,
-        webrtc_connection_callback=webrtc_connection_callback,
-    )
-
-
-@app.patch("/api/offer")
-async def ice_candidate(request: SmallWebRTCPatchRequest):
-    await webrtc_handler.handle_patch_request(request)
-    return {"status": "success"}
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    logger.info("websocket accepted")
+    try:
+        await run_bot(websocket)
+    except WebSocketDisconnect:
+        logger.info("websocket disconnected by client")
+    except Exception:
+        # A crash here would otherwise be silent to the browser, which just
+        # sees the socket close and retries forever.
+        logger.exception("voice session failed")
+    finally:
+        logger.info("websocket session ended")
 
 
 def main() -> None:

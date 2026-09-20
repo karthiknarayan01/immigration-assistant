@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PipecatClient } from "@pipecat-ai/client-js";
-import { SmallWebRTCTransport } from "@pipecat-ai/small-webrtc-transport";
+import { ProtobufFrameSerializer, WebSocketTransport } from "@pipecat-ai/websocket-transport";
 import { Role } from "@/lib/types";
 
 export type VoicePhase = "connecting" | "listening" | "thinking" | "speaking" | "muted" | "error";
@@ -33,9 +33,9 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
     if (!serviceUrl) return;
 
     const client = new PipecatClient({
-      transport: new SmallWebRTCTransport({
-        iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
-      }),
+      // WebSocket, not WebRTC: Cloud Run accepts no UDP, so a WebRTC media
+      // path can never establish there.
+      transport: new WebSocketTransport({ serializer: new ProtobufFrameSerializer() }),
       enableMic: true,
       enableCam: false,
       callbacks: {
@@ -69,7 +69,9 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
     });
 
     clientRef.current = client;
-    client.connect({ webrtcUrl: `${serviceUrl.replace(/\/$/, "")}/api/offer` }).catch((e: unknown) => {
+    // https:// -> wss:// so the page's scheme decides the socket's.
+    const wsUrl = `${serviceUrl.replace(/\/$/, "").replace(/^http/, "ws")}/ws`;
+    client.connect({ wsUrl }).catch((e: unknown) => {
       setPhase("error");
       setError(e instanceof Error ? e.message : "Could not reach the voice service.");
     });

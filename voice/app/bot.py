@@ -15,8 +15,11 @@ from pipecat.services.google.gemini_live.vertex.llm import (
     GeminiLiveVertexLLMService,
     GeminiLiveVertexLLMSettings,
 )
-from pipecat.transports.base_transport import TransportParams
-from pipecat.transports.smallwebrtc.transport import SmallWebRTCTransport
+from pipecat.serializers.protobuf import ProtobufFrameSerializer
+from pipecat.transports.websocket.fastapi import (
+    FastAPIWebsocketParams,
+    FastAPIWebsocketTransport,
+)
 from pipecat.turns.user_turn_completion_mixin import UserTurnCompletionConfig
 from pipecat.turns.user_turn_strategies import FilterIncompleteUserTurnStrategies
 from pipecat.workers.runner import WorkerRunner
@@ -82,13 +85,18 @@ def _build_llm() -> GeminiLiveVertexLLMService:
     return llm
 
 
-async def run_bot(webrtc_connection) -> None:
-    transport = SmallWebRTCTransport(
-        webrtc_connection=webrtc_connection,
-        params=TransportParams(
+async def run_bot(websocket) -> None:
+    # WebSocket rather than WebRTC because Cloud Run accepts only HTTP/1.1,
+    # HTTP/2 and WebSockets — no UDP — so a WebRTC media path can never
+    # establish there. Signalling succeeded and ICE stalled at "checking",
+    # which looks like a hung client rather than an unsupported protocol.
+    transport = FastAPIWebsocketTransport(
+        websocket=websocket,
+        params=FastAPIWebsocketParams(
             audio_in_enabled=True,
             audio_out_enabled=True,
-            audio_out_10ms_chunks=2,
+            add_wav_header=False,
+            serializer=ProtobufFrameSerializer(),
         ),
     )
 
