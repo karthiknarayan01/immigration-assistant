@@ -88,7 +88,9 @@ async def search_community_experiences(params: FunctionCallParams):
         })
         return
 
-    hits = await providers.search(f"{query} site:reddit.com", limit=8)
+    # Domain-restricted rather than a "site:" operator, which these providers
+    # treat as literal query text rather than a filter.
+    hits = await providers.search(query, domains=["reddit.com"], limit=8)
     anecdotal = [h for h in hits if h.tier is SourceTier.ANECDOTAL]
 
     kept, corroborated = filter_anecdotes(

@@ -63,14 +63,20 @@ def _topic_max_age(topic: str) -> int:
     return MAX_AGE_DAYS.get(topic, DEFAULT_MAX_AGE_DAYS)
 
 
-def is_fresh(item: Anecdote, topic: str, *, now: datetime | None = None) -> bool:
-    """Reject anecdotes old enough to be actively misleading.
+#: Topics where an undated anecdote is still usable. General web search
+#: providers rarely return dates for forum posts, so rejecting every undated
+#: item silently disables community search entirely. Procedural mechanics
+#: ("which form goes with which") change slowly enough that an undated post
+#: is acceptable; timelines and enforcement patterns are not — a stale report
+#: there is worse than no report. A Reddit-native provider with real date
+#: filtering (e.g. Parallel) would remove this compromise.
+UNDATED_OK_TOPICS = frozenset({"procedure"})
 
-    Undated items are rejected: we cannot tell whether they predate a rule
-    change, and for this domain that is the difference between help and harm.
-    """
+
+def is_fresh(item: Anecdote, topic: str, *, now: datetime | None = None) -> bool:
+    """Reject anecdotes old enough to be actively misleading."""
     if item.published is None:
-        return False
+        return topic in UNDATED_OK_TOPICS
     now = now or datetime.now(timezone.utc)
     published = item.published
     if published.tzinfo is None:

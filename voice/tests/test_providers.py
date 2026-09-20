@@ -1,4 +1,10 @@
-from app.tools.providers import MIN_RELEVANCE, SearchHit, _canonical, _rank
+from app.tools.providers import (
+    MIN_RELEVANCE,
+    SearchHit,
+    _canonical,
+    _rank,
+    _rank_relevance,
+)
 from app.tools.sources import SourceTier
 
 
@@ -69,3 +75,25 @@ def test_archive_detection():
 def test_relevance_threshold_is_between_observed_noise_and_signal():
     # Measured live: off-topic results scored <=0.094, correct ones >=0.73.
     assert 0.1 < MIN_RELEVANCE < 0.7
+
+
+# ── scoreless providers ──────────────────────────────────────────────────────
+
+def test_scoreless_provider_does_not_automatically_outrank_scored_one():
+    # Exa returns no score. Without a rank-derived proxy every Exa hit would
+    # default to 1.0 and beat every Tavily hit regardless of quality.
+    assert _rank_relevance(0) < 1.0
+
+
+def test_rank_relevance_decreases_and_stays_usable():
+    scores = [_rank_relevance(i) for i in range(6)]
+    assert scores == sorted(scores, reverse=True)
+    # Top results must clear the threshold, or good hits get silently dropped.
+    assert scores[0] >= MIN_RELEVANCE
+    assert all(s >= MIN_RELEVANCE for s in scores)
+
+
+def test_rank_relevance_overlaps_observed_tavily_range():
+    # Tavily scored real results roughly 0.5-0.93; the proxy should sit in
+    # that band so cross-provider merging stays meaningful.
+    assert 0.5 <= _rank_relevance(0) <= 0.95

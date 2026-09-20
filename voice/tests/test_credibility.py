@@ -49,9 +49,18 @@ def test_stale_processing_time_reports_are_rejected():
     assert is_fresh(_post("took 4 months", days_old=30), "processing_times", now=NOW)
 
 
-def test_undated_anecdotes_are_rejected():
+def test_undated_anecdotes_rejected_where_staleness_is_dangerous():
     item = Anecdote(text="approved in 2 weeks", url="u", published=None)
+    assert not is_fresh(item, "processing_times", now=NOW)
+    assert not is_fresh(item, "enforcement", now=NOW)
     assert not is_fresh(item, "policy", now=NOW)
+
+
+def test_undated_anecdotes_allowed_for_stable_procedural_questions():
+    # Providers rarely date forum posts; rejecting all undated items disabled
+    # community search entirely. Procedure changes slowly enough to allow it.
+    item = Anecdote(text="you file the I-765 together with the I-485", url="u", published=None)
+    assert is_fresh(item, "procedure", now=NOW)
 
 
 def test_procedure_tolerates_older_posts_than_processing_times():

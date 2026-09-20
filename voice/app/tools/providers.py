@@ -29,6 +29,18 @@ _TIMEOUT = httpx.Timeout(settings.tool_timeout_secs)
 MIN_RELEVANCE = 0.4
 
 
+def _rank_relevance(position: int) -> float:
+    """Approximate a relevance score for providers that don't return one.
+
+    Exa returns results in relevance order but no score, so without this a
+    SearchHit would fall back to its default of 1.0 and every Exa result
+    would outrank every scored Tavily result regardless of quality. Rank
+    position is the only signal available; the scale is chosen to overlap
+    Tavily's observed range (~0.5-0.93) rather than dominate it.
+    """
+    return max(MIN_RELEVANCE, 0.90 - position * 0.08)
+
+
 @dataclass
 class SearchHit:
     title: str
@@ -121,8 +133,9 @@ async def _exa(client: httpx.AsyncClient, query: str, domains: list[str] | None,
             tier=classify(item.get("url", "")),
             published=_parse_date(item.get("publishedDate")),
             author=item.get("author"),
+            relevance=_rank_relevance(position),
         )
-        for item in r.json().get("results", [])
+        for position, item in enumerate(r.json().get("results", []))
     ]
 
 
