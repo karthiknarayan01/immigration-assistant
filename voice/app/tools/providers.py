@@ -22,6 +22,13 @@ from app.tools.sources import SourceTier, classify
 _TIMEOUT = httpx.Timeout(settings.tool_timeout_secs)
 
 
+#: Providers score relevance 0-1. Measured against real queries, off-topic
+#: results (a CBP hiring video for "H-1B premium processing") land below 0.1
+#: while correct ones land above 0.75, so this threshold separates them
+#: cleanly. Without it the model receives authoritative-looking nonsense.
+MIN_RELEVANCE = 0.4
+
+
 @dataclass
 class SearchHit:
     title: str
@@ -30,6 +37,16 @@ class SearchHit:
     tier: SourceTier
     published: datetime | None = None
     author: str | None = None
+    relevance: float = 1.0
+
+    @property
+    def is_archived(self) -> bool:
+        """USCIS keeps superseded announcements under /archive/ indefinitely.
+
+        They rank well for current-policy questions but may be years stale, so
+        they are demoted rather than trusted.
+        """
+        return "/archive/" in self.url.lower()
 
 
 def _parse_date(value: str | None) -> datetime | None:
@@ -50,7 +67,13 @@ def _canonical(url: str) -> str:
         return url
     host = (p.hostname or "").lower().removeprefix("www.")
     path = p.path.rstrip("/") or "/"
-    return urlunparse((p.scheme or "https", host, path, "", "", ""))
+    # Providers return the same page both with and without an .html suffix,
+    # which otherwise slips past dedup and shows the model one source twice.
+    for suffix in (".html", ".htm"):
+        if path.endswith(suffix):
+            path = path[: -len(suffix)]
+            break
+    return urlunparse((p.scheme or "https", host, path or "/", "", "", ""))
 
 
 async def _tavily(client: httpx.AsyncClient, query: str, domains: list[str] | None, limit: int):
@@ -70,6 +93,7 @@ async def _tavily(client: httpx.AsyncClient, query: str, domains: list[str] | No
             text=item.get("content", ""),
             tier=classify(item.get("url", "")),
             published=_parse_date(item.get("published_date")),
+            relevance=float(item.get("score") or 0.0),
         )
         for item in r.json().get("results", [])
     ]
@@ -111,21 +135,29 @@ def available_providers() -> list[str]:
     return names
 
 
-async def search(query: str, *, domains: list[str] | None = None, limit: int = 5) -> list[SearchHit]:
-    """Query every configured provider concurrently and merge the results.
+_TIER_RANK = {
+    SourceTier.AUTHORITATIVE: 0,
+    SourceTier.PROFESSIONAL: 1,
+    SourceTier.ANECDOTAL: 2,
+    SourceTier.UNKNOWN: 3,
+}
 
-    One provider failing must not fail the turn — a partial answer beats dead
-    air, so exceptions are logged and that provider is simply skipped.
+
+async def search(query: str, *, domains: list[str] | None = None, limit: int = 5) -> list[SearchHit]:
+    """Run one query against every configured provider and merge the results.
+
+    A provider failing must not fail the turn — a partial answer beats dead
+    air — so exceptions are logged and that provider is skipped.
     """
-    providers = available_providers()
-    if not providers:
+    active = available_providers()
+    if not active:
         return []
 
     async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
         tasks = []
-        if "tavily" in providers:
+        if "tavily" in active:
             tasks.append(_tavily(client, query, domains, limit))
-        if "exa" in providers:
+        if "exa" in active:
             tasks.append(_exa(client, query, domains, limit))
         settled = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -135,7 +167,7 @@ async def search(query: str, *, domains: list[str] | None = None, limit: int = 5
             logger.warning(f"search provider failed: {result!r}")
             continue
         for hit in result:
-            if not hit.url:
+            if not hit.url or hit.relevance < MIN_RELEVANCE:
                 continue
             key = _canonical(hit.url)
             existing = merged.get(key)
@@ -143,11 +175,43 @@ async def search(query: str, *, domains: list[str] | None = None, limit: int = 5
             if existing is None or len(hit.text) > len(existing.text):
                 merged[key] = hit
 
-    # Authoritative sources first, so the model sees the law before the noise.
-    tier_rank = {
-        SourceTier.AUTHORITATIVE: 0,
-        SourceTier.PROFESSIONAL: 1,
-        SourceTier.ANECDOTAL: 2,
-        SourceTier.UNKNOWN: 3,
-    }
-    return sorted(merged.values(), key=lambda h: tier_rank[h.tier])
+    return _rank(merged.values())
+
+
+async def search_groups(
+    query: str, groups: tuple[tuple[str, ...], ...], *, limit: int = 4
+) -> list[SearchHit]:
+    """Search several narrow domain groups in parallel and merge.
+
+    Deliberately not one query across all domains: providers rank far worse
+    when constrained to a large domain list (measured: 0.09 relevance across
+    24 domains versus 0.90 against uscis.gov alone for the same query).
+    """
+    results = await asyncio.gather(
+        *(search(query, domains=list(group), limit=limit) for group in groups),
+        return_exceptions=True,
+    )
+
+    merged: dict[str, SearchHit] = {}
+    for group_hits in results:
+        if isinstance(group_hits, BaseException):
+            logger.warning(f"search group failed: {group_hits!r}")
+            continue
+        for hit in group_hits:
+            merged.setdefault(_canonical(hit.url), hit)
+
+    return _rank(merged.values())
+
+
+def _rank(hits) -> list[SearchHit]:
+    """Trust first, then relevance — but an archived page loses a tier.
+
+    Without the demotion, superseded USCIS announcements from 2017 outrank a
+    current, accurate law-firm page purely because they sit on a .gov domain.
+    For "what is the processing time right now", that is the wrong answer
+    dressed up as the authoritative one.
+    """
+    return sorted(
+        hits,
+        key=lambda h: (_TIER_RANK[h.tier] + (1 if h.is_archived else 0), -h.relevance),
+    )

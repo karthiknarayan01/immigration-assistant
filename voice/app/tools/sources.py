@@ -100,8 +100,16 @@ def classify(url: str) -> SourceTier:
     return SourceTier.UNKNOWN
 
 
-#: Passed to search providers so official queries stay on primary sources.
-OFFICIAL_SEARCH_DOMAINS = sorted(AUTHORITATIVE_DOMAINS | PROFESSIONAL_DOMAINS)
+#: Providers rank badly when forced across many domains at once: searching all
+#: 24 official domains for "H-1B premium processing time" returned the Trusted
+#: Traveler Program at relevance 0.09, while uscis.gov alone returned the right
+#: page at 0.90. So official lookups run as a few narrow parallel searches
+#: instead of one wide one, and the results are merged.
+SEARCH_GROUPS: tuple[tuple[str, ...], ...] = (
+    ("uscis.gov",),
+    ("ecfr.gov", "law.cornell.edu", "federalregister.gov"),
+    ("aila.org", "murthy.com", "fragomen.com", "boundless.com", "nolo.com"),
+)
 
 #: Subreddits worth listening to. Everything else is dropped before scoring.
 COMMUNITY_SUBREDDITS = (

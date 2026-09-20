@@ -16,7 +16,7 @@ from pipecat.services.llm_service import FunctionCallParams
 from app.config import settings
 from app.tools import providers
 from app.tools.credibility import Anecdote, filter_anecdotes
-from app.tools.sources import OFFICIAL_SEARCH_DOMAINS, SourceTier
+from app.tools.sources import SEARCH_GROUPS, SourceTier
 
 MAX_SPOKEN_HITS = 4
 
@@ -29,6 +29,7 @@ def _format_official(hits) -> dict:
             "url": hit.url,
             "excerpt": hit.text[:600],
             "published": hit.published.date().isoformat() if hit.published else "undated",
+            "archived": hit.is_archived,
             # The model is told to treat these tiers differently, so it has to
             # be able to see which is which.
             "trust": hit.tier.value,
@@ -54,9 +55,21 @@ async def search_official_guidance(params: FunctionCallParams):
         })
         return
 
-    hits = await providers.search(query, domains=OFFICIAL_SEARCH_DOMAINS, limit=6)
+    hits = await providers.search_groups(query, SEARCH_GROUPS, limit=4)
     official = [h for h in hits if h.tier in (SourceTier.AUTHORITATIVE, SourceTier.PROFESSIONAL)]
     logger.info(f"official search '{query}' -> {len(official)} usable hits")
+
+    if not official:
+        await params.result_callback({
+            "results": [],
+            "count": 0,
+            "guidance": (
+                "No official source matched. Say you could not find current "
+                "official guidance rather than filling the gap from memory."
+            ),
+        })
+        return
+
     await params.result_callback(_format_official(official))
 
 
