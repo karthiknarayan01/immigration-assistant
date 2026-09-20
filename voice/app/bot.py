@@ -9,6 +9,7 @@ from pipecat.processors.aggregators.llm_response_universal import (
     LLMContextAggregatorPair,
     LLMUserAggregatorParams,
 )
+from pipecat.processors.frameworks.rtvi import RTVIProcessor
 from pipecat.services.google.gemini_live.llm import GeminiVADParams
 from pipecat.services.google.gemini_live.vertex.llm import (
     GeminiLiveVertexLLMService,
@@ -107,9 +108,16 @@ async def run_bot(webrtc_connection) -> None:
         ),
     )
 
+    # The browser uses the PipecatClient SDK, which speaks RTVI: it sends
+    # "client-ready" over the data channel and waits for "bot-ready" before
+    # it reports a connection. Without this processor in the pipeline nothing
+    # answers, so the client sits on "connecting" and retries every ~20s.
+    rtvi = RTVIProcessor(transport=transport)
+
     pipeline = Pipeline(
         [
             transport.input(),
+            rtvi,
             user_aggregator,
             llm,
             transport.output(),
@@ -119,15 +127,19 @@ async def run_bot(webrtc_connection) -> None:
 
     worker = PipelineWorker(
         pipeline,
+        rtvi_processor=rtvi,
         params=PipelineParams(enable_metrics=True, enable_usage_metrics=True),
     )
 
     runner = WorkerRunner(handle_sigint=False)
     await runner.add_workers(worker)
 
-    @transport.event_handler("on_client_connected")
-    async def on_client_connected(_transport, _client):
-        logger.info("client connected")
+    @rtvi.event_handler("on_client_ready")
+    async def on_client_ready(processor):
+        # Greet on RTVI readiness rather than on transport connect: the peer
+        # connection exists before the client can actually receive audio.
+        logger.info("client ready")
+        await processor.set_bot_ready()
         context.add_message({"role": "developer", "content": GREETING_INSTRUCTION})
         await worker.queue_frames([LLMRunFrame()])
 
