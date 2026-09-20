@@ -9,7 +9,7 @@ from pipecat.processors.aggregators.llm_response_universal import (
     LLMContextAggregatorPair,
     LLMUserAggregatorParams,
 )
-from pipecat.processors.frameworks.rtvi import RTVIProcessor
+from pipecat.processors.frameworks.rtvi import RTVIObserver, RTVIProcessor
 from pipecat.services.google.gemini_live.llm import GeminiVADParams
 from pipecat.services.google.gemini_live.vertex.llm import (
     GeminiLiveVertexLLMService,
@@ -128,6 +128,10 @@ async def run_bot(webrtc_connection) -> None:
     worker = PipelineWorker(
         pipeline,
         rtvi_processor=rtvi,
+        # The processor handles the protocol; the observer is what actually
+        # emits RTVI events onto the wire. Pipecat rejects one without the
+        # other, and the session then never becomes ready.
+        observers=[RTVIObserver(rtvi)],
         params=PipelineParams(enable_metrics=True, enable_usage_metrics=True),
     )
 
