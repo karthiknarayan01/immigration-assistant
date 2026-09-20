@@ -1,0 +1,82 @@
+name: Deploy voice agent
+
+on:
+  push:
+    branches: [main, dev, oracle-cloud-deploy]
+    # Only redeploy when the service itself changes. Frontend pushes go to
+    # Vercel, and docs changes shouldn't cost a Cloud Build.
+    paths:
+      - "voice/**"
+      - ".github/workflows/deploy-voice.yml"
+  workflow_dispatch:
+
+concurrency:
+  # A newer push supersedes an in-flight deploy of the same branch.
+  group: deploy-voice-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_ID: immigration-assistant-voice
+  REGION: us-east4
+  SERVICE: immigration-voice
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      # pipecat imports audioop, removed in 3.13.
+      - run: uv python install 3.12
+        working-directory: voice
+
+      - run: uv sync --frozen
+        working-directory: voice
+
+      - run: uv run pytest -q
+        working-directory: voice
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    # Keyless auth via Workload Identity Federation — no service account key
+    # is stored in GitHub.
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SA }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy "$SERVICE" \
+            --source voice \
+            --project "$PROJECT_ID" \
+            --region "$REGION" \
+            --timeout 3600 \
+            --session-affinity \
+            --allow-unauthenticated \
+            --quiet \
+            --set-env-vars "GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=$REGION,TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }},EXA_API_KEY=${{ secrets.EXA_API_KEY }}"
+
+      - name: Smoke test the new revision
+        run: |
+          URL=$(gcloud run services describe "$SERVICE" --region "$REGION" \
+                  --project "$PROJECT_ID" --format='value(status.url)')
+          echo "Deployed to $URL"
+          # Fail the run if the revision is live but not actually serving.
+          code=$(curl -s -o /dev/null -w '%{http_code}' --retry 5 --retry-delay 3 "$URL/health")
+          echo "health -> $code"
+          test "$code" = "200"
