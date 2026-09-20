@@ -109,12 +109,10 @@ async def search_community_experiences(params: FunctionCallParams):
         })
         return
 
-    # Searched unconstrained, then filtered to forum sources — not restricted
-    # to reddit.com up front. Constraining the domain collapses provider
-    # relevance: the same query returns r/nsfw and r/runescape at 0.02 when
-    # pinned to reddit.com, but a genuinely relevant r/h1b thread at 0.70 when
-    # left open. Exa returns no Reddit results at all either way.
-    hits = await providers.search(f"{query} reddit", limit=10)
+    # Parallel when configured — it indexes forums far better than the
+    # general providers — otherwise an unconstrained search filtered to forum
+    # sources afterwards.
+    hits = await providers.search_community(query, limit=10)
     # Unlike official guidance, this tool is optional: losing it costs colour,
     # not correctness. A billing failure here degrades quietly rather than
     # interrupting the answer with an account problem the user cannot act on.

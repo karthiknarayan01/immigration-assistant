@@ -49,6 +49,15 @@ _SOLICITATION = re.compile(
     re.IGNORECASE,
 )
 
+#: Scraped forum pages often lead with site furniture rather than the post.
+#: Read aloud, "Skip to main content, Open menu, Go to Reddit Home" is worse
+#: than no story at all.
+_BOILERPLATE = re.compile(
+    r"(skip to main content|open navigation|go to reddit home|sign up for reddit"
+    r"|log in to|create account|jump to content|press j to jump)",
+    re.IGNORECASE,
+)
+
 
 @dataclass
 class Anecdote:
@@ -106,6 +115,9 @@ def credibility_score(item: Anecdote) -> float:
     if _SOLICITATION.search(item.text):
         # Visa-mill spam is the most dangerous content on these forums.
         score -= 0.6
+    if _BOILERPLATE.search(item.text[:200]):
+        # Page furniture scraped instead of the post body.
+        score -= 0.5
     if len(item.text.strip()) < 80:
         # Too short to contain a checkable situation.
         score -= 0.15

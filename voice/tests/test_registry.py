@@ -78,7 +78,7 @@ def test_uncorroborated_reports_are_labelled_as_such(monkeypatch):
             )
         ]
 
-    monkeypatch.setattr(providers, "search", fake_search)
+    monkeypatch.setattr(providers, "search_community", fake_search)
     params, captured = _params(query="how fast is premium processing", topic="processing_times")
     asyncio.run(search_community_experiences(params))
 

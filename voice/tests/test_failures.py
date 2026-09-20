@@ -87,6 +87,7 @@ def billing_failure(monkeypatch):
 
     monkeypatch.setattr(providers, "search", failing_search)
     monkeypatch.setattr(providers, "search_groups", failing_search)
+    monkeypatch.setattr(providers, "search_community", failing_search)
     yield
     providers.take_last_failure()
 

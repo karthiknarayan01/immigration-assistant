@@ -132,3 +132,13 @@ def test_spam_is_dropped_before_counting_corroboration():
     kept, corroborated = filter_anecdotes(items, "processing_times", now=NOW)
     assert len(kept) == 1
     assert not corroborated
+
+
+def test_scraped_page_furniture_is_rejected():
+    # Observed live from Parallel: the scraper returned Reddit's nav chrome
+    # instead of the post. Read aloud it is worse than no story.
+    s = credibility_score(_post(
+        "Skip to main content Open menu Open navigation Go to Reddit Home "
+        "Sign Up Sign up for Reddit Log In Log in to Reddit"
+    ))
+    assert s < 0.5
