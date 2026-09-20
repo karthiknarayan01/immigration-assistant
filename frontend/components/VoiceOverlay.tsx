@@ -10,7 +10,8 @@ interface VoiceOverlayProps {
 }
 
 export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProps) {
-  const { phase, liveTranscript, error, toggleMute, sendText } = useVoiceConversation({ onTranscript });
+  const { phase, liveTranscript, error, canRetry, retry, toggleMute, sendText } =
+    useVoiceConversation({ onTranscript });
   const [typedText, setTypedText] = useState("");
 
   const submitTyped = () => {
@@ -29,11 +30,23 @@ export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProp
 
       <div className="flex flex-1 flex-col items-center justify-end gap-6 pb-16">
         <Orb phase={phase} />
-        {phase === "connecting" && (
-          <p className="text-xs text-muted">Connecting…</p>
+        {phase === "connecting" && <p className="text-xs text-muted">Connecting…</p>}
+        {phase === "reconnecting" && (
+          <p className="text-xs text-muted">Connection lost — reconnecting…</p>
         )}
         {phase === "error" && (
-          <p className="max-w-xs text-center text-xs text-muted">{error}</p>
+          <div className="flex max-w-sm flex-col items-center gap-3 px-4">
+            <p className="text-center text-sm text-foreground/80">{error}</p>
+            {canRetry && (
+              <button
+                type="button"
+                onClick={retry}
+                className="rounded-full bg-accent px-4 py-1.5 text-sm text-accent-foreground transition-colors hover:bg-accent-strong"
+              >
+                Try again
+              </button>
+            )}
+          </div>
         )}
         {liveTranscript && phase === "listening" && (
           <p className="max-w-md text-center text-base text-foreground/80">{liveTranscript}</p>
@@ -83,6 +96,7 @@ export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProp
 
 const ORB_ANIMATION: Partial<Record<VoicePhase, string>> = {
   connecting: "orb-thinking",
+  reconnecting: "orb-thinking",
   listening: "orb-listening",
   thinking: "orb-thinking",
   speaking: "orb-speaking",
