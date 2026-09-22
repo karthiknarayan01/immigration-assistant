@@ -110,13 +110,22 @@ voice, in a ladder:
 |---|---|
 | ~250 ms | a short acknowledgement — *"okay"*, *"got it"* |
 | ~1.2 s | a phrase naming the lookup — *"let me check the current guidance"* |
-| ~1.2 s | on screen: *Checking official guidance*, and a quiet tone |
+| ~1.2 s | on screen: *Checking official guidance — H-1B grace period after layoff*, and a quiet tone |
 | ~6.2 s | the real answer |
 
 **This does not make the answer arrive sooner, and it is not counted as
 latency.** Time to first *token* is unchanged; what changes is that the first
 second stops being silent. Those are different numbers and conflating them
 would be the easiest way to make this project look better than it is.
+
+The status line is built from the model's **own tool arguments**, not from a
+fixed phrase per tool — the query it asked for is real intermediary state and
+free to read, so the line can name the subject. A second tool round says
+something different from the first, because a status that stops changing
+reads as a frozen UI. Search operators, quotes, tool names and providers are
+stripped: a status line that leaks those is debug output, not reassurance.
+Notably it is *not* model-generated — an extra inference call to describe the
+work would add latency to the thing that exists to cover latency.
 
 Two details the transport forced. Bot speech isn't an event on the WebSocket
 transport, so it's observed as a frame. And the agent's own clips raise those

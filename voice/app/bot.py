@@ -60,7 +60,9 @@ def _announced(name, handler, speaker: FillerSpeaker, status: AgentStatus):
 
     async def wrapped(params: FunctionCallParams):
         await speaker.speak_for_tool(name)
-        await status.working(name)
+        # The model's own arguments say what it is looking up, so the status
+        # can name the subject instead of repeating a fixed phrase per tool.
+        await status.working(name, params.arguments)
         try:
             return await handler(params)
         finally:
@@ -219,6 +221,9 @@ async def run_bot(websocket) -> None:
         request_id = new_request(session_id=session_id)
         turn_started[request_id] = time.perf_counter()
         speaker.on_user_turn_started()
+        # Tool rounds are counted per turn: "still checking" only makes sense
+        # relative to the question being asked now.
+        status.on_user_turn_started()
 
     @user_aggregator.event_handler("on_user_turn_message_added")
     async def on_user_turn_message_added(_aggregator, message):
