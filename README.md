@@ -103,9 +103,28 @@ mostly already gone; what is left is inference.
 Gemini Live emits tool calls in complete silence, and no amount of prompting
 changes that — I tried three ways, including a blunt "calling the tool without
 speaking first is a failure" rule at the top of the system prompt. So the
-pipeline has to cover the gap itself. Pre-rendered clips in the agent's own
-voice exist for this in `app/fillers.py`, **but they are not yet wired into the
-pipeline** — today the user hears the full gap as silence.
+pipeline covers the gap itself, with pre-rendered clips in the agent's own
+voice, in a ladder:
+
+| when | what the user gets |
+|---|---|
+| ~250 ms | a short acknowledgement — *"okay"*, *"got it"* |
+| ~1.2 s | a phrase naming the lookup — *"let me check the current guidance"* |
+| ~1.2 s | on screen: *Checking official guidance*, and a quiet tone |
+| ~6.2 s | the real answer |
+
+**This does not make the answer arrive sooner, and it is not counted as
+latency.** Time to first *token* is unchanged; what changes is that the first
+second stops being silent. Those are different numbers and conflating them
+would be the easiest way to make this project look better than it is.
+
+Two details the transport forced. Bot speech isn't an event on the WebSocket
+transport, so it's observed as a frame. And the agent's own clips raise those
+same frames — without a self-audio window the ladder stops after the first
+rung, because the acknowledgement looks like the model answering. The working
+tone has to live on the client: audio frames play in queue order, so a tone
+pushed from the pipeline would sit *in front of* the answer instead of under
+it.
 
 Biggest remaining win is not calling the tool at all: a cached knowledge layer
 would move tool-using turns from 6.2s toward 1.9s.
@@ -206,6 +225,27 @@ opinion. Stale *numbers* are rejected outright; undated *stories* are allowed
 with the date flagged. A stale number is a false fact. An old story is still a
 true story.
 
+### When things break
+
+Failures are classified before they're handled, because the right response
+differs sharply: **funds**, **auth**, **connectivity**, **other**.
+
+Retries are bounded by a **deadline, not an attempt count**. An attempt count
+lets a retry start at 4.5s of a 6s budget and make the turn worse than the
+failure would have; the deadline means a retry only happens if there is time
+for it to help. One retry, 250ms back-off, and only for failures a retry can
+fix — a 500 or a dropped connection may differ next time, a 401 or a 402 will
+not, so those fail immediately rather than buying a second of silence.
+
+What the user gets depends on what broke:
+
+| What failed | What happens |
+|---|---|
+| Official-source search | Answer continues, and says its sources were unavailable |
+| Community search | Degrades quietly — a less colourful answer isn't worth an apology |
+| The model itself (credit, auth) | Session ends with a plain explanation; no retry button, because retrying a billing failure just reproduces it |
+| Connection drops mid-conversation | Shown as reconnecting, not fatal — the transport recovers on its own |
+
 ### Turn-taking
 
 Never cutting someone off matters more here than almost anywhere. Most users
@@ -260,10 +300,9 @@ revision is smoke-tested, auth is keyless via Workload Identity Federation.
 - **No cached knowledge layer.** eCFR ingestion exists; the Tier-0 pack that
   would let stable questions skip search entirely doesn't. Biggest single win
   available, for both quality and latency.
-- **Filler audio is written but not wired.** The clips load at import and are
-  never pushed into the pipeline, so tool calls are silent. Covering the gap
-  is the cheapest perceived-latency win available, and half of it is already
-  built.
+- **The chat interface is still a stub.** `/api/chat` returns a canned string
+  and never reaches the agent. Voice is the real product today; the text path
+  is scaffolding.
 - **Reddit posts come back undated** from every provider tried. Reddit's own
   API 403s datacenter traffic.
 - **The endpoint is unauthenticated.** Fine for testing. Before real users it
