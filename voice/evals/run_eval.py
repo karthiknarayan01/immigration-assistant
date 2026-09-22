@@ -26,6 +26,7 @@ import time
 from collections import defaultdict
 from datetime import datetime, timezone
 
+import httpx
 import yaml
 from google import genai
 from google.genai import types
@@ -69,21 +70,71 @@ RATE_LIMIT_RETRIES = 5
 INTER_CASE_DELAY_SECS = 2.0
 
 
+#: Transport failures, not application errors. Vertex drops long-lived
+#: connections under sustained use: four separate full runs died on
+#: "Server disconnected without sending a response" between cases 34 and 44,
+#: which is a property of the connection rather than of the case being judged.
+#: Treating these as fatal threw away every completed case in the run.
+_RETRYABLE_ERRORS = (
+    httpx.RemoteProtocolError,
+    httpx.ConnectError,
+    httpx.ReadTimeout,
+    httpx.ReadError,
+    httpx.WriteError,
+    httpx.PoolTimeout,
+)
+
+#: Retryable when raised as a plain API error rather than a typed exception.
+_RETRYABLE_MARKERS = ("RESOURCE_EXHAUSTED", "429", "503", "UNAVAILABLE", "INTERNAL", "500")
+
+
+def _is_retryable(error: BaseException) -> bool:
+    if isinstance(error, _RETRYABLE_ERRORS):
+        return True
+    text = str(error)
+    return any(marker in text for marker in _RETRYABLE_MARKERS)
+
+
 async def with_backoff(operation, *, what: str):
-    """Retry an API call through rate limiting, with exponential backoff."""
+    """Retry an API call through rate limiting and dropped connections."""
     delay = 4.0
     for attempt in range(RATE_LIMIT_RETRIES):
         try:
             return await operation()
-        except Exception as error:  # noqa: BLE001 - only 429 is retryable
-            if "RESOURCE_EXHAUSTED" not in str(error) and "429" not in str(error):
+        except Exception as error:  # noqa: BLE001 - re-raised unless transient
+            if not _is_retryable(error):
                 raise
             if attempt == RATE_LIMIT_RETRIES - 1:
                 raise
-            print(f"    rate limited on {what}; retrying in {delay:.0f}s", flush=True)
+            print(
+                f"    {type(error).__name__} on {what}; retrying in {delay:.0f}s",
+                flush=True,
+            )
             await asyncio.sleep(delay)
             delay *= 2
     raise RuntimeError("unreachable")
+
+def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
+    """Build the report from whatever has been scored so far.
+
+    Called after every case as well as at the end, so an interrupted run still
+    leaves a readable partial result. `cases_unjudged` is reported alongside
+    the scores rather than folded into them — a partial run has to be visibly
+    partial, or it gets quoted as if it were a complete one.
+    """
+    return {
+        "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "eval_model": EVAL_MODEL,
+        "tools_enabled": not args.no_tools,
+        "production_model": settings.gemini_model,
+        "judge_model": JUDGE_MODEL,
+        "cases_unjudged": len(unjudged),
+        "unjudged": unjudged,
+        "overall": summarise(rows),
+        "tune": summarise([r for r in rows if r["split"] == "tune"]),
+        "holdout": summarise([r for r in rows if r["split"] == "holdout"]),
+    }
+
 
 #: Roughly half, assigned deterministically so the split cannot drift between
 #: runs — and so nobody can quietly move a failing case into `tune`.
@@ -373,7 +424,15 @@ async def main() -> int:
         location=settings.google_cloud_location,
     )
 
+    RESULTS.mkdir(exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+    out_path = RESULTS / f"{stamp}.json"
+
     rows = []
+    #: Cases whose judge call could not be completed. Deliberately kept out of
+    #: `rows` rather than scored as zeros: an unjudged case is missing data,
+    #: and averaging it in as zero would read as a quality regression.
+    unjudged = []
     for index, case in enumerate(cases, start=1):
         new_request(session_id="eval")
         try:
@@ -382,9 +441,17 @@ async def main() -> int:
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
             answer, tools_used = "", [f"ERROR: {type(error).__name__}"]
 
-        verdict = await with_backoff(
-            lambda: asyncio.to_thread(judge, client, case, answer), what="judge"
-        )
+        try:
+            verdict = await with_backoff(
+                lambda: asyncio.to_thread(judge, client, case, answer), what="judge"
+            )
+        except Exception as error:  # noqa: BLE001 - a dead judge must not end the run
+            unjudged.append({"id": case["id"], "error": f"{type(error).__name__}: {error}"})
+            print(f"[{index:>2}/{len(cases)}] {case['id']:<8} JUDGE FAILED ({type(error).__name__})",
+                  flush=True)
+            await asyncio.sleep(INTER_CASE_DELAY_SECS)
+            continue
+
         await asyncio.sleep(INTER_CASE_DELAY_SECS)
         rows.append(
             {
@@ -409,24 +476,23 @@ async def main() -> int:
             f"mean={verdict.mean:.2f}{flag}",
             flush=True,
         )
+        # Written after every case, not once at the end: a run that dies at
+        # case 34 used to discard 33 completed cases along with it.
+        out_path.write_text(
+            json.dumps({"report": _report(rows, unjudged, args), "rows": rows}, indent=2)
+        )
 
-    report = {
-        "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "eval_model": EVAL_MODEL,
-        "tools_enabled": not args.no_tools,
-        "production_model": settings.gemini_model,
-        "judge_model": JUDGE_MODEL,
-        "overall": summarise(rows),
-        "tune": summarise([r for r in rows if r["split"] == "tune"]),
-        "holdout": summarise([r for r in rows if r["split"] == "holdout"]),
-    }
-
-    RESULTS.mkdir(exist_ok=True)
-    stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
-    (RESULTS / f"{stamp}.json").write_text(json.dumps({"report": report, "rows": rows}, indent=2))
+    report = _report(rows, unjudged, args)
+    out_path.write_text(json.dumps({"report": report, "rows": rows}, indent=2))
 
     print()
     print(json.dumps(report, indent=2))
+    if unjudged:
+        print(
+            f"\nWARNING: {len(unjudged)} case(s) could not be judged and are "
+            f"excluded from every figure above: "
+            f"{', '.join(item['id'] for item in unjudged)}"
+        )
     return 0
 
 
