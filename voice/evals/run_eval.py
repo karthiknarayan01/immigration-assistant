@@ -22,6 +22,7 @@ import json
 import pathlib
 import statistics
 import sys
+import time
 from collections import defaultdict
 from datetime import datetime, timezone
 
@@ -30,12 +31,26 @@ from google import genai
 from google.genai import types
 
 from app.config import settings
-from app.prompt import SYSTEM_INSTRUCTION
+from app.observability import (
+    SEGMENT_ANSWER_FIRST_TOKEN,
+    SEGMENT_TOOL_DECISION,
+    SEGMENT_TOOL_EXEC,
+    STAGE_RESPONSE_TAIL,
+    STAGE_TTFT,
+    STAGE_TTFT_SEGMENT,
+    STAGE_USER_TURN,
+    Timing,
+    current_request_id,
+    measure,
+    new_request,
+    record,
+)
+from app.prompts import SYSTEM_INSTRUCTION
 from app.tools.registry import _HANDLERS, _SCHEMAS
 from evals.score import FACTORS, JUDGE_MODEL, judge
 
 HERE = pathlib.Path(__file__).resolve().parent
-EVAL_SETS = ("eval_set.yaml", "eval_set_reddit.yaml")
+TASKS_DIR = HERE / "tasks"
 RESULTS = HERE / "results"
 
 #: The agent in production is a native-audio Live model. Driving that model
@@ -47,6 +62,28 @@ RESULTS = HERE / "results"
 EVAL_MODEL = "gemini-2.5-flash"
 
 MAX_TOOL_ROUNDS = 4
+
+#: Vertex rate-limits under sustained use, and a run that dies at case 30 is
+#: worth nothing. Retry 429s with backoff and pace requests between cases.
+RATE_LIMIT_RETRIES = 5
+INTER_CASE_DELAY_SECS = 2.0
+
+
+async def with_backoff(operation, *, what: str):
+    """Retry an API call through rate limiting, with exponential backoff."""
+    delay = 4.0
+    for attempt in range(RATE_LIMIT_RETRIES):
+        try:
+            return await operation()
+        except Exception as error:  # noqa: BLE001 - only 429 is retryable
+            if "RESOURCE_EXHAUSTED" not in str(error) and "429" not in str(error):
+                raise
+            if attempt == RATE_LIMIT_RETRIES - 1:
+                raise
+            print(f"    rate limited on {what}; retrying in {delay:.0f}s", flush=True)
+            await asyncio.sleep(delay)
+            delay *= 2
+    raise RuntimeError("unreachable")
 
 #: Roughly half, assigned deterministically so the split cannot drift between
 #: runs — and so nobody can quietly move a failing case into `tune`.
@@ -60,13 +97,19 @@ def split_for(case_id: str) -> str:
 
 
 def load_cases() -> list[dict]:
+    """Load every task's cases, tagging each with the task that owns it.
+
+    One folder per task, mirroring app/prompts/: a task's score is then
+    attributable to its own prompt file rather than to "the agent".
+    """
     cases: list[dict] = []
-    for name in EVAL_SETS:
-        path = HERE / name
-        if not path.exists():
+    for task_dir in sorted(TASKS_DIR.iterdir()):
+        path = task_dir / "cases.yaml"
+        if not task_dir.is_dir() or not path.exists():
             continue
         for case in yaml.safe_load(path.read_text()) or []:
-            case["source_set"] = "reddit" if "reddit" in name else "handwritten"
+            case["task"] = task_dir.name
+            case.setdefault("source_set", "handwritten")
             case["split"] = split_for(case["id"])
             cases.append(case)
     return cases
@@ -98,6 +141,16 @@ def _tool_declarations() -> list[types.Tool]:
     ]
 
 
+def _has_content(chunk) -> bool:
+    """True once a chunk carries real output — text or a function call."""
+    for candidate in (getattr(chunk, "candidates", None) or []):
+        content = getattr(candidate, "content", None)
+        for part in (getattr(content, "parts", None) or []):
+            if getattr(part, "text", None) or getattr(part, "function_call", None):
+                return True
+    return False
+
+
 class _Params:
     """Stands in for pipecat's FunctionCallParams outside a live pipeline."""
 
@@ -110,7 +163,13 @@ class _Params:
 
 
 async def ask(client: genai.Client, question: str) -> tuple[str, list[str]]:
-    """Put one question to the agent, running any tools it calls for real."""
+    """Put one question to the agent, running any tools it calls for real.
+
+    Instrumented around the critical path to the first spoken token, because
+    that is what a voice user experiences as responsiveness. The segments are
+    measured so they sum to TTFT: each one's share says where optimisation
+    effort would actually pay.
+    """
     config = types.GenerateContentConfig(
         system_instruction=SYSTEM_INSTRUCTION,
         tools=_tool_declarations(),
@@ -122,32 +181,129 @@ async def ask(client: genai.Client, question: str) -> tuple[str, list[str]]:
     ]
     tools_used: list[str] = []
 
-    for _ in range(MAX_TOOL_ROUNDS):
-        response = await client.aio.models.generate_content(
-            model=EVAL_MODEL, contents=contents, config=config
-        )
-        candidate = response.candidates[0] if response.candidates else None
-        parts = (candidate.content.parts if candidate and candidate.content else None) or []
+    turn_start = time.perf_counter()
+    request_id = current_request_id()
 
-        calls = [part.function_call for part in parts if getattr(part, "function_call", None)]
-        if not calls:
-            text = "".join(part.text for part in parts if getattr(part, "text", None))
-            return text.strip(), tools_used
-
-        contents.append(candidate.content)
-        reply_parts = []
-        for call in calls:
-            tools_used.append(call.name)
-            handler = _HANDLERS.get(call.name)
-            params = _Params(dict(call.args or {}))
-            if handler:
-                await handler(params)
-            reply_parts.append(
-                types.Part.from_function_response(
-                    name=call.name, response=params.result or {"error": "no handler"}
-                )
+    def emit(stage: str, name: str, ms: float, started: float, **attributes):
+        record(
+            Timing(
+                stage=stage,
+                name=name,
+                duration_ms=round(ms, 2),
+                request_id=request_id,
+                session_id="eval",
+                started_at=started,
+                attributes=attributes,
             )
-        contents.append(types.Content(role="user", parts=reply_parts))
+        )
+
+    for round_index in range(MAX_TOOL_ROUNDS):
+        approx_input_tokens = sum(
+            len(getattr(part, "text", "") or "") for c in contents for part in (c.parts or [])
+        ) // 4
+
+        segment_start = time.perf_counter()
+        first_token_ms: float | None = None
+        chunks = []
+        usage = None
+
+        stream = await with_backoff(
+            lambda: client.aio.models.generate_content_stream(
+                model=EVAL_MODEL, contents=contents, config=config
+            ),
+            what="agent",
+        )
+        # Parts are collected as they stream. Rebuilding a response object
+        # from chunks silently dropped them, which showed up as the agent
+        # "saying nothing" on five cases — a harness bug that reads exactly
+        # like a model failure in the scores.
+        async for chunk in stream:
+            if first_token_ms is None and _has_content(chunk):
+                first_token_ms = (time.perf_counter() - segment_start) * 1000
+            for cand in (getattr(chunk, "candidates", None) or []):
+                content = getattr(cand, "content", None)
+                chunks.extend(getattr(content, "parts", None) or [])
+            if getattr(chunk, "usage_metadata", None):
+                usage = chunk.usage_metadata
+
+        total_ms = (time.perf_counter() - segment_start) * 1000
+        tokens = {}
+        if usage is not None:
+            tokens["prompt_tokens"] = getattr(usage, "prompt_token_count", 0) or 0
+            tokens["output_tokens"] = getattr(usage, "candidates_token_count", 0) or 0
+
+        parts = chunks
+        calls = [part.function_call for part in parts if getattr(part, "function_call", None)]
+
+        if calls:
+            # This model call ends at the tool-call decision; the user is still
+            # waiting, so its first-token time is a TTFT segment.
+            emit(
+                STAGE_TTFT_SEGMENT,
+                SEGMENT_TOOL_DECISION,
+                first_token_ms if first_token_ms is not None else total_ms,
+                segment_start,
+                round=round_index,
+                approx_input_tokens=approx_input_tokens,
+                **tokens,
+            )
+            contents.append(types.Content(role="model", parts=parts))
+
+            reply_parts = []
+            for call in calls:
+                tools_used.append(call.name)
+                handler = _HANDLERS.get(call.name)
+                params = _Params(dict(call.args or {}))
+                tool_start = time.perf_counter()
+                if handler:
+                    await handler(params)
+                emit(
+                    STAGE_TTFT_SEGMENT,
+                    SEGMENT_TOOL_EXEC,
+                    (time.perf_counter() - tool_start) * 1000,
+                    tool_start,
+                    tool=call.name,
+                    round=round_index,
+                )
+                reply_parts.append(
+                    types.Part.from_function_response(
+                        name=call.name, response=params.result or {"error": "no handler"}
+                    )
+                )
+            contents.append(types.Content(role="user", parts=reply_parts))
+            continue
+
+        # No tool call: this round produced the answer the user hears.
+        if first_token_ms is not None:
+            emit(
+                STAGE_TTFT_SEGMENT,
+                SEGMENT_ANSWER_FIRST_TOKEN,
+                first_token_ms,
+                segment_start,
+                round=round_index,
+                approx_input_tokens=approx_input_tokens,
+                **tokens,
+            )
+            ttft_ms = (segment_start - turn_start) * 1000 + first_token_ms
+            emit(
+                STAGE_TTFT,
+                "answer",
+                ttft_ms,
+                turn_start,
+                tool_calls=len(tools_used),
+                **tokens,
+            )
+            # Everything after the first token is answer length, not lag.
+            emit(
+                STAGE_RESPONSE_TAIL,
+                "stream",
+                total_ms - first_token_ms,
+                segment_start,
+                **tokens,
+            )
+
+        text = "".join(part.text for part in parts if getattr(part, "text", None))
+        return text.strip(), tools_used
 
     return "", tools_used
 
@@ -162,8 +318,10 @@ def summarise(rows: list[dict]) -> dict:
         for factor in FACTORS
     }
     by_category: dict[str, list[float]] = defaultdict(list)
+    by_task: dict[str, list[float]] = defaultdict(list)
     for row in rows:
         by_category[row["category"]].append(row["mean"])
+        by_task[row.get("task", "?")].append(row["mean"])
 
     return {
         "cases": len(rows),
@@ -173,6 +331,9 @@ def summarise(rows: list[dict]) -> dict:
         "by_factor": by_factor,
         "by_category": {
             name: round(statistics.mean(values), 2) for name, values in sorted(by_category.items())
+        },
+        "by_task": {
+            name: round(statistics.mean(values), 2) for name, values in sorted(by_task.items())
         },
     }
 
@@ -197,18 +358,24 @@ async def main() -> int:
 
     rows = []
     for index, case in enumerate(cases, start=1):
+        new_request(session_id="eval")
         try:
-            answer, tools_used = await ask(client, case["question"])
+            with measure(STAGE_USER_TURN, "turn", case_id=case["id"]):
+                answer, tools_used = await ask(client, case["question"])
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
             answer, tools_used = "", [f"ERROR: {type(error).__name__}"]
 
-        verdict = judge(client, case, answer)
+        verdict = await with_backoff(
+            lambda: asyncio.to_thread(judge, client, case, answer), what="judge"
+        )
+        await asyncio.sleep(INTER_CASE_DELAY_SECS)
         rows.append(
             {
                 "id": case["id"],
                 "split": case["split"],
                 "source_set": case["source_set"],
                 "category": case.get("category", "?"),
+                "task": case.get("task", "?"),
                 "question": case["question"],
                 "answer": answer,
                 "tools_used": tools_used,

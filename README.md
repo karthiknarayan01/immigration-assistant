@@ -95,6 +95,49 @@ unknown. A stale number is a false fact; an old story is still a true story.
 
 ---
 
+## Layout
+
+```
+voice/app/prompts/          one file per task, composed into one instruction
+  conversation.md           voice delivery, turn length, engagement
+  official_answer.md        policy answers, source trust, applying rules to facts
+  practical_experience.md   retelling community accounts with hedging
+  uncertainty.md            volatile figures, predictions, asking for missing facts
+  risk_escalation.md        the attorney-referral checklist
+
+voice/evals/tasks/<task>/   mirrors the prompts one-to-one
+  cases.yaml                cases owned by that task
+  factors/<factor>.md       what each factor means *for this task*
+```
+
+The prompts are separate files rather than one string because each task is
+separately owned, separately evaluated and separately regressible — editing
+anecdote handling should not mean scrolling past escalation rules. They are
+composed at load; `tests/test_prompts.py` asserts every escalation trigger and
+key behaviour survives a refactor, and the composition was verified to be a
+word-identical regrouping of the prompt it replaced.
+
+Factor files matter because "groundedness" means different things for a CFR
+citation and a forum anecdote. Each task states its own definition, and the
+judge receives it alongside the generic rubric.
+
+## Observability
+
+Every user turn gets a request id, set on `on_user_turn_started` and carried
+by every log line. Filtering on one id reconstructs the whole turn:
+
+```
+req=8f2a1c4d9e01 | event=user_query text='my H-1B employer is laying me off'
+req=8f2a1c4d9e01 | event=tool_call name=search_official_guidance args={"query": ...}
+req=8f2a1c4d9e01 | stage=ttft_segment name=tool_exec ms=3421 hits=4
+req=8f2a1c4d9e01 | event=tool_result name=search_official_guidance summary={"count": 4}
+req=8f2a1c4d9e01 | stage=ttft name=answer ms=5210 tool_calls=1
+req=8f2a1c4d9e01 | event=agent_response chars=612 text='...'
+```
+
+Without that, a slow or wrong answer in production is unattributable — you can
+see that it was bad, not why.
+
 ## Evaluation
 
 ### Where the questions come from
@@ -268,6 +311,58 @@ automatically: tests run first and block the deploy on failure, then the new
 revision is smoke-tested and the run fails if it is live but not serving.
 Authentication is keyless via Workload Identity Federation, scoped to this
 repository.
+
+---
+
+## Performance
+
+Latency here means **time to first token (TTFT)** — how long before the user
+hears anything. That is what a voice user experiences as responsiveness;
+total response time is experienced as answer *length*, not lag, because audio
+streams as it is produced.
+
+![TTFT by component](voice/docs/latency.png)
+
+Measured across 39 real agent turns with tools executing against live search
+providers:
+
+| Segment | mean | p95 | share of path |
+|---|---|---|---|
+| `tool_exec` — the search itself | 3136 ms | 5024 ms | **44%** |
+| `llm_answer` — tool result → first answer token | 2281 ms | 8786 ms | 32% |
+| `llm_tool_decision` — user turn → tool call emitted | 1772 ms | 5129 ms | 25% |
+| **`ttft:answer`** — **what the user waits through** | **4096 ms (p50)** | **13650 ms** | — |
+| *after* first token (answer length, not lag) | — | 1975 ms | — |
+
+```bash
+uv run python scripts/latency_report.py
+```
+
+### What this says about optimisation
+
+**Search is the largest single segment.** Nearly half the wait is the tool
+call, which is why the filler audio exists — it covers that gap rather than
+removing it. Caching stable policy lookups would take a real bite out of TTFT;
+making the model faster would not.
+
+**Number of results correlates strongly with tool time** (r = +0.76 on
+official search, +0.97 on community). Fetching fewer, better results is a
+direct lever.
+
+**Tool calls dominate TTFT** (r = +0.73). A turn answered without a search is
+several seconds faster, which is the whole argument for a cached knowledge
+layer.
+
+**Answer length costs almost nothing in perceived latency.** Output tokens
+correlate at only +0.26, and that is with the *tail*, after the user is
+already hearing speech. Longer, more thorough answers are close to free on
+responsiveness — a measurement that directly contradicts what total-response
+timing suggested before TTFT was separated out.
+
+Caveats: these are text-API timings, not the live audio path, so real voice
+TTFT will differ. n is 39 turns. Six records were excluded as retry
+artifacts — when the harness hits a rate limit it sleeps inside the measured
+window, which would otherwise show as a 300-second "latency".
 
 ---
 

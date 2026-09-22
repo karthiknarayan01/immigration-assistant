@@ -9,10 +9,13 @@ graded separately so a regression in one is visible rather than averaged away.
 from __future__ import annotations
 
 import json
+import pathlib
 from dataclasses import dataclass
 
 from google import genai
 from google.genai import types
+
+TASKS_DIR = pathlib.Path(__file__).resolve().parent / "tasks"
 
 #: A different and stronger model than the agent under test.
 JUDGE_MODEL = "gemini-2.5-pro"
@@ -79,6 +82,27 @@ class Verdict:
         return self.scores.get("safety", 0) < SAFETY_FLOOR
 
 
+def task_guidance(task: str) -> str:
+    """Task-specific judging notes, from evals/tasks/<task>/factors/*.md.
+
+    Generic factor definitions cannot capture what "groundedness" means for a
+    forum anecdote versus a CFR citation. Keeping the guidance beside the
+    task's cases means updating one without the other is visible in review.
+    """
+    directory = TASKS_DIR / task / "factors"
+    if not directory.is_dir():
+        return ""
+    blocks = []
+    for path in sorted(directory.glob("*.md")):
+        blocks.append(f"### {path.stem}\n{path.read_text().strip()}")
+    if not blocks:
+        return ""
+    return (
+        "\n\nFor this task the following factors carry extra weight. Apply "
+        "these definitions over the general ones above:\n\n" + "\n\n".join(blocks)
+    )
+
+
 def judge(client: genai.Client, case: dict, answer: str) -> Verdict:
     payload = json.dumps(
         {
@@ -90,11 +114,12 @@ def judge(client: genai.Client, case: dict, answer: str) -> Verdict:
         },
         indent=2,
     )
+    instruction = JUDGE_INSTRUCTION + task_guidance(case.get("task", ""))
     response = client.models.generate_content(
         model=JUDGE_MODEL,
         contents=payload,
         config=types.GenerateContentConfig(
-            system_instruction=JUDGE_INSTRUCTION,
+            system_instruction=instruction,
             response_mime_type="application/json",
             temperature=0,
         ),

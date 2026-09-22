@@ -15,6 +15,12 @@ from pipecat.services.llm_service import FunctionCallParams
 
 from app.config import settings
 from app.failures import FailureKind
+from app.observability import (
+    STAGE_TOOL,
+    log_tool_call,
+    log_tool_result,
+    measure,
+)
 from app.tools import providers
 from app.tools.credibility import Anecdote, filter_anecdotes
 from app.tools.sources import SEARCH_GROUPS, SourceTier
@@ -56,7 +62,10 @@ async def search_official_guidance(params: FunctionCallParams):
         })
         return
 
-    hits = await providers.search_groups(query, SEARCH_GROUPS, limit=4)
+    log_tool_call("search_official_guidance", {"query": query})
+    with measure(STAGE_TOOL, "search_official_guidance", query_chars=len(query)) as span:
+        hits = await providers.search_groups(query, SEARCH_GROUPS, limit=4)
+        span["hits"] = len(hits)
     failure = providers.take_last_failure()
     official = [h for h in hits if h.tier in (SourceTier.AUTHORITATIVE, SourceTier.PROFESSIONAL)]
     logger.info(
@@ -91,7 +100,9 @@ async def search_official_guidance(params: FunctionCallParams):
         })
         return
 
-    await params.result_callback(_format_official(official))
+    payload = _format_official(official)
+    log_tool_result("search_official_guidance", payload)
+    await params.result_callback(payload)
 
 
 async def search_community_experiences(params: FunctionCallParams):
@@ -112,7 +123,12 @@ async def search_community_experiences(params: FunctionCallParams):
     # Parallel when configured — it indexes forums far better than the
     # general providers — otherwise an unconstrained search filtered to forum
     # sources afterwards.
-    hits = await providers.search_community(query, limit=10)
+    log_tool_call("search_community_experiences", {"query": query, "topic": topic})
+    with measure(
+        STAGE_TOOL, "search_community_experiences", query_chars=len(query), topic=topic
+    ) as span:
+        hits = await providers.search_community(query, limit=10)
+        span["hits"] = len(hits)
     # Unlike official guidance, this tool is optional: losing it costs colour,
     # not correctness. A billing failure here degrades quietly rather than
     # interrupting the answer with an account problem the user cannot act on.

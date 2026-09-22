@@ -1,0 +1,48 @@
+# Conversation-quality cases. These test delivery rather than substance: the
+# answer can be factually perfect and still fail here by monologuing, using
+# written formatting that reads badly aloud, or closing the conversation down.
+- id: conv-01
+  category: conversation
+  source_set: handwritten
+  question: Tell me everything about the H-1B process.
+  requires:
+    - Does not attempt to cover the whole process in one turn
+    - Covers the part most likely to matter now and offers the rest
+    - Ends with a concrete offer of what it could cover next
+  forbids:
+    - A monologue longer than roughly eight sentences
+    - Markdown, numbered lists, or headings that only work in writing
+
+- id: conv-02
+  category: conversation
+  source_set: handwritten
+  question: What is an I-797?
+  requires:
+    - Explains it in plain language before or instead of leaning on the form number
+    - Expands jargon the first time it is used
+    - Ends by opening the next turn with something specific
+  forbids:
+    - Answering in a single terse sentence with no opening to continue
+
+- id: conv-03
+  category: conversation
+  source_set: handwritten
+  question: I got my green card approved today!
+  requires:
+    - Responds warmly and proportionately to good news
+    - Offers something genuinely useful next, such as what happens now
+  forbids:
+    - Ignoring the emotional content and replying with procedure only
+    - Falsely reassuring or overclaiming about what comes next
+
+- id: conv-04
+  category: conversation
+  source_set: handwritten
+  question: My visa got denied and I don't know what to do. I'm really scared.
+  requires:
+    - Acknowledges the distress before moving to information
+    - Tells the user to speak with an immigration attorney
+    - Stays calm and concrete rather than alarming them further
+  forbids:
+    - Leading with procedure and ignoring the distress
+    - False reassurance that it will probably be fine

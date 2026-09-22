@@ -1,3 +1,6 @@
+import time
+import uuid
+
 from google.genai import types as genai_types
 from loguru import logger
 from pipecat.audio.vad.silero import SileroVADAnalyzer
@@ -28,8 +31,18 @@ from app.config import settings
 from app.fillers import NUM_CHANNELS as FILLER_CHANNELS
 from app.fillers import SAMPLE_RATE as FILLER_SAMPLE_RATE
 from app.fillers import FillerPicker
+from app.observability import (
+    STAGE_USER_TURN,
+    Timing,
+    bound,
+    current_request_id,
+    log_agent_response,
+    log_user_query,
+    new_request,
+    record,
+)
 from app.session_health import SessionFailureObserver
-from app.prompt import (
+from app.prompts import (
     GREETING_INSTRUCTION,
     SYSTEM_INSTRUCTION,
     TURN_COMPLETION_INSTRUCTIONS,
@@ -89,7 +102,24 @@ def _build_llm() -> GeminiLiveVertexLLMService:
     return llm
 
 
+def _message_text(message) -> str:
+    """Pull plain text out of a context message of whatever shape."""
+    if isinstance(message, dict):
+        content = message.get("content", "")
+    else:
+        content = getattr(message, "content", "") or ""
+    if isinstance(content, list):
+        return " ".join(
+            part.get("text", "") if isinstance(part, dict) else str(part) for part in content
+        ).strip()
+    return str(content).strip()
+
+
 async def run_bot(websocket) -> None:
+    session_id = uuid.uuid4().hex[:8]
+    new_request(session_id=session_id)
+    bound().info("event=session_started")
+
     # WebSocket rather than WebRTC because Cloud Run accepts only HTTP/1.1,
     # HTTP/2 and WebSockets — no UDP — so a WebRTC media path can never
     # establish there. Signalling succeeded and ICE stalled at "checking",
@@ -151,23 +181,38 @@ async def run_bot(websocket) -> None:
     await runner.add_workers(worker)
 
     filler = FillerPicker()
+    turn_started: dict[str, float] = {}
 
-    @llm.event_handler("on_function_calls_started")
-    async def on_function_calls_started(_service, function_calls):
-        # Cover the tool call with speech. Gemini stays silent through the
-        # whole call, so without this the user gets several seconds of dead
-        # air with no indication anything is happening.
-        name = getattr(function_calls[0], "function_name", "") if function_calls else ""
-        clip = filler.for_tool(name)
-        if not clip:
-            return
-        await worker.queue_frames([
-            OutputAudioRawFrame(
-                audio=clip,
-                sample_rate=FILLER_SAMPLE_RATE,
-                num_channels=FILLER_CHANNELS,
+    @user_aggregator.event_handler("on_user_turn_started")
+    async def on_user_turn_started(_aggregator, _strategy):
+        # One request id per user turn. Filtering logs on it reconstructs the
+        # whole turn: question, tool calls, and the answer finally spoken.
+        request_id = new_request(session_id=session_id)
+        turn_started[request_id] = time.perf_counter()
+
+    @user_aggregator.event_handler("on_user_turn_message_added")
+    async def on_user_turn_message_added(_aggregator, message):
+        log_user_query(_message_text(message))
+
+    @assistant_aggregator.event_handler("on_assistant_turn_stopped")
+    async def on_assistant_turn_stopped(_aggregator, message):
+        text = _message_text(message)
+        log_agent_response(text)
+        request_id = current_request_id()
+        started = turn_started.pop(request_id, None)
+        if started is not None:
+            # End to end for the turn: what the user actually waited through.
+            record(
+                Timing(
+                    stage=STAGE_USER_TURN,
+                    name="turn",
+                    duration_ms=round((time.perf_counter() - started) * 1000, 2),
+                    request_id=request_id,
+                    session_id=session_id,
+                    started_at=started,
+                    attributes={"response_chars": len(text)},
+                )
             )
-        ])
 
     @rtvi.event_handler("on_client_ready")
     async def on_client_ready(processor):
