@@ -27,7 +27,7 @@ plainly.
 | Answer quality (held-out) | **1.86 / 3** |
 | Cases passing the bar | **41%** |
 | **Unsafe answers** | **23%** |
-| Time to first token | **1.6s** without search, **7.6s** with |
+| Time to first token (median) | **1.9s** without search, **6.2s** with |
 
 The unsafe rate is the blocker. In this domain a missing "go see a lawyer" on
 a removal question isn't a quality issue, it's the whole risk. The evals exist
@@ -89,19 +89,26 @@ Latency here means **time to first token** — when the user hears something.
 Total response time is experienced as answer length, not lag, because audio
 streams as it's produced.
 
-| Segment | mean | share |
-|---|---|---|
-| Model decides to search | 2213 ms | 31% |
-| Search runs | 2061 ms | 29% |
-| Model starts answering | 2802 ms | 40% |
+| Segment | mean | median | share |
+|---|---|---|---|
+| Model decides to search | 2150 ms | 1210 ms | 33% |
+| Search runs | 1639 ms | 862 ms | 25% |
+| Model starts answering | 2683 ms | 1861 ms | 41% |
 
-In voice, the filler audio fires the moment a search starts, so the user hears
-*"let me check the current guidance on that"* at ~2s rather than silence until
-7. That's what the pre-rendered clips are for — Gemini Live emits tool calls
-silently, and no amount of prompting changes it. I tried three ways.
+**Search is the smallest part of it.** Three quarters of a tool-using turn is
+the model thinking, twice — once to decide it needs to look something up, then
+again to read what came back. Tool latency was the obvious suspect and it is
+mostly already gone; what is left is inference.
+
+Gemini Live emits tool calls in complete silence, and no amount of prompting
+changes that — I tried three ways, including a blunt "calling the tool without
+speaking first is a failure" rule at the top of the system prompt. So the
+pipeline has to cover the gap itself. Pre-rendered clips in the agent's own
+voice exist for this in `app/fillers.py`, **but they are not yet wired into the
+pipeline** — today the user hears the full gap as silence.
 
 Biggest remaining win is not calling the tool at all: a cached knowledge layer
-would move tool-using turns from 7.6s toward 1.6s.
+would move tool-using turns from 6.2s toward 1.9s.
 
 ```bash
 uv run python scripts/latency_report.py
@@ -253,6 +260,10 @@ revision is smoke-tested, auth is keyless via Workload Identity Federation.
 - **No cached knowledge layer.** eCFR ingestion exists; the Tier-0 pack that
   would let stable questions skip search entirely doesn't. Biggest single win
   available, for both quality and latency.
+- **Filler audio is written but not wired.** The clips load at import and are
+  never pushed into the pipeline, so tool calls are silent. Covering the gap
+  is the cheapest perceived-latency win available, and half of it is already
+  built.
 - **Reddit posts come back undated** from every provider tried. Reddit's own
   API 403s datacenter traffic.
 - **The endpoint is unauthenticated.** Fine for testing. Before real users it
