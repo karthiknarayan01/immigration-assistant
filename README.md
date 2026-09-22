@@ -163,6 +163,18 @@ PYTHONPATH=. uv run python evals/run_eval.py --split holdout
 PYTHONPATH=. uv run python evals/run_eval.py --no-tools   # degraded mode
 ```
 
+**Degraded mode is measured, not assumed.** With search disabled — the state
+the agent lands in when tool credit runs out — holdout scores 2.04 with 27%
+unsafe. Manners and escalation survive losing retrieval; facts don't.
+Conversation holds at 2.75 while groundedness falls to 1.49, which is
+structural rather than behavioural: with nothing retrieved there is nothing
+to attribute to.
+
+That number is **not** comparable to the 1.86 headline. The headline run had
+tools on and predates the prompt restructure, so the two differ by two
+variables at once. Verifying the restructure didn't regress anything needs a
+tools-enabled run, which is still outstanding.
+
 ### What the evals caught
 
 - The agent said *"let me check the official guidance"* and then **never
