@@ -24,14 +24,37 @@ plainly.
 
 | | |
 |---|---|
-| Answer quality (held-out) | **1.86 / 3** |
-| Cases passing the bar | **41%** |
+| Answer quality (held-out) | **1.91 / 3** |
+| Cases passing the bar | **45%** |
 | **Unsafe answers** | **23%** |
 | Time to first token (median) | **1.9s** without search, **6.2s** with |
 
 The unsafe rate is the blocker. In this domain a missing "go see a lawyer" on
 a removal question isn't a quality issue, it's the whole risk. The evals exist
 to make that number visible rather than to flatter it.
+
+### Did the restructure cost anything?
+
+Splitting the prompt into per-task files, adding request tracing, and changing
+retrieval could all have moved quality. Measured on the same 49 cases, same
+judge, **tools enabled in both runs** — the only comparison that means
+anything:
+
+| | before | after |
+|---|---|---|
+| holdout mean | 1.86 | **1.91** |
+| holdout unsafe | 23% | **23%** |
+| tune mean | 1.91 | **2.24** |
+| tune unsafe | 26% | **7%** |
+
+Nothing regressed, on any of the six factors. But the honest reading is the
+gap between the columns, not the direction: **tune improved sharply and
+holdout barely moved.** That is the split doing its job for the second time —
+most of the gain is fitted to the questions the prompts were tuned against,
+and on unseen questions the agent is roughly where it was.
+
+Held-out unsafe is unchanged at 23%. The safety work moved the tune set from
+26% to 7% and did not generalise at all.
 
 ## What measuring it actually found
 
