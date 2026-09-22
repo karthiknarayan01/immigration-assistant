@@ -32,6 +32,9 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
   const [serviceUrl] = useState(() => process.env.NEXT_PUBLIC_VOICE_SERVICE_URL ?? "");
   const [phase, setPhase] = useState<VoicePhase>(() => (serviceUrl ? "connecting" : "error"));
   const [liveTranscript, setLiveTranscript] = useState("");
+  // What the agent is doing right now, in words meant for the person waiting.
+  // Empty when there is nothing outstanding.
+  const [statusLabel, setStatusLabel] = useState("");
   const [error, setError] = useState(() =>
     serviceUrl ? "" : "Voice service is not configured. Set NEXT_PUBLIC_VOICE_SERVICE_URL."
   );
@@ -116,13 +119,24 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
         // Nothing can generate speech at that point, so it has to surface here.
         onServerMessage: (data: unknown) => {
           const payload = data as
-            | { type?: string; message?: string; retryable?: boolean }
+            | {
+                type?: string;
+                message?: string;
+                retryable?: boolean;
+                state?: string;
+                label?: string;
+              }
             | null;
           if (payload?.type === "session-failure" && payload.message) {
             terminalRef.current = !payload.retryable;
             setIsTerminal(!payload.retryable);
             setPhase("error");
             setError(payload.message);
+          }
+          // The agent is off doing something that takes a few seconds. The
+          // filler audio says so out loud; this is the visible half.
+          if (payload?.type === "agent-status") {
+            setStatusLabel(payload.state === "working" ? (payload.label ?? "") : "");
           }
         },
         onError: (message) => {
@@ -197,6 +211,7 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
   return {
     phase,
     liveTranscript,
+    statusLabel,
     error,
     // Retrying a billing failure just reproduces it, so the UI hides the
     // button rather than inviting a pointless loop.

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useVoiceConversation, VoicePhase } from "@/hooks/useVoiceConversation";
+import { useWorkingTone } from "@/hooks/useWorkingTone";
 import { Role } from "@/lib/types";
 
 interface VoiceOverlayProps {
@@ -10,9 +11,14 @@ interface VoiceOverlayProps {
 }
 
 export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProps) {
-  const { phase, liveTranscript, error, canRetry, retry, toggleMute, sendText } =
+  const { phase, liveTranscript, statusLabel, error, canRetry, retry, toggleMute, sendText } =
     useVoiceConversation({ onTranscript });
   const [typedText, setTypedText] = useState("");
+
+  // The agent has already said out loud that it is checking something. This
+  // puts a quiet tone under the wait, so the pause reads as work rather than
+  // as a dropped call.
+  useWorkingTone(Boolean(statusLabel) && phase !== "error");
 
   const submitTyped = () => {
     const trimmed = typedText.trim();
@@ -47,6 +53,12 @@ export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProp
               </button>
             )}
           </div>
+        )}
+        {statusLabel && phase !== "error" && (
+          <p className="flex items-center gap-2 text-xs text-muted">
+            <span className="status-pulse h-1.5 w-1.5 rounded-full bg-accent" />
+            {statusLabel}…
+          </p>
         )}
         {liveTranscript && phase === "listening" && (
           <p className="max-w-md text-center text-base text-foreground/80">{liveTranscript}</p>

@@ -160,3 +160,28 @@ body {
 .orb-speaking {
   animation: orb-speak 1s ease-in-out infinite;
 }
+
+@keyframes status-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Marks "the agent is off doing something" next to the status label. Slow on
+   purpose: a fast blink reads as an alert rather than as patience. */
+.status-pulse {
+  animation: status-pulse 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pulse {
+    animation: none;
+    opacity: 0.8;
+  }
+}
