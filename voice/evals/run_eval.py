@@ -342,7 +342,24 @@ async def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--split", choices=("tune", "holdout", "all"), default="all")
+    parser.add_argument(
+        "--no-tools",
+        action="store_true",
+        help=(
+            "Run with search disabled, as if the provider credits were "
+            "exhausted. Measures degraded-mode behaviour: the agent should "
+            "say it could not check rather than guessing at current policy."
+        ),
+    )
     args = parser.parse_args()
+
+    if args.no_tools:
+        # Emptying the keys is what the tools themselves check, so this
+        # exercises the real degraded path rather than a special test mode.
+        settings.tavily_api_key = ""
+        settings.exa_api_key = ""
+        settings.parallel_api_key = ""
+        print("running with search DISABLED (simulating exhausted credits)\n")
 
     cases = load_cases()
     if args.split != "all":
@@ -396,6 +413,7 @@ async def main() -> int:
     report = {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "eval_model": EVAL_MODEL,
+        "tools_enabled": not args.no_tools,
         "production_model": settings.gemini_model,
         "judge_model": JUDGE_MODEL,
         "overall": summarise(rows),

@@ -22,6 +22,31 @@ from app.tools.sources import SourceTier, classify
 
 _TIMEOUT = httpx.Timeout(settings.tool_timeout_secs)
 
+#: One shared client, not one per search. Creating a client per call meant
+#: every tool call paid fresh TLS handshakes to three providers: measured
+#: warm, Tavily answers in ~70ms and Exa in ~180ms, but a cold call cost
+#: 2.5-6s. Connection setup, not search, was the bulk of tool latency.
+_client: httpx.AsyncClient | None = None
+
+
+def get_client() -> httpx.AsyncClient:
+    global _client
+    if _client is None or _client.is_closed:
+        _client = httpx.AsyncClient(
+            timeout=_TIMEOUT,
+            # Keep connections hot across turns in a long voice session.
+            limits=httpx.Limits(max_keepalive_connections=12, keepalive_expiry=300.0),
+        )
+    return _client
+
+
+async def aclose() -> None:
+    """Close the shared client; called when a session ends."""
+    global _client
+    if _client is not None and not _client.is_closed:
+        await _client.aclose()
+    _client = None
+
 
 #: Providers score relevance 0-1. Measured against real queries, off-topic
 #: results (a CBP hiring video for "H-1B premium processing") land below 0.1
@@ -183,11 +208,10 @@ async def _parallel(client: httpx.AsyncClient, query: str, limit: int) -> list[S
 async def search_community(query: str, *, limit: int = 8) -> list[SearchHit]:
     """Find forum accounts, preferring the provider that actually indexes them."""
     if settings.parallel_api_key:
-        async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
-            try:
-                return _rank(await _parallel(client, query, limit))
-            except Exception as error:  # noqa: BLE001 - fall back, don't fail the turn
-                _record_failure(error)
+        try:
+            return _rank(await _parallel(get_client(), query, limit))
+        except Exception as error:  # noqa: BLE001 - fall back, don't fail the turn
+            _record_failure(error)
 
     # Without Parallel, a plain unconstrained search still surfaces some
     # threads; pinning it to reddit.com collapses relevance instead.
@@ -254,13 +278,13 @@ async def search(query: str, *, domains: list[str] | None = None, limit: int = 5
     if not active:
         return []
 
-    async with httpx.AsyncClient(timeout=_TIMEOUT) as client:
-        tasks = []
-        if "tavily" in active:
-            tasks.append(_tavily(client, query, domains, limit))
-        if "exa" in active:
-            tasks.append(_exa(client, query, domains, limit))
-        settled = await asyncio.gather(*tasks, return_exceptions=True)
+    client = get_client()
+    tasks = []
+    if "tavily" in active:
+        tasks.append(_tavily(client, query, domains, limit))
+    if "exa" in active:
+        tasks.append(_exa(client, query, domains, limit))
+    settled = await asyncio.gather(*tasks, return_exceptions=True)
 
     merged: dict[str, SearchHit] = {}
     for result in settled:
