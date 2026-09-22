@@ -177,3 +177,36 @@ async def test_auth_failure_is_not_retried_even_with_budget():
     with _pytest.raises(_httpx.HTTPStatusError):
         await _attempt(denied, deadline=_time.monotonic() + 30, what="test")
     assert calls["n"] == 1
+
+
+def test_pooled_client_is_rebuilt_for_a_new_event_loop():
+    """A client outliving its loop fails every request with "Event loop is closed".
+
+    That failure is quiet in the worst way: searches return nothing, the agent
+    falls back to its own memory, and the answer still sounds confident. Found
+    when a second chat turn on a fresh loop silently stopped searching.
+
+    Sync on purpose — it needs two separate event loops, which cannot be
+    created from inside a running one.
+    """
+    import asyncio as _asyncio
+
+    from app.tools import providers as _providers
+
+    async def grab():
+        return _providers.get_client()
+
+    _asyncio.run(_providers.aclose())
+    first = _asyncio.run(grab())
+    second = _asyncio.run(grab())
+    assert second is not first, "a new loop must get its own client"
+    _asyncio.run(_providers.aclose())
+
+
+async def test_pooled_client_is_reused_within_one_loop():
+    """The pooling win only exists if the client survives across turns."""
+    from app.tools import providers as _providers
+
+    await _providers.aclose()
+    assert _providers.get_client() is _providers.get_client()
+    await _providers.aclose()

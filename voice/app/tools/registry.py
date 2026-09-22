@@ -27,6 +27,20 @@ from app.tools.sources import SEARCH_GROUPS, SourceTier
 
 MAX_SPOKEN_HITS = 4
 
+#: How much of each retrieved page the model gets to see.
+#:
+#: Was 600, which threw away half of what the providers had already returned
+#: and cost real accuracy: asked how many unemployment days STEM OPT allows,
+#: the excerpt cut off at "Students authorized fo..." immediately before the
+#: number, and the agent supplied a wrong one from memory. The figure is the
+#: whole value of an official page, and it is usually not in the first
+#: sentence.
+#:
+#: Four hits at this size is roughly 1.2k tokens of tool result — affordable
+#: against a ~2k system prompt, and it arrives after the user is already
+#: hearing filler audio.
+MAX_EXCERPT_CHARS = 1500
+
 
 def _format_official(hits) -> dict:
     results = []
@@ -34,7 +48,7 @@ def _format_official(hits) -> dict:
         results.append({
             "title": hit.title,
             "url": hit.url,
-            "excerpt": hit.text[:600],
+            "excerpt": hit.text[:MAX_EXCERPT_CHARS],
             "published": hit.published.date().isoformat() if hit.published else "undated",
             "archived": hit.is_archived,
             # The model is told to treat these tiers differently, so it has to
@@ -200,7 +214,11 @@ _SCHEMAS = [
             "Look up current official US immigration rules, policy, fees, or "
             "processing times from government sources and established immigration "
             "law firms. Use whenever the answer depends on current policy, because "
-            "your own knowledge may be out of date."
+            "your own knowledge may be out of date. "
+            "REQUIRED before stating any specific number — a grace period, day "
+            "count, deadline, filing fee, validity period, threshold, or cap. Do "
+            "not answer such a question from memory; remembered figures are "
+            "frequently stale and are acted on as though they were checked."
         ),
         properties={
             "query": {

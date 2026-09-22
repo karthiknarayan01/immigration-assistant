@@ -29,24 +29,39 @@ _TIMEOUT = httpx.Timeout(settings.tool_timeout_secs)
 #: 2.5-6s. Connection setup, not search, was the bulk of tool latency.
 _client: httpx.AsyncClient | None = None
 
+#: The loop the pooled client's connections belong to. A client outliving its
+#: loop fails every request with "Event loop is closed" — the connections are
+#: bound to the loop that opened them, not to the client object. A long-lived
+#: server has one loop and never hits this, but anything that runs turns on
+#: separate loops does, and it fails as a search outage rather than as an
+#: obvious crash: the agent falls back to memory and sounds fine.
+_client_loop: asyncio.AbstractEventLoop | None = None
+
 
 def get_client() -> httpx.AsyncClient:
-    global _client
-    if _client is None or _client.is_closed:
+    global _client, _client_loop
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if _client is None or _client.is_closed or _client_loop is not loop:
         _client = httpx.AsyncClient(
             timeout=_TIMEOUT,
             # Keep connections hot across turns in a long voice session.
             limits=httpx.Limits(max_keepalive_connections=12, keepalive_expiry=300.0),
         )
+        _client_loop = loop
     return _client
 
 
 async def aclose() -> None:
     """Close the shared client; called when a session ends."""
-    global _client
+    global _client, _client_loop
     if _client is not None and not _client.is_closed:
         await _client.aclose()
     _client = None
+    _client_loop = None
 
 
 #: A turn is only worth so much waiting. Retries are bounded by a deadline
@@ -188,7 +203,9 @@ async def _exa(client: httpx.AsyncClient, query: str, domains: list[str] | None,
     payload: dict = {
         "query": query,
         "numResults": limit,
-        "contents": {"text": {"maxCharacters": 1200}},
+        # Fetch more than the tool will forward, so the trim happens against
+        # real content rather than against an already-truncated snippet.
+        "contents": {"text": {"maxCharacters": 2400}},
     }
     if domains:
         payload["includeDomains"] = domains
