@@ -87,9 +87,24 @@ _RETRYABLE_ERRORS = (
 #: Retryable when raised as a plain API error rather than a typed exception.
 _RETRYABLE_MARKERS = ("RESOURCE_EXHAUSTED", "429", "503", "UNAVAILABLE", "INTERNAL", "500")
 
+#: Matched by class name because the streaming path runs on aiohttp rather
+#: than httpx, so these are not caught by the httpx types above. A payload
+#: that stops arriving mid-stream is a transport failure like any other.
+_RETRYABLE_NAMES = (
+    "ClientPayloadError",
+    "ClientConnectorError",
+    "ClientOSError",
+    "ServerDisconnectedError",
+    "ServerTimeoutError",
+    "IncompleteRead",
+    "ConnectionResetError",
+)
+
 
 def _is_retryable(error: BaseException) -> bool:
     if isinstance(error, _RETRYABLE_ERRORS):
+        return True
+    if type(error).__name__ in _RETRYABLE_NAMES:
         return True
     text = str(error)
     return any(marker in text for marker in _RETRYABLE_MARKERS)
@@ -436,10 +451,26 @@ async def main() -> int:
     for index, case in enumerate(cases, start=1):
         new_request(session_id="eval")
         try:
+            # Retried for the same reason the judge call is: a dropped
+            # connection mid-stream says nothing about the answer.
             with measure(STAGE_USER_TURN, "turn", case_id=case["id"]):
-                answer, tools_used = await ask(client, case["question"])
+                answer, tools_used = await with_backoff(
+                    lambda: ask(client, case["question"]), what="agent"
+                )
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
-            answer, tools_used = "", [f"ERROR: {type(error).__name__}"]
+            # Excluded rather than scored. An agent that never answered
+            # because the socket died is missing data, not a zero: judged as
+            # written, it reads as "the assistant said nothing", which scores
+            # 0 across every factor and counts as unsafe. One blip then looks
+            # like a safety regression.
+            unjudged.append({"id": case["id"], "error": f"agent: {type(error).__name__}"})
+            print(
+                f"[{index:>2}/{len(cases)}] {case['id']:<8} AGENT FAILED "
+                f"({type(error).__name__}) — excluded",
+                flush=True,
+            )
+            await asyncio.sleep(INTER_CASE_DELAY_SECS)
+            continue
 
         try:
             verdict = await with_backoff(

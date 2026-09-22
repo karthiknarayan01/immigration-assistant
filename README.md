@@ -62,6 +62,18 @@ A pattern from forums is only mentioned when **three different people** report
 it. Four posts by the same person is one opinion. Out-of-date numbers are
 thrown away entirely; out-of-date stories are kept but flagged as old.
 
+### Numbers get looked up, never recalled
+
+Any figure — a grace period, a deadline, a filing fee, a day count — is
+searched for before it's said. The assistant is not allowed to answer those
+from memory, because a remembered number is often a year or two out of date
+and sounds exactly as confident as a correct one.
+
+If it searches and can't find the exact figure, it tells you that and points
+you at the official page, rather than filling the gap with its best guess.
+That makes some answers less satisfying. It also means a number you're given
+is one it actually found.
+
 ---
 
 # Run your own
