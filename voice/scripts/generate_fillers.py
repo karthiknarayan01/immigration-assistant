@@ -27,6 +27,17 @@ OUT_DIR = pathlib.Path(__file__).resolve().parent.parent / "app" / "audio" / "fi
 # Varied on purpose: one fixed phrase becomes grating within a single
 # conversation. Split by tool so the wording matches what is happening.
 PHRASES = {
+    # Played ~250ms after the user stops talking, before the model has decided
+    # anything. Deliberately very short: on a fast turn the real answer starts
+    # at ~1.2s, so anything longer than about a second talks over it. These
+    # commit to nothing — the model may still be about to ask a clarifying
+    # question, so "let me look that up" would be wrong here.
+    "ack": [
+        "Okay.",
+        "Right.",
+        "Got it.",
+        "Sure.",
+    ],
     "official": [
         "Let me check the current guidance on that.",
         "One second, let me look that up.",
@@ -111,6 +122,12 @@ async def main() -> None:
         target = OUT_DIR / group
         target.mkdir(exist_ok=True)
         for phrase in phrases:
+            path = target / f"{slug(phrase)}.pcm"
+            if path.exists():
+                # Each render is a live session against Vertex. Adding one
+                # phrase should not re-bill the nine already on disk.
+                print(f"  have    {path.relative_to(OUT_DIR.parent.parent)}")
+                continue
             audio = await render(client, phrase)
             if not audio:
                 print(f"  SKIP (no audio): {phrase!r}")
@@ -118,7 +135,6 @@ async def main() -> None:
             audio = trim_silence(audio)
             # Raw 24 kHz mono s16le — the sample rate Gemini Live emits, so
             # the clip needs no conversion before going out the transport.
-            path = target / f"{slug(phrase)}.pcm"
             path.write_bytes(audio)
             print(f"  {len(audio):>7,} bytes  {path.relative_to(OUT_DIR.parent.parent)}")
 

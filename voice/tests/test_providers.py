@@ -97,3 +97,83 @@ def test_rank_relevance_overlaps_observed_tavily_range():
     # Tavily scored real results roughly 0.5-0.93; the proxy should sit in
     # that band so cross-provider merging stays meaningful.
     assert 0.5 <= _rank_relevance(0) <= 0.95
+
+
+# -- retry policy ------------------------------------------------------
+#
+# Retries exist to survive a blip, not to turn a failed turn into a slow one.
+# The cases that matter are the ones where retrying is the wrong call.
+
+import time as _time
+
+import httpx as _httpx
+import pytest as _pytest
+
+from app.tools.providers import (
+    MAX_RETRIES,
+    RETRY_BACKOFF_SECS,
+    _attempt,
+    _is_worth_retrying,
+)
+
+
+def _status_error(code: int) -> _httpx.HTTPStatusError:
+    request = _httpx.Request("POST", "https://example.test/search")
+    response = _httpx.Response(code, request=request)
+    return _httpx.HTTPStatusError("boom", request=request, response=response)
+
+
+def test_only_transient_failures_are_retried():
+    assert _is_worth_retrying(_status_error(500))
+    assert _is_worth_retrying(_status_error(429))
+    assert _is_worth_retrying(_httpx.ConnectTimeout("slow"))
+    assert _is_worth_retrying(_httpx.ConnectError("refused"))
+    # These return the same answer every time; retrying only costs silence.
+    assert not _is_worth_retrying(_status_error(401))
+    assert not _is_worth_retrying(_status_error(403))
+    assert not _is_worth_retrying(_status_error(402))
+
+
+async def test_retries_once_then_succeeds():
+    calls = {"n": 0}
+
+    async def flaky():
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise _httpx.ConnectError("refused")
+        return ["hit"]
+
+    result = await _attempt(flaky, deadline=_time.monotonic() + 10, what="test")
+    assert result == ["hit"]
+    assert calls["n"] == MAX_RETRIES + 1
+
+
+async def test_does_not_retry_when_the_budget_is_spent():
+    """The failure is transient, but there is no time left to try again.
+
+    This is the case an attempt-count retry gets wrong: it would start a
+    second call the turn cannot afford to wait for.
+    """
+    calls = {"n": 0}
+
+    async def flaky():
+        calls["n"] += 1
+        raise _httpx.ConnectError("refused")
+
+    with _pytest.raises(_httpx.ConnectError):
+        await _attempt(
+            flaky, deadline=_time.monotonic() + RETRY_BACKOFF_SECS / 2, what="test"
+        )
+    assert calls["n"] == 1
+
+
+async def test_auth_failure_is_not_retried_even_with_budget():
+    calls = {"n": 0}
+
+    async def denied():
+        calls["n"] += 1
+        raise _status_error(403)
+
+    with _pytest.raises(_httpx.HTTPStatusError):
+        await _attempt(denied, deadline=_time.monotonic() + 30, what="test")
+    assert calls["n"] == 1

@@ -4,7 +4,8 @@ import uuid
 from google.genai import types as genai_types
 from loguru import logger
 from pipecat.audio.vad.silero import SileroVADAnalyzer
-from pipecat.frames.frames import LLMRunFrame, OutputAudioRawFrame
+from pipecat.frames.frames import LLMRunFrame
+from pipecat.services.llm_service import FunctionCallParams
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.worker import PipelineParams, PipelineWorker
 from pipecat.processors.aggregators.llm_context import LLMContext
@@ -28,9 +29,8 @@ from pipecat.turns.user_turn_strategies import FilterIncompleteUserTurnStrategie
 from pipecat.workers.runner import WorkerRunner
 
 from app.config import settings
-from app.fillers import NUM_CHANNELS as FILLER_CHANNELS
-from app.fillers import SAMPLE_RATE as FILLER_SAMPLE_RATE
-from app.fillers import FillerPicker
+from app.filler_speaker import BotSpeechObserver, FillerSpeaker
+from app.status import AgentStatus
 from app.observability import (
     STAGE_USER_TURN,
     Timing,
@@ -50,7 +50,26 @@ from app.prompts import (
 from app.tools.registry import build_tools
 
 
-def _build_llm() -> GeminiLiveVertexLLMService:
+def _announced(name, handler, speaker: FillerSpeaker, status: AgentStatus):
+    """Wrap a tool handler so the user hears and sees that it is running.
+
+    Done here rather than inside the tools: covering silence is a property of
+    the transport, not of searching, and the same handlers run in the evals
+    where there is no audio pipeline at all.
+    """
+
+    async def wrapped(params: FunctionCallParams):
+        await speaker.speak_for_tool(name)
+        await status.working(name)
+        try:
+            return await handler(params)
+        finally:
+            await status.done()
+
+    return wrapped
+
+
+def _build_llm(speaker: FillerSpeaker, status: AgentStatus) -> GeminiLiveVertexLLMService:
     if not settings.google_cloud_project_id:
         raise RuntimeError(
             "GOOGLE_CLOUD_PROJECT_ID is not set. Vertex AI needs a project id; "
@@ -92,7 +111,7 @@ def _build_llm() -> GeminiLiveVertexLLMService:
     for name, handler in handlers.items():
         llm.register_function(
             name,
-            handler,
+            _announced(name, handler, speaker, status),
             timeout_secs=settings.tool_timeout_secs,
             # If the user starts talking again, whatever we were looking up is
             # no longer what they asked. Abandon it rather than answering late.
@@ -134,7 +153,12 @@ async def run_bot(websocket) -> None:
         ),
     )
 
-    llm = _build_llm()
+    # Both are bound to the pipeline further down: tool handlers are
+    # registered on the LLM service, which has to exist before the pipeline
+    # that will carry their audio and their status events.
+    speaker = FillerSpeaker()
+    status = AgentStatus()
+    llm = _build_llm(speaker, status)
 
     context = LLMContext()
     user_aggregator, assistant_aggregator = LLMContextAggregatorPair(
@@ -155,6 +179,7 @@ async def run_bot(websocket) -> None:
     # it reports a connection. Without this processor in the pipeline nothing
     # answers, so the client sits on "connecting" and retries every ~20s.
     rtvi = RTVIProcessor(transport=transport)
+    status.bind(rtvi)
 
     pipeline = Pipeline(
         [
@@ -173,14 +198,18 @@ async def run_bot(websocket) -> None:
         # The processor handles the protocol; the observer is what actually
         # emits RTVI events onto the wire. Pipecat rejects one without the
         # other, and the session then never becomes ready.
-        observers=[RTVIObserver(rtvi), SessionFailureObserver(rtvi)],
+        observers=[
+            RTVIObserver(rtvi),
+            SessionFailureObserver(rtvi),
+            BotSpeechObserver(speaker),
+        ],
         params=PipelineParams(enable_metrics=True, enable_usage_metrics=True),
     )
 
     runner = WorkerRunner(handle_sigint=False)
     await runner.add_workers(worker)
 
-    filler = FillerPicker()
+    speaker.bind(worker)
     turn_started: dict[str, float] = {}
 
     @user_aggregator.event_handler("on_user_turn_started")
@@ -189,10 +218,14 @@ async def run_bot(websocket) -> None:
         # whole turn: question, tool calls, and the answer finally spoken.
         request_id = new_request(session_id=session_id)
         turn_started[request_id] = time.perf_counter()
+        speaker.on_user_turn_started()
 
     @user_aggregator.event_handler("on_user_turn_message_added")
     async def on_user_turn_message_added(_aggregator, message):
         log_user_query(_message_text(message))
+        # The turn is complete here, so this is where the silence starts.
+        speaker.on_user_turn_ended()
+
 
     @assistant_aggregator.event_handler("on_assistant_turn_stopped")
     async def on_assistant_turn_stopped(_aggregator, message):

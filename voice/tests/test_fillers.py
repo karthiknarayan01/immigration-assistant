@@ -39,9 +39,16 @@ def test_picker_avoids_immediate_repeats():
 def test_clips_are_plausible_length():
     # Too short is unintelligible; too long and the answer is ready before the
     # filler finishes. Also catches the silence-padding regression.
+    #
+    # Acknowledgements are held to a tighter bound at the other end. They play
+    # before the model has decided anything, which puts them ahead of the real
+    # answer in the output queue, so their length is added to every turn they
+    # fire on.
+    bounds = {"ack": (0.2, 0.8)}
     for path in FILLER_DIR.rglob("*.pcm"):
         seconds = path.stat().st_size / 2 / SAMPLE_RATE
-        assert 0.8 <= seconds <= 3.5, f"{path.name} is {seconds:.2f}s"
+        low, high = bounds.get(path.parent.name, (0.8, 3.5))
+        assert low <= seconds <= high, f"{path.name} is {seconds:.2f}s"
 
 
 def test_clips_are_whole_samples_at_the_expected_format():

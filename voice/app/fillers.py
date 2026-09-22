@@ -31,6 +31,23 @@ TOOL_GROUPS = {
     "search_community_experiences": "community",
 }
 
+#: Short, non-committal clips played before the model has decided anything.
+#: Separate from the tool groups because at that point we do not yet know
+#: whether a search is coming, so the wording cannot promise one.
+ACK_GROUP = "ack"
+
+
+#: An acknowledgement is queued ahead of the real answer, so it delays that
+#: answer by its own length. Past about this, it stops covering the gap and
+#: starts being the gap — and on a fast turn it talks over the reply. Renders
+#: vary in pace enough that this has to be enforced rather than assumed: the
+#: same three words came back at 1.8s while "got it" came back at 0.35s.
+MAX_ACK_MS = 800
+
+
+def _duration_ms(clip: bytes) -> float:
+    return 1000 * len(clip) / (SAMPLE_RATE * NUM_CHANNELS * 2)
+
 
 def _load() -> dict[str, list[bytes]]:
     clips: dict[str, list[bytes]] = {}
@@ -40,7 +57,16 @@ def _load() -> dict[str, list[bytes]]:
     for group_dir in sorted(_DIR.iterdir()):
         if not group_dir.is_dir():
             continue
-        loaded = [p.read_bytes() for p in sorted(group_dir.glob("*.pcm"))]
+        loaded = []
+        for path in sorted(group_dir.glob("*.pcm")):
+            data = path.read_bytes()
+            if group_dir.name == ACK_GROUP and _duration_ms(data) > MAX_ACK_MS:
+                logger.warning(
+                    f"skipping {path.name}: {_duration_ms(data):.0f}ms is too long "
+                    f"for an acknowledgement (max {MAX_ACK_MS}ms)"
+                )
+                continue
+            loaded.append(data)
         if loaded:
             clips[group_dir.name] = loaded
     logger.info(
@@ -65,7 +91,13 @@ class FillerPicker:
         self._last: bytes | None = None
 
     def for_tool(self, function_name: str) -> bytes | None:
-        group = TOOL_GROUPS.get(function_name)
+        return self._pick(TOOL_GROUPS.get(function_name))
+
+    def acknowledgement(self) -> bytes | None:
+        """A short clip for the gap before the model has decided anything."""
+        return self._pick(ACK_GROUP)
+
+    def _pick(self, group: str | None) -> bytes | None:
         options = _CLIPS.get(group or "", [])
         if not options:
             return None
@@ -74,3 +106,8 @@ class FillerPicker:
         chosen = random.choice(choices)
         self._last = chosen
         return chosen
+
+
+def clip_duration_ms(clip: bytes) -> float:
+    """How long a clip takes to play, for scheduling what follows it."""
+    return 1000 * len(clip) / (SAMPLE_RATE * NUM_CHANNELS * 2)

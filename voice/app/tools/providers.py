@@ -9,6 +9,7 @@ reached through these providers' crawlers rather than fetched directly.
 """
 
 import asyncio
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from urllib.parse import urlparse, urlunparse
@@ -46,6 +47,52 @@ async def aclose() -> None:
     if _client is not None and not _client.is_closed:
         await _client.aclose()
     _client = None
+
+
+#: A turn is only worth so much waiting. Retries are bounded by a deadline
+#: rather than an attempt count: an attempt count lets a retry start at 4.5s
+#: of a 6s budget and make the turn worse than the failure would have. Once
+#: this much of the tool budget is gone, we answer with what we have.
+RETRY_DEADLINE_FRACTION = 0.5
+
+#: One retry, and only for failures that a retry can actually fix. Auth and
+#: billing problems return the same error every time, so retrying them buys
+#: nothing and costs the user a second of silence.
+MAX_RETRIES = 1
+
+#: How long to wait before the single retry. Long enough to clear a blip,
+#: short enough to stay inside the budget above.
+RETRY_BACKOFF_SECS = 0.25
+
+
+def _is_worth_retrying(error: BaseException) -> bool:
+    if isinstance(error, httpx.HTTPStatusError):
+        # 5xx and 429 may differ next time; 401/403/402 will not.
+        status = error.response.status_code
+        return status >= 500 or status == 429
+    # Timeouts and dropped connections are the canonical transient case.
+    return isinstance(error, (httpx.TimeoutException, httpx.TransportError))
+
+
+async def _attempt(coro_factory, *, deadline: float, what: str):
+    """Run a provider call, retrying once if that is both useful and affordable."""
+    for attempt in range(MAX_RETRIES + 1):
+        try:
+            return await coro_factory()
+        except Exception as error:  # noqa: BLE001 - classified below
+            remaining = deadline - time.monotonic()
+            if (
+                attempt == MAX_RETRIES
+                or not _is_worth_retrying(error)
+                or remaining <= RETRY_BACKOFF_SECS
+            ):
+                raise
+            logger.info(
+                f"{what} failed ({type(error).__name__}); one retry, "
+                f"{remaining:.1f}s of budget left"
+            )
+            await asyncio.sleep(RETRY_BACKOFF_SECS)
+    raise RuntimeError("unreachable")
 
 
 #: Providers score relevance 0-1. Measured against real queries, off-topic
@@ -208,8 +255,15 @@ async def _parallel(client: httpx.AsyncClient, query: str, limit: int) -> list[S
 async def search_community(query: str, *, limit: int = 8) -> list[SearchHit]:
     """Find forum accounts, preferring the provider that actually indexes them."""
     if settings.parallel_api_key:
+        deadline = time.monotonic() + settings.tool_timeout_secs * RETRY_DEADLINE_FRACTION
         try:
-            return _rank(await _parallel(get_client(), query, limit))
+            return _rank(
+                await _attempt(
+                    lambda: _parallel(get_client(), query, limit),
+                    deadline=deadline,
+                    what="parallel",
+                )
+            )
         except Exception as error:  # noqa: BLE001 - fall back, don't fail the turn
             _record_failure(error)
 
@@ -279,11 +333,20 @@ async def search(query: str, *, domains: list[str] | None = None, limit: int = 5
         return []
 
     client = get_client()
+    # Shared across both providers: the budget belongs to the turn, not to
+    # each call, so a slow Tavily retry cannot also delay Exa's.
+    deadline = time.monotonic() + settings.tool_timeout_secs * RETRY_DEADLINE_FRACTION
     tasks = []
     if "tavily" in active:
-        tasks.append(_tavily(client, query, domains, limit))
+        tasks.append(
+            _attempt(
+                lambda: _tavily(client, query, domains, limit), deadline=deadline, what="tavily"
+            )
+        )
     if "exa" in active:
-        tasks.append(_exa(client, query, domains, limit))
+        tasks.append(
+            _attempt(lambda: _exa(client, query, domains, limit), deadline=deadline, what="exa")
+        )
     settled = await asyncio.gather(*tasks, return_exceptions=True)
 
     merged: dict[str, SearchHit] = {}
