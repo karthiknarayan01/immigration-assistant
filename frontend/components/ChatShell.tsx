@@ -9,7 +9,8 @@ import { useChatSession } from "@/hooks/useChatSession";
 import { Role } from "@/lib/types";
 
 export default function ChatShell() {
-  const { messages, sendMessage, appendMessage, clearSession, isSending, isLoaded } = useChatSession();
+  const { messages, sendMessage, appendMessage, clearSession, isSending, isLoaded, statusLabel } =
+    useChatSession();
   const [voiceOpen, setVoiceOpen] = useState(false);
 
   const handleSend = useCallback(
@@ -29,7 +30,13 @@ export default function ChatShell() {
   return (
     <div className="relative flex h-dvh flex-col overflow-hidden bg-background text-foreground">
       <Header onNewChat={clearSession} />
-      <MessageList messages={messages} isLoaded={isLoaded} isSending={isSending} onSuggestion={handleSend} />
+      <MessageList
+        messages={messages}
+        isLoaded={isLoaded}
+        isSending={isSending}
+        statusLabel={statusLabel}
+        onSuggestion={handleSend}
+      />
       <Composer onSend={handleSend} onOpenVoice={() => setVoiceOpen(true)} disabled={isSending} />
       {voiceOpen && (
         <VoiceOverlay onTranscript={handleVoiceTranscript} onClose={() => setVoiceOpen(false)} />

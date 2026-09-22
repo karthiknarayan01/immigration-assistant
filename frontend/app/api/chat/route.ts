@@ -6,28 +6,66 @@ interface ChatRequestBody {
   newMessage: string;
 }
 
-// TODO: replace this stub with a call to the real backend — e.g. the ADK
-// agent exposed via `adk api_server`, or a thin FastAPI wrapper around
-// agents/*.py — forwarding `summary` + `recentMessages` + `newMessage` as
-// the model's context and streaming its output back the same way.
+/**
+ * Proxies chat to the voice service, which runs the same system prompt and
+ * the same tools as the voice agent.
+ *
+ * A proxy rather than a direct browser call so the service URL and any future
+ * credentials stay server-side, and so the page talks to a single origin.
+ *
+ * The upstream speaks server-sent events: answer tokens and "what am I doing"
+ * status updates share one ordered stream. That ordering is the point — a
+ * status must never arrive after the answer it describes — so the body is
+ * passed through untouched rather than re-chunked here.
+ */
 export async function POST(req: Request) {
-  const { newMessage } = (await req.json()) as ChatRequestBody;
+  const body = (await req.json()) as ChatRequestBody;
 
-  const reply =
-    `This is a placeholder response — the frontend isn't connected to the immigration agent yet. ` +
-    `You asked: "${newMessage}". Once the backend API is wired up here, real answers grounded in ` +
-    `USCIS sources will stream in instead.`;
+  const serviceUrl = process.env.VOICE_SERVICE_URL ?? process.env.NEXT_PUBLIC_VOICE_SERVICE_URL;
+  if (!serviceUrl) {
+    return sseError(
+      "The assistant isn't configured yet. Set VOICE_SERVICE_URL and try again.",
+      false
+    );
+  }
 
-  const encoder = new TextEncoder();
-  const stream = new ReadableStream({
-    async start(controller) {
-      for (const word of reply.split(" ")) {
-        controller.enqueue(encoder.encode(word + " "));
-        await new Promise((resolve) => setTimeout(resolve, 25));
-      }
-      controller.close();
+  let upstream: Response;
+  try {
+    upstream = await fetch(`${serviceUrl.replace(/\/$/, "")}/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch {
+    return sseError("Couldn't reach the assistant. Check your connection and try again.", true);
+  }
+
+  if (!upstream.ok || !upstream.body) {
+    return sseError(
+      upstream.status === 429
+        ? "The assistant is over its usage limit right now."
+        : "The assistant isn't responding right now. Please try again shortly.",
+      upstream.status !== 429
+    );
+  }
+
+  return new Response(upstream.body, {
+    headers: {
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache",
+      // Without this some proxies buffer the whole stream and deliver the
+      // answer in one lump at the end, which defeats streaming entirely.
+      "X-Accel-Buffering": "no",
     },
   });
+}
 
-  return new Response(stream, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+/** Report a failure in the upstream's shape, so the client has one path to handle. */
+function sseError(message: string, retryable: boolean) {
+  const payload =
+    `event: error\ndata: ${JSON.stringify({ message, retryable })}\n\n` +
+    `event: done\ndata: {}\n\n`;
+  return new Response(payload, {
+    headers: { "Content-Type": "text/event-stream; charset=utf-8", "Cache-Control": "no-cache" },
+  });
 }

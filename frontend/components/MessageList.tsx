@@ -15,10 +15,17 @@ interface MessageListProps {
   messages: Message[];
   isLoaded: boolean;
   isSending: boolean;
+  statusLabel: string;
   onSuggestion: (text: string) => void;
 }
 
-export default function MessageList({ messages, isLoaded, isSending, onSuggestion }: MessageListProps) {
+export default function MessageList({
+  messages,
+  isLoaded,
+  isSending,
+  statusLabel,
+  onSuggestion,
+}: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -59,6 +66,12 @@ export default function MessageList({ messages, isLoaded, isSending, onSuggestio
             isStreaming={isSending && i === messages.length - 1 && message.role === "assistant"}
           />
         ))}
+        {statusLabel && (
+          <p className="flex items-center gap-2 pl-1 text-xs text-muted">
+            <span className="status-pulse h-1.5 w-1.5 rounded-full bg-accent" />
+            {statusLabel}…
+          </p>
+        )}
       </div>
       <div ref={bottomRef} />
     </div>
