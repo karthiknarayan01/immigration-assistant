@@ -21,6 +21,7 @@ from app.observability import (
     log_tool_result,
     measure,
 )
+from app import knowledge
 from app.tools import providers
 from app.tools.credibility import Anecdote, filter_anecdotes
 from app.tools.sources import SEARCH_GROUPS, SourceTier
@@ -42,6 +43,34 @@ MAX_SPOKEN_HITS = 4
 MAX_EXCERPT_CHARS = 1500
 
 
+#: Past this, a figure that can change is treated as unverified. Judged
+#: against the failure it exists to prevent: a real Federal Register page
+#: stating a superseded $460 filing fee was cited as current, because
+#: nothing in the payload said how old the page was in terms the model
+#: would act on.
+STALE_AFTER_DAYS = 365
+
+
+def _age_note(published) -> str:
+    """Say plainly whether a figure from this source can be trusted as current.
+
+    The date alone is not enough. Asked to compare a date against today, the
+    model reliably gets the arithmetic right and then uses the number anyway,
+    so the judgement is made here and stated as an instruction.
+    """
+    if published is None:
+        return "undated — do not state any fee, processing time or quota from this as current"
+    age_days = (datetime.now(timezone.utc) - published).days
+    if age_days > STALE_AFTER_DAYS:
+        years = age_days / 365
+        return (
+            f"{years:.1f} years old — treat any fee, processing time or quota "
+            "here as possibly superseded; say when it was published and send "
+            "the user to the official page"
+        )
+    return "recent — figures here may be stated as current, with the date"
+
+
 def _format_official(hits) -> dict:
     results = []
     for hit in hits[:MAX_SPOKEN_HITS]:
@@ -50,6 +79,7 @@ def _format_official(hits) -> dict:
             "url": hit.url,
             "excerpt": hit.text[:MAX_EXCERPT_CHARS],
             "published": hit.published.date().isoformat() if hit.published else "undated",
+            "currency": _age_note(hit.published),
             "archived": hit.is_archived,
             # The model is told to treat these tiers differently, so it has to
             # be able to see which is which.
@@ -207,7 +237,89 @@ async def search_community_experiences(params: FunctionCallParams):
     })
 
 
+async def lookup_regulation(params: FunctionCallParams):
+    """Read the regulation text itself, from a local copy of the CFR.
+
+    Faster and more complete than web search for the rules that do not
+    change: no network call, and the full text of the section rather than
+    whichever 1500 characters a search provider chose to return.
+    """
+    query = str(params.arguments.get("query", "")).strip()
+    if not query:
+        await params.result_callback({"error": "No query provided."})
+        return
+
+    if not knowledge.available():
+        await params.result_callback({
+            "unavailable": True,
+            "message": (
+                "The regulation text is not loaded. Use search_official_guidance "
+                "instead, and say you could not check the regulation directly."
+            ),
+        })
+        return
+
+    log_tool_call("lookup_regulation", {"query": query})
+    with measure(STAGE_TOOL, "lookup_regulation", query_chars=len(query)) as span:
+        passages = knowledge.search(query, limit=3)
+        span["hits"] = len(passages)
+
+    if not passages:
+        await params.result_callback({
+            "results": [],
+            "count": 0,
+            "guidance": (
+                "Nothing in the regulations matched. Try search_official_guidance, "
+                "which also covers USCIS policy and guidance rather than only the "
+                "regulation text."
+            ),
+        })
+        return
+
+    payload = {
+        "results": [
+            {
+                "citation": p.citation,
+                "heading": p.heading,
+                "text": p.text,
+            }
+            for p in passages
+        ],
+        "count": len(passages),
+        "as_of": knowledge.AS_OF,
+        "guidance": (
+            "This is the current regulation text. State it as fact and cite the "
+            "section. It does NOT contain fees, processing times or the visa "
+            "bulletin — search for those instead, because they change."
+        ),
+    }
+    log_tool_result("lookup_regulation", payload)
+    await params.result_callback(payload)
+
+
 _SCHEMAS = [
+    FunctionSchema(
+        name="lookup_regulation",
+        description=(
+            "Read the actual text of US immigration regulations (8 CFR) from a "
+            "local copy — instant, no network. Use this FIRST for anything the "
+            "regulations settle: grace periods, day counts, unemployment limits, "
+            "status conditions, eligibility requirements, change of status rules. "
+            "It returns the full section with its citation. It does NOT contain "
+            "fees, processing times or the visa bulletin, because those change — "
+            "use search_official_guidance for those."
+        ),
+        properties={
+            "query": {
+                "type": "string",
+                "description": (
+                    "What rule to look up, e.g. 'unemployment days allowed on "
+                    "post-completion OPT' or 'grace period after H-1B employment ends'."
+                ),
+            }
+        },
+        required=["query"],
+    ),
     FunctionSchema(
         name="search_official_guidance",
         description=(
@@ -250,6 +362,7 @@ _SCHEMAS = [
 _HANDLERS = {
     "search_official_guidance": search_official_guidance,
     "search_community_experiences": search_community_experiences,
+    "lookup_regulation": lookup_regulation,
 }
 
 

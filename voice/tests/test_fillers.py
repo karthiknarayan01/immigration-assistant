@@ -13,10 +13,35 @@ def test_clips_are_shipped_for_every_group():
         assert _CLIPS.get(group), f"no clips for {group}"
 
 
-def test_every_registered_tool_has_filler_audio():
-    # A new tool without a clip would silently reintroduce the dead air.
+#: Tools fast enough that there is no silence to cover. Filler before one of
+#: these would *add* delay rather than mask it — the clip is ~1.7s and the
+#: lookup is under a millisecond, so the agent would announce a search that
+#: had already finished.
+INSTANT_TOOLS = {"lookup_regulation"}
+
+
+def test_every_slow_tool_has_filler_audio():
+    # A new network-bound tool without a clip would silently reintroduce the
+    # dead air this whole mechanism exists to remove.
     for name in _HANDLERS:
+        if name in INSTANT_TOOLS:
+            continue
         assert name in TOOL_GROUPS, f"{name} has no filler group"
+
+
+def test_instant_tools_are_actually_instant():
+    """Guards the exemption above: if one of these gains a network call, the
+    exemption becomes the bug it was written to avoid."""
+    import time
+
+    from app import knowledge
+
+    if not knowledge.available():
+        return  # pack not built in this environment
+    started = time.perf_counter()
+    knowledge.search("grace period after employment ends", limit=3)
+    elapsed_ms = (time.perf_counter() - started) * 1000
+    assert elapsed_ms < 50, f"lookup took {elapsed_ms:.0f}ms — it now needs filler audio"
 
 
 def test_picker_returns_audio_for_known_tools():

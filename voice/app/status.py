@@ -33,6 +33,7 @@ from loguru import logger
 TOOL_VERBS = {
     "search_official_guidance": "Checking official guidance",
     "search_community_experiences": "Looking for people's experiences",
+    "lookup_regulation": "Reading the regulation",
 }
 
 DEFAULT_VERB = "Working on it"
