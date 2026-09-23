@@ -24,14 +24,14 @@ plainly.
 
 | | |
 |---|---|
-| Answer quality (held-out) | **1.89 / 3** |
-| Cases passing the bar | **32%** |
-| **Unsafe answers** | **27%** |
+| Answer quality (held-out) | **2.13 / 3** |
+| Cases passing the bar | **50%** |
+| **Unsafe answers** | **23%** |
 | Time to first token (median) | **1.9s** without search, **6.2s** with |
 
-Those are the numbers as `main` stands, including the regression described
-under known gaps. Before it, held-out was 1.91 with 45% passing and 23%
-unsafe.
+Best measured so far, after giving the agent the regulation text directly
+and making source staleness visible to it. The regression that preceded this
+(1.89 / 32% / 27%) is fixed.
 
 The unsafe rate is the blocker. In this domain a missing "go see a lawyer" on
 a removal question isn't a quality issue, it's the whole risk. The evals exist
@@ -338,21 +338,21 @@ revision is smoke-tested, auth is keyless via Workload Identity Federation.
 
 ## Known gaps
 
-- **27% of held-out answers are unsafe.** Blocking, and currently worse than
-  it was. A prompt change intended to stop the agent inventing numbers made it
-  assert retrieved ones instead, without checking their dates — it quoted a
-  superseded $460 filing fee and attributed it to the Federal Register. The
-  experiment is `1dd5509` and reverting it restores 23%.
+- **23% of held-out answers are unsafe.** Still the blocker. What remains is
+  not a knowledge gap: for the cases that fail, the governing text is usually
+  in the local pack and the retrieval does not surface it.
 - **Groundedness is weakest at 1.57.** Partly structural rather than
   behavioural: on turns where the agent does not search there is no source to
   attribute to, so no instruction can produce one.
-- **Volatile figures are not date-checked.** The `published` date is already
-  in every tool result and nothing reads it. A retrieved fee or processing
-  time can be years stale and is quoted as current. This is the specific gap
-  behind the regression above, and the next thing worth fixing.
-- **No cached knowledge layer.** eCFR ingestion exists; the Tier-0 pack that
-  would let stable questions skip search entirely doesn't. Biggest single win
-  available, for both quality and latency.
+- **Regulation retrieval is imprecise.** BM25 over 684 chunks returns Border
+  Crossing Card rules for a green card revocation question, and a
+  Haiti-specific provision for an advance parole question. The routing to the
+  right tool is fixed; picking the right section within it is not. This is now
+  the largest single cause of remaining failures.
+- **The USCIS Policy Manual is not ingested.** The CFR pack does not contain
+  cap-gap or preconceived intent, which are policy and consular doctrine
+  rather than regulation text. uscis.gov is reachable from a laptop, so this
+  is available work.
 - **Reddit posts come back undated** from every provider tried — measured
   again on 2026-09-23, 0 of 6 community hits carried a date. Reddit's own API
   403s datacenter traffic.
