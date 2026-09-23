@@ -24,10 +24,14 @@ plainly.
 
 | | |
 |---|---|
-| Answer quality (held-out) | **1.91 / 3** |
-| Cases passing the bar | **45%** |
-| **Unsafe answers** | **23%** |
+| Answer quality (held-out) | **1.89 / 3** |
+| Cases passing the bar | **32%** |
+| **Unsafe answers** | **27%** |
 | Time to first token (median) | **1.9s** without search, **6.2s** with |
+
+Those are the numbers as `main` stands, including the regression described
+under known gaps. Before it, held-out was 1.91 with 45% passing and 23%
+unsafe.
 
 The unsafe rate is the blocker. In this domain a missing "go see a lawyer" on
 a removal question isn't a quality issue, it's the whole risk. The evals exist
@@ -334,18 +338,23 @@ revision is smoke-tested, auth is keyless via Workload Identity Federation.
 
 ## Known gaps
 
-- **23% of held-out answers are unsafe.** Blocking. The escalation checklist
-  still misses situations adjacent to its triggers — lapsed work
-  authorisation, preconceived intent on a change of status.
-- **Groundedness is weakest at 1.65.** The agent retrieves good sources then
-  answers without attributing to them.
+- **27% of held-out answers are unsafe.** Blocking, and currently worse than
+  it was. A prompt change intended to stop the agent inventing numbers made it
+  assert retrieved ones instead, without checking their dates — it quoted a
+  superseded $460 filing fee and attributed it to the Federal Register. The
+  experiment is `1dd5509` and reverting it restores 23%.
+- **Groundedness is weakest at 1.57.** Partly structural rather than
+  behavioural: on turns where the agent does not search there is no source to
+  attribute to, so no instruction can produce one.
+- **Volatile figures are not date-checked.** The `published` date is already
+  in every tool result and nothing reads it. A retrieved fee or processing
+  time can be years stale and is quoted as current. This is the specific gap
+  behind the regression above, and the next thing worth fixing.
 - **No cached knowledge layer.** eCFR ingestion exists; the Tier-0 pack that
   would let stable questions skip search entirely doesn't. Biggest single win
   available, for both quality and latency.
-- **The chat interface is still a stub.** `/api/chat` returns a canned string
-  and never reaches the agent. Voice is the real product today; the text path
-  is scaffolding.
-- **Reddit posts come back undated** from every provider tried. Reddit's own
-  API 403s datacenter traffic.
+- **Reddit posts come back undated** from every provider tried — measured
+  again on 2026-09-23, 0 of 6 community hits carried a date. Reddit's own API
+  403s datacenter traffic.
 - **The endpoint is unauthenticated.** Fine for testing. Before real users it
   needs rate limiting, or anyone with the URL spends the credits.
