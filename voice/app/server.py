@@ -11,9 +11,9 @@ from pydantic import BaseModel
 
 from app.bot import run_bot
 from app.config import settings
-from app.failures import FailureKind, session_failure_message
+from app.failures import classify_exception, session_failure_message
 from app.observability import log_agent_response, log_user_query, new_request
-from app.text_agent import StatusEvent, stream_answer
+from app.text_agent import AgentUnavailable, StatusEvent, stream_answer
 
 app = FastAPI()
 
@@ -99,19 +99,28 @@ async def chat(request: ChatRequest):
                 yield _sse("token", {"text": chunk})
             if pending_status:
                 yield pending_status
-        except Exception as error:  # noqa: BLE001 - the client needs to hear why
-            kind = (
-                FailureKind.FUNDS
-                if "RESOURCE_EXHAUSTED" in str(error) or "429" in str(error)
-                else FailureKind.CONNECTIVITY
+        except AgentUnavailable as error:
+            # Already classified where it happened, so the user is told which
+            # problem this is rather than a generic apology.
+            failure = error.failure
+            logger.warning(f"chat turn failed: {failure.kind.value} ({failure.detail})")
+            yield _sse(
+                "error",
+                {
+                    "kind": failure.kind.value,
+                    "message": session_failure_message(failure.kind),
+                    "retryable": failure.retryable,
+                },
             )
+        except Exception as error:  # noqa: BLE001 - the client needs to hear why
+            failure = classify_exception(error)
             logger.exception("chat turn failed")
             yield _sse(
                 "error",
                 {
-                    "kind": kind.value,
-                    "message": session_failure_message(kind),
-                    "retryable": kind is FailureKind.CONNECTIVITY,
+                    "kind": failure.kind.value,
+                    "message": session_failure_message(failure.kind),
+                    "retryable": failure.retryable,
                 },
             )
         else:

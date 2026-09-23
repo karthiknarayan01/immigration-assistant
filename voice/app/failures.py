@@ -11,6 +11,7 @@ Two very different cases:
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from enum import Enum
 
 from pipecat.frames.frames import ErrorFrame
@@ -52,6 +53,89 @@ def classify_status(status_code: int) -> FailureKind:
     if status_code >= 500:
         return FailureKind.CONNECTIVITY
     return FailureKind.OTHER
+
+
+@dataclass(frozen=True)
+class Failure:
+    """What went wrong, and whether trying again could help.
+
+    Kind and retryability are deliberately separate. Kind answers "what do we
+    tell the user"; retryable answers "should we try again". Those have
+    different answers for the same status: 429 and 402 both read as FUNDS to
+    a person — the service is over its limit — but a 429 usually succeeds on
+    retry and a 402 never will. Collapsing them means either retrying
+    something hopeless or giving up on something transient.
+    """
+
+    kind: FailureKind
+    retryable: bool
+    detail: str = ""
+
+
+#: Transport failures, matched by class name so this stays independent of
+#: which HTTP library a given path uses — streaming model calls run on
+#: aiohttp while search runs on httpx, and an earlier httpx-only check let
+#: aiohttp's ClientPayloadError through as if it were a model failure.
+_TRANSPORT_ERROR_NAMES = frozenset({
+    "ClientPayloadError",
+    "ClientConnectorError",
+    "ClientOSError",
+    "ServerDisconnectedError",
+    "ServerTimeoutError",
+    "RemoteProtocolError",
+    "ConnectError",
+    "ConnectTimeout",
+    "ReadTimeout",
+    "ReadError",
+    "WriteError",
+    "PoolTimeout",
+    "IncompleteRead",
+    "ConnectionResetError",
+    "TimeoutError",
+})
+
+#: Upstream busy or briefly broken, rather than refusing us outright.
+_TRANSIENT_HINTS = ("resource_exhausted", "rate limit", "429", "503", "unavailable", "timeout")
+
+
+def classify_status_detail(status_code: int) -> Failure:
+    """Classify an HTTP status, keeping retryability separate from kind."""
+    if status_code == 429:
+        # Over the rate limit, not out of money. Backing off is the fix.
+        return Failure(FailureKind.FUNDS, retryable=True, detail=f"HTTP {status_code}")
+    if status_code == 402:
+        return Failure(FailureKind.FUNDS, retryable=False, detail=f"HTTP {status_code}")
+    if status_code in (401, 403):
+        return Failure(FailureKind.AUTH, retryable=False, detail=f"HTTP {status_code}")
+    if status_code >= 500:
+        return Failure(FailureKind.CONNECTIVITY, retryable=True, detail=f"HTTP {status_code}")
+    return Failure(FailureKind.OTHER, retryable=False, detail=f"HTTP {status_code}")
+
+
+def classify_exception(error: BaseException) -> Failure:
+    """Classify any exception raised by an outbound call.
+
+    Unknown errors are deliberately NOT retryable. Retrying a genuine bug
+    turns one stack trace into several, and delays the failure the user is
+    waiting on without ever succeeding.
+    """
+    status = getattr(getattr(error, "response", None), "status_code", None)
+    if isinstance(status, int):
+        return classify_status_detail(status)
+
+    if type(error).__name__ in _TRANSPORT_ERROR_NAMES:
+        return Failure(FailureKind.CONNECTIVITY, retryable=True, detail=type(error).__name__)
+
+    message = str(error).lower()
+    if any(hint in message for hint in _AUTH_HINTS):
+        return Failure(FailureKind.AUTH, retryable=False, detail=type(error).__name__)
+    # Checked before the broader funds hints: "quota exceeded" is permanent,
+    # "rate limit" is not, and they share vocabulary.
+    if any(hint in message for hint in _TRANSIENT_HINTS):
+        return Failure(FailureKind.FUNDS, retryable=True, detail=type(error).__name__)
+    if any(hint in message for hint in _FUNDS_HINTS):
+        return Failure(FailureKind.FUNDS, retryable=False, detail=type(error).__name__)
+    return Failure(FailureKind.OTHER, retryable=False, detail=type(error).__name__)
 
 
 def classify_error_frame(frame: ErrorFrame) -> FailureKind:

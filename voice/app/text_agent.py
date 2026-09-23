@@ -18,12 +18,16 @@ what the agent knows or refuses to do.
 
 from __future__ import annotations
 
+import asyncio
 import time
 from collections.abc import AsyncIterator, Callable, Awaitable
 from dataclasses import dataclass
 
 from google import genai
 from google.genai import types
+
+from app.failures import Failure, classify_exception
+from app.retry import with_retry
 
 from app.observability import (
     SEGMENT_ANSWER_FIRST_TOKEN,
@@ -50,6 +54,24 @@ CHAT_MODEL = "gemini-2.5-flash"
 #: A tool round is a search plus the model reading it. Four is generous for a
 #: single question; past that the model is looping rather than converging.
 MAX_TOOL_ROUNDS = 4
+
+#: Restarts of a round whose stream died before any text reached the user.
+#: Once words are on screen a retry would repeat them, so it stops instead.
+MAX_STREAM_RETRIES = 1
+STREAM_RETRY_BACKOFF_SECS = 0.4
+
+
+class AgentUnavailable(Exception):
+    """The turn could not be completed, with the reason already classified.
+
+    Carries the Failure so the caller can tell the user whether this was a
+    billing problem, a configuration problem, or a blip worth retrying —
+    rather than every failure reaching them as "something went wrong".
+    """
+
+    def __init__(self, failure: Failure):
+        super().__init__(f"{failure.kind.value}: {failure.detail}")
+        self.failure = failure
 
 
 @dataclass
@@ -186,25 +208,54 @@ async def stream_answer(
         parts: list = []
         round_opened = False
 
-        stream = await client.aio.models.generate_content_stream(
-            model=CHAT_MODEL, contents=contents, config=config
-        )
-        async for chunk in stream:
-            if first_token_ms is None and _has_content(chunk):
-                first_token_ms = (time.perf_counter() - segment_start) * 1000
-            for candidate in getattr(chunk, "candidates", None) or []:
-                content = getattr(candidate, "content", None)
-                for part in getattr(content, "parts", None) or []:
-                    parts.append(part)
-                    # Stream text out as it arrives rather than after the
-                    # round completes: the whole point of the text path is
-                    # that the user sees words appearing.
-                    if getattr(part, "text", None):
-                        if text_already_yielded and not round_opened:
-                            yield "\n\n"
-                        round_opened = True
-                        text_already_yielded = True
-                        yield part.text
+        # A stream can die at connect or halfway through. Both are worth
+        # retrying, but only while nothing has reached the user yet — once
+        # words are on screen, a retry would repeat them.
+        attempts = 0
+        while True:
+            yielded_this_round = 0
+            parts = []
+            first_token_ms = None
+            try:
+                stream = await with_retry(
+                    lambda: client.aio.models.generate_content_stream(
+                        model=CHAT_MODEL, contents=contents, config=config
+                    ),
+                    what="model",
+                )
+                async for chunk in stream:
+                    if first_token_ms is None and _has_content(chunk):
+                        first_token_ms = (time.perf_counter() - segment_start) * 1000
+                    for candidate in getattr(chunk, "candidates", None) or []:
+                        content = getattr(candidate, "content", None)
+                        for part in getattr(content, "parts", None) or []:
+                            parts.append(part)
+                            # Stream text out as it arrives rather than after
+                            # the round completes: the whole point of the text
+                            # path is that the user sees words appearing.
+                            if getattr(part, "text", None):
+                                if text_already_yielded and not round_opened:
+                                    yield "\n\n"
+                                round_opened = True
+                                text_already_yielded = True
+                                yielded_this_round += len(part.text)
+                                yield part.text
+                break
+            except Exception as error:  # noqa: BLE001 - classified and re-raised
+                failure = classify_exception(error)
+                can_retry = (
+                    failure.retryable
+                    and yielded_this_round == 0
+                    and attempts < MAX_STREAM_RETRIES
+                )
+                if not can_retry:
+                    bound().warning(
+                        f"chat turn failed ({failure.detail}, {failure.kind.value})"
+                    )
+                    raise AgentUnavailable(failure) from error
+                attempts += 1
+                bound().info(f"stream failed ({failure.detail}); restarting round")
+                await asyncio.sleep(STREAM_RETRY_BACKOFF_SECS)
 
         calls = [p.function_call for p in parts if getattr(p, "function_call", None)]
 
@@ -251,7 +302,27 @@ async def stream_answer(
             handler = _HANDLERS.get(call.name)
             tool_start = time.perf_counter()
             if handler:
-                await handler(params)
+                try:
+                    await handler(params)
+                except Exception as error:  # noqa: BLE001 - a tool must not end the turn
+                    # The model is told what went wrong rather than being left
+                    # with a missing result, so it can say it could not check
+                    # instead of quietly answering from memory — which is the
+                    # failure this whole path exists to prevent.
+                    failure = classify_exception(error)
+                    bound().warning(
+                        f"tool {call.name} failed ({failure.detail}, {failure.kind.value})"
+                    )
+                    params.result = {
+                        "unavailable": True,
+                        "reason": failure.kind.value,
+                        "message": (
+                            "This lookup failed, so you could not check a live "
+                            "source. Tell the user plainly that you could not "
+                            "verify this right now, and do not state any "
+                            "specific number, fee or deadline from memory."
+                        ),
+                    }
             emit(
                 STAGE_TTFT_SEGMENT,
                 SEGMENT_TOOL_EXEC,

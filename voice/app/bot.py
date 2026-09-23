@@ -29,6 +29,7 @@ from pipecat.turns.user_turn_strategies import FilterIncompleteUserTurnStrategie
 from pipecat.workers.runner import WorkerRunner
 
 from app.config import settings
+from app.failures import classify_exception
 from app.filler_speaker import BotSpeechObserver, FillerSpeaker
 from app.status import AgentStatus
 from app.observability import (
@@ -65,6 +66,22 @@ def _announced(name, handler, speaker: FillerSpeaker, status: AgentStatus):
         await status.working(name, params.arguments)
         try:
             return await handler(params)
+        except Exception as error:  # noqa: BLE001 - a tool must not end the turn
+            # In voice, an exception here ends the turn in silence — the user
+            # hears the filler clip, then nothing. Hand the model a result
+            # saying the lookup failed so it says so out loud instead.
+            failure = classify_exception(error)
+            logger.warning(f"tool {name} failed ({failure.detail}, {failure.kind.value})")
+            await params.result_callback({
+                "unavailable": True,
+                "reason": failure.kind.value,
+                "message": (
+                    "This lookup failed, so you could not check a live source. "
+                    "Tell the user plainly that you could not verify this right "
+                    "now, and do not state any specific number, fee or deadline "
+                    "from memory."
+                ),
+            })
         finally:
             await status.done()
 
