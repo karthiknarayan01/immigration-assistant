@@ -51,8 +51,68 @@ class Passage:
     score: float
 
 
+#: Nobody asks a question in the language the CFR is written in. The
+#: regulations never say "green card", "cap-gap" or "work permit", so a
+#: question using those words scores against the wrong sections entirely —
+#: "green card revocation" returned Border Crossing Card rules because
+#: "revocation" was the only term that matched anything.
+#:
+#: Expansion is additive: the user's words are kept as well, so a query that
+#: happens to use the regulatory term is not made worse.
+_SYNONYMS = {
+    "green": ["lawful", "permanent", "resident"],
+    "greencard": ["lawful", "permanent", "resident"],
+    "card": ["resident", "residence"],
+    "gc": ["lawful", "permanent", "resident"],
+    "ead": ["employment", "authorization", "document"],
+    "opt": ["practical", "training"],
+    "revoked": ["revocation", "rescission", "terminate", "termination"],
+    "revocation": ["rescission", "terminate", "termination"],
+    "deported": ["removal", "deportation"],
+    "fired": ["termination", "cessation", "employment"],
+    "laid": ["termination", "cessation"],
+    "layoff": ["termination", "cessation", "employment"],
+    "permit": ["authorization", "document"],
+    "sponsor": ["petitioner", "petition"],
+    "spouse": ["dependent", "derivative"],
+}
+
+
 def _terms(text: str) -> list[str]:
     return [w for w in _WORD.findall(text.lower()) if w not in _STOPWORDS and len(w) > 2]
+
+
+def _expand(terms: list[str]) -> list[str]:
+    """Add the regulatory vocabulary for everyday words, keeping both."""
+    expanded = list(terms)
+    for term in terms:
+        expanded.extend(_SYNONYMS.get(term, ()))
+    return expanded
+
+
+#: The CFR is full of sections that look topically perfect and apply to almost
+#: nobody: parole rules written for one nationality, benefits under a named
+#: Act, superseded provisions kept for reference. Plain BM25 ranks these
+#: highly because they use exactly the vocabulary of the question — asked
+#: about advance parole it returned a Haiti-specific provision, and asked
+#: about green card revocation it returned Border Crossing Card rules.
+#:
+#: They are demoted rather than removed: someone really asking about the
+#: Haitian Refugee Immigration Fairness Act should still find it, which is why
+#: the penalty lifts when the query names the thing.
+_NARROW_HEADING = re.compile(
+    r"\b(libyan|haitian|cuban|nicaraguan|syrian|vietnamese|canada or mexico|"
+    r"usmca|trafficking|victims?|former regulations|"
+    r"[A-Z][a-z]+ (?:Refugee|Adjustment|Fairness|Relief) Act)\b",
+    re.I,
+)
+
+#: How much a narrow section is held back when the query does not name it.
+_NARROW_PENALTY = 0.3
+
+#: A term in the section heading says what the section is *about*, which is a
+#: far stronger signal than the same term buried in its body.
+_HEADING_WEIGHT = 3
 
 
 class _Index:
@@ -60,7 +120,12 @@ class _Index:
 
     def __init__(self, chunks: list[dict]) -> None:
         self.chunks = chunks
-        self.tokens = [Counter(_terms(c["text"] + " " + c.get("heading", ""))) for c in chunks]
+        self.headings = [c.get("heading", "") for c in chunks]
+        self.narrow = [bool(_NARROW_HEADING.search(h)) for h in self.headings]
+        self.tokens = [
+            Counter(_terms(c["text"]) + _terms(c.get("heading", "")) * _HEADING_WEIGHT)
+            for c in chunks
+        ]
         self.lengths = [sum(t.values()) or 1 for t in self.tokens]
         self.avg_length = sum(self.lengths) / len(self.lengths) if self.lengths else 1
         document_frequency: Counter = Counter()
@@ -73,9 +138,19 @@ class _Index:
         }
 
     def search(self, query: str, limit: int) -> list[Passage]:
-        wanted = _terms(query)
-        if not wanted:
+        asked = _terms(query)
+        if not asked:
             return []
+        wanted = _expand(asked)
+
+        # Adjacent query words as phrases. "advance parole" and "conditional
+        # resident" mean something the two words separately do not, and single
+        # terms alone are what let unrelated sections score well. Built from
+        # the user's own words, not the expansions, which are not adjacent to
+        # anything.
+        phrases = [f"{a} {b}" for a, b in zip(asked, asked[1:])]
+        lowered_query = query.lower()
+
         k1, b = 1.5, 0.75
         scored: list[tuple[float, int]] = []
         for index, counts in enumerate(self.tokens):
@@ -86,8 +161,23 @@ class _Index:
                     continue
                 norm = 1 - b + b * self.lengths[index] / self.avg_length
                 score += self.idf.get(term, 0.0) * frequency * (k1 + 1) / (frequency + k1 * norm)
-            if score > 0:
-                scored.append((score, index))
+            if score <= 0:
+                continue
+
+            haystack = (self.chunks[index]["text"] + " " + self.headings[index]).lower()
+            for phrase in phrases:
+                if phrase in haystack:
+                    score *= 1.35
+
+            # A section written for one population is the right answer only
+            # when it was asked for. Checked against the query text, so
+            # "Haitian adjustment" still finds the Haitian provision.
+            if self.narrow[index]:
+                match = _NARROW_HEADING.search(self.headings[index])
+                if match and match.group(0).lower() not in lowered_query:
+                    score *= _NARROW_PENALTY
+
+            scored.append((score, index))
 
         scored.sort(reverse=True)
         return [
