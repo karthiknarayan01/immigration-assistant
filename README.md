@@ -158,6 +158,17 @@ curl http://localhost:8080/health
 uv run python scripts/check_handshake.py http://localhost:8080
 ```
 
+Then check your accounts and keys actually work:
+
+```bash
+PYTHONPATH=. uv run python scripts/check_services.py
+```
+
+It tells you which services are reachable and, when one isn't, whether that's
+a missing key, an empty balance, or just the network. Worth running before you
+conclude the assistant is giving bad answers — a search provider that's out of
+credit looks exactly like an assistant that's got worse.
+
 ## 6. Run the frontend
 
 ```bash
