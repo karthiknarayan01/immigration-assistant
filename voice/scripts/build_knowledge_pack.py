@@ -42,6 +42,13 @@ PARTS = [
     (8, "274a", "Employment authorisation, including who may work and when"),
     (8, "245", "Adjustment of status to permanent resident"),
     (8, "248", "Change of nonimmigrant status"),
+    # Added after evals showed the gaps. A question about whether a green card
+    # can be revoked cannot be answered without the conditional-residence
+    # rules, and advance parole travel cannot be answered safely without the
+    # inadmissibility and parole provisions.
+    (8, "216", "Conditional permanent residence and removal of conditions"),
+    (8, "212", "Inadmissibility, waivers, advance parole and documentary requirements"),
+    (8, "223", "Re-entry permits and refugee travel documents"),
 ]
 
 
