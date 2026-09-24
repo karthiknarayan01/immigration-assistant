@@ -28,15 +28,23 @@ OUT_DIR = pathlib.Path(__file__).resolve().parent.parent / "app" / "audio" / "fi
 # conversation. Split by tool so the wording matches what is happening.
 PHRASES = {
     # Played ~250ms after the user stops talking, before the model has decided
-    # anything. Deliberately very short: on a fast turn the real answer starts
-    # at ~1.2s, so anything longer than about a second talks over it. These
-    # commit to nothing — the model may still be about to ask a clarifying
-    # question, so "let me look that up" would be wrong here.
+    # anything.
+    #
+    # These were "Okay", "Right", "Got it", "Sure" — chosen to fit under a
+    # short duration cap, and wrong. Those are continuers: in conversation
+    # they mean "I'm listening, go on". Said to someone who has finished
+    # asking and is now waiting, they read as "take your time", which is
+    # backwards. A tester heard it as the agent telling them to think about
+    # it when they were waiting for an answer.
+    #
+    # What belongs here is a statement of intent to work. It is honest before
+    # the model has decided anything, because either way the agent is about to
+    # go and deal with the question.
     "ack": [
-        "Okay.",
-        "Right.",
-        "Got it.",
-        "Sure.",
+        "Let me look that up.",
+        "Let me find out.",
+        "One moment while I check.",
+        "Let me get you an answer.",
     ],
     "official": [
         "Let me check the current guidance on that.",

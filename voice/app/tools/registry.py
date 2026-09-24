@@ -133,6 +133,41 @@ async def search_official_guidance(params: FunctionCallParams):
         })
         return
 
+    if not official and FALLBACK_WHEN_EMPTY:
+        # The allowlist is a list of what we thought of in advance. Questions
+        # about what is happening right now — refusal trends, a consulate
+        # changing behaviour — are reported outside it or not at all, so
+        # giving up here returns "I couldn't find anything" precisely when
+        # the person most needs something.
+        logger.info(f"official search '{query}' found nothing on-allowlist; widening")
+        with measure(STAGE_TOOL, "search_official_fallback", query_chars=len(query)) as span:
+            wider = await providers.search(query, limit=6)
+            span["hits"] = len(wider)
+        reported = [h for h in wider if h.tier is not SourceTier.ANECDOTAL][:MAX_SPOKEN_HITS]
+        if reported:
+            await params.result_callback({
+                "results": [
+                    {
+                        "title": h.title,
+                        "url": h.url,
+                        "excerpt": h.text[:MAX_EXCERPT_CHARS],
+                        "published": h.published.date().isoformat() if h.published else "undated",
+                        "currency": _age_note(h.published),
+                        "trust": "reported",
+                    }
+                    for h in reported
+                ],
+                "count": len(reported),
+                "guidance": (
+                    "No official source covered this, so these come from wider "
+                    "reporting. Attribute them — say what is being reported and "
+                    "by whom — and say you could not confirm it against an "
+                    "official source. Do not state any of it as settled fact. "
+                    "This is still far more useful than saying you found nothing."
+                ),
+            })
+            return
+
     if not official:
         await params.result_callback({
             "results": [],

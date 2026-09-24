@@ -38,11 +38,17 @@ ACK_GROUP = "ack"
 
 
 #: An acknowledgement is queued ahead of the real answer, so it delays that
-#: answer by its own length. Past about this, it stops covering the gap and
-#: starts being the gap — and on a fast turn it talks over the reply. Renders
-#: vary in pace enough that this has to be enforced rather than assumed: the
-#: same three words came back at 1.8s while "got it" came back at 0.35s.
-MAX_ACK_MS = 800
+#: answer by its own length. Renders vary in pace enough that this has to be
+#: enforced rather than assumed — the same three words came back at 1.8s while
+#: "got it" came back at 0.35s.
+#:
+#: Was 800ms, which only one-word clips could meet, and one-word clips turned
+#: out to be the wrong thing to say: "okay" and "sure" are continuers, heard
+#: as "take your time" by someone who has finished asking. A phrase that
+#: states intent runs about 1.2s and is worth the room. It still lands well
+#: inside the gap — the ack starts at ~250ms and the fastest answers begin
+#: around 1.9s.
+MAX_ACK_MS = 1500
 
 
 def _duration_ms(clip: bytes) -> float:

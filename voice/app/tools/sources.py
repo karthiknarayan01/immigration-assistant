@@ -108,8 +108,27 @@ def classify(url: str) -> SourceTier:
 SEARCH_GROUPS: tuple[tuple[str, ...], ...] = (
     ("uscis.gov",),
     ("ecfr.gov", "law.cornell.edu", "federalregister.gov"),
+    # Consular. USCIS decides petitions; the State Department decides visas,
+    # and nothing above covered that. Asked whether visa stamping refusals
+    # had risen, the allowlist returned H-2B petition statistics, because
+    # travel.state.gov was not in it. Interviews, 221(g), stamping, refusal
+    # rates and embassy practice all live here.
+    ("travel.state.gov", "state.gov", "usembassy.gov"),
     ("aila.org", "murthy.com", "fragomen.com", "boundless.com", "nolo.com"),
 )
+
+#: Run only when the allowlist finds nothing usable. An allowlist is a list of
+#: what we thought of in advance, and the questions people actually ask are
+#: about what is happening now — refusal trends, a policy shift, a consulate
+#: behaving differently this month. That reporting exists, and is never on a
+#: .gov domain, so restricting to one guarantees "I could not find anything"
+#: for exactly the questions where the user most needs an answer.
+#:
+#: Results come back UNKNOWN tier and the model is told to attribute them
+#: rather than assert them. Saying "several outlets report X, which I could
+#: not confirm against an official source" is far more useful than silence,
+#: and it is honest about what it is.
+FALLBACK_WHEN_EMPTY = True
 
 #: Subreddits worth listening to. Everything else is dropped before scoring.
 COMMUNITY_SUBREDDITS = (

@@ -13,3 +13,4 @@ frontend/.next/
 # Voice service
 voice/.venv/
 !voice/.env.example
+demo.mov

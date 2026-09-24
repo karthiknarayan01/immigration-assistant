@@ -69,7 +69,7 @@ def test_clips_are_plausible_length():
     # before the model has decided anything, which puts them ahead of the real
     # answer in the output queue, so their length is added to every turn they
     # fire on.
-    bounds = {"ack": (0.2, 0.8)}
+    bounds = {"ack": (0.2, 1.5)}
     for path in FILLER_DIR.rglob("*.pcm"):
         seconds = path.stat().st_size / 2 / SAMPLE_RATE
         low, high = bounds.get(path.parent.name, (0.8, 3.5))
