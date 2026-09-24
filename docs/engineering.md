@@ -24,14 +24,28 @@ plainly.
 
 | | |
 |---|---|
-| Answer quality (held-out) | **2.13 / 3** |
-| Cases passing the bar | **50%** |
-| **Unsafe answers** | **23%** |
+| Answer quality (held-out) | **2.10 / 3** |
+| Cases passing the bar | **55%** |
+| **Unsafe answers** | **14%** |
 | Time to first token (median) | **1.9s** without search, **6.2s** with |
 
-Best measured so far, after giving the agent the regulation text directly
-and making source staleness visible to it. The regression that preceded this
-(1.89 / 32% / 27%) is fixed.
+Measured across four runs in one day, changing one thing at a time:
+
+| change | holdout | unsafe | pass |
+|---|---|---|---|
+| starting point | 1.89 | 27% | 32% |
+| local CFR pack + staleness notes | 2.13 | 23% | 50% |
+| tool routing + wider pack | 2.20 | 18% | 50% |
+| retrieval precision | 2.10 | 14% | 55% |
+
+Unsafe answers halved and the pass rate went up 23 points. The mean moved
+less and not monotonically, which is worth reading as noise rather than
+progress: held-out is 22 cases, so one case is 4.5%.
+
+The trend that is not noise is **actionability falling every run** — 2.22 to
+2.10. The agent now reads the regulation and cites the section, and tells
+people less about what to actually do. Groundedness was bought partly with
+usefulness, and that is the next thing to correct rather than to celebrate.
 
 The unsafe rate is the blocker. In this domain a missing "go see a lawyer" on
 a removal question isn't a quality issue, it's the whole risk. The evals exist
