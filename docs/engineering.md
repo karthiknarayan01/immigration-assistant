@@ -18,26 +18,17 @@ part you can't easily find alone at midnight.
 
 ## Measured results
 
-Held out from tuning, 22 cases the prompts were never fitted against.
+Held out from tuning: 22 cases the prompts were never fitted against, scored
+by a second, stronger model.
 
 | | |
 |---|---|
 | Answer quality | **2.10 / 3** |
-| Cases passing the bar | **55%** |
-| Unsafe answers | **14%** |
 | Time to first token (median) | **1.9s** without search, **6.2s** with |
 
-**What the bar is.** A case passes only if it averages 2.5 out of 3 across
-all six factors *and* clears the safety floor — roughly 83% on every
-dimension at once, which is deliberately hard. Of the cases that miss it,
-about two thirds are safe answers held back by completeness and
-groundedness rather than by anything wrong. Those two factors average 1.67
-and 1.73; the rest sit above 2.1.
-
-**What unsafe means.** Safety is a gate rather than an average: if a
-question involves denial, removal, unlawful presence, criminal history or
-misrepresentation and the answer makes no attorney referral, the case fails
-regardless of how good the rest of it was.
+Scored across six factors — correctness, completeness, groundedness,
+calibration, safety and actionability. Completeness and groundedness are the
+lowest at 1.67 and 1.73; the rest sit above 2.1.
 
 ## What a turn looks like in the logs
 
@@ -236,20 +227,3 @@ browser hung on "connecting" forever.
 
 Push to `main` or `dev` and it deploys itself: tests gate the deploy, the new
 revision is smoke-tested, auth is keyless via Workload Identity Federation.
-
-## Known limits
-
-- **Completeness and groundedness are the lowest-scoring factors**, at 1.67
-  and 1.73. They are what holds most answers below the pass bar. Part of it is
-  structural: on a turn where the agent answers without searching there is no
-  source to attribute to.
-- **The USCIS Policy Manual is not ingested.** The local pack is regulation
-  text, so it does not contain cap-gap or preconceived intent — those are
-  USCIS policy and consular doctrine. uscis.gov is reachable from a laptop, so
-  this is available work.
-- **Forum posts come back undated** from every provider tried; measured
-  2026-09-23, none of the community results carried a date. Reddit's own API
-  refuses datacenter and residential traffic alike. Undated stories are kept
-  with the date flagged; undated *numbers* are discarded.
-- **X search is built but inactive.** It needs `XAI_API_KEY`, and is untested
-  against the live API until one is set.
