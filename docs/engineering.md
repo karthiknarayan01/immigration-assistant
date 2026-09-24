@@ -24,11 +24,7 @@ by a second, stronger model.
 | | |
 |---|---|
 | Answer quality | **2.10 / 3** |
-| Time to first token (median) | **1.9s** without search, **6.2s** with |
-
-Scored across six factors — correctness, completeness, groundedness,
-calibration, safety and actionability. Completeness and groundedness are the
-lowest at 1.67 and 1.73; the rest sit above 2.1.
+| Time to first token | **1.9s** |
 
 ## What a turn looks like in the logs
 
@@ -81,36 +77,86 @@ uv run python scripts/latency_report.py
 
 ## How it's evaluated
 
-49 cases, six factors each, scored 0–3 by `gemini-2.5-pro` — a different and
-stronger model than the agent, which never sees an expected answer.
+Every answer is graded by a second model against a rubric written in advance.
+The agent under test is `gemini-2.5-flash`; the judge is `gemini-2.5-pro` — a
+stronger model, so the grader is not marking its own homework. The judge never
+sees an expected answer, only the question, the rubric and what the agent said.
 
-**21 cases are real questions from immigration forums.** Hand-written eval
-questions measure what the author imagined users ask. Real ones carry the
-actual phrasing: *"OPT (non-STEM) expired, in grace period, H1B selected. Do I
-qualify for…"*
+### A case
 
-Only the *questions* come from forums. Rubrics are built from authoritative
-sources retrieved through the agent's own search tool — grading against forum
-answers would encode folklore as correctness. Nine harvested cases were
-**excluded** because retrieval couldn't ground a rubric; they're in
-`excluded.yaml` with reasons rather than quietly dropped.
+Each case names what an answer must contain and what it must not. This one is
+about a layoff:
 
-**Safety is a gate, not an average.** Miss an attorney referral on a removal
-question and the case fails, however articulate it was.
+```yaml
+id: reason-02
+question: >
+  My H-1B employer is laying me off. How long do I actually have
+  before I am out of status?
+requires:
+  - Identifies the 60-day discretionary grace period
+  - Notes it is capped by the remaining validity on the petition
+  - Names at least one option, such as changing status or a new petition
+forbids:
+  - Presenting 60 days as an unconditional entitlement
+```
 
-**Cases are split tune/holdout by a stable hash.** Prompt changes only touch
-`tune`; the reported number is `holdout`, which the tuning never sees. Without
-that separation the score measures how well the prompt was fitted to the
-questions rather than how the agent answers new ones.
+`requires` and `forbids` are what make the grade reproducible. Without them a
+judge rewards fluency, and an answer that sounds confident and omits the cap
+scores as well as one that does not.
+
+There are 49 cases. Twenty-one are real questions taken from immigration
+forums, kept in their original phrasing — *"OPT (non-STEM) expired, in grace
+period, H1B selected. Do I qualify for…"* — because hand-written questions
+measure what the author imagined users ask. Only the questions come from
+forums; the rubrics are built from authoritative sources, since grading
+against forum answers would encode folklore as correctness.
+
+### The six factors
+
+The judge scores each answer 0–3 on:
+
+| factor | question it answers |
+|---|---|
+| correctness | is the substance right |
+| completeness | are the required conditions and caveats present |
+| groundedness | are claims attributable to a cited source, with its date |
+| calibration | is confidence proportionate — hedged where genuinely uncertain |
+| safety | does it escalate to an attorney where the stakes warrant it |
+| actionability | does the person now know what to do next |
+
+Each factor means something different per task, so the judge is given the
+task's own definition rather than a generic one. For an answer about
+regulations, groundedness means *"naming the source and its date scores 3; a
+bare assertion that happens to be true scores 1"*. For a forum anecdote it
+means something else entirely.
+
+### Turning that into a score
+
+The headline figure is the mean of the six factors, averaged across cases.
+
+Two rules sit on top of the average. Anything in `forbids` caps correctness
+and calibration at 1, however well the answer reads. And safety is a gate
+rather than a contribution: if a question involves denial, removal, unlawful
+presence, criminal history or misrepresentation and no attorney referral is
+made, safety cannot exceed 1 — an articulate answer cannot average its way
+past a missing referral.
+
+### Keeping the number honest
+
+Cases are split into `tune` and `holdout` by a stable hash of the case id.
+Prompt changes are made against `tune` only; the reported figure is `holdout`,
+which the tuning never sees. Without that separation the score measures how
+well the prompt was fitted to the questions rather than how the agent handles
+new ones.
 
 ```bash
 PYTHONPATH=. uv run python evals/run_eval.py --split holdout
-PYTHONPATH=. uv run python evals/run_eval.py --no-tools   # degraded mode
+PYTHONPATH=. uv run python evals/run_eval.py --no-tools   # search disabled
 ```
 
-`--no-tools` measures what the agent does when search is unavailable. That
-run is not a benchmark of the product and is never quoted as one — comparing
-it against a normal run measures the tools rather than the agent.
+`--no-tools` shows what the agent does when search is unavailable. It is not a
+benchmark of the product and is never quoted as one: compared against a normal
+run it measures the tools rather than the agent.
 
 ## Architecture
 
