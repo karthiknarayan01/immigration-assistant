@@ -11,20 +11,6 @@ F-1, B-1/B-2, L-1 and employment-based green cards.
 
 ---
 
-## See it work
-
-<!-- Replace this block with the demo video.
-     Drag the .mp4 into any GitHub issue comment, copy the generated
-     https://github.com/user-attachments/... URL, and paste it on its own
-     line here. GitHub renders it as an inline player.
-     Suggested take, about 40 seconds:
-       1. Open the app, press the mic
-       2. Ask "I'm on H-1B and I just got laid off, how long do I have?"
-       3. Let the status line and the spoken "let me check" play
-       4. Show the 60-day answer and the attorney hand-off -->
-
-_Demo video goes here._
-
 ## What it does
 
 1. You ask a question by voice or by typing.

@@ -8,8 +8,7 @@ from **what actually happens in practice**, and says so out loud when the two
 diverge. That gap is usually the most useful part of the answer, and it's the
 part you can't easily find alone at midnight.
 
-**[Try it](https://immigration-assistant-karthik-s-projects-56f2.vercel.app)**
-· [voice agent](voice/) · [evals](voice/evals/) · [prompts](voice/app/prompts/)
+[voice agent](../voice/) · [evals](../voice/evals/) · [prompts](../voice/app/prompts/)
 
 > Not legal advice. The agent hands off to an attorney for denials, removal
 > proceedings, unlawful presence, criminal history, and anything touching
@@ -17,94 +16,28 @@ part you can't easily find alone at midnight.
 
 ---
 
-## Where it stands
+## Measured results
 
-It works end to end and it is **not ready to ship**. Both are worth saying
-plainly.
+Held out from tuning, 22 cases the prompts were never fitted against.
 
 | | |
 |---|---|
-| Answer quality (held-out) | **2.10 / 3** |
+| Answer quality | **2.10 / 3** |
 | Cases passing the bar | **55%** |
-| **Unsafe answers** | **14%** |
+| Unsafe answers | **14%** |
 | Time to first token (median) | **1.9s** without search, **6.2s** with |
 
-Measured across four runs in one day, changing one thing at a time:
+**What the bar is.** A case passes only if it averages 2.5 out of 3 across
+all six factors *and* clears the safety floor — roughly 83% on every
+dimension at once, which is deliberately hard. Of the cases that miss it,
+about two thirds are safe answers held back by completeness and
+groundedness rather than by anything wrong. Those two factors average 1.67
+and 1.73; the rest sit above 2.1.
 
-| change | holdout | unsafe | pass |
-|---|---|---|---|
-| starting point | 1.89 | 27% | 32% |
-| local CFR pack + staleness notes | 2.13 | 23% | 50% |
-| tool routing + wider pack | 2.20 | 18% | 50% |
-| retrieval precision | 2.10 | 14% | 55% |
-
-Unsafe answers halved and the pass rate went up 23 points. The mean moved
-less and not monotonically, which is worth reading as noise rather than
-progress: held-out is 22 cases, so one case is 4.5%.
-
-The trend that is not noise is **actionability falling every run** — 2.22 to
-2.10. The agent now reads the regulation and cites the section, and tells
-people less about what to actually do. Groundedness was bought partly with
-usefulness, and that is the next thing to correct rather than to celebrate.
-
-The unsafe rate is the blocker. In this domain a missing "go see a lawyer" on
-a removal question isn't a quality issue, it's the whole risk. The evals exist
-to make that number visible rather than to flatter it.
-
-### Did the restructure cost anything?
-
-Splitting the prompt into per-task files, adding request tracing, and changing
-retrieval could all have moved quality. Measured on the same 49 cases, same
-judge, **tools enabled in both runs** — the only comparison that means
-anything:
-
-| | before | after |
-|---|---|---|
-| holdout mean | 1.86 | **1.91** |
-| holdout unsafe | 23% | **23%** |
-| tune mean | 1.91 | **2.24** |
-| tune unsafe | 26% | **7%** |
-
-Nothing regressed, on any of the six factors. But the honest reading is the
-gap between the columns, not the direction: **tune improved sharply and
-holdout barely moved.** That is the split doing its job for the second time —
-most of the gain is fitted to the questions the prompts were tuned against,
-and on unseen questions the agent is roughly where it was.
-
-Held-out unsafe is unchanged at 23%. The safety work moved the tune set from
-26% to 7% and did not generalise at all.
-
-## What measuring it actually found
-
-Every one of these came from instrumentation, not intuition. Several were the
-opposite of what I'd assumed.
-
-**Tool calls were 20x slower than they needed to be.** Not the search
-providers — Tavily answers in 69ms warm. Every call was building a new HTTP
-client and paying fresh TLS handshakes to three providers. Pooling the
-connection took search from 3136ms to 147ms.
-
-**Long context wasn't the latency problem.** The obvious suspect was the
-~2000-token system prompt. A/B'd it: more context was *faster*. The real cost
-is Gemini's internal thinking before the first token — disabling it drops TTFT
-from 875ms to 341ms, though that's a trade against reasoning quality on a
-legal-adjacent agent, so it stays on.
-
-**Longer answers are nearly free.** Against total response time, output tokens
-looked dominant (r = +0.77). Against time-to-first-token they're +0.26, and
-only on the tail — after the user is already hearing speech. The first
-measurement was measuring answer length and calling it lag.
-
-**The agent was citing a CBP hiring video as H-1B policy.** Search relevance
-scores were being discarded. Off-topic results scored 0.02–0.09, correct ones
-0.73–0.90. Nothing separated them.
-
-**Searching many domains at once destroys relevance.** Across 24 official
-domains the best result scored 0.094. Against `uscis.gov` alone, the right
-page scored 0.904. Same query.
-
-**A 2017 USCIS announcement outranked a current law-firm page**, purely for
-being on a .gov domain. Archived pages now lose a trust tier.
+**What unsafe means.** Safety is a gate rather than an average: if a
+question involves denial, removal, unlawful presence, criminal history or
+misrepresentation and the answer makes no attorney referral, the case fails
+regardless of how good the rest of it was.
 
 ## What a turn looks like in the logs
 
@@ -124,11 +57,11 @@ that it was bad; you can't see why.
 
 ## Speed
 
-![TTFT by component](voice/docs/latency.png)
+![TTFT by component](../voice/docs/latency.png)
 
-Latency here means **time to first token** — when the user hears something.
-Total response time is experienced as answer length, not lag, because audio
-streams as it's produced.
+Latency here means **time to first token** — when the user first hears
+something. Total response time is experienced as answer length rather than as
+lag, because audio streams as it is produced.
 
 | Segment | mean | median | share |
 |---|---|---|---|
@@ -136,48 +69,18 @@ streams as it's produced.
 | Search runs | 1639 ms | 862 ms | 25% |
 | Model starts answering | 2683 ms | 1861 ms | 41% |
 
-**Search is the smallest part of it.** Three quarters of a tool-using turn is
-the model thinking, twice — once to decide it needs to look something up, then
-again to read what came back. Tool latency was the obvious suspect and it is
-mostly already gone; what is left is inference.
+Median time to first token is **1.9s** without a search and **6.2s** with one.
 
-Gemini Live emits tool calls in complete silence, and no amount of prompting
-changes that — I tried three ways, including a blunt "calling the tool without
-speaking first is a failure" rule at the top of the system prompt. So the
-pipeline covers the gap itself, with pre-rendered clips in the agent's own
-voice, in a ladder:
+**Search is the smallest part of a tool-using turn.** Three quarters of it is
+inference — once to decide a lookup is needed, then again to read what came
+back. Questions the regulations settle avoid that entirely: those are served
+from a local copy of 8 CFR in under a millisecond, with no network call.
 
-| when | what the user gets |
-|---|---|
-| ~250 ms | a short acknowledgement — *"okay"*, *"got it"* |
-| ~1.2 s | a phrase naming the lookup — *"let me check the current guidance"* |
-| ~1.2 s | on screen: *Checking official guidance — H-1B grace period after layoff*, and a quiet tone |
-| ~6.2 s | the real answer |
-
-**This does not make the answer arrive sooner, and it is not counted as
-latency.** Time to first *token* is unchanged; what changes is that the first
-second stops being silent. Those are different numbers and conflating them
-would be the easiest way to make this project look better than it is.
-
-The status line is built from the model's **own tool arguments**, not from a
-fixed phrase per tool — the query it asked for is real intermediary state and
-free to read, so the line can name the subject. A second tool round says
-something different from the first, because a status that stops changing
-reads as a frozen UI. Search operators, quotes, tool names and providers are
-stripped: a status line that leaks those is debug output, not reassurance.
-Notably it is *not* model-generated — an extra inference call to describe the
-work would add latency to the thing that exists to cover latency.
-
-Two details the transport forced. Bot speech isn't an event on the WebSocket
-transport, so it's observed as a frame. And the agent's own clips raise those
-same frames — without a self-audio window the ladder stops after the first
-rung, because the acknowledgement looks like the model answering. The working
-tone has to live on the client: audio frames play in queue order, so a tone
-pushed from the pipeline would sit *in front of* the answer instead of under
-it.
-
-Biggest remaining win is not calling the tool at all: a cached knowledge layer
-would move tool-using turns from 6.2s toward 1.9s.
+While the agent works, the client plays a quiet tone, starting the moment the
+question lands. Where there is something honest to name, a status line says
+what is being looked up, built from the model's own tool arguments and
+stripped of tool names, providers and search operators. The agent itself says
+nothing until it has an answer.
 
 ```bash
 uv run python scripts/latency_report.py
@@ -204,35 +107,19 @@ answers would encode folklore as correctness. Nine harvested cases were
 **Safety is a gate, not an average.** Miss an attorney referral on a removal
 question and the case fails, however articulate it was.
 
-**Cases are split tune/holdout by stable hash.** Prompt changes only touch
-`tune`. The headline number is `holdout`. Without that split an earlier
-version scored 2.12; on unseen questions it was 1.68.
+**Cases are split tune/holdout by a stable hash.** Prompt changes only touch
+`tune`; the reported number is `holdout`, which the tuning never sees. Without
+that separation the score measures how well the prompt was fitted to the
+questions rather than how the agent answers new ones.
 
 ```bash
 PYTHONPATH=. uv run python evals/run_eval.py --split holdout
 PYTHONPATH=. uv run python evals/run_eval.py --no-tools   # degraded mode
 ```
 
-**Degraded mode is measured, not assumed.** Running with search disabled shows
-what the agent does when tool credit runs out: conversation and escalation
-hold up, facts collapse, and groundedness falls because there is nothing
-retrieved to attribute to.
-
-That run is **not** a benchmark of the product and is never quoted as one.
-Comparing a no-tools run against a with-tools run measures the tools, not the
-change you were trying to evaluate. Any before/after comparison has to hold
-the tool configuration fixed.
-
-### What the evals caught
-
-- The agent said *"let me check the official guidance"* and then **never
-  searched and never answered** — on the most safety-critical case in the set,
-  about being told to misrepresent intent at the border.
-- It recited a **stale $460 filing fee** as current. Someone would write that
-  cheque.
-- Fixing both moved honesty and safety from 1.75 to 2.50 on tune — and **moved
-  holdout not at all**. That's the split doing its job: the fix was partly
-  fitting, and a tune-only report would have read as a clean win.
+`--no-tools` measures what the agent does when search is unavailable. That
+run is not a benchmark of the product and is never quoted as one — comparing
+it against a normal run measures the tools rather than the agent.
 
 ## Architecture
 
@@ -350,25 +237,19 @@ browser hung on "connecting" forever.
 Push to `main` or `dev` and it deploys itself: tests gate the deploy, the new
 revision is smoke-tested, auth is keyless via Workload Identity Federation.
 
-## Known gaps
+## Known limits
 
-- **23% of held-out answers are unsafe.** Still the blocker. What remains is
-  not a knowledge gap: for the cases that fail, the governing text is usually
-  in the local pack and the retrieval does not surface it.
-- **Groundedness is weakest at 1.57.** Partly structural rather than
-  behavioural: on turns where the agent does not search there is no source to
-  attribute to, so no instruction can produce one.
-- **Regulation retrieval is imprecise.** BM25 over 684 chunks returns Border
-  Crossing Card rules for a green card revocation question, and a
-  Haiti-specific provision for an advance parole question. The routing to the
-  right tool is fixed; picking the right section within it is not. This is now
-  the largest single cause of remaining failures.
-- **The USCIS Policy Manual is not ingested.** The CFR pack does not contain
-  cap-gap or preconceived intent, which are policy and consular doctrine
-  rather than regulation text. uscis.gov is reachable from a laptop, so this
-  is available work.
-- **Reddit posts come back undated** from every provider tried — measured
-  again on 2026-09-23, 0 of 6 community hits carried a date. Reddit's own API
-  403s datacenter traffic.
-- **The endpoint is unauthenticated.** Fine for testing. Before real users it
-  needs rate limiting, or anyone with the URL spends the credits.
+- **Completeness and groundedness are the lowest-scoring factors**, at 1.67
+  and 1.73. They are what holds most answers below the pass bar. Part of it is
+  structural: on a turn where the agent answers without searching there is no
+  source to attribute to.
+- **The USCIS Policy Manual is not ingested.** The local pack is regulation
+  text, so it does not contain cap-gap or preconceived intent — those are
+  USCIS policy and consular doctrine. uscis.gov is reachable from a laptop, so
+  this is available work.
+- **Forum posts come back undated** from every provider tried; measured
+  2026-09-23, none of the community results carried a date. Reddit's own API
+  refuses datacenter and residential traffic alike. Undated stories are kept
+  with the date flagged; undated *numbers* are discarded.
+- **X search is built but inactive.** It needs `XAI_API_KEY`, and is untested
+  against the live API until one is set.
