@@ -11,14 +11,23 @@ interface VoiceOverlayProps {
 }
 
 export default function VoiceOverlay({ onTranscript, onClose }: VoiceOverlayProps) {
-  const { phase, liveTranscript, statusLabel, error, canRetry, retry, toggleMute, sendText } =
-    useVoiceConversation({ onTranscript });
+  const {
+    phase,
+    liveTranscript,
+    statusLabel,
+    isWorking,
+    error,
+    canRetry,
+    retry,
+    toggleMute,
+    sendText,
+  } = useVoiceConversation({ onTranscript });
   const [typedText, setTypedText] = useState("");
 
-  // The agent has already said out loud that it is checking something. This
-  // puts a quiet tone under the wait, so the pause reads as work rather than
-  // as a dropped call.
-  useWorkingTone(Boolean(statusLabel) && phase !== "error");
+  // The agent says nothing while it works now, so this tone is the only
+  // signal that it heard you. It starts the moment the question lands, not
+  // when a lookup happens to begin.
+  useWorkingTone(isWorking && phase !== "error");
 
   const submitTyped = () => {
     const trimmed = typedText.trim();

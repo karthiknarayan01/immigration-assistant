@@ -32,9 +32,14 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
   const [serviceUrl] = useState(() => process.env.NEXT_PUBLIC_VOICE_SERVICE_URL ?? "");
   const [phase, setPhase] = useState<VoicePhase>(() => (serviceUrl ? "connecting" : "error"));
   const [liveTranscript, setLiveTranscript] = useState("");
-  // What the agent is doing right now, in words meant for the person waiting.
-  // Empty when there is nothing outstanding.
+  // What the agent is doing, in words for the person waiting. Empty when
+  // nothing is outstanding, and also empty while it is merely thinking —
+  // there is nothing truthful to name yet.
   const [statusLabel, setStatusLabel] = useState("");
+  // Whether anything is in flight at all. Drives the working tone, which has
+  // to start earlier than the label: the agent no longer says anything out
+  // loud while it works, so this tone is the only sign that it heard you.
+  const [isWorking, setIsWorking] = useState(false);
   const [error, setError] = useState(() =>
     serviceUrl ? "" : "Voice service is not configured. Set NEXT_PUBLIC_VOICE_SERVICE_URL."
   );
@@ -133,10 +138,19 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
             setPhase("error");
             setError(payload.message);
           }
-          // The agent is off doing something that takes a few seconds. The
-          // filler audio says so out loud; this is the visible half.
+          // The agent is working. There is no spoken filler any more, so
+          // these events are the whole signal: "thinking" fires the moment
+          // the question lands, "working" when a lookup starts and carries a
+          // label, "idle" when the answer is on its way.
           if (payload?.type === "agent-status") {
-            setStatusLabel(payload.state === "working" ? (payload.label ?? "") : "");
+            if (payload.state === "idle") {
+              setStatusLabel("");
+              setIsWorking(false);
+            } else {
+              // "thinking" has no label — the tone starts, the text does not.
+              setStatusLabel(payload.label ?? "");
+              setIsWorking(true);
+            }
           }
         },
         onError: (message) => {
@@ -212,6 +226,7 @@ export function useVoiceConversation({ onTranscript }: UseVoiceConversationOptio
     phase,
     liveTranscript,
     statusLabel,
+    isWorking,
     error,
     // Retrying a billing failure just reproduces it, so the UI hides the
     // button rather than inviting a pointless loop.

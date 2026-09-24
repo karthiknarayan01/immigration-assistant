@@ -99,6 +99,20 @@ class AgentStatus:
         self._round = 0
         self._active = 0
 
+    async def thinking(self) -> None:
+        """The question has landed and the agent is on it.
+
+        Sent the moment the user stops talking, before the model has decided
+        anything, so the client can start its working tone immediately instead
+        of waiting for a tool call that may be a second away or may never come.
+
+        This replaced spoken acknowledgements. Short phrases that fit in the
+        gap turned out to be continuers — "okay", "sure" — which mean "go on"
+        and read as "take your time" to someone who has finished asking. A
+        sound carries "I am working on it" without claiming anything.
+        """
+        await self._send({"type": "agent-status", "state": "thinking"})
+
     async def working(self, function_name: str, arguments: dict | None = None) -> None:
         self._active += 1
         self._round += 1

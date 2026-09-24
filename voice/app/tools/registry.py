@@ -22,7 +22,7 @@ from app.observability import (
     measure,
 )
 from app import knowledge
-from app.tools import providers
+from app.tools import google_search, providers
 from app.tools.credibility import Anecdote, filter_anecdotes
 from app.tools.sources import SEARCH_GROUPS, SourceTier
 
@@ -101,50 +101,45 @@ async def search_official_guidance(params: FunctionCallParams):
         await params.result_callback({"error": "No query provided."})
         return
 
-    if not providers.available_providers():
-        await params.result_callback({
-            "unavailable": True,
-            "message": (
-                "Search is not configured. Answer from your own knowledge, say "
-                "explicitly that you could not check a live source, and suggest "
-                "confirming on uscis.gov."
-            ),
-        })
-        return
+    # Google grounding bills to Vertex and needs no provider key, so a
+    # missing or exhausted search subscription must not block the wider path.
+    if not wider and not providers.available_providers():
+        logger.info("no search providers configured; using the wider web search instead")
+        wider = True
 
     log_tool_call("search_official_guidance", {"query": query, "wider": wider})
-    with measure(STAGE_TOOL, "search_official_guidance", query_chars=len(query), wider=wider) as span:
-        hits = (
-            await providers.search(query, limit=8)
-            if wider
-            else await providers.search_groups(query, SEARCH_GROUPS, limit=4)
-        )
-        span["hits"] = len(hits)
+    if not wider:
+        with measure(STAGE_TOOL, "search_official_guidance", query_chars=len(query)) as span:
+            hits = await providers.search_groups(query, SEARCH_GROUPS, limit=4)
+            span["hits"] = len(hits)
+    else:
+        hits = []
 
     if wider:
-        # Everything that is not a forum post, ranked by trust. The model is
-        # told to attribute rather than assert, because most of this will not
-        # be a government source.
-        reported = [h for h in hits if h.tier is not SourceTier.ANECDOTAL][:MAX_SPOKEN_HITS]
+        # Google rather than the allowlist. Reached through Gemini grounding,
+        # because Vertex will not let the agent hold a search tool and
+        # function declarations at the same time.
+        answer = await google_search.search(query)
+        if answer.found_anything:
+            await params.result_callback({
+                "summary": answer.text,
+                "sources": answer.sources[:6],
+                "count": len(answer.sources),
+                "guidance": (
+                    "This came from a web search, so it is reporting rather than "
+                    "official guidance. Say what is being reported and by whom, "
+                    "give the dates it carries, and say you could not confirm it "
+                    "against an official source. An attributed figure beats "
+                    "telling the person you found nothing."
+                ),
+            })
+            return
         await params.result_callback({
-            "results": [
-                {
-                    "title": h.title,
-                    "url": h.url,
-                    "excerpt": h.text[:MAX_EXCERPT_CHARS],
-                    "published": h.published.date().isoformat() if h.published else "undated",
-                    "currency": _age_note(h.published),
-                    "trust": h.tier.value,
-                }
-                for h in reported
-            ],
-            "count": len(reported),
+            "results": [],
+            "count": 0,
             "guidance": (
-                "Wider search, so most of this is reporting rather than official "
-                "guidance. Say who is reporting it and that you could not confirm "
-                "it officially. Anything marked authoritative may still be stated "
-                "as fact. Giving the person an attributed figure beats telling "
-                "them you found nothing."
+                "Even a wide web search found nothing usable. Say so plainly "
+                "rather than answering from memory."
             ),
         })
         return
@@ -172,36 +167,20 @@ async def search_official_guidance(params: FunctionCallParams):
         return
 
     if not official and FALLBACK_WHEN_EMPTY:
-        # The allowlist is a list of what we thought of in advance. Questions
-        # about what is happening right now — refusal trends, a consulate
-        # changing behaviour — are reported outside it or not at all, so
-        # giving up here returns "I couldn't find anything" precisely when
-        # the person most needs something.
-        logger.info(f"official search '{query}' found nothing on-allowlist; widening")
-        with measure(STAGE_TOOL, "search_official_fallback", query_chars=len(query)) as span:
-            wider = await providers.search(query, limit=6)
-            span["hits"] = len(wider)
-        reported = [h for h in wider if h.tier is not SourceTier.ANECDOTAL][:MAX_SPOKEN_HITS]
-        if reported:
+        # The allowlist is a list of what we thought of in advance, and the
+        # questions people ask are about what is happening now. Fall through
+        # to Google rather than returning nothing.
+        logger.info(f"official search '{query}' found nothing on-allowlist; widening to web")
+        answer = await google_search.search(query)
+        if answer.found_anything:
             await params.result_callback({
-                "results": [
-                    {
-                        "title": h.title,
-                        "url": h.url,
-                        "excerpt": h.text[:MAX_EXCERPT_CHARS],
-                        "published": h.published.date().isoformat() if h.published else "undated",
-                        "currency": _age_note(h.published),
-                        "trust": "reported",
-                    }
-                    for h in reported
-                ],
-                "count": len(reported),
+                "summary": answer.text,
+                "sources": answer.sources[:6],
+                "count": len(answer.sources),
                 "guidance": (
-                    "No official source covered this, so these come from wider "
-                    "reporting. Attribute them — say what is being reported and "
-                    "by whom — and say you could not confirm it against an "
-                    "official source. Do not state any of it as settled fact. "
-                    "This is still far more useful than saying you found nothing."
+                    "No official source covered this, so this is from a web "
+                    "search. Say what is being reported and by whom, and say you "
+                    "could not confirm it officially."
                 ),
             })
             return

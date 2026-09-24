@@ -16,16 +16,49 @@ def _params(**arguments):
     return SimpleNamespace(arguments=arguments, result_callback=result_callback), captured
 
 
-def test_official_search_admits_it_could_not_check_when_unconfigured(monkeypatch):
-    # With no API keys the agent must say it could not verify, never quietly
-    # fall back to guessing at current policy.
+def test_official_search_uses_the_web_when_providers_are_unconfigured(monkeypatch):
+    """No provider keys is no longer a dead end.
+
+    Google grounding bills to Vertex and needs no third-party subscription, so
+    an exhausted or missing search plan now degrades to a wider web search
+    rather than to an apology.
+    """
+    from app.tools import google_search
+
     monkeypatch.setattr(providers, "available_providers", lambda: [])
+
+    async def fake_search(query, **kwargs):
+        return google_search.GroundedAnswer(text="Premium processing is 15 days.", sources=[])
+
+    monkeypatch.setattr(google_search, "search", fake_search)
+    params, captured = _params(query="H-1B premium processing time")
+    asyncio.run(search_official_guidance(params))
+
+    assert "summary" in captured["result"]
+    # The model must be told to attribute this rather than assert it.
+    assert "could not confirm" in captured["result"]["guidance"]
+
+
+def test_official_search_admits_it_could_not_check_when_everything_fails(monkeypatch):
+    """The guarantee the previous test protected, one layer further down.
+
+    With nothing reachable at all, the agent must say so rather than quietly
+    answering current policy from memory.
+    """
+    from app.tools import google_search
+
+    monkeypatch.setattr(providers, "available_providers", lambda: [])
+
+    async def nothing(query, **kwargs):
+        return google_search.GroundedAnswer(text="", sources=[])
+
+    monkeypatch.setattr(google_search, "search", nothing)
     params, captured = _params(query="H-1B premium processing time")
     asyncio.run(search_official_guidance(params))
 
     result = captured["result"]
-    assert result["unavailable"] is True
-    assert "could not check" in result["message"]
+    assert result["count"] == 0
+    assert "rather than answering from memory" in result["guidance"]
 
 
 def test_community_search_refuses_to_guess_when_unconfigured(monkeypatch):

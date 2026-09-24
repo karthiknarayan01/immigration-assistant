@@ -30,7 +30,6 @@ from pipecat.workers.runner import WorkerRunner
 
 from app.config import settings
 from app.failures import classify_exception
-from app.filler_speaker import BotSpeechObserver, FillerSpeaker
 from app.status import AgentStatus
 from app.observability import (
     STAGE_USER_TURN,
@@ -51,25 +50,24 @@ from app.prompts import (
 from app.tools.registry import build_tools
 
 
-def _announced(name, handler, speaker: FillerSpeaker, status: AgentStatus):
-    """Wrap a tool handler so the user hears and sees that it is running.
+def _announced(name, handler, status: AgentStatus):
+    """Wrap a tool handler so the client can show what is running.
 
-    Done here rather than inside the tools: covering silence is a property of
-    the transport, not of searching, and the same handlers run in the evals
-    where there is no audio pipeline at all.
+    Done here rather than inside the tools: telling the user what is happening
+    is a property of the transport, not of searching, and the same handlers
+    run in the evals where there is no client at all.
     """
 
     async def wrapped(params: FunctionCallParams):
-        await speaker.speak_for_tool(name)
-        # The model's own arguments say what it is looking up, so the status
-        # can name the subject instead of repeating a fixed phrase per tool.
+        # No spoken filler. The client plays a working tone instead, driven by
+        # these status events — words chosen before the model has decided
+        # anything were consistently the wrong words.
         await status.working(name, params.arguments)
         try:
             return await handler(params)
         except Exception as error:  # noqa: BLE001 - a tool must not end the turn
-            # In voice, an exception here ends the turn in silence — the user
-            # hears the filler clip, then nothing. Hand the model a result
-            # saying the lookup failed so it says so out loud instead.
+            # In voice, an exception here ends the turn in silence. Hand the
+            # model a result saying the lookup failed so it says so out loud.
             failure = classify_exception(error)
             logger.warning(f"tool {name} failed ({failure.detail}, {failure.kind.value})")
             await params.result_callback({
@@ -88,7 +86,7 @@ def _announced(name, handler, speaker: FillerSpeaker, status: AgentStatus):
     return wrapped
 
 
-def _build_llm(speaker: FillerSpeaker, status: AgentStatus) -> GeminiLiveVertexLLMService:
+def _build_llm(status: AgentStatus) -> GeminiLiveVertexLLMService:
     if not settings.google_cloud_project_id:
         raise RuntimeError(
             "GOOGLE_CLOUD_PROJECT_ID is not set. Vertex AI needs a project id; "
@@ -130,7 +128,7 @@ def _build_llm(speaker: FillerSpeaker, status: AgentStatus) -> GeminiLiveVertexL
     for name, handler in handlers.items():
         llm.register_function(
             name,
-            _announced(name, handler, speaker, status),
+            _announced(name, handler, status),
             timeout_secs=settings.tool_timeout_secs,
             # If the user starts talking again, whatever we were looking up is
             # no longer what they asked. Abandon it rather than answering late.
@@ -172,12 +170,11 @@ async def run_bot(websocket) -> None:
         ),
     )
 
-    # Both are bound to the pipeline further down: tool handlers are
-    # registered on the LLM service, which has to exist before the pipeline
-    # that will carry their audio and their status events.
-    speaker = FillerSpeaker()
+    # Bound to the pipeline further down: tool handlers are registered on the
+    # LLM service, which has to exist before the RTVI processor that carries
+    # their status events.
     status = AgentStatus()
-    llm = _build_llm(speaker, status)
+    llm = _build_llm(status)
 
     context = LLMContext()
     user_aggregator, assistant_aggregator = LLMContextAggregatorPair(
@@ -220,7 +217,6 @@ async def run_bot(websocket) -> None:
         observers=[
             RTVIObserver(rtvi),
             SessionFailureObserver(rtvi),
-            BotSpeechObserver(speaker),
         ],
         params=PipelineParams(enable_metrics=True, enable_usage_metrics=True),
     )
@@ -228,7 +224,6 @@ async def run_bot(websocket) -> None:
     runner = WorkerRunner(handle_sigint=False)
     await runner.add_workers(worker)
 
-    speaker.bind(worker)
     turn_started: dict[str, float] = {}
 
     @user_aggregator.event_handler("on_user_turn_started")
@@ -237,7 +232,6 @@ async def run_bot(websocket) -> None:
         # whole turn: question, tool calls, and the answer finally spoken.
         request_id = new_request(session_id=session_id)
         turn_started[request_id] = time.perf_counter()
-        speaker.on_user_turn_started()
         # Tool rounds are counted per turn: "still checking" only makes sense
         # relative to the question being asked now.
         status.on_user_turn_started()
@@ -246,7 +240,9 @@ async def run_bot(websocket) -> None:
     async def on_user_turn_message_added(_aggregator, message):
         log_user_query(_message_text(message))
         # The turn is complete here, so this is where the silence starts.
-        speaker.on_user_turn_ended()
+        # The question has landed. Tell the client so its working tone starts
+        # now rather than whenever a tool happens to fire.
+        await status.thinking()
 
 
     @assistant_aggregator.event_handler("on_assistant_turn_stopped")
