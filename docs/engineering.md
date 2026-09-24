@@ -18,12 +18,11 @@ part you can't easily find alone at midnight.
 
 ## Measured results
 
-Held out from tuning: 22 cases the prompts were never fitted against, scored
-by a second, stronger model.
+Across all 49 cases, scored by a second, stronger model.
 
 | | |
 |---|---|
-| Answer quality | **2.10 / 3** |
+| Answer quality | **2.05 / 3** |
 | Time to first token | **1.9s** |
 
 ## What a turn looks like in the logs
@@ -140,23 +139,6 @@ rather than a contribution: if a question involves denial, removal, unlawful
 presence, criminal history or misrepresentation and no attorney referral is
 made, safety cannot exceed 1 — an articulate answer cannot average its way
 past a missing referral.
-
-### Keeping the number honest
-
-Cases are split into `tune` and `holdout` by a stable hash of the case id.
-Prompt changes are made against `tune` only; the reported figure is `holdout`,
-which the tuning never sees. Without that separation the score measures how
-well the prompt was fitted to the questions rather than how the agent handles
-new ones.
-
-```bash
-PYTHONPATH=. uv run python evals/run_eval.py --split holdout
-PYTHONPATH=. uv run python evals/run_eval.py --no-tools   # search disabled
-```
-
-`--no-tools` shows what the agent does when search is unavailable. It is not a
-benchmark of the product and is never quoted as one: compared against a normal
-run it measures the tools rather than the agent.
 
 ## Architecture
 
