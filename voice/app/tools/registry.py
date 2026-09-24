@@ -6,6 +6,7 @@ research, academic, and YouTube tools are intentionally absent: at 10-30s they
 belong in the text path, not a live conversation.
 """
 
+import asyncio
 from datetime import datetime, timezone
 
 from loguru import logger
@@ -22,7 +23,7 @@ from app.observability import (
     measure,
 )
 from app import knowledge
-from app.tools import google_search, providers
+from app.tools import google_search, providers, x_search
 from app.tools.credibility import Anecdote, filter_anecdotes
 from app.tools.sources import SEARCH_GROUPS, SourceTier
 
@@ -209,7 +210,9 @@ async def search_community_experiences(params: FunctionCallParams):
         await params.result_callback({"error": "No query provided."})
         return
 
-    if not providers.available_providers():
+    # X alone is enough to answer from, so a missing forum provider is not a
+    # dead end when Grok is configured.
+    if not providers.available_providers() and not x_search.available():
         await params.result_callback({
             "unavailable": True,
             "message": "Community search is not configured. Do not guess at what people report.",
@@ -223,8 +226,15 @@ async def search_community_experiences(params: FunctionCallParams):
     with measure(
         STAGE_TOOL, "search_community_experiences", query_chars=len(query), topic=topic
     ) as span:
-        hits = await providers.search_community(query, limit=10)
+        # Forums and X in parallel. X is where a change in practice shows up
+        # first; forums carry the longer, more detailed accounts. Neither is
+        # trusted more than the other — both land in the same filter.
+        hits, posts = await asyncio.gather(
+            providers.search_community(query, limit=10),
+            x_search.search(query),
+        )
         span["hits"] = len(hits)
+        span["x_posts"] = len(posts)
     # Unlike official guidance, this tool is optional: losing it costs colour,
     # not correctness. A billing failure here degrades quietly rather than
     # interrupting the answer with an account problem the user cannot act on.
@@ -234,8 +244,13 @@ async def search_community_experiences(params: FunctionCallParams):
 
     anecdotal = [h for h in hits if h.tier is SourceTier.ANECDOTAL]
 
+    # X posts are appended as peers, not as context. Twenty posts saying the
+    # same thing is usually one claim and nineteen quote-tweets, so they face
+    # the same corroboration gate — three independent authors — as anything
+    # else here.
     kept, corroborated = filter_anecdotes(
-        [Anecdote(text=h.text, url=h.url, published=h.published, author=h.author) for h in anecdotal],
+        [Anecdote(text=h.text, url=h.url, published=h.published, author=h.author) for h in anecdotal]
+        + posts,
         topic,
         now=datetime.now(timezone.utc),
     )
