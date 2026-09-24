@@ -91,6 +91,12 @@ def _format_official(hits) -> dict:
 async def search_official_guidance(params: FunctionCallParams):
     """Authoritative-first search: government sources and the immigration bar."""
     query = str(params.arguments.get("query", "")).strip()
+    # The automatic widening below only triggers on an empty result. That
+    # misses the more common failure: the allowlist returns something real
+    # that does not answer the question — asked for H-1B refusal rates in
+    # India it returned nationality-blind I-129 totals — and the model, which
+    # can see that, had no way to ask for anything else.
+    wider = bool(params.arguments.get("wider", False))
     if not query:
         await params.result_callback({"error": "No query provided."})
         return
@@ -106,10 +112,42 @@ async def search_official_guidance(params: FunctionCallParams):
         })
         return
 
-    log_tool_call("search_official_guidance", {"query": query})
-    with measure(STAGE_TOOL, "search_official_guidance", query_chars=len(query)) as span:
-        hits = await providers.search_groups(query, SEARCH_GROUPS, limit=4)
+    log_tool_call("search_official_guidance", {"query": query, "wider": wider})
+    with measure(STAGE_TOOL, "search_official_guidance", query_chars=len(query), wider=wider) as span:
+        hits = (
+            await providers.search(query, limit=8)
+            if wider
+            else await providers.search_groups(query, SEARCH_GROUPS, limit=4)
+        )
         span["hits"] = len(hits)
+
+    if wider:
+        # Everything that is not a forum post, ranked by trust. The model is
+        # told to attribute rather than assert, because most of this will not
+        # be a government source.
+        reported = [h for h in hits if h.tier is not SourceTier.ANECDOTAL][:MAX_SPOKEN_HITS]
+        await params.result_callback({
+            "results": [
+                {
+                    "title": h.title,
+                    "url": h.url,
+                    "excerpt": h.text[:MAX_EXCERPT_CHARS],
+                    "published": h.published.date().isoformat() if h.published else "undated",
+                    "currency": _age_note(h.published),
+                    "trust": h.tier.value,
+                }
+                for h in reported
+            ],
+            "count": len(reported),
+            "guidance": (
+                "Wider search, so most of this is reporting rather than official "
+                "guidance. Say who is reporting it and that you could not confirm "
+                "it officially. Anything marked authoritative may still be stated "
+                "as fact. Giving the person an attributed figure beats telling "
+                "them you found nothing."
+            ),
+        })
+        return
     failure = providers.take_last_failure()
     official = [h for h in hits if h.tier in (SourceTier.AUTHORITATIVE, SourceTier.PROFESSIONAL)]
     logger.info(
@@ -371,7 +409,19 @@ _SCHEMAS = [
             "query": {
                 "type": "string",
                 "description": "A focused search query, e.g. 'H-1B premium processing time 2026'.",
-            }
+            },
+            "wider": {
+                "type": "boolean",
+                "description": (
+                    "Search beyond government and law-firm sources. Set this to true "
+                    "and call again when the first search returned nothing, or "
+                    "returned official pages that do not actually answer what was "
+                    "asked — which is common for questions about trends, statistics "
+                    "by country, or how something is going lately, since official "
+                    "sites rarely publish those. Results must be attributed rather "
+                    "than asserted."
+                ),
+            },
         },
         required=["query"],
     ),
