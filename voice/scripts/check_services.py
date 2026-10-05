@@ -29,25 +29,21 @@ FAIL = " FAIL "
 SKIP = " skip "
 
 
-async def check_vertex() -> tuple[bool, str]:
+async def check_model() -> tuple[bool, str]:
     """The model. Nothing works without this."""
-    if not settings.google_cloud_project_id:
-        return False, "GOOGLE_CLOUD_PROJECT_ID is not set"
+    if not settings.llm_api_key:
+        return False, "LLM_API_KEY is not set"
     try:
-        from google import genai
-        from google.genai import types
+        from app.llm import get_client
 
-        client = genai.Client(
-            vertexai=True,
-            project=settings.google_cloud_project_id,
-            location=settings.google_cloud_location,
+        client = get_client()
+        response = await client.chat.completions.create(
+            model=settings.llm_model,
+            messages=[{"role": "user", "content": "Reply with the single word: ok"}],
+            max_tokens=10,
         )
-        response = await client.aio.models.generate_content(
-            model="gemini-2.5-flash",
-            contents="Reply with the single word: ok",
-            config=types.GenerateContentConfig(temperature=0),
-        )
-        return True, f"replied {(response.text or '').strip()[:12]!r}"
+        text = (response.choices[0].message.content or "").strip()
+        return True, f"replied {text[:12]!r}"
     except Exception as error:  # noqa: BLE001 - reporting, not handling
         failure = classify_exception(error)
         return False, f"{failure.kind.value} ({failure.detail})"
@@ -96,8 +92,8 @@ async def check_provider(name: str) -> tuple[bool | None, str]:
 async def main() -> int:
     print("Checking services the agent depends on\n")
 
-    ok, detail = await check_vertex()
-    print(f"[{OK if ok else FAIL}] vertex ai (model + judge)   {detail}")
+    ok, detail = await check_model()
+    print(f"[{OK if ok else FAIL}] model ({settings.llm_model})   {detail}")
     healthy = ok
 
     provider_states = []

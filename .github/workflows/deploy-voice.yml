@@ -1,4 +1,4 @@
-name: Deploy voice agent
+name: Deploy assistant backend
 
 on:
   push:
@@ -29,10 +29,6 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-
-      # pipecat imports audioop, removed in 3.13.
-      - run: uv python install 3.12
-        working-directory: voice
 
       - run: uv sync --frozen
         working-directory: voice
@@ -66,10 +62,9 @@ jobs:
             --project "$PROJECT_ID" \
             --region "$REGION" \
             --timeout 3600 \
-            --session-affinity \
             --allow-unauthenticated \
             --quiet \
-            --set-env-vars "GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=$REGION,TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }},EXA_API_KEY=${{ secrets.EXA_API_KEY }}"
+            --set-env-vars "LLM_MODEL=${{ vars.LLM_MODEL }},LLM_FALLBACK_MODEL=${{ vars.LLM_FALLBACK_MODEL }},REASONER_MODEL=${{ vars.REASONER_MODEL }},LLM_API_KEY=${{ secrets.OPENROUTER_API_KEY }},TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }},EXA_API_KEY=${{ secrets.EXA_API_KEY }},PARALLEL_API_KEY=${{ secrets.PARALLEL_API_KEY }},XAI_API_KEY=${{ secrets.XAI_API_KEY }}"
 
       - name: Smoke test the new revision
         run: |

@@ -1,15 +1,21 @@
+"""HTTP API for the text agent.
+
+One endpoint, /chat, streams an answer as server-sent events. The browser
+converts speech to text on its own and posts plain text here, so there is no
+audio pipeline, no WebSocket, and no pipecat — the model is an OpenAI-compatible
+endpoint named in configuration.
+"""
+
 import json
 import sys
 
 import uvicorn
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from google import genai
 from loguru import logger
 from pydantic import BaseModel
 
-from app.bot import run_bot
 from app.config import settings
 from app.failures import classify_exception, session_failure_message
 from app.observability import log_agent_response, log_user_query, new_request
@@ -17,8 +23,6 @@ from app.text_agent import AgentUnavailable, StatusEvent, stream_answer
 
 app = FastAPI()
 
-# The browser connects to /ws directly. CORS still matters for any plain HTTP
-# the page makes; WebSocket origin checks are handled at the route.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in settings.allowed_origins.split(",")],
@@ -51,7 +55,7 @@ def _sse(event: str, data: dict) -> str:
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    """Stream one answer, with the same status events the voice path emits.
+    """Stream one answer, with status events interleaved with tokens.
 
     Server-sent events rather than plain text: the tokens and the "what am I
     doing right now" updates share one ordered stream, so the client cannot
@@ -62,8 +66,6 @@ async def chat(request: ChatRequest):
 
     history = [m.model_dump() for m in request.recentMessages]
     if request.summary:
-        # Older turns arrive summarised rather than in full; the agent should
-        # read that as context it already has, not as something the user said.
         history.insert(
             0,
             {
@@ -73,12 +75,8 @@ async def chat(request: ChatRequest):
         )
 
     async def events():
-        client = genai.Client(
-            vertexai=True,
-            project=settings.google_cloud_project_id,
-            location=settings.google_cloud_location,
-        )
         answer: list[str] = []
+        pending_status: str | None = None
 
         async def on_status(event: StatusEvent | None):
             nonlocal pending_status
@@ -88,9 +86,8 @@ async def chat(request: ChatRequest):
                 else _sse("status", {"state": "idle"})
             )
 
-        pending_status: str | None = None
         try:
-            stream = stream_answer(client, history, request.newMessage, on_status=on_status)
+            stream = stream_answer(history, request.newMessage, on_status=on_status)
             async for chunk in stream:
                 if pending_status:
                     yield pending_status
@@ -100,8 +97,6 @@ async def chat(request: ChatRequest):
             if pending_status:
                 yield pending_status
         except AgentUnavailable as error:
-            # Already classified where it happened, so the user is told which
-            # problem this is rather than a generic apology.
             failure = error.failure
             logger.warning(f"chat turn failed: {failure.kind.value} ({failure.detail})")
             yield _sse(
@@ -135,22 +130,6 @@ async def chat(request: ChatRequest):
         # answer into one delivered all at once at the end.
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    logger.info("websocket accepted")
-    try:
-        await run_bot(websocket)
-    except WebSocketDisconnect:
-        logger.info("websocket disconnected by client")
-    except Exception:
-        # A crash here would otherwise be silent to the browser, which just
-        # sees the socket close and retries forever.
-        logger.exception("voice session failed")
-    finally:
-        logger.info("websocket session ended")
 
 
 def main() -> None:

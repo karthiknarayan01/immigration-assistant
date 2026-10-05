@@ -1,44 +1,60 @@
+"""Runtime configuration.
+
+The agent is now model-agnostic: it talks to any OpenAI-compatible endpoint
+(OpenRouter by default), so the model is a configuration choice rather than a
+code change. A single key and a base URL let you run DeepSeek, Llama, Qwen,
+Gemini, or a mix, with an automatic fallback model for when the primary is
+down or out of credit.
+
+Search providers are unchanged: each activates only when its key is present,
+so the agent degrades to saying "I could not check a live source" rather than
+guessing at current policy.
+"""
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    # Vertex AI — the credit-eligible path. Google Cloud credits do NOT apply
-    # to Gemini Developer API (AI Studio) keys, so we authenticate as a GCP
-    # service account instead. Leave both credential fields blank on Cloud Run
-    # to use Application Default Credentials from the attached service account.
-    google_cloud_project_id: str = ""
-    google_cloud_location: str = "us-east4"
-    google_vertex_credentials: str = ""
-    google_vertex_credentials_path: str = ""
+    # ── Model routing ──────────────────────────────────────────────────────
+    # Any OpenAI-compatible endpoint. OpenRouter is the default because one key
+    # reaches hundreds of models with automatic fallback; set base_url to a
+    # provider's own endpoint (Groq, Together, DeepSeek) to skip the router fee.
+    llm_base_url: str = "https://openrouter.ai/api/v1"
+    llm_api_key: str = ""  # e.g. OPENROUTER_API_KEY
+    llm_model: str = "deepseek/deepseek-chat"
 
-    gemini_model: str = "google/gemini-live-2.5-flash-native-audio"
-    gemini_voice: str = "Charon"
+    #: Used when the primary model fails with a transient error. Leave blank to
+    #: disable fallback.
+    llm_fallback_model: str = ""
 
-    # Turn detection. Defaults are deliberately more patient than Gemini's:
-    # users are disproportionately non-native English speakers, who pause
-    # mid-sentence more often and for longer. See bot.py for sensitivity.
-    vad_silence_duration_ms: int = 1500
-    vad_prefix_padding_ms: int = 300
+    #: Optional reasoning-capable model for the strategy/reasoning function.
+    #: When blank, the primary model answers those questions too.
+    reasoner_model: str = ""
 
-    # Search providers. Each tool activates only if its key is present, so the
-    # agent degrades to answering from its own knowledge rather than failing.
-    # Note: uscis.gov blocks datacenter traffic (403), so official sources are
-    # reached through these providers' crawlers, never fetched directly.
+    #: Judge model for evals — stronger than the agent under test.
+    judge_model: str = "anthropic/claude-3.5-sonnet"
+
+    #: Bounds the whole turn. A deadline, not a count, so a retry never starts
+    #: with too little time left to help.
+    model_timeout_secs: float = 60.0
+
+    # ── Search providers ────────────────────────────────────────────────────
+    # Each tool activates only if its key is present. uscis.gov returns 403 to
+    # datacenter traffic, so official sources are reached through these
+    # providers' crawlers, never fetched directly.
     tavily_api_key: str = ""
     exa_api_key: str = ""
-    firecrawl_api_key: str = ""
     parallel_api_key: str = ""
     xai_api_key: str = ""
 
-    # How long a tool may run before the agent gives up and says so. Voice has
-    # no tolerance for dead air, even with filler speech covering the gap.
-    tool_timeout_secs: float = 8.0
+    # ── Tool budget ─────────────────────────────────────────────────────────
+    tool_timeout_secs: float = 12.0
 
-    # Browser clients POST WebRTC offers cross-origin from the Vercel app.
+    # ── Server ──────────────────────────────────────────────────────────────
+    # Comma-separated. Lock this to your Vercel domain before going public.
     allowed_origins: str = "*"
-
     host: str = "0.0.0.0"
     port: int = 8080
 

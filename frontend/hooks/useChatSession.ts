@@ -4,7 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import * as db from "@/lib/db";
 import { KEEP_RAW_MESSAGES, SUMMARY_TRIGGER_MESSAGES } from "@/lib/constants";
 import { readServerSentEvents } from "@/lib/sse";
-import { Message, Role } from "@/lib/types";
+import { Message } from "@/lib/types";
+
+const OFFLINE_MESSAGE = "You appear to be offline. Check your connection and try again.";
+const SERVER_MESSAGE = "Something went wrong reaching the assistant. Please try again.";
 
 export function useChatSession() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -16,6 +19,28 @@ export function useChatSession() {
   // waiting. Empty when there is nothing outstanding.
   const [statusLabel, setStatusLabel] = useState("");
   const summarizingRef = useRef(false);
+
+  // The browser knows about network loss before any fetch fails, so it is
+  // surfaced immediately rather than after a timeout. Mirrored in a ref so
+  // in-flight sends can also see it.
+  const [isOffline, setIsOffline] = useState(
+    typeof navigator !== "undefined" ? !navigator.onLine : false
+  );
+  const offlineRef = useRef(isOffline);
+  useEffect(() => {
+    offlineRef.current = isOffline;
+  }, [isOffline]);
+
+  useEffect(() => {
+    const goOnline = () => setIsOffline(false);
+    const goOffline = () => setIsOffline(true);
+    window.addEventListener("online", goOnline);
+    window.addEventListener("offline", goOffline);
+    return () => {
+      window.removeEventListener("online", goOnline);
+      window.removeEventListener("offline", goOffline);
+    };
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -80,8 +105,17 @@ export function useChatSession() {
       const assistantId = crypto.randomUUID();
       setMessages((prev) => [...prev, { id: assistantId, role: "assistant", content: "", createdAt: Date.now() }]);
 
+      const fail = (message: string) => {
+        setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: message } : m)));
+      };
+
       let full = "";
       try {
+        if (offlineRef.current) {
+          fail(OFFLINE_MESSAGE);
+          return;
+        }
+
         const recentMessages = priorMessages.slice(summarizedUpTo).map((m) => ({ role: m.role, content: m.content }));
         const res = await fetch("/api/chat", {
           method: "POST",
@@ -103,18 +137,17 @@ export function useChatSession() {
             const data = event.data as { state?: string; label?: string };
             setStatusLabel(data.state === "working" ? (data.label ?? "") : "");
           } else if (event.name === "error") {
-            const data = event.data as { message?: string };
+            const data = event.data as { message?: string; kind?: string };
             // Replace rather than append: a partial answer followed by an
             // error reads as though the partial part was checked.
-            full = data.message ?? "Something went wrong. Please try again.";
-            setMessages((prev) =>
-              prev.map((m) => (m.id === assistantId ? { ...m, content: full } : m))
-            );
+            full = data.message ?? SERVER_MESSAGE;
+            fail(full);
           }
         }
       } catch {
-        full = "Something went wrong reaching the assistant. Please try again.";
-        setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: full } : m)));
+        // A thrown fetch means the request never completed — almost always a
+        // dropped connection rather than a server response.
+        fail(offlineRef.current ? OFFLINE_MESSAGE : SERVER_MESSAGE);
       } finally {
         setStatusLabel("");
         setIsSending(false);
@@ -138,13 +171,5 @@ export function useChatSession() {
     setSummarizedUpTo(0);
   }, []);
 
-  // Voice turns already happened on the voice service, so they're recorded
-  // straight into the transcript rather than sent anywhere.
-  const appendMessage = useCallback(async (role: Role, content: string) => {
-    const message: Message = { id: crypto.randomUUID(), role, content, createdAt: Date.now() };
-    setMessages((prev) => [...prev, message]);
-    await db.addMessage(message);
-  }, []);
-
-  return { messages, sendMessage, appendMessage, clearSession, isSending, isLoaded, statusLabel };
+  return { messages, sendMessage, clearSession, isSending, isLoaded, statusLabel, isOffline };
 }

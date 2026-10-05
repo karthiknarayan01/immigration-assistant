@@ -14,8 +14,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
-from pipecat.frames.frames import ErrorFrame
-
 
 class FailureKind(str, Enum):
     #: Out of credit, over quota, or rate limited — an account problem.
@@ -136,27 +134,6 @@ def classify_exception(error: BaseException) -> Failure:
     if any(hint in message for hint in _FUNDS_HINTS):
         return Failure(FailureKind.FUNDS, retryable=False, detail=type(error).__name__)
     return Failure(FailureKind.OTHER, retryable=False, detail=type(error).__name__)
-
-
-def classify_error_frame(frame: ErrorFrame) -> FailureKind:
-    """Classify a pipeline ErrorFrame, preferring its structured category."""
-    category = getattr(frame, "category", None)
-    name = getattr(category, "name", "") or str(category or "")
-    name = name.upper()
-    if name in ("QUOTA", "RATE_LIMIT"):
-        return FailureKind.FUNDS
-    if name in ("AUTHENTICATION", "AUTHORIZATION"):
-        return FailureKind.AUTH
-    if name == "CONNECTIVITY":
-        return FailureKind.CONNECTIVITY
-
-    # Fall back to the message: the category is not always populated.
-    message = (getattr(frame, "error", "") or "").lower()
-    if any(hint in message for hint in _FUNDS_HINTS):
-        return FailureKind.FUNDS
-    if any(hint in message for hint in _AUTH_HINTS):
-        return FailureKind.AUTH
-    return FailureKind.OTHER
 
 
 #: Shown to the user when the model itself cannot run. Deliberately plain:

@@ -19,17 +19,16 @@ import pathlib
 from types import SimpleNamespace
 
 import yaml
-from google import genai
-from google.genai import types
 
 from app.config import settings
+from app.llm import get_client
 from app.tools.registry import search_official_guidance
 
 HERE = pathlib.Path(__file__).resolve().parent
 CURATED = HERE / "curated.json"
 OUT = HERE / "eval_set_reddit.yaml"
 
-RUBRIC_MODEL = "gemini-2.5-pro"
+RUBRIC_MODEL = settings.judge_model
 
 INSTRUCTION = """
 You are writing a grading rubric for a US immigration assistant, from a real
@@ -80,35 +79,31 @@ async def sources_for(question: str) -> str:
     return json.dumps(result.get("results", []), indent=2)[:6000]
 
 
-def draft(client: genai.Client, question: str, sources: str) -> dict:
-    response = client.models.generate_content(
+async def draft(question: str, sources: str) -> dict:
+    client = get_client()
+    response = await client.chat.completions.create(
         model=RUBRIC_MODEL,
-        contents=json.dumps({"question": question, "retrieved_sources": sources}, indent=2),
-        config=types.GenerateContentConfig(
-            system_instruction=INSTRUCTION,
-            response_mime_type="application/json",
-            temperature=0,
-        ),
+        messages=[
+            {"role": "system", "content": INSTRUCTION},
+            {"role": "user", "content": json.dumps({"question": question, "retrieved_sources": sources}, indent=2)},
+        ],
+        temperature=0,
+        response_format={"type": "json_object"},
     )
     try:
-        return json.loads(response.text)
+        return json.loads((response.choices[0].message.content or "").strip())
     except (json.JSONDecodeError, TypeError):
         return {"needs_review": True, "note": "rubric model returned unparseable output"}
 
 
 async def main() -> None:
     questions = json.loads(CURATED.read_text())
-    client = genai.Client(
-        vertexai=True,
-        project=settings.google_cloud_project_id,
-        location=settings.google_cloud_location,
-    )
 
     cases = []
     for index, item in enumerate(questions, start=1):
         question = item["question"]
         sources = await sources_for(question)
-        rubric = draft(client, question, sources)
+        rubric = await draft(question, sources)
 
         cases.append(
             {
