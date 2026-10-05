@@ -1,9 +1,8 @@
 # Immigration Assistant
 
-Ask US immigration questions out loud and get an answer back in seconds — H-1B,
-F-1, B-1/B-2, L-1 and employment-based green cards.
-
-**[Try it](https://immigration-assistant-karthik-s-projects-56f2.vercel.app)**
+Ask US immigration questions by typing — or by speaking, which your browser
+converts to text — and get a sourced answer back. H-1B, F-1, B-1/B-2, L-1 and
+employment-based green cards.
 
 > Not legal advice. The assistant hands you to an attorney for denials, removal
 > proceedings, unlawful presence, criminal history, and anything involving
@@ -13,25 +12,38 @@ F-1, B-1/B-2, L-1 and employment-based green cards.
 
 ## What it does
 
-1. You ask a question by voice or by typing.
-2. It searches official sources — USCIS, the Federal Register, the eCFR.
-3. It separately checks what people actually report going through the same
-   thing, on forums like Reddit.
-4. It answers, and tells you which parts are official rule and which parts are
-   other people's experience.
-5. If your situation is risky, it stops and tells you to see an attorney.
+The assistant has three jobs:
 
-Step 4 is the part a search box won't do for you. What the rule says and what
-happens in practice often differ, and knowing that gap exists is usually the
-most useful thing you can learn at midnight.
+1. **Fact provider.** Answers factual and procedural questions about settled
+   law, reading the regulations (a local copy of 8 CFR) and current official
+   policy, and never stating a number it has not looked up.
+2. **Recent developments.** Finds and reports what has recently changed or been
+   proposed — executive orders, proposed rules, policy memos, court decisions —
+   and clearly separates what is in force from what is merely proposed or
+   reported.
+3. **Reasoning and strategy.** For scenario questions ("can I follow strategy A
+   to get a green card fastest?"), it reasons through the rules and real-world
+   outcomes, gives pros and cons, and a calibrated view of likelihood grounded
+   in what it finds — not in speculation.
+
+It also separates **what the law says** from **what actually happens in
+practice**, and says which parts of an answer are official rule and which are
+other people's reported experience.
+
+## How you talk to it
+
+The interface is text-first. The mic button uses the browser's built-in speech
+recognition (the Web Speech API — free, no backend STT, on-device in Safari)
+to convert speech to text, then sends that text to the backend. If your browser
+doesn't support it, just type. Nothing is stored on the server; the transcript
+lives only in your own browser.
 
 ## What it won't do
 
 - Tell you what *will* happen in your case. It isn't a lawyer.
 - Treat a forum post as fact. Anecdotes are labelled as anecdotes.
+- Answer anything outside US immigration — it politely declines.
 - Guess at current processing times or fees when it can't check them.
-- Store your conversation. Nothing is saved on the server; the transcript
-  lives only in your own browser.
 
 ## How much you can trust an answer
 
@@ -45,75 +57,38 @@ Every source is ranked before the assistant is allowed to use it.
 | Anything unrecognised | Treated as anecdotal |
 
 A pattern from forums is only mentioned when **three different people** report
-it. Four posts by the same person is one opinion. Out-of-date numbers are
-thrown away entirely; out-of-date stories are kept but flagged as old.
-
-### Numbers get looked up, never recalled
-
-Any figure — a grace period, a deadline, a filing fee, a day count — is
-searched for before it's said. The assistant is not allowed to answer those
-from memory, because a remembered number is often a year or two out of date
-and sounds exactly as confident as a correct one.
-
-If it searches and can't find the exact figure, it tells you that and points
-you at the official page, rather than filling the gap with its best guess.
-That makes some answers less satisfying. It also means a number you're given
-is one it actually found.
+it. Out-of-date numbers are thrown away entirely.
 
 ---
 
 # Run your own
 
-The whole thing is one repo — voice backend and web frontend. Fork it, bring
-your own accounts, and it's yours.
+One repo: the Python backend (`voice/`) and the Next.js frontend (`frontend/`).
 
 ## 1. What you'll need
 
 | Service | What for | Cost |
 |---|---|---|
-| **Google Cloud** | The model (Gemini via Vertex AI) | Pay per minute of conversation; new accounts get free credit |
+| **OpenRouter** (or any OpenAI-compatible endpoint) | The model, swappable by env var | Pay per token; cheap open models are a fraction of a cent |
 | **Tavily** | Official-source search | Free tier, then ~$0.008/search |
-| **Exa** | Better semantic search | Free tier, then ~$7 per 1,000 |
-| **Parallel** | Forum and Reddit search | Free tier available |
+| **Exa** (optional) | Better semantic search | Free tier |
+| **Parallel** (optional) | Forum and Reddit search | Free tier available |
+| **xAI** (optional) | Searching X for early signal | Pay per call |
 | **Vercel** | Hosting the web app | Free tier is enough |
 
-Only Google Cloud and **one** search key are required to get going. Everything
-else degrades gracefully — with no search keys at all, the assistant still
-answers but tells you it couldn't check a live source.
+Only the model key and **one** search key are required. With no search keys at
+all, the assistant still answers but tells you it couldn't check a live source.
 
-> Use **Vertex AI**, not an AI Studio key. Google Cloud credits apply to Vertex
-> AI; an AI Studio key bills your card instead.
+The model is **any OpenAI-compatible endpoint**, so you are not locked to one
+provider. Recommended cheap setup:
 
-## 2. Fork and clone
+| Job | Model |
+|---|---|
+| Fact + search | `deepseek/deepseek-chat` |
+| Reasoning / strategy | `deepseek/deepseek-r1` (set `REASONER_MODEL`) |
+| Judge (evals) | `anthropic/claude-3.5-sonnet` (or another strong model) |
 
-```bash
-git clone https://github.com/<your-username>/immigration-assistant
-cd immigration-assistant
-```
-
-## 3. Set up Google Cloud
-
-1. Create a project at [console.cloud.google.com](https://console.cloud.google.com).
-2. Note the **project ID** (not the display name).
-3. Enable the Vertex AI API:
-   ```bash
-   gcloud services enable aiplatform.googleapis.com
-   ```
-4. Create a service account with the **Vertex AI User** role, and download its
-   JSON key.
-
-## 4. Get your search keys
-
-Sign up and copy the API key from each:
-
-- [tavily.com](https://tavily.com)
-- [exa.ai](https://exa.ai)
-- [parallel.ai](https://parallel.ai)
-
-## 5. Run the backend
-
-Needs **Python 3.12** — not 3.13, which removed a module the audio pipeline
-depends on.
+## 2. Run the backend
 
 ```bash
 cd voice
@@ -123,11 +98,10 @@ cp .env.example .env
 Fill in `.env`:
 
 ```bash
-GOOGLE_CLOUD_PROJECT_ID=your-project-id
-GOOGLE_VERTEX_CREDENTIALS_PATH=/path/to/service-account.json
-TAVILY_API_KEY=your-key
-EXA_API_KEY=your-key
-PARALLEL_API_KEY=your-key
+LLM_API_KEY=sk-or-...
+LLM_MODEL=deepseek/deepseek-chat
+LLM_FALLBACK_MODEL=meta-llama/llama-3.3-70b-instruct
+TAVILY_API_KEY=...
 ```
 
 Then:
@@ -141,32 +115,23 @@ Check it's alive:
 
 ```bash
 curl http://localhost:8080/health
-uv run python scripts/check_handshake.py http://localhost:8080
-```
-
-Then check your accounts and keys actually work:
-
-```bash
 PYTHONPATH=. uv run python scripts/check_services.py
 ```
 
-It tells you which services are reachable and, when one isn't, whether that's
-a missing key, an empty balance, or just the network. Worth running before you
-conclude the assistant is giving bad answers — a search provider that's out of
-credit looks exactly like an assistant that's got worse.
+The last one tells you which services are reachable and, when one isn't,
+whether that's a missing key, an empty balance, or just the network.
 
-## 6. Run the frontend
+## 3. Run the frontend
 
 ```bash
 cd frontend
 cp .env.example .env.local
 ```
 
-Set both to your backend:
+Set the backend URL:
 
 ```bash
-NEXT_PUBLIC_VOICE_SERVICE_URL=http://localhost:8080
-VOICE_SERVICE_URL=http://localhost:8080
+BACKEND_URL=http://localhost:8080
 ```
 
 Then:
@@ -176,77 +141,55 @@ npm install
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000) and press the mic.
+Open [localhost:3000](http://localhost:3000) and type or press the mic.
 
-## 7. Generate the spoken filler clips
+## 4. Deploy it
 
-The assistant speaks a short phrase while it searches, so you aren't left in
-silence. Render those once, in your own chosen voice:
-
-```bash
-cd voice
-PYTHONPATH=. uv run python scripts/generate_fillers.py
-```
-
-## 8. Deploy it
-
-**Backend → Cloud Run:**
+**Backend → Cloud Run** (see `.github/workflows/deploy-voice.yml`):
 
 ```bash
-cd voice
 gcloud run deploy immigration-voice \
-  --source . \
+  --source voice \
   --region us-east4 \
-  --allow-unauthenticated \
   --timeout 3600 \
-  --session-affinity \
-  --set-env-vars "GOOGLE_CLOUD_PROJECT_ID=your-project-id,TAVILY_API_KEY=...,EXA_API_KEY=...,PARALLEL_API_KEY=..."
+  --allow-unauthenticated \
+  --set-env-vars "LLM_API_KEY=...,LLM_MODEL=...,TAVILY_API_KEY=..."
 ```
 
-Leave the credentials variables blank in production — Cloud Run uses its own
-attached service account.
-
-**Frontend → Vercel:**
-
-1. Import your fork at [vercel.com/new](https://vercel.com/new).
-2. Set the root directory to `frontend`.
-3. Add `NEXT_PUBLIC_VOICE_SERVICE_URL` and `VOICE_SERVICE_URL`, both set to
-   your Cloud Run URL.
-4. Deploy.
+**Frontend → Vercel:** set the root directory to `frontend` and add
+`BACKEND_URL` (your Cloud Run URL), then deploy.
 
 Finally, lock the backend to your own domain by setting `ALLOWED_ORIGINS` to
 your Vercel URL instead of `*`.
 
-## 9. Before you let anyone else use it
+## 5. Before you let anyone else use it
 
 The backend is open to whoever has the URL, and every question spends your
 credit. Put a rate limit in front of it, or keep the URL private.
 
 ---
 
-## Running the tests
+# Evals and benchmark
 
-```bash
-cd voice
-uv run pytest tests/
-```
-
-## Checking answer quality
-
-Answers are graded 0–3 by a second, stronger model against 49 questions — many
-of them real questions taken from immigration forums — on correctness,
-completeness, sourcing, confidence, safety and usefulness.
+The agent is developed eval-first. Answers are graded 0–3 by a separate, strong
+judge model across the three jobs, on correctness, completeness, groundedness
+(links and dates), calibration, safety, actionability, reasoning and
+usefulness. Cases that declare an expected tool sequence are also checked
+deterministically — did the agent actually call the right tools in the right
+order?
 
 ```bash
 cd voice
 PYTHONPATH=. uv run python evals/run_eval.py
 ```
 
-Safety is a gate, not an average: if a question involves denial, removal or
-misrepresentation and the answer doesn't send you to an attorney, the case
-fails no matter how good the rest of it was.
+- Generate new fact questions from the 8 CFR pack (smallest-case + combos):
+  `PYTHONPATH=. uv run python evals/generate_evals.py`
+- Draft rubrics for harvested forum questions:
+  `PYTHONPATH=. uv run python evals/build_rubrics.py`
 
----
+Safety is a gate, not an average: an answer to a high-stakes question that
+doesn't send the user to an attorney fails no matter how good the rest of it
+was. Out-of-scope questions must be declined.
 
-Engineering notes — architecture, measurements and the reasoning behind the
-design — are in [docs/engineering.md](docs/engineering.md).
+Engineering notes are in [docs/engineering.md](docs/engineering.md).
