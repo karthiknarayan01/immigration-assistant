@@ -1,19 +1,17 @@
 """Tools exposed to the model.
 
-Deliberately few. Every extra tool is another thing the model can pick wrongly
-mid-conversation, and every tool call costs seconds of a voice turn. The deep
-research, academic, and YouTube tools are intentionally absent: at 10-30s they
-belong in the text path, not a live conversation.
+Deliberately few. Every extra tool is another thing the model can pick wrongly,
+and every tool call costs seconds the user is waiting. The deep-research,
+academic, and YouTube tools are intentionally absent: they add 10-30s without
+being load-bearing for immigration questions.
 """
 
 import asyncio
 from datetime import datetime, timezone
 
 from loguru import logger
-from pipecat.adapters.schemas.function_schema import FunctionSchema
-from pipecat.adapters.schemas.tools_schema import ToolsSchema
-from pipecat.services.llm_service import FunctionCallParams
 
+from app import knowledge
 from app.config import settings
 from app.failures import FailureKind
 from app.observability import (
@@ -22,9 +20,9 @@ from app.observability import (
     log_tool_result,
     measure,
 )
-from app import knowledge
-from app.tools import google_search, providers, x_search
+from app.tools import providers, x_search
 from app.tools.credibility import Anecdote, filter_anecdotes
+from app.tools.schema import FunctionSchema, ToolCallParams, ToolsSchema
 from app.tools.sources import SEARCH_GROUPS, SourceTier
 
 MAX_SPOKEN_HITS = 4
@@ -89,7 +87,49 @@ def _format_official(hits) -> dict:
     return {"results": results, "count": len(results)}
 
 
-async def search_official_guidance(params: FunctionCallParams):
+async def _search_web(query: str) -> dict:
+    """General web search — no allowlist — for when official sources miss.
+
+    Runs the same Tavily/Exa providers without a domain constraint. Results are
+    returned as a normal results list (with trust tiers) rather than prose, so
+    the model reads them through the same "attributed, not asserted" path as
+    anything else from a non-official source.
+    """
+    hits = await providers.search(query, limit=6)
+    if not hits:
+        return {
+            "results": [],
+            "count": 0,
+            "guidance": (
+                "Even a wide web search found nothing usable. Say so plainly "
+                "rather than answering from memory."
+            ),
+        }
+    results = [
+        {
+            "title": hit.title,
+            "url": hit.url,
+            "excerpt": hit.text[:MAX_EXCERPT_CHARS],
+            "published": hit.published.date().isoformat() if hit.published else "undated",
+            "currency": _age_note(hit.published),
+            "trust": hit.tier.value,
+        }
+        for hit in hits[:6]
+    ]
+    return {
+        "results": results,
+        "count": len(results),
+        "guidance": (
+            "This came from a general web search rather than the official "
+            "allowlist. Say what is being reported and by whom, give the dates "
+            "it carries, and say you could not confirm it against an official "
+            "source. An attributed figure beats telling the person you found "
+            "nothing."
+        ),
+    }
+
+
+async def search_official_guidance(params: ToolCallParams):
     """Authoritative-first search: government sources and the immigration bar."""
     query = str(params.arguments.get("query", "")).strip()
     # The automatic widening below only triggers on an empty result. That
@@ -102,8 +142,7 @@ async def search_official_guidance(params: FunctionCallParams):
         await params.result_callback({"error": "No query provided."})
         return
 
-    # Google grounding bills to Vertex and needs no provider key, so a
-    # missing or exhausted search subscription must not block the wider path.
+    # A missing or exhausted search subscription must not block the wider path.
     if not wider and not providers.available_providers():
         logger.info("no search providers configured; using the wider web search instead")
         wider = True
@@ -117,32 +156,11 @@ async def search_official_guidance(params: FunctionCallParams):
         hits = []
 
     if wider:
-        # Google rather than the allowlist. Reached through Gemini grounding,
-        # because Vertex will not let the agent hold a search tool and
-        # function declarations at the same time.
-        answer = await google_search.search(query)
-        if answer.found_anything:
-            await params.result_callback({
-                "summary": answer.text,
-                "sources": answer.sources[:6],
-                "count": len(answer.sources),
-                "guidance": (
-                    "This came from a web search, so it is reporting rather than "
-                    "official guidance. Say what is being reported and by whom, "
-                    "give the dates it carries, and say you could not confirm it "
-                    "against an official source. An attributed figure beats "
-                    "telling the person you found nothing."
-                ),
-            })
-            return
-        await params.result_callback({
-            "results": [],
-            "count": 0,
-            "guidance": (
-                "Even a wide web search found nothing usable. Say so plainly "
-                "rather than answering from memory."
-            ),
-        })
+        # General web rather than the allowlist: the questions people actually
+        # ask are about what is happening now, and that reporting is rarely on
+        # a .gov domain.
+        payload = await _search_web(query)
+        await params.result_callback(payload)
         return
     failure = providers.take_last_failure()
     official = [h for h in hits if h.tier in (SourceTier.AUTHORITATIVE, SourceTier.PROFESSIONAL)]
@@ -170,20 +188,11 @@ async def search_official_guidance(params: FunctionCallParams):
     if not official and FALLBACK_WHEN_EMPTY:
         # The allowlist is a list of what we thought of in advance, and the
         # questions people ask are about what is happening now. Fall through
-        # to Google rather than returning nothing.
+        # to a general web search rather than returning nothing.
         logger.info(f"official search '{query}' found nothing on-allowlist; widening to web")
-        answer = await google_search.search(query)
-        if answer.found_anything:
-            await params.result_callback({
-                "summary": answer.text,
-                "sources": answer.sources[:6],
-                "count": len(answer.sources),
-                "guidance": (
-                    "No official source covered this, so this is from a web "
-                    "search. Say what is being reported and by whom, and say you "
-                    "could not confirm it officially."
-                ),
-            })
+        payload = await _search_web(query)
+        if payload.get("count"):
+            await params.result_callback(payload)
             return
 
     if not official:
@@ -202,7 +211,7 @@ async def search_official_guidance(params: FunctionCallParams):
     await params.result_callback(payload)
 
 
-async def search_community_experiences(params: FunctionCallParams):
+async def search_community_experiences(params: ToolCallParams):
     """What people report in practice — filtered, and never stated as fact."""
     query = str(params.arguments.get("query", "")).strip()
     topic = str(params.arguments.get("topic", "policy")).strip()
@@ -304,7 +313,7 @@ async def search_community_experiences(params: FunctionCallParams):
     })
 
 
-async def lookup_regulation(params: FunctionCallParams):
+async def lookup_regulation(params: ToolCallParams):
     """Read the regulation text itself, from a local copy of the CFR.
 
     Faster and more complete than web search for the rules that do not
@@ -361,6 +370,38 @@ async def lookup_regulation(params: FunctionCallParams):
         ),
     }
     log_tool_result("lookup_regulation", payload)
+    await params.result_callback(payload)
+
+
+async def search_recent_developments(params: ToolCallParams):
+    """Recent news and announcements: proposals, orders, rule changes.
+
+    This is the second of the app's three jobs. Settled rules live in the
+    regulations (lookup_regulation); current fees and processing times live in
+    official guidance (search_official_guidance); what just changed or was just
+    proposed lives here — and it is usually reported by press before it is
+    published anywhere official, so this searches the open web, not an
+    allowlist.
+    """
+    query = str(params.arguments.get("query", "")).strip()
+    if not query:
+        await params.result_callback({"error": "No query provided."})
+        return
+
+    log_tool_call("search_recent_developments", {"query": query})
+    with measure(STAGE_TOOL, "search_recent_developments", query_chars=len(query)) as span:
+        payload = await _search_web(query)
+        span["hits"] = payload.get("count", 0)
+
+    payload["guidance"] = (
+        "These results are about developments — proposals, executive orders, "
+        "rule changes, court decisions, announcements — which may not yet be "
+        "final or in force. State what is reported, who reported it, and the "
+        "date. Distinguish clearly between a proposal or announcement and "
+        "something already in effect, and between an official statement and "
+        "press reporting. If nothing is dated or the sources disagree, say so."
+    )
+    log_tool_result("search_recent_developments", payload)
     await params.result_callback(payload)
 
 
@@ -436,12 +477,35 @@ _SCHEMAS = [
         },
         required=["query"],
     ),
+    FunctionSchema(
+        name="search_recent_developments",
+        description=(
+            "Find recent news and developments about US immigration: proposed "
+            "rules, executive orders, policy memos, court decisions, and "
+            "announcements from the last several months. Use this when the "
+            "question is about what has changed recently, what was just proposed, "
+            "or what is expected to happen next — NOT for settled rules (use "
+            "lookup_regulation) or current fees/processing times (use "
+            "search_official_guidance)."
+        ),
+        properties={
+            "query": {
+                "type": "string",
+                "description": (
+                    "A focused query about the recent development, e.g. 'new H-1B "
+                    "rule 2026' or 'latest executive order on visas'."
+                ),
+            }
+        },
+        required=["query"],
+    ),
 ]
 
 _HANDLERS = {
     "search_official_guidance": search_official_guidance,
     "search_community_experiences": search_community_experiences,
     "lookup_regulation": lookup_regulation,
+    "search_recent_developments": search_recent_developments,
 }
 
 
