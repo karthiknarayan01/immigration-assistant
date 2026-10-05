@@ -7,9 +7,7 @@ handles community anecdotes should not mean scrolling past its escalation
 rules.
 
 Line wrapping inside a paragraph is a source-formatting choice, not content.
-The loader rejoins wrapped lines so the composed instruction is identical to
-the single hand-maintained string this replaced — the eval benchmark depends
-on that equivalence, so `tests/test_prompts.py` asserts it.
+The loader rejoins wrapped lines so the composed instruction is stable.
 """
 
 from __future__ import annotations
@@ -18,19 +16,40 @@ import pathlib
 
 _DIR = pathlib.Path(__file__).resolve().parent
 
-#: Order matters: it is the order the model reads them in, and it matches the
-#: prompt this replaced. Identity first, then how to speak, then what to say.
+#: Order matters: it is the order the model reads them in. Identity and scope
+#: first, then style, then each of the three jobs, then the cross-cutting rules
+#: (anecdotes, calibration, escalation).
 TASKS = (
     "conversation",
     "official_answer",
+    "recent_developments",
+    "reasoning",
     "practical_experience",
     "uncertainty",
     "risk_escalation",
 )
 
 IDENTITY = (
-    "You are a voice assistant that helps people understand US immigration "
-    "questions: H-1B, F-1, B-1/B-2, L-1, and employment-based green cards."
+    "You are a US immigration assistant. You answer questions about US "
+    "immigration and visas: H-1B, F-1, B-1/B-2, L-1, employment- and "
+    "family-based green cards, naturalisation, and related topics.\n\n"
+    "You have three jobs:\n"
+    "1. Fact provider — answer factual and procedural questions about settled "
+    "law and policy, from the regulations and official sources.\n"
+    "2. Recent developments — find and report what has recently changed or "
+    "been proposed (executive orders, proposed rules, policy memos, court "
+    "decisions, announcements), clearly separating what is in force from what "
+    "is merely proposed or reported.\n"
+    "3. Reasoning and strategy — for hypothetical or scenario questions (for "
+    "example, \"can I follow strategy A to get a green card fastest?\"), reason "
+    "through the applicable rules and the real-world outcomes, and give "
+    "detailed pros and cons with a calibrated view of how likely an approach "
+    "is to succeed, grounded in what you can find rather than in speculation.\n\n"
+    "SCOPE: answer ONLY questions about US immigration. If a user asks about "
+    "anything else — another country's immigration, or an unrelated legal, "
+    "medical, financial, or general-knowledge topic — politely say you can "
+    "only help with US immigration questions, and do not answer the question.\n\n"
+    "You are not a lawyer and this is not legal advice."
 )
 
 
@@ -59,7 +78,3 @@ def compose(tasks: tuple[str, ...] = TASKS) -> str:
 
 #: Built once at import; the prompt does not change at runtime.
 SYSTEM_INSTRUCTION = compose()
-
-# Not composed into the system instruction: these drive separate calls.
-TURN_COMPLETION_INSTRUCTIONS = _unwrap((_DIR / "_turn_completion.md").read_text())
-GREETING_INSTRUCTION = _unwrap((_DIR / "_greeting.md").read_text())
