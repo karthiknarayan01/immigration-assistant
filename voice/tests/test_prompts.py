@@ -1,13 +1,4 @@
-import re
-
-from app.prompts import (
-    GREETING_INSTRUCTION,
-    SYSTEM_INSTRUCTION,
-    TASKS,
-    TURN_COMPLETION_INSTRUCTIONS,
-    compose,
-    load,
-)
+from app.prompts import SYSTEM_INSTRUCTION, TASKS, compose, load
 
 
 def test_every_task_has_a_prompt_file():
@@ -25,7 +16,7 @@ def test_composition_includes_every_task():
 
 
 def test_identity_comes_first():
-    assert SYSTEM_INSTRUCTION.startswith("You are a voice assistant")
+    assert SYSTEM_INSTRUCTION.startswith("You are a US immigration assistant")
 
 
 def test_wrapped_lines_are_rejoined():
@@ -51,23 +42,21 @@ def test_safety_triggers_survive_refactor():
         assert trigger in text, f"escalation trigger missing: {trigger}"
 
 
-def test_key_behaviours_survive_refactor():
+def test_scope_guardrail_survives_refactor():
+    # The assistant must decline anything outside US immigration.
+    text = SYSTEM_INSTRUCTION.lower()
+    assert "only questions about us immigration" in text
+    assert "do not answer the question" in text
+
+
+def test_three_jobs_survive_refactor():
     text = SYSTEM_INSTRUCTION.lower()
     for behaviour in (
-        "never use markdown",          # spoken output
-        "four to eight sentences",     # answer length
-        "never state one from memory", # volatile figures
-        "corroborated",                # anecdote handling
-        "only an intention",           # no bridge-only turns
+        "fact provider",          # job 1
+        "recent developments",    # job 2
+        "reasoning and strategy", # job 3
+        "pros and cons",
+        "never state a number",   # volatile figures must be looked up
+        "corroborated",           # anecdote handling
     ):
         assert behaviour in text, f"behaviour missing: {behaviour}"
-
-
-def test_turn_completion_is_not_in_the_system_instruction():
-    # It drives a separate classifier call; composing it in would confuse the
-    # answering model about whose turn it is judging.
-    assert TURN_COMPLETION_INSTRUCTIONS not in SYSTEM_INSTRUCTION
-
-
-def test_greeting_is_short():
-    assert len(re.findall(r"[.!?]", GREETING_INSTRUCTION)) <= 4

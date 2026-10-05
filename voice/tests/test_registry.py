@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime, timezone
 from types import SimpleNamespace
 
 from app.tools import providers
@@ -19,22 +20,24 @@ def _params(**arguments):
 def test_official_search_uses_the_web_when_providers_are_unconfigured(monkeypatch):
     """No provider keys is no longer a dead end.
 
-    Google grounding bills to Vertex and needs no third-party subscription, so
-    an exhausted or missing search plan now degrades to a wider web search
-    rather than to an apology.
+    A missing or exhausted search plan degrades to a general web search rather
+    than to an apology.
     """
-    from app.tools import google_search
-
     monkeypatch.setattr(providers, "available_providers", lambda: [])
 
     async def fake_search(query, **kwargs):
-        return google_search.GroundedAnswer(text="Premium processing is 15 days.", sources=[])
+        return [
+            SearchHit(
+                "Premium processing", "https://uscis.gov/pp", "Premium processing is 15 days.",
+                SourceTier.AUTHORITATIVE,
+            )
+        ]
 
-    monkeypatch.setattr(google_search, "search", fake_search)
+    monkeypatch.setattr(providers, "search", fake_search)
     params, captured = _params(query="H-1B premium processing time")
     asyncio.run(search_official_guidance(params))
 
-    assert "summary" in captured["result"]
+    assert "results" in captured["result"]
     # The model must be told to attribute this rather than assert it.
     assert "could not confirm" in captured["result"]["guidance"]
 
@@ -45,20 +48,39 @@ def test_official_search_admits_it_could_not_check_when_everything_fails(monkeyp
     With nothing reachable at all, the agent must say so rather than quietly
     answering current policy from memory.
     """
-    from app.tools import google_search
-
     monkeypatch.setattr(providers, "available_providers", lambda: [])
 
     async def nothing(query, **kwargs):
-        return google_search.GroundedAnswer(text="", sources=[])
+        return []
 
-    monkeypatch.setattr(google_search, "search", nothing)
+    monkeypatch.setattr(providers, "search", nothing)
     params, captured = _params(query="H-1B premium processing time")
     asyncio.run(search_official_guidance(params))
 
     result = captured["result"]
     assert result["count"] == 0
     assert "rather than answering from memory" in result["guidance"]
+
+
+def test_recent_developments_reports_and_attributes(monkeypatch):
+    monkeypatch.setattr(providers, "available_providers", lambda: ["tavily"])
+
+    async def fake_search(query, **kwargs):
+        return [
+            SearchHit(
+                "New rule proposed", "https://news.example/x", "A rule was proposed today.",
+                SourceTier.UNKNOWN,
+            )
+        ]
+
+    monkeypatch.setattr(providers, "search", fake_search)
+    from app.tools.registry import search_recent_developments
+
+    params, captured = _params(query="new H-1B rule 2026")
+    asyncio.run(search_recent_developments(params))
+
+    assert captured["result"]["count"] == 1
+    assert "proposal" in captured["result"]["guidance"].lower()
 
 
 def test_community_search_refuses_to_guess_when_unconfigured(monkeypatch):
@@ -98,7 +120,6 @@ def test_official_search_drops_forum_results(monkeypatch):
 
 def test_uncorroborated_reports_are_labelled_as_such(monkeypatch):
     monkeypatch.setattr(providers, "available_providers", lambda: ["tavily"])
-    from datetime import datetime, timezone
 
     async def fake_search(query, **kwargs):
         return [

@@ -4,13 +4,9 @@ from types import SimpleNamespace
 import httpx
 import pytest
 
-from app.failures import FailureKind, classify_error_frame, classify_status, session_failure_message
+from app.failures import FailureKind, classify_status, session_failure_message
 from app.tools import providers
 from app.tools.registry import search_community_experiences, search_official_guidance
-
-
-def _frame(error="", category=None):
-    return SimpleNamespace(error=error, category=category)
 
 
 # ── HTTP status classification ───────────────────────────────────────────────
@@ -27,24 +23,6 @@ def test_credential_problems_are_auth():
 
 def test_upstream_outage_is_connectivity():
     assert classify_status(503) is FailureKind.CONNECTIVITY
-
-
-# ── error frame classification ───────────────────────────────────────────────
-
-def test_structured_quota_category_wins():
-    assert classify_error_frame(_frame(category=SimpleNamespace(name="QUOTA"))) is FailureKind.FUNDS
-
-
-def test_falls_back_to_message_when_category_missing():
-    # Providers word these inconsistently and don't always set a category.
-    assert classify_error_frame(_frame("RESOURCE_EXHAUSTED: quota exceeded")) is FailureKind.FUNDS
-    assert classify_error_frame(_frame("Billing account not configured")) is FailureKind.FUNDS
-    assert classify_error_frame(_frame("401 Unauthorized")) is FailureKind.AUTH
-
-
-def test_unknown_errors_do_not_claim_a_billing_problem():
-    # Telling someone we are out of money when we are not is its own failure.
-    assert classify_error_frame(_frame("unexpected end of stream")) is FailureKind.OTHER
 
 
 def test_every_kind_has_a_user_facing_message():
