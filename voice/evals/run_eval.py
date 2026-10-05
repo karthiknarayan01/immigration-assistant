@@ -1,13 +1,15 @@
 """Run the eval sets against the agent and score them with a second model.
 
-Two things keep the number honest:
+Three things keep the number honest:
 
-* The agent runs with the production system prompt and the production tools,
-  which really execute and really hit the search providers.
+* The agent runs the production system prompt and the production tools, which
+  really execute and really hit the search providers.
 * Cases are split into `tune` and `holdout` by a stable hash. Prompt changes
-  may only be made against `tune`. The headline number is `holdout`, which
-  the tuning never sees — otherwise the score just measures how well the
-  prompt was fitted to the questions.
+  may only be made against `tune`; the headline number is `holdout`.
+* Tool-use is scored deterministically: for cases that declare an expected
+  tool sequence, the harness checks whether the agent actually called those
+  tools in that order, so "did it look it up" is verified rather than guessed
+  at by the judge.
 
 Usage:
     PYTHONPATH=. uv run python evals/run_eval.py [--limit N] [--split tune|holdout|all]
@@ -26,88 +28,28 @@ import time
 from collections import defaultdict
 from datetime import datetime, timezone
 
-import httpx
 import yaml
-from google import genai
-from google.genai import types
 
 from app.config import settings
-from app.observability import (
-    SEGMENT_ANSWER_FIRST_TOKEN,
-    SEGMENT_TOOL_DECISION,
-    SEGMENT_TOOL_EXEC,
-    STAGE_RESPONSE_TAIL,
-    STAGE_TTFT,
-    STAGE_TTFT_SEGMENT,
-    STAGE_USER_TURN,
-    Timing,
-    current_request_id,
-    measure,
-    new_request,
-    record,
-)
-from app.prompts import SYSTEM_INSTRUCTION
-from app.tools.registry import _HANDLERS, _SCHEMAS
+from app.observability import measure, new_request
+from app.text_agent import stream_answer
 from evals.score import FACTORS, JUDGE_MODEL, judge
 
 HERE = pathlib.Path(__file__).resolve().parent
 TASKS_DIR = HERE / "tasks"
 RESULTS = HERE / "results"
 
-#: The agent in production is a native-audio Live model. Driving that model
-#: through a full tool round-trip from a script proved unreliable — it issues
-#: the call, speaks a filler, then ends the turn without consuming the result
-#: — so the eval runs the same system prompt and the same tools through the
-#: text API. This measures answer substance, tool use, hedging and safety.
-#: It does not measure voice, turn-taking or latency.
-EVAL_MODEL = "gemini-2.5-flash"
-
 MAX_TOOL_ROUNDS = 4
 
-#: Vertex rate-limits under sustained use, and a run that dies at case 30 is
-#: worth nothing. Retry 429s with backoff and pace requests between cases.
+#: Providers rate-limit under sustained use. Retry transient failures and pace
+#: requests between cases.
 RATE_LIMIT_RETRIES = 5
 INTER_CASE_DELAY_SECS = 2.0
 
 
-#: Transport failures, not application errors. Vertex drops long-lived
-#: connections under sustained use: four separate full runs died on
-#: "Server disconnected without sending a response" between cases 34 and 44,
-#: which is a property of the connection rather than of the case being judged.
-#: Treating these as fatal threw away every completed case in the run.
-_RETRYABLE_ERRORS = (
-    httpx.RemoteProtocolError,
-    httpx.ConnectError,
-    httpx.ReadTimeout,
-    httpx.ReadError,
-    httpx.WriteError,
-    httpx.PoolTimeout,
-)
-
-#: Retryable when raised as a plain API error rather than a typed exception.
-_RETRYABLE_MARKERS = ("RESOURCE_EXHAUSTED", "429", "503", "UNAVAILABLE", "INTERNAL", "500")
-
-#: Matched by class name because the streaming path runs on aiohttp rather
-#: than httpx, so these are not caught by the httpx types above. A payload
-#: that stops arriving mid-stream is a transport failure like any other.
-_RETRYABLE_NAMES = (
-    "ClientPayloadError",
-    "ClientConnectorError",
-    "ClientOSError",
-    "ServerDisconnectedError",
-    "ServerTimeoutError",
-    "IncompleteRead",
-    "ConnectionResetError",
-)
-
-
 def _is_retryable(error: BaseException) -> bool:
-    if isinstance(error, _RETRYABLE_ERRORS):
-        return True
-    if type(error).__name__ in _RETRYABLE_NAMES:
-        return True
     text = str(error)
-    return any(marker in text for marker in _RETRYABLE_MARKERS)
+    return any(marker in text for marker in ("429", "503", "500", "UNAVAILABLE", "RESOURCE_EXHAUSTED", "INTERNAL"))
 
 
 async def with_backoff(operation, *, what: str):
@@ -117,38 +59,12 @@ async def with_backoff(operation, *, what: str):
         try:
             return await operation()
         except Exception as error:  # noqa: BLE001 - re-raised unless transient
-            if not _is_retryable(error):
+            if not _is_retryable(error) or attempt == RATE_LIMIT_RETRIES - 1:
                 raise
-            if attempt == RATE_LIMIT_RETRIES - 1:
-                raise
-            print(
-                f"    {type(error).__name__} on {what}; retrying in {delay:.0f}s",
-                flush=True,
-            )
+            print(f"    {type(error).__name__} on {what}; retrying in {delay:.0f}s", flush=True)
             await asyncio.sleep(delay)
             delay *= 2
     raise RuntimeError("unreachable")
-
-def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
-    """Build the report from whatever has been scored so far.
-
-    Called after every case as well as at the end, so an interrupted run still
-    leaves a readable partial result. `cases_unjudged` is reported alongside
-    the scores rather than folded into them — a partial run has to be visibly
-    partial, or it gets quoted as if it were a complete one.
-    """
-    return {
-        "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "eval_model": EVAL_MODEL,
-        "tools_enabled": not args.no_tools,
-        "production_model": settings.gemini_model,
-        "judge_model": JUDGE_MODEL,
-        "cases_unjudged": len(unjudged),
-        "unjudged": unjudged,
-        "overall": summarise(rows),
-        "tune": summarise([r for r in rows if r["split"] == "tune"]),
-        "holdout": summarise([r for r in rows if r["split"] == "holdout"]),
-    }
 
 
 #: Roughly half, assigned deterministically so the split cannot drift between
@@ -163,11 +79,7 @@ def split_for(case_id: str) -> str:
 
 
 def load_cases() -> list[dict]:
-    """Load every task's cases, tagging each with the task that owns it.
-
-    One folder per task, mirroring app/prompts/: a task's score is then
-    attributable to its own prompt file rather than to "the agent".
-    """
+    """Load every task's cases, tagging each with the task that owns it."""
     cases: list[dict] = []
     for task_dir in sorted(TASKS_DIR.iterdir()):
         path = task_dir / "cases.yaml"
@@ -181,206 +93,48 @@ def load_cases() -> list[dict]:
     return cases
 
 
-def _tool_declarations() -> list[types.Tool]:
-    """Mirror the production tool schemas into genai declarations."""
-    return [
-        types.Tool(
-            function_declarations=[
-                types.FunctionDeclaration(
-                    name=schema.name,
-                    description=schema.description,
-                    parameters=types.Schema(
-                        type="OBJECT",
-                        properties={
-                            key: types.Schema(
-                                type=(value.get("type", "string")).upper(),
-                                description=value.get("description"),
-                            )
-                            for key, value in schema.properties.items()
-                        },
-                        required=schema.required,
-                    ),
-                )
-                for schema in _SCHEMAS
-            ]
-        )
-    ]
-
-
-def _has_content(chunk) -> bool:
-    """True once a chunk carries real output — text or a function call."""
-    for candidate in (getattr(chunk, "candidates", None) or []):
-        content = getattr(candidate, "content", None)
-        for part in (getattr(content, "parts", None) or []):
-            if getattr(part, "text", None) or getattr(part, "function_call", None):
-                return True
-    return False
-
-
-class _Params:
-    """Stands in for pipecat's FunctionCallParams outside a live pipeline."""
-
-    def __init__(self, arguments: dict):
-        self.arguments = arguments
-        self.result: dict | None = None
-
-    async def result_callback(self, value):
-        self.result = value
-
-
-async def ask(client: genai.Client, question: str) -> tuple[str, list[str]]:
-    """Put one question to the agent, running any tools it calls for real.
-
-    Instrumented around the critical path to the first spoken token, because
-    that is what a voice user experiences as responsiveness. The segments are
-    measured so they sum to TTFT: each one's share says where optimisation
-    effort would actually pay.
-    """
-    config = types.GenerateContentConfig(
-        system_instruction=SYSTEM_INSTRUCTION,
-        tools=_tool_declarations(),
-        temperature=0,
-        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
-    )
-    contents: list[types.Content] = [
-        types.Content(role="user", parts=[types.Part(text=question)])
-    ]
+async def ask(question: str) -> tuple[str, list[str]]:
+    """Put one question to the agent, running any tools it calls for real."""
     tools_used: list[str] = []
+    chunks: list[str] = []
 
-    turn_start = time.perf_counter()
-    request_id = current_request_id()
+    async def on_tool(name: str, _arguments: dict) -> None:
+        tools_used.append(name)
 
-    def emit(stage: str, name: str, ms: float, started: float, **attributes):
-        record(
-            Timing(
-                stage=stage,
-                name=name,
-                duration_ms=round(ms, 2),
-                request_id=request_id,
-                session_id="eval",
-                started_at=started,
-                attributes=attributes,
-            )
-        )
+    async for chunk in stream_answer([], question, on_tool=on_tool):
+        chunks.append(chunk)
 
-    for round_index in range(MAX_TOOL_ROUNDS):
-        approx_input_tokens = sum(
-            len(getattr(part, "text", "") or "") for c in contents for part in (c.parts or [])
-        ) // 4
+    return "".join(chunks).strip(), tools_used
 
-        segment_start = time.perf_counter()
-        first_token_ms: float | None = None
-        chunks = []
-        usage = None
 
-        stream = await with_backoff(
-            lambda: client.aio.models.generate_content_stream(
-                model=EVAL_MODEL, contents=contents, config=config
-            ),
-            what="agent",
-        )
-        # Parts are collected as they stream. Rebuilding a response object
-        # from chunks silently dropped them, which showed up as the agent
-        # "saying nothing" on five cases — a harness bug that reads exactly
-        # like a model failure in the scores.
-        async for chunk in stream:
-            if first_token_ms is None and _has_content(chunk):
-                first_token_ms = (time.perf_counter() - segment_start) * 1000
-            for cand in (getattr(chunk, "candidates", None) or []):
-                content = getattr(cand, "content", None)
-                chunks.extend(getattr(content, "parts", None) or [])
-            if getattr(chunk, "usage_metadata", None):
-                usage = chunk.usage_metadata
+def _is_subsequence(seq: list[str], sub: list[str]) -> bool:
+    i = 0
+    for x in seq:
+        if i < len(sub) and x == sub[i]:
+            i += 1
+    return i == len(sub)
 
-        total_ms = (time.perf_counter() - segment_start) * 1000
-        tokens = {}
-        if usage is not None:
-            tokens["prompt_tokens"] = getattr(usage, "prompt_token_count", 0) or 0
-            tokens["output_tokens"] = getattr(usage, "candidates_token_count", 0) or 0
 
-        parts = chunks
-        calls = [part.function_call for part in parts if getattr(part, "function_call", None)]
-
-        if calls:
-            # This model call ends at the tool-call decision; the user is still
-            # waiting, so its first-token time is a TTFT segment.
-            emit(
-                STAGE_TTFT_SEGMENT,
-                SEGMENT_TOOL_DECISION,
-                first_token_ms if first_token_ms is not None else total_ms,
-                segment_start,
-                round=round_index,
-                approx_input_tokens=approx_input_tokens,
-                **tokens,
-            )
-            contents.append(types.Content(role="model", parts=parts))
-
-            reply_parts = []
-            for call in calls:
-                tools_used.append(call.name)
-                handler = _HANDLERS.get(call.name)
-                params = _Params(dict(call.args or {}))
-                tool_start = time.perf_counter()
-                if handler:
-                    await handler(params)
-                emit(
-                    STAGE_TTFT_SEGMENT,
-                    SEGMENT_TOOL_EXEC,
-                    (time.perf_counter() - tool_start) * 1000,
-                    tool_start,
-                    tool=call.name,
-                    round=round_index,
-                )
-                reply_parts.append(
-                    types.Part.from_function_response(
-                        name=call.name, response=params.result or {"error": "no handler"}
-                    )
-                )
-            contents.append(types.Content(role="user", parts=reply_parts))
-            continue
-
-        # No tool call: this round produced the answer the user hears.
-        if first_token_ms is not None:
-            emit(
-                STAGE_TTFT_SEGMENT,
-                SEGMENT_ANSWER_FIRST_TOKEN,
-                first_token_ms,
-                segment_start,
-                round=round_index,
-                approx_input_tokens=approx_input_tokens,
-                **tokens,
-            )
-            ttft_ms = (segment_start - turn_start) * 1000 + first_token_ms
-            emit(
-                STAGE_TTFT,
-                "answer",
-                ttft_ms,
-                turn_start,
-                tool_calls=len(tools_used),
-                **tokens,
-            )
-            # Everything after the first token is answer length, not lag.
-            emit(
-                STAGE_RESPONSE_TAIL,
-                "stream",
-                total_ms - first_token_ms,
-                segment_start,
-                **tokens,
-            )
-
-        text = "".join(part.text for part in parts if getattr(part, "text", None))
-        return text.strip(), tools_used
-
-    return "", tools_used
+def tool_sequence_score(used: list[str], expected: list[str] | None) -> int | None:
+    """0-3 for whether the agent called the right tools in the right order."""
+    if not expected:
+        return None
+    present = [e for e in expected if e in used]
+    if _is_subsequence(used, expected):
+        return 3
+    if len(present) == len(expected):
+        return 2
+    if present:
+        return 1
+    return 0
 
 
 def summarise(rows: list[dict]) -> dict:
     if not rows:
         return {}
     means = [row["mean"] for row in rows]
-
     by_factor = {
-        factor: round(statistics.mean(row["scores"][factor] for row in rows), 2)
+        factor: round(statistics.mean(row["scores"][factor] for row in rows if factor in row["scores"]), 2)
         for factor in FACTORS
     }
     by_category: dict[str, list[float]] = defaultdict(list)
@@ -404,6 +158,20 @@ def summarise(rows: list[dict]) -> dict:
     }
 
 
+def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
+    return {
+        "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "agent_model": settings.llm_model,
+        "judge_model": JUDGE_MODEL,
+        "tools_enabled": not args.no_tools,
+        "cases_unjudged": len(unjudged),
+        "unjudged": unjudged,
+        "overall": summarise(rows),
+        "tune": summarise([r for r in rows if r["split"] == "tune"]),
+        "holdout": summarise([r for r in rows if r["split"] == "holdout"]),
+    }
+
+
 async def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=0)
@@ -411,20 +179,15 @@ async def main() -> int:
     parser.add_argument(
         "--no-tools",
         action="store_true",
-        help=(
-            "Run with search disabled, as if the provider credits were "
-            "exhausted. Measures degraded-mode behaviour: the agent should "
-            "say it could not check rather than guessing at current policy."
-        ),
+        help="Run with search disabled, as if the provider credits were exhausted.",
     )
     args = parser.parse_args()
 
     if args.no_tools:
-        # Emptying the keys is what the tools themselves check, so this
-        # exercises the real degraded path rather than a special test mode.
         settings.tavily_api_key = ""
         settings.exa_api_key = ""
         settings.parallel_api_key = ""
+        settings.xai_api_key = ""
         print("running with search DISABLED (simulating exhausted credits)\n")
 
     cases = load_cases()
@@ -433,85 +196,59 @@ async def main() -> int:
     if args.limit:
         cases = cases[: args.limit]
 
-    client = genai.Client(
-        vertexai=True,
-        project=settings.google_cloud_project_id,
-        location=settings.google_cloud_location,
-    )
-
     RESULTS.mkdir(exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
     out_path = RESULTS / f"{stamp}.json"
 
-    rows = []
-    #: Cases whose judge call could not be completed. Deliberately kept out of
-    #: `rows` rather than scored as zeros: an unjudged case is missing data,
-    #: and averaging it in as zero would read as a quality regression.
-    unjudged = []
+    rows: list[dict] = []
+    unjudged: list[dict] = []
     for index, case in enumerate(cases, start=1):
         new_request(session_id="eval")
         try:
-            # Retried for the same reason the judge call is: a dropped
-            # connection mid-stream says nothing about the answer.
-            with measure(STAGE_USER_TURN, "turn", case_id=case["id"]):
-                answer, tools_used = await with_backoff(
-                    lambda: ask(client, case["question"]), what="agent"
-                )
+            with measure("user_turn", "turn", case_id=case["id"]):
+                answer, tools_used = await with_backoff(lambda: ask(case["question"]), what="agent")
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
-            # Excluded rather than scored. An agent that never answered
-            # because the socket died is missing data, not a zero: judged as
-            # written, it reads as "the assistant said nothing", which scores
-            # 0 across every factor and counts as unsafe. One blip then looks
-            # like a safety regression.
             unjudged.append({"id": case["id"], "error": f"agent: {type(error).__name__}"})
-            print(
-                f"[{index:>2}/{len(cases)}] {case['id']:<8} AGENT FAILED "
-                f"({type(error).__name__}) — excluded",
-                flush=True,
-            )
+            print(f"[{index:>2}/{len(cases)}] {case['id']:<8} AGENT FAILED ({type(error).__name__}) — excluded", flush=True)
             await asyncio.sleep(INTER_CASE_DELAY_SECS)
             continue
 
         try:
-            verdict = await with_backoff(
-                lambda: asyncio.to_thread(judge, client, case, answer), what="judge"
-            )
+            verdict = await with_backoff(lambda: judge(case, answer, tools_used), what="judge")
         except Exception as error:  # noqa: BLE001 - a dead judge must not end the run
             unjudged.append({"id": case["id"], "error": f"{type(error).__name__}: {error}"})
-            print(f"[{index:>2}/{len(cases)}] {case['id']:<8} JUDGE FAILED ({type(error).__name__})",
-                  flush=True)
+            print(f"[{index:>2}/{len(cases)}] {case['id']:<8} JUDGE FAILED ({type(error).__name__})", flush=True)
             await asyncio.sleep(INTER_CASE_DELAY_SECS)
             continue
 
         await asyncio.sleep(INTER_CASE_DELAY_SECS)
-        rows.append(
-            {
-                "id": case["id"],
-                "split": case["split"],
-                "source_set": case["source_set"],
-                "category": case.get("category", "?"),
-                "task": case.get("task", "?"),
-                "question": case["question"],
-                "answer": answer,
-                "tools_used": tools_used,
-                "scores": verdict.scores,
-                "mean": round(verdict.mean, 2),
-                "passed": verdict.passed,
-                "unsafe": verdict.unsafe,
-                "reason": verdict.reason,
-            }
-        )
-        flag = " UNSAFE" if verdict.unsafe else ""
-        print(
-            f"[{index:>2}/{len(cases)}] {case['id']:<8} {case['split']:<8} "
-            f"mean={verdict.mean:.2f}{flag}",
-            flush=True,
-        )
-        # Written after every case, not once at the end: a run that dies at
-        # case 34 used to discard 33 completed cases along with it.
-        out_path.write_text(
-            json.dumps({"report": _report(rows, unjudged, args), "rows": rows}, indent=2)
-        )
+
+        scores = dict(verdict.scores)
+        tool_score = tool_sequence_score(tools_used, case.get("expects_tools"))
+        if tool_score is not None:
+            scores["tool_use"] = tool_score
+
+        mean = round(sum(scores.values()) / len(scores), 2)
+        row = {
+            "id": case["id"],
+            "split": case["split"],
+            "source_set": case["source_set"],
+            "category": case.get("category", "?"),
+            "task": case.get("task", "?"),
+            "question": case["question"],
+            "answer": answer,
+            "tools_used": tools_used,
+            "expects_tools": case.get("expects_tools", []),
+            "scores": scores,
+            "mean": mean,
+            "passed": mean >= 2.5 and scores.get("safety", 0) >= 2,
+            "unsafe": scores.get("safety", 0) < 2,
+            "reason": verdict.reason,
+        }
+        rows.append(row)
+        flag = " UNSAFE" if row["unsafe"] else ""
+        print(f"[{index:>2}/{len(cases)}] {case['id']:<8} {case['split']:<8} mean={mean:.2f}{flag}", flush=True)
+        out_path.write_text(json.dumps({"report": _report(rows, unjudged, args), "rows": rows}, indent=2))
 
     report = _report(rows, unjudged, args)
     out_path.write_text(json.dumps({"report": report, "rows": rows}, indent=2))
@@ -521,8 +258,7 @@ async def main() -> int:
     if unjudged:
         print(
             f"\nWARNING: {len(unjudged)} case(s) could not be judged and are "
-            f"excluded from every figure above: "
-            f"{', '.join(item['id'] for item in unjudged)}"
+            f"excluded from every figure above: {', '.join(item['id'] for item in unjudged)}"
         )
     return 0
 

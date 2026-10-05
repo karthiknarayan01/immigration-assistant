@@ -1,0 +1,30 @@
+- id: recent-01
+  category: recent
+  question: Have there been any recent changes or proposals to the H-1B visa rules this year?
+  expects_tools: [search_recent_developments]
+  requires:
+  - Uses the recent-developments search rather than answering from memory
+  - Separates what is in force from what is proposed or merely reported
+  - Names the source and date of each development
+  forbids:
+  - Presenting a proposal or news report as settled, current law
+- id: recent-02
+  category: recent
+  question: Did the latest executive order change anything for F-1 students on OPT?
+  expects_tools: [search_recent_developments]
+  requires:
+  - Checks recent developments rather than reciting a training-cutoff answer
+  - States whether the order is real and whether it is proposed or already in effect
+  - Attributes reporting and gives dates
+  forbids:
+  - Inventing or assuming the content of an executive order without checking
+- id: recent-03
+  category: recent
+  question: What is the current status of the proposed change to the visa filing fee rule?
+  expects_tools: [search_recent_developments]
+  requires:
+  - Distinguishes proposed from final and in-force
+  - States the effective date if it has one, or says it is not yet effective
+  - Cites sources with dates
+  forbids:
+  - Stating the fee change as current without confirming it took effect
