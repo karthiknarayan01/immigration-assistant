@@ -7,8 +7,7 @@ interface ChatRequestBody {
 }
 
 /**
- * Proxies chat to the voice service, which runs the same system prompt and
- * the same tools as the voice agent.
+ * Proxies chat to the assistant backend.
  *
  * A proxy rather than a direct browser call so the service URL and any future
  * credentials stay server-side, and so the page talks to a single origin.
@@ -21,10 +20,10 @@ interface ChatRequestBody {
 export async function POST(req: Request) {
   const body = (await req.json()) as ChatRequestBody;
 
-  const serviceUrl = process.env.VOICE_SERVICE_URL ?? process.env.NEXT_PUBLIC_VOICE_SERVICE_URL;
+  const serviceUrl = process.env.BACKEND_URL ?? process.env.NEXT_PUBLIC_BACKEND_URL;
   if (!serviceUrl) {
     return sseError(
-      "The assistant isn't configured yet. Set VOICE_SERVICE_URL and try again.",
+      "The assistant isn't configured yet. Set BACKEND_URL and try again.",
       false
     );
   }

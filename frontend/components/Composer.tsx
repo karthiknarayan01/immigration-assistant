@@ -1,23 +1,32 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 
 interface ComposerProps {
   onSend: (text: string) => void | Promise<void>;
-  onOpenVoice: () => void;
   disabled: boolean;
 }
 
-export default function Composer({ onSend, onOpenVoice, disabled }: ComposerProps) {
+export default function Composer({ onSend, disabled }: ComposerProps) {
   const [text, setText] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // The mic button drives browser speech-to-text. On a final transcript the
+  // text is sent straight to the backend — speech in, text out, same as typing.
+  const { isSupported, isListening, interim, error, toggle } = useSpeechRecognition({
+    onFinal: (transcript) => {
+      setText("");
+      onSend(transcript);
+    },
+  });
 
   useEffect(() => {
     const el = textareaRef.current;
     if (!el) return;
     el.style.height = "auto";
     el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
-  }, [text]);
+  }, [text, interim]);
 
   const submit = () => {
     const trimmed = text.trim();
@@ -25,6 +34,8 @@ export default function Composer({ onSend, onOpenVoice, disabled }: ComposerProp
     onSend(trimmed);
     setText("");
   };
+
+  const shown = isListening ? interim : text;
 
   return (
     <div className="shrink-0 px-4 pb-6 pt-2 sm:px-8">
@@ -36,7 +47,7 @@ export default function Composer({ onSend, onOpenVoice, disabled }: ComposerProp
         <textarea
           ref={textareaRef}
           rows={1}
-          value={text}
+          value={shown}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter" && !e.shiftKey) {
@@ -44,8 +55,8 @@ export default function Composer({ onSend, onOpenVoice, disabled }: ComposerProp
               submit();
             }
           }}
-          placeholder="Message Immigration Assistant"
-          disabled={disabled}
+          placeholder={isListening ? "Listening…" : "Message Immigration Assistant"}
+          disabled={disabled || isListening}
           className="max-h-[200px] flex-1 resize-none bg-transparent py-1.5 text-[15px] text-foreground placeholder:text-muted focus:outline-none"
         />
         {text.trim() ? (
@@ -57,18 +68,24 @@ export default function Composer({ onSend, onOpenVoice, disabled }: ComposerProp
           >
             <SendIcon />
           </button>
-        ) : (
+        ) : isSupported ? (
           <button
             type="button"
-            onClick={onOpenVoice}
-            title="Start voice conversation"
-            aria-label="Start voice conversation"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-accent-foreground transition-colors hover:bg-accent-strong"
+            onClick={toggle}
+            title={isListening ? "Stop listening" : "Speak instead of typing"}
+            aria-label={isListening ? "Stop listening" : "Speak instead of typing"}
+            aria-pressed={isListening}
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors ${
+              isListening
+                ? "bg-red-500 text-white hover:bg-red-600"
+                : "bg-accent text-accent-foreground hover:bg-accent-strong"
+            }`}
           >
-            <WaveformIcon />
+            {isListening ? <StopIcon /> : <WaveformIcon />}
           </button>
-        )}
+        ) : null}
       </div>
+      {error && <p className="mt-2 text-center text-xs text-red-400">{error}</p>}
       <p className="mt-2 text-center text-xs text-muted">
         Informational only — not a substitute for advice from a licensed immigration attorney.
       </p>
@@ -92,6 +109,14 @@ function WaveformIcon() {
       <line x1="12" y1="3" x2="12" y2="21" />
       <line x1="16" y1="6" x2="16" y2="18" />
       <line x1="20" y1="10" x2="20" y2="14" />
+    </svg>
+  );
+}
+
+function StopIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+      <rect x="6" y="6" width="12" height="12" rx="2" />
     </svg>
   );
 }
