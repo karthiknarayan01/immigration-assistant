@@ -32,9 +32,9 @@ METRICS_PATH = pathlib.Path("/tmp/immigration-voice-metrics.jsonl")
 
 #: Stages worth timing separately. Each maps to a real unit of work, so a
 #: regression points at a component rather than "the agent got slower".
-#: TTFT is the headline: for a voice agent it is what the user experiences as
-#: responsiveness, because audio starts playing at the first token. Total
-#: response time is perceived as answer *length*, not as lag.
+#: TTFT is the headline: it is what the user experiences as responsiveness,
+#: because the first token starts the answer. Total response time is perceived
+#: as answer *length*, not as lag.
 STAGE_TTFT = "ttft"
 
 #: Segments of the critical path to that first token. These are measured so
