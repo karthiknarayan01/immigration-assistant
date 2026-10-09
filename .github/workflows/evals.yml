@@ -1,0 +1,88 @@
+name: Evals
+
+# Runs the eval suite and uploads the report. Manual, because it spends real
+# money: every case is one agent turn (with tool calls) plus one judge call.
+#
+# The search keys are already repository secrets, so the only thing this needs
+# is the model key. Configure it as `OPENROUTER_API_KEY` (or point
+# LLM_BASE_URL at another OpenAI-compatible provider and adjust the name).
+#
+# Optional repository VARIABLES set the models and prices, so a model bake-off
+# is a variable change rather than a code change:
+#   LLM_MODEL, LLM_FALLBACK_MODEL, REASONER_MODEL, JUDGE_MODEL,
+#   LLM_PRICE_IN_PER_MTOK, LLM_PRICE_OUT_PER_MTOK
+
+on:
+  workflow_dispatch:
+    inputs:
+      split:
+        description: "Which split to run"
+        type: choice
+        options: [all, holdout, tune]
+        default: all
+      limit:
+        description: "Limit the number of cases (0 = all)"
+        default: "0"
+      no_tools:
+        description: "Run with search disabled (degraded-mode check)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: evals-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - run: uv sync --frozen
+        working-directory: voice
+
+      - name: Check the services are reachable
+        working-directory: voice
+        env:
+          LLM_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
+          PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
+        # Fails fast on a missing key or an empty balance, rather than 20
+        # minutes of cases all failing the same way.
+        run: PYTHONPATH=. uv run python scripts/check_services.py || true
+
+      - name: Run the evals
+        working-directory: voice
+        env:
+          LLM_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          LLM_MODEL: ${{ vars.LLM_MODEL }}
+          LLM_FALLBACK_MODEL: ${{ vars.LLM_FALLBACK_MODEL }}
+          REASONER_MODEL: ${{ vars.REASONER_MODEL }}
+          JUDGE_MODEL: ${{ vars.JUDGE_MODEL }}
+          LLM_PRICE_IN_PER_MTOK: ${{ vars.LLM_PRICE_IN_PER_MTOK }}
+          LLM_PRICE_OUT_PER_MTOK: ${{ vars.LLM_PRICE_OUT_PER_MTOK }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
+          PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: |
+          PYTHONPATH=. uv run python evals/run_eval.py \
+            --split ${{ inputs.split }} \
+            --limit ${{ inputs.limit }} \
+            ${{ inputs.no_tools && '--no-tools' || '' }} | tee eval_output.txt
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-results-${{ github.run_number }}
+          path: |
+            voice/evals/results/*.json
+            voice/eval_output.txt
+          retention-days: 90
