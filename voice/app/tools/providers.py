@@ -11,7 +11,7 @@ reached through these providers' crawlers rather than fetched directly.
 import asyncio
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from urllib.parse import urlparse, urlunparse
 
 import httpx
@@ -176,10 +176,26 @@ def _canonical(url: str) -> str:
     return urlunparse((p.scheme or "https", host, path or "/", "", "", ""))
 
 
-async def _tavily(client: httpx.AsyncClient, query: str, domains: list[str] | None, limit: int):
+async def _tavily(
+    client: httpx.AsyncClient,
+    query: str,
+    domains: list[str] | None,
+    limit: int,
+    *,
+    topic: str | None = None,
+    days: int | None = None,
+):
     payload: dict = {"query": query, "max_results": limit, "search_depth": "basic"}
     if domains:
         payload["include_domains"] = domains
+    # Tavily ranks without regard to age unless told otherwise, so an ordinary
+    # lookup happily returns a two-year-old page. Recency is only sent when the
+    # caller asked for news; for settled questions an old page is the right
+    # answer.
+    if topic:
+        payload["topic"] = topic
+    if days:
+        payload["days"] = days
     r = await client.post(
         "https://api.tavily.com/search",
         headers={"Authorization": f"Bearer {settings.tavily_api_key}"},
@@ -199,7 +215,15 @@ async def _tavily(client: httpx.AsyncClient, query: str, domains: list[str] | No
     ]
 
 
-async def _exa(client: httpx.AsyncClient, query: str, domains: list[str] | None, limit: int):
+async def _exa(
+    client: httpx.AsyncClient,
+    query: str,
+    domains: list[str] | None,
+    limit: int,
+    *,
+    category: str | None = None,
+    start_published: str | None = None,
+):
     payload: dict = {
         "query": query,
         "numResults": limit,
@@ -209,6 +233,13 @@ async def _exa(client: httpx.AsyncClient, query: str, domains: list[str] | None,
     }
     if domains:
         payload["includeDomains"] = domains
+    # Exa's news category and a published-date floor, for the same reason
+    # Tavily gets a recency window: an undated page cannot answer "what
+    # changed lately".
+    if category:
+        payload["category"] = category
+    if start_published:
+        payload["startPublishedDate"] = start_published
     r = await client.post(
         "https://api.exa.ai/search",
         headers={"x-api-key": settings.exa_api_key},
@@ -287,6 +318,63 @@ async def search_community(query: str, *, limit: int = 8) -> list[SearchHit]:
     # Without Parallel, a plain unconstrained search still surfaces some
     # threads; pinning it to reddit.com collapses relevance instead.
     return await search(f"{query} reddit", limit=limit)
+
+
+async def search_news(query: str, *, days: int = 30, limit: int = 8) -> list[SearchHit]:
+    """Recent coverage of a development, with a hard recency floor.
+
+    Deliberately separate from `search`: for "what changed lately" the age of
+    a result is the whole question, and a general search will happily return a
+    well-ranked page from three years ago. Tavily is asked for its news topic
+    within a day window, Exa for its news category since a published-date
+    floor, and the two are merged.
+
+    A minute ago is not news, and neither is a year ago — the window is the
+    caller's, because a fee rule and a consulate's behaviour go stale at very
+    different rates.
+    """
+    active = available_providers()
+    if not active:
+        return []
+
+    client = get_client()
+    deadline = time.monotonic() + settings.tool_timeout_secs * RETRY_DEADLINE_FRACTION
+    since = (datetime.now(timezone.utc) - timedelta(days=days)).date().isoformat()
+
+    tasks = []
+    if "tavily" in active:
+        tasks.append(
+            _attempt(
+                lambda: _tavily(client, query, None, limit, topic="news", days=days),
+                deadline=deadline,
+                what="tavily-news",
+            )
+        )
+    if "exa" in active:
+        tasks.append(
+            _attempt(
+                lambda: _exa(client, query, None, limit, category="news", start_published=since),
+                deadline=deadline,
+                what="exa-news",
+            )
+        )
+    if not tasks:
+        return []
+
+    settled = await asyncio.gather(*tasks, return_exceptions=True)
+    merged: dict[str, SearchHit] = {}
+    for result in settled:
+        if isinstance(result, BaseException):
+            _record_failure(result)
+            continue
+        for hit in result:
+            if not hit.url or hit.relevance < MIN_RELEVANCE:
+                continue
+            key = _canonical(hit.url)
+            existing = merged.get(key)
+            if existing is None or len(hit.text) > len(existing.text):
+                merged[key] = hit
+    return _rank(merged.values())
 
 
 #: Failure kind from the most recent search, or None if it succeeded. A

@@ -25,8 +25,9 @@ import re
 TOOL_VERBS = {
     "search_official_guidance": "Checking official guidance",
     "search_community_experiences": "Looking for people's experiences",
-    "lookup_regulation": "Reading the regulation",
+    "lookup_policy": "Reading the official text",
     "search_recent_developments": "Checking recent developments",
+    "search_federal_register": "Checking the Federal Register",
 }
 
 DEFAULT_VERB = "Working on it"
