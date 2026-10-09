@@ -288,11 +288,15 @@ async def stream_answer(
                         if delta.tool_calls:
                             tool_calls = delta.tool_calls
                         # Token usage arrives on the final chunk of each round,
-                        # so rounds are summed into the caller's sink. The
-                        # eval harness uses this to report cost per case.
+                        # so rounds are summed into the caller's sink, keyed by
+                        # the model that produced them. Keyed rather than
+                        # flat because a turn can mix models — judgement
+                        # questions go to the reasoner — and the two have
+                        # different prices.
                         if delta.usage and usage_sink is not None:
+                            bucket = usage_sink.setdefault(model, {})
                             for key, value in delta.usage.items():
-                                usage_sink[key] = usage_sink.get(key, 0) + value
+                                bucket[key] = bucket.get(key, 0) + value
                     # Round completed without raising.
                     break
                 except Exception as error:  # noqa: BLE001 - classified and re-raised

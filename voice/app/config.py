@@ -36,12 +36,18 @@ class Settings(BaseSettings):
     #: Judge model for evals — stronger than the agent under test.
     judge_model: str = "anthropic/claude-3.5-sonnet"
 
-    #: Optional price per million tokens, used only to put a cost column in the
-    #: eval report. Left at 0 deliberately: prices change, and a stale
-    #: hardcoded price is worse than no number. Set these to your provider's
-    #: current rates to get score-per-dollar in the report.
-    llm_price_in_per_mtok: float = 0.0
-    llm_price_out_per_mtok: float = 0.0
+    #: Per-model prices for the eval report's cost column, as JSON:
+    #:   {"deepseek/deepseek-chat": [0.27, 1.10], "deepseek/deepseek-r1": [0.55, 2.19]}
+    #: prices in dollars per million input and output tokens.
+    #:
+    #: Per model rather than one pair, because a single turn can use more than
+    #: one: judgement questions go to the reasoner. One price pair would
+    #: misprice every such case, and the report's headline is score per dollar,
+    #: so a wrong cost is a wrong conclusion.
+    #:
+    #: Left empty by default. Prices change, and a stale hardcoded price lies
+    #: quietly; with no prices the report shows tokens and omits cost.
+    llm_prices: str = ""
 
     #: Bounds the whole turn. A deadline, not a count, so a retry never starts
     #: with too little time left to help.

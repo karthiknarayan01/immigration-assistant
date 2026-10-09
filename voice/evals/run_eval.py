@@ -149,16 +149,42 @@ def _percentile(values: list[float], pct: float) -> float:
     return ordered[index]
 
 
-def cost_usd(usage: dict) -> float:
-    """Cost of one case, from the configured per-million-token prices.
+def _prices() -> dict:
+    """Parse LLM_PRICES, tolerating an unset or malformed value."""
+    if not settings.llm_prices:
+        return {}
+    try:
+        parsed = json.loads(settings.llm_prices)
+    except json.JSONDecodeError:
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
 
-    Zero when prices are unset, which is the default: a hardcoded price goes
-    stale silently and then the report lies about cost.
+
+def token_totals(usage_by_model: dict) -> tuple[int, int]:
+    """Sum prompt and completion tokens across however many models ran."""
+    prompt = sum(u.get("prompt_tokens", 0) for u in (usage_by_model or {}).values())
+    completion = sum(u.get("completion_tokens", 0) for u in (usage_by_model or {}).values())
+    return prompt, completion
+
+
+def cost_usd(usage_by_model: dict) -> float:
+    """Cost of one case, priced per model.
+
+    A turn can use more than one model — judgement questions go to the
+    reasoner — so a single price pair would misprice exactly the cases the
+    reasoner exists for. Models with no configured price contribute nothing;
+    the report separately states whether anything was priced, so an unpriced
+    run cannot be mistaken for a free one.
     """
-    return (
-        usage.get("prompt_tokens", 0) / 1_000_000 * settings.llm_price_in_per_mtok
-        + usage.get("completion_tokens", 0) / 1_000_000 * settings.llm_price_out_per_mtok
-    )
+    prices = _prices()
+    total = 0.0
+    for model, usage in (usage_by_model or {}).items():
+        rate = prices.get(model)
+        if not isinstance(rate, (list, tuple)) or len(rate) != 2:
+            continue
+        total += usage.get("prompt_tokens", 0) / 1_000_000 * float(rate[0])
+        total += usage.get("completion_tokens", 0) / 1_000_000 * float(rate[1])
+    return total
 
 
 def summarise(rows: list[dict]) -> dict:
@@ -176,10 +202,12 @@ def summarise(rows: list[dict]) -> dict:
         by_task[row.get("task", "?")].append(row["mean"])
 
     latencies = [row["latency_ms"] for row in rows if row.get("latency_ms")]
-    prompt_tokens = sum(r.get("usage", {}).get("prompt_tokens", 0) for r in rows)
-    completion_tokens = sum(r.get("usage", {}).get("completion_tokens", 0) for r in rows)
+    totals = [token_totals(r.get("usage", {})) for r in rows]
+    prompt_tokens = sum(t[0] for t in totals)
+    completion_tokens = sum(t[1] for t in totals)
     cost = sum(r.get("cost_usd", 0.0) for r in rows)
     mean_score = statistics.mean(means)
+    priced = bool(_prices())
 
     return {
         "cases": len(rows),
@@ -194,8 +222,13 @@ def summarise(rows: list[dict]) -> dict:
             "p95": round(_percentile(latencies, 95), 1),
         },
         "tokens": {"prompt": prompt_tokens, "completion": completion_tokens},
-        "cost_usd": round(cost, 4),
-        "cost_per_case_usd": round(cost / len(rows), 6),
+        # Which models actually ran, since routing decides that per question.
+        "models_used": sorted({m for row in rows for m in (row.get("usage") or {})}),
+        # `priced` is stated explicitly: a cost of 0.00 because nothing was
+        # priced must not read as a cost of 0.00 because it was free.
+        "priced": priced,
+        "cost_usd": round(cost, 4) if priced else None,
+        "cost_per_case_usd": round(cost / len(rows), 6) if priced else None,
         # The headline for choosing a model: quality bought per dollar spent.
         "score_per_dollar": round(mean_score / cost, 1) if cost > 0 else None,
         "by_factor": by_factor,
