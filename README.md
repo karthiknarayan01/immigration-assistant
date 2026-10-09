@@ -84,6 +84,34 @@ it. Out-of-date numbers are thrown away entirely.
 
 ---
 
+# Choosing the models
+
+The assistant is not one model doing one job. Answering a single question takes
+**two to four model calls**, and those calls want different things — so using
+one model for all of them is either wasteful or unsafe.
+
+| The job | What it has to be good at | What it uses | Why |
+|---|---|---|---|
+| Deciding what to look up, then writing the answer | Following a long list of rules, calling the right tool, and **not** inventing things | A cheap, capable model — `deepseek/deepseek-chat` | This runs several times per question, so it dominates cost. It needs to be accurate, not brilliant. |
+| Working through a scenario ("should I switch to EB-1?") | Weighing alternatives and reasoning step by step | A reasoning model — `deepseek/deepseek-r1`, set as `REASONER_MODEL` | Judgement questions benefit from a model that thinks before it answers. A lookup does not. |
+| Grading the answers (evals only) | Being a stricter, better reader than the assistant | A stronger model — `anthropic/claude-3.5-sonnet` | A model cannot fairly mark its own homework. |
+
+Two things follow. First, **any of them can be swapped with one environment
+variable** — the app talks to any OpenAI-compatible endpoint, so `LLM_MODEL`,
+`REASONER_MODEL` and `JUDGE_MODEL` are configuration, not code. Second, **the
+reasoning model is only used when it helps**: a deliberately narrow rule sends
+scenario and comparison questions to it, and leaves "how many days is the grace
+period" on the cheap model. Paying for step-by-step thinking on a lookup is
+waste, not rigour.
+
+**An honest note on how these were picked.** The defaults were chosen on
+reputation and price, not measurement — the cheapest capable model with a good
+record at following instructions and calling tools. That is a hypothesis, not a
+finding. The benchmark below is the experiment: it reports quality **per
+dollar**, so the model choice can be settled with evidence rather than vibes.
+
+---
+
 # Run your own
 
 One repo: the Python backend (`voice/`) and the Next.js frontend (`frontend/`).
@@ -194,25 +222,105 @@ credit. Put a rate limit in front of it, or keep the URL private.
 
 # Evals and benchmark
 
-The agent is developed eval-first. Answers are graded 0–3 by a separate, strong
-judge model across the three jobs, on correctness, completeness, groundedness
-(links and dates), calibration, safety, actionability, reasoning and
-usefulness. Cases that declare an expected tool sequence are also checked
-deterministically — did the agent actually call the right tools in the right
-order?
+## What an "eval" is
+
+An eval is a question with a marking scheme, marked by a second AI. Nothing
+more than that.
+
+We write down what a good answer **must** contain and what it must **never**
+say. Then we put the question to the assistant exactly as a user would, and a
+stronger model grades the reply from 0 to 3.
+
+The marking scheme is the important part. Without one, a grader rewards fluent,
+confident writing — so an answer that *sounds* authoritative while quietly
+leaving out a condition scores as well as one that gets it right. Writing down
+the requirements in advance is what makes the score mean something.
+
+## The eight things we score
+
+| Factor | The plain-English question |
+|---|---|
+| **Correctness** | Is it true? |
+| **Completeness** | Are the conditions and exceptions there? |
+| **Groundedness** | Does it say where it got it — a link, and a date? |
+| **Calibration** | Is it suitably confident — sure when the rule is clear, careful when it isn't? |
+| **Safety** | Does it send you to a lawyer when your situation is high-stakes? |
+| **Actionability** | Do you know what to do next? |
+| **Reasoning** | Does it show its working, and weigh the alternatives? |
+| **Usefulness** | Would a real person find this helpful? |
+
+## Three ideas that keep the number honest
+
+**Safety is a gate, not an average.** Most scores are averaged together. Safety
+is not. If a question involves a denial, a removal hearing or a criminal
+record, and the answer does not tell you to speak to an attorney, the case
+fails — however good the rest of it was. An articulate answer cannot average
+its way past a missing referral.
+
+**We check what the assistant *did*, not only what it said.** Some questions
+declare the tool sequence they require. A question about a recent change must
+check the Federal Register *and* the reporting, in that order. That is verified
+against the calls actually made, because "did it really look this up" is a fact
+about the run, not a matter of opinion.
+
+**We report what we have not tested.** Every case is tagged by topic, question
+type, difficulty and failure mode, and each run prints the gaps. "77 cases" is
+a different claim from "the domain is covered", and the report says which one
+is true.
+
+## The sets
+
+| Suite | What it covers |
+|---|---|
+| `official_answer` | Facts and procedure: grace periods, day counts, eligibility |
+| `recent_developments` | What changed lately — and, crucially, whether it is in force or only proposed |
+| `reasoning` | Scenarios and strategy: alternatives, pros and cons, likelihood |
+| `adversarial` | False premises, outdated rules, prompt injection, "just tell me off the top of your head" |
+| `multiturn` | Follow-ups and corrections, where facts from earlier in the conversation matter |
+| `risk_escalation` · `scope` | High-stakes questions must escalate; non-immigration questions must be declined |
+
+## Why 77 cases is not "comprehensive"
+
+It is not — and no eval set is. Copying hundreds of pages of regulations into
+hundreds of questions produces near-duplicates that measure the same handful of
+behaviours, while the things that actually break go untested. Each case also
+costs a real model call, so a set that is enormous simply stops being run.
+
+What a good set does instead is sample a **grid** — question type × visa
+category × difficulty × failure mode — so every cell that matters has cases.
+The grid lives in [`voice/evals/taxonomy.py`](voice/evals/taxonomy.py), and the
+run reports the empty cells. New cases come from real failures, and
+[`evals/generate_evals.py`](voice/evals/generate_evals.py) drafts more from the
+corpus — the smallest possible facts first, then questions that combine two to
+four of them — for a person to review.
+
+## The benchmark
+
+<!-- BENCHMARK: filled from evals/results -->
+_Run in progress — this table is produced by the eval run and pasted in
+verbatim._
+
+## A real answer
+
+<!-- TRANSCRIPT: filled from the same run -->
+_Added from the same run, unedited._
+
+---
+
+## Running it yourself
 
 ```bash
 cd voice
 PYTHONPATH=. uv run python evals/run_eval.py
 ```
 
-- Generate new fact questions from the 8 CFR pack (smallest-case + combos):
+With no keys the tools report themselves unavailable, so `--no-tools` is a
+useful check that the assistant admits what it could not verify rather than
+guessing.
+
+- Draft more fact questions from the corpus (smallest-case + combos):
   `PYTHONPATH=. uv run python evals/generate_evals.py`
 - Draft rubrics for harvested forum questions:
   `PYTHONPATH=. uv run python evals/build_rubrics.py`
-
-Safety is a gate, not an average: an answer to a high-stakes question that
-doesn't send the user to an attorney fails no matter how good the rest of it
-was. Out-of-scope questions must be declined.
 
 Engineering notes are in [docs/engineering.md](docs/engineering.md).
