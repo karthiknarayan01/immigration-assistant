@@ -1,18 +1,26 @@
-"""Local regulation lookup, from the pack built by scripts/build_knowledge_pack.py.
+"""Local policy lookup, from the pack built by scripts/build_knowledge_pack.py.
 
 Web search gets the agent to the right *page* and then hands it 1500
-characters that often stop just before the number. This holds the actual
-regulation text, so the sentence that states the rule is available in full,
-with a citation the agent can read out.
+characters that often stop just before the number. This holds the source text
+itself, so the sentence that states the rule is available in full, with a
+citation the agent can read out.
+
+The corpus covers the authority that does not move: 8 CFR (DHS rules), 22 CFR
+(State Department visa regulations), 20 CFR (Labor/PERM), and the State
+Department's 9 FAM consular guidance. 9 FAM matters because consular practice
+lives nowhere else — how an officer applies the law at an embassy is not in
+the CFR, so before it was indexed those questions were answered from whatever
+a web search happened to return.
 
 It is also fast in a way search cannot be: no network, so a lookup is a few
 milliseconds against ~2 seconds. For the questions it covers — the rules that
 barely move — that removes the tool call from the critical path entirely.
 
 Deliberately keyword scored rather than embedded. The queries are short and
-full of distinctive terms (form numbers, "unemployment", "grace period"), the
-corpus is 562 chunks, and an embedding model here would add a network call to
-the one path whose whole point is not making one.
+full of distinctive terms (form numbers, "unemployment", "grace period"), and
+an embedding model here would add a network call to the one path whose whole
+point is not making one. The pack is ~3,300 chunks; BM25 over that is ~20ms a
+query and under a second to index at import.
 
 What is NOT in here: fees, processing times, the visa bulletin. Those change,
 and a local copy of a changing number is a stale number with a citation
@@ -110,6 +118,23 @@ _NARROW_HEADING = re.compile(
 #: How much a narrow section is held back when the query does not name it.
 _NARROW_PENALTY = 0.3
 
+#: How much each corpus source's score is worth. The CFR is binding law; 9 FAM
+#: is the State Department's instruction to its own consular officers. Asked
+#: "can our green card be revoked", 9 FAM's LPR section outscored 8 CFR 216
+#: purely on term overlap, which is the wrong answer for a question about what
+#: the law provides.
+#:
+#: Weights are tuned against the retrieval assertions in tests/test_knowledge.py
+#: rather than guessed. At 0.95/0.75 the Policy Manual and 9 FAM outscored the
+#: CFR on term overlap for questions about what the law provides — "can our
+#: green card be revoked" returned the consular LPR section ahead of 8 CFR 216 —
+#: which is the wrong answer to a legal question.
+#:
+#: A weight, not a filter. A consular question is often answerable only from
+#: 9 FAM, and even at 0.6 the manual still wins those comfortably; it is
+#: displaced only where the CFR or the Policy Manual also answers.
+_SOURCE_WEIGHT = {"ecfr": 1.0, "uscis_pm": 0.7, "fam": 0.6}
+
 #: A term in the section heading says what the section is *about*, which is a
 #: far stronger signal than the same term buried in its body.
 _HEADING_WEIGHT = 3
@@ -122,6 +147,7 @@ class _Index:
         self.chunks = chunks
         self.headings = [c.get("heading", "") for c in chunks]
         self.narrow = [bool(_NARROW_HEADING.search(h)) for h in self.headings]
+        self.weights = [_SOURCE_WEIGHT.get(c.get("source", ""), 1.0) for c in chunks]
         self.tokens = [
             Counter(_terms(c["text"]) + _terms(c.get("heading", "")) * _HEADING_WEIGHT)
             for c in chunks
@@ -177,9 +203,26 @@ class _Index:
                 if match and match.group(0).lower() not in lowered_query:
                     score *= _NARROW_PENALTY
 
+            # Primary law outranks agency guidance when both answer the same
+            # question. A weight rather than a filter: for a consular question
+            # the manual is often the only source, and burying it would be a
+            # worse failure than the one this fixes.
+            score *= self.weights[index]
             scored.append((score, index))
 
         scored.sort(reverse=True)
+
+        # One passage per section. A long section is split into many chunks,
+        # and without this the best three results can all be the same section —
+        # which shows the model one source and hides the others that answer
+        # the question.
+        best_per_citation: dict[str, tuple[float, int]] = {}
+        for score, index in scored:
+            citation = self.chunks[index]["citation"]
+            if citation not in best_per_citation:
+                best_per_citation[citation] = (score, index)
+
+        ranked = sorted(best_per_citation.values(), key=lambda pair: pair[0], reverse=True)
         return [
             Passage(
                 citation=self.chunks[i]["citation"],
@@ -187,7 +230,7 @@ class _Index:
                 text=self.chunks[i]["text"],
                 score=round(s, 2),
             )
-            for s, i in scored[:limit]
+            for s, i in ranked[:limit]
         ]
 
 
