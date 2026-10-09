@@ -15,8 +15,9 @@ employment-based green cards.
 The assistant has three jobs:
 
 1. **Fact provider.** Answers factual and procedural questions about settled
-   law, reading the regulations (a local copy of 8 CFR) and current official
-   policy, and never stating a number it has not looked up.
+   law from a local corpus — 8 CFR, 22 CFR (State Department visas), 20 CFR
+   (Labor/PERM), the State Department's 9 FAM consular guidance, and the USCIS
+   Policy Manual — and never states a number it has not looked up.
 2. **Recent developments.** Finds and reports what has recently changed or been
    proposed — executive orders, proposed rules, policy memos, court decisions —
    and clearly separates what is in force from what is merely proposed or
@@ -44,6 +45,28 @@ lives only in your own browser.
 - Treat a forum post as fact. Anecdotes are labelled as anecdotes.
 - Answer anything outside US immigration — it politely declines.
 - Guess at current processing times or fees when it can't check them.
+
+## What it knows
+
+**A local corpus**, built offline and committed, so a lookup costs no network
+call:
+
+| Source | What it covers |
+|---|---|
+| **8 CFR** | DHS rules: status, grace periods, work authorisation, adjustment |
+| **22 CFR** | State Department visa regulations: refusal grounds, issuance |
+| **20 CFR** | Labor certification (PERM) and related employment rules |
+| **9 FAM** | The State Department's consular manual — what actually happens at an embassy: interviews, 221(g), refusals |
+| **USCIS Policy Manual** | How USCIS applies the regulations, in the agency's own words |
+
+**Live tools**, for what changes and what people say:
+
+| Tool | What it does |
+|---|---|
+| `search_official_guidance` | Current fees, processing times, the visa bulletin, USCIS policy |
+| `search_federal_register` | Official rulemaking. States outright whether each document is **in force**, **proposed**, a notice, or an executive order |
+| `search_recent_developments` | Press coverage and what immigration lawyers are saying |
+| `search_community_experiences` | What applicants report in practice (forums and X), gated as anecdote |
 
 ## How much you can trust an answer
 

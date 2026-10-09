@@ -31,8 +31,9 @@ Browser (Next.js, Vercel)
 Backend (Cloud Run, FastAPI)
    ├── /chat streams tokens + status events over SSE
    ├── text_agent loop: model ⇄ tools, up to 4 rounds
-   ├── llm: any OpenAI-compatible endpoint, with fallback model
-   └── tools: 8 CFR pack · Tavily/Exa (official) · Parallel (forums) · xAI (X)
+   ├── llm: any OpenAI-compatible endpoint, fallback + reasoner routing
+   ├── knowledge: local corpus (8/20/22 CFR · 9 FAM · USCIS Policy Manual)
+   └── tools: official search · Federal Register · developments · community
 ```
 
 **No audio, no WebSocket.** The earlier version was a Pipecat speech-to-speech
@@ -43,6 +44,29 @@ now a plain HTTP service over any OpenAI-compatible model.
 
 **Nothing is stored.** The browser keeps the transcript; the server holds state
 only for the duration of a request.
+
+### The local corpus
+
+Built offline by `scripts/build_knowledge_pack.py` and committed, because the
+sources it draws from are either slow, rate-limited, or actively hostile to
+programmatic access:
+
+| Source | How | Notes |
+|---|---|---|
+| 8 CFR, 22 CFR, 20 CFR | eCFR API, per part | Free, no key. `/full/` 406s without `Accept-Encoding`; repeated `?part=` params do not OR — one request per part |
+| 9 FAM | `fam.state.gov` tree JSON + 149 section pages | Its own host, **not** behind the `state.gov` Cloudflare block. Serves an incomplete cert chain, so TLS verification is delegated to the OS trust store |
+| USCIS Policy Manual | one Drupal book export | All 12 volumes in a single GET — a 667-page crawl becomes one request |
+
+`travel.state.gov` (Visa Bulletin) and `dol.gov` are behind Cloudflare and
+Akamai respectively and return **403 to programmatic requests**, so the Visa
+Bulletin is not in the corpus; it still comes from live search, which is the
+right place for a monthly number anyway.
+
+Retrieval is BM25 over ~5,600 chunks: ~1s to index at import, ~25ms a query.
+Primary law is weighted above agency guidance (CFR 1.0, USCIS Policy Manual
+0.95, 9 FAM 0.75), and results are de-duplicated by citation — without both,
+one long 9 FAM section outscored 8 CFR on term overlap alone for a question
+about what the law provides.
 
 ### Source trust
 
@@ -99,18 +123,31 @@ per task, so the judge is given the task's own definition.
 sequence are checked against the tools the agent actually called, in order —
 "did it look this up" is a fact about the run, not a judgement call. This is
 what makes the recent-developments and reasoning functions testable: a recent
-question must call `search_recent_developments`; a strategy question must
-sweep the rules, policy and reported outcomes.
+question must check the Federal Register *and* the reporting; a strategy
+question must sweep the rules, policy and reported outcomes.
+
+**Cost and latency are reported beside the score.** A model choice is a
+score-per-dollar question and a score alone cannot answer it, so the report
+carries tokens, p50/p95 latency and, when prices are configured, cost per case.
+Prices are left unset by default: a hardcoded price goes stale silently and
+then the report lies about cost.
+
+**Coverage is reported, not assumed.** Cases are tagged along a taxonomy —
+task x domain x difficulty x failure mode — and the run prints the gaps. "79
+cases" is not "the domain is covered", and the report should say which is true.
 
 Cases are split `tune`/`holdout` by a stable hash; prompt changes are made
 against `tune`, and the headline number is `holdout`. Safety is a gate, not an
 average. Out-of-scope questions must be declined.
 
-Question generation is itself model-driven: `evals/generate_evals.py` reads the
-8 CFR pack and writes the smallest possible "atomic" questions (one fact each,
-with a rubric), then builds combo questions from two to four atomics. Atomic
-questions make each fact separately checkable; combos verify the agent can hold
-several facts at once.
+The suites are stratified rather than exhaustive. `adversarial` covers false
+and outdated premises, prompt injection and memory traps; `multiturn` exercises
+the transcript path, which is otherwise untested; `scope` checks that
+non-immigration questions are declined. Question generation is model-driven:
+`evals/generate_evals.py` reads the corpus and writes the smallest possible
+"atomic" questions (one fact each, with a rubric), then builds combos from two
+to four atomics — atomic questions make each fact separately checkable, combos
+verify the agent holds several at once.
 
 ## Layout
 
@@ -119,7 +156,9 @@ voice/app/llm.py           OpenAI-compatible client, streaming, tool schemas
 voice/app/text_agent.py    the agent loop (model ⇄ tools → answer)
 voice/app/prompts/         one file per task, composed at load
 voice/app/tools/           search providers, tool registry, source tiering
-voice/app/knowledge/       local 8 CFR pack (BM25, built offline)
+voice/app/knowledge/       local corpus: BM25 over 8/20/22 CFR, 9 FAM, Policy Manual
+voice/ingest/              offline fetchers: eCFR, 9 FAM, USCIS Policy Manual
+voice/evals/taxonomy.py    the coverage grid
 voice/evals/tasks/<task>/  cases.yaml + factors/*.md, mirroring prompts
 ```
 
