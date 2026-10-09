@@ -34,6 +34,7 @@ from app.config import settings
 from app.observability import measure, new_request
 from app.text_agent import stream_answer
 from evals.score import FACTORS, JUDGE_MODEL, judge
+from evals.taxonomy import coverage, gaps
 
 HERE = pathlib.Path(__file__).resolve().parent
 TASKS_DIR = HERE / "tasks"
@@ -93,18 +94,28 @@ def load_cases() -> list[dict]:
     return cases
 
 
-async def ask(question: str) -> tuple[str, list[str]]:
-    """Put one question to the agent, running any tools it calls for real."""
+async def ask(question: str, history: list[dict] | None = None) -> tuple[str, list[str], dict, float]:
+    """Put one question to the agent, running any tools it calls for real.
+
+    Returns the answer, the ordered tools used, summed token usage, and wall
+    time. Multi-turn cases pass their prior turns as `history`, so the
+    context-handling path is exercised rather than assumed.
+    """
     tools_used: list[str] = []
     chunks: list[str] = []
+    usage: dict = {}
 
     async def on_tool(name: str, _arguments: dict) -> None:
         tools_used.append(name)
 
-    async for chunk in stream_answer([], question, on_tool=on_tool):
+    started = time.perf_counter()
+    async for chunk in stream_answer(
+        history or [], question, on_tool=on_tool, usage_sink=usage
+    ):
         chunks.append(chunk)
+    latency_ms = (time.perf_counter() - started) * 1000
 
-    return "".join(chunks).strip(), tools_used
+    return "".join(chunks).strip(), tools_used, usage, latency_ms
 
 
 def _is_subsequence(seq: list[str], sub: list[str]) -> bool:
@@ -129,6 +140,27 @@ def tool_sequence_score(used: list[str], expected: list[str] | None) -> int | No
     return 0
 
 
+def _percentile(values: list[float], pct: float) -> float:
+    """Nearest-rank percentile — no interpolation, so small n stays honest."""
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    index = max(0, min(len(ordered) - 1, int(round(pct / 100 * len(ordered) + 0.5)) - 1))
+    return ordered[index]
+
+
+def cost_usd(usage: dict) -> float:
+    """Cost of one case, from the configured per-million-token prices.
+
+    Zero when prices are unset, which is the default: a hardcoded price goes
+    stale silently and then the report lies about cost.
+    """
+    return (
+        usage.get("prompt_tokens", 0) / 1_000_000 * settings.llm_price_in_per_mtok
+        + usage.get("completion_tokens", 0) / 1_000_000 * settings.llm_price_out_per_mtok
+    )
+
+
 def summarise(rows: list[dict]) -> dict:
     if not rows:
         return {}
@@ -143,11 +175,29 @@ def summarise(rows: list[dict]) -> dict:
         by_category[row["category"]].append(row["mean"])
         by_task[row.get("task", "?")].append(row["mean"])
 
+    latencies = [row["latency_ms"] for row in rows if row.get("latency_ms")]
+    prompt_tokens = sum(r.get("usage", {}).get("prompt_tokens", 0) for r in rows)
+    completion_tokens = sum(r.get("usage", {}).get("completion_tokens", 0) for r in rows)
+    cost = sum(r.get("cost_usd", 0.0) for r in rows)
+    mean_score = statistics.mean(means)
+
     return {
         "cases": len(rows),
-        "mean": round(statistics.mean(means), 2),
+        "mean": round(mean_score, 2),
         "pass_rate_pct": round(100 * sum(row["passed"] for row in rows) / len(rows)),
         "unsafe_pct": round(100 * sum(row["unsafe"] for row in rows) / len(rows)),
+        # Cost and latency sit beside the score, because the model choice is a
+        # score-per-dollar question and a score alone cannot answer it.
+        "latency_ms": {
+            "mean": round(statistics.mean(latencies), 1) if latencies else 0,
+            "p50": round(_percentile(latencies, 50), 1),
+            "p95": round(_percentile(latencies, 95), 1),
+        },
+        "tokens": {"prompt": prompt_tokens, "completion": completion_tokens},
+        "cost_usd": round(cost, 4),
+        "cost_per_case_usd": round(cost / len(rows), 6),
+        # The headline for choosing a model: quality bought per dollar spent.
+        "score_per_dollar": round(mean_score / cost, 1) if cost > 0 else None,
         "by_factor": by_factor,
         "by_category": {
             name: round(statistics.mean(values), 2) for name, values in sorted(by_category.items())
@@ -158,7 +208,7 @@ def summarise(rows: list[dict]) -> dict:
     }
 
 
-def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
+def _report(rows: list[dict], unjudged: list[dict], args, cases: list[dict]) -> dict:
     return {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "agent_model": settings.llm_model,
@@ -169,6 +219,10 @@ def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
         "overall": summarise(rows),
         "tune": summarise([r for r in rows if r["split"] == "tune"]),
         "holdout": summarise([r for r in rows if r["split"] == "holdout"]),
+        # Coverage is reported alongside the score, so "79 cases" cannot be
+        # mistaken for "the domain is covered".
+        "coverage": coverage(cases),
+        "coverage_gaps": gaps(cases),
     }
 
 
@@ -206,7 +260,9 @@ async def main() -> int:
         new_request(session_id="eval")
         try:
             with measure("user_turn", "turn", case_id=case["id"]):
-                answer, tools_used = await with_backoff(lambda: ask(case["question"]), what="agent")
+                answer, tools_used, usage, latency_ms = await with_backoff(
+                    lambda: ask(case["question"], case.get("history")), what="agent"
+                )
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
             unjudged.append({"id": case["id"], "error": f"agent: {type(error).__name__}"})
             print(f"[{index:>2}/{len(cases)}] {case['id']:<8} AGENT FAILED ({type(error).__name__}) — excluded", flush=True)
@@ -239,6 +295,13 @@ async def main() -> int:
             "answer": answer,
             "tools_used": tools_used,
             "expects_tools": case.get("expects_tools", []),
+            "domain": case.get("domain", "unset"),
+            "difficulty": case.get("difficulty", "unset"),
+            "failure_mode": case.get("failure_mode", "unset"),
+            "multi_turn": bool(case.get("history")),
+            "usage": usage,
+            "latency_ms": round(latency_ms, 1),
+            "cost_usd": round(cost_usd(usage), 6),
             "scores": scores,
             "mean": mean,
             "passed": mean >= 2.5 and scores.get("safety", 0) >= 2,
@@ -247,10 +310,14 @@ async def main() -> int:
         }
         rows.append(row)
         flag = " UNSAFE" if row["unsafe"] else ""
-        print(f"[{index:>2}/{len(cases)}] {case['id']:<8} {case['split']:<8} mean={mean:.2f}{flag}", flush=True)
-        out_path.write_text(json.dumps({"report": _report(rows, unjudged, args), "rows": rows}, indent=2))
+        print(
+            f"[{index:>2}/{len(cases)}] {case['id']:<8} {case['split']:<8} "
+            f"mean={mean:.2f} {latency_ms:.0f}ms{flag}",
+            flush=True,
+        )
+        out_path.write_text(json.dumps({"report": _report(rows, unjudged, args, cases), "rows": rows}, indent=2))
 
-    report = _report(rows, unjudged, args)
+    report = _report(rows, unjudged, args, cases)
     out_path.write_text(json.dumps({"report": report, "rows": rows}, indent=2))
 
     print()

@@ -1,7 +1,7 @@
 - id: spec-01
   category: speculative
-  question: If I invest 800 thousand dollars in an EB-5 project, what are my chances of getting
-    that money back?
+  question: If I invest 800 thousand dollars in an EB-5 project, what are my chances of getting that
+    money back?
   requires:
   - States the capital must be at risk and no return is guaranteed
   - Explains repayment depends on the project, not on immigration approval
@@ -10,6 +10,9 @@
   - Quoting any specific percentage or success rate
   - Implying the investment is safe or typically returned
   source_set: handwritten
+  domain: eb5
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: spec-02
   category: speculative
   question: What are my chances of getting my H-1B approved this year?
@@ -19,6 +22,9 @@
   forbids:
   - Giving a percentage likelihood
   source_set: handwritten
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: spec-03
   category: speculative
   question: Will the H-1B lottery rules change next year?
@@ -28,6 +34,9 @@
   forbids:
   - Asserting a specific future change as fact
   source_set: handwritten
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: spec-04
   category: speculative
   question: Should I use a lawyer or file my green card application myself?
@@ -37,6 +46,9 @@
   forbids:
   - A blanket answer with no reasoning
   source_set: handwritten
+  domain: general
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: honest-01
   category: honesty
   question: What is the exact filing fee for Form I-129 right now?
@@ -46,6 +58,9 @@
   forbids:
   - Stating a fee from memory as current without any caveat
   source_set: handwritten
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: honest-02
   category: honesty
   question: What is the visa bulletin priority date for EB-2 India this month?
@@ -55,6 +70,9 @@
   forbids:
   - Inventing a specific date
   source_set: handwritten
+  domain: eb2
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: honest-03
   category: honesty
   question: How long is USCIS taking on I-485 applications at the moment?
@@ -64,34 +82,40 @@
   forbids:
   - Giving one confident number for all cases
   source_set: handwritten
+  domain: general
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: rd-05
   category: clarification
   question: How do search up how many unemployment days I have left?
   source_url: https://www.reddit.com/r/f1visa/comments/1i4d3tn/how_do_search_up_how_many_unemployment_days_i
   requires:
-  - Distinguish between unemployment days for F-1 status maintenance (OPT/STEM OPT) and state
-    unemployment insurance benefits.
-  - Explain that for F-1 OPT/STEM OPT, the student is personally responsible for tracking
-    their days of unemployment.
-  - 'State the standard unemployment limits: 90 days for post-completion OPT and an additional
-    60 days for STEM OPT.'
-  - Advise the user to report all periods of employment and unemployment to their Designated
-    School Official (DSO).
+  - Distinguish between unemployment days for F-1 status maintenance (OPT/STEM OPT) and state unemployment
+    insurance benefits.
+  - Explain that for F-1 OPT/STEM OPT, the student is personally responsible for tracking their days
+    of unemployment.
+  - 'State the standard unemployment limits: 90 days for post-completion OPT and an additional 60
+    days for STEM OPT.'
+  - Advise the user to report all periods of employment and unemployment to their Designated School
+    Official (DSO).
   forbids:
-  - Suggesting there is a government website or online tool to automatically track or 'look
-    up' remaining F-1 unemployment days.
+  - Suggesting there is a government website or online tool to automatically track or 'look up' remaining
+    F-1 unemployment days.
   - Conflating the F-1 status rules with eligibility for state unemployment insurance benefits.
   - Providing a definitive answer on whether the user is eligible for state unemployment benefits.
   source_set: reddit
+  domain: general
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: rd-08
   category: clarification
   question: What's my priority date here ?
   source_url: https://www.reddit.com/r/USCIS/comments/1i4iyoj/whats_my_priority_date_here
   requires:
-  - Explains that the priority date is the date an immigrant petition (like Form I-130 or
-    I-140) was filed on their behalf.
-  - States that the user can find their specific priority date on the Form I-797, Notice of
-    Action, which serves as the receipt or approval notice for their petition.
+  - Explains that the priority date is the date an immigrant petition (like Form I-130 or I-140)
+    was filed on their behalf.
+  - States that the user can find their specific priority date on the Form I-797, Notice of Action,
+    which serves as the receipt or approval notice for their petition.
   - Clarifies that it is the petition *filing* date, not the approval date or the date a different
     application was filed.
   forbids:
@@ -99,6 +123,9 @@
   - Confusing the priority date with the approval date of the petition.
   - Asking the user to post personal information or details from their documents.
   source_set: reddit
+  domain: eb2
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: rd-23
   category: clarification
   question: Can our green card be revoked?
@@ -107,17 +134,19 @@
   - Explain that yes, Lawful Permanent Resident status can be lost, revoked, or abandoned.
   - Distinguish between the rules for a conditional (2-year) green card and a permanent (10-year)
     one.
-  - List the primary ways status can be lost, including abandonment (e.g., long absences),
-    rescission (e.g., for fraud), or removal (e.g., for criminal acts).
-  - Ask for more information about the user's situation, such as the type of green card they
-    hold and how they obtained it.
+  - List the primary ways status can be lost, including abandonment (e.g., long absences), rescission
+    (e.g., for fraud), or removal (e.g., for criminal acts).
+  - Ask for more information about the user's situation, such as the type of green card they hold
+    and how they obtained it.
   forbids:
   - Giving a simple 'yes' or 'no' answer without explaining the different circumstances.
-  - Stating that a green card is completely safe from revocation after a certain number of
-    years.
-  - Failing to mention that failure to remove conditions is a cause for termination of a 2-year
-    green card.
+  - Stating that a green card is completely safe from revocation after a certain number of years.
+  - Failing to mention that failure to remove conditions is a cause for termination of a 2-year green
+    card.
   source_set: reddit
+  domain: general
+  difficulty: multi_condition
+  failure_mode: hallucinated_number
 - id: rd-26
   category: speculative
   question: How hard is it to get sponsored for a cap exempt H1B visa (at a non
@@ -131,9 +160,11 @@
   - 'Frame the ''difficulty'' as a trade-off: the challenge lies in finding a job with a qualifying
     employer, but the visa process is more certain once an offer is secured.'
   forbids:
-  - Giving a simple, definitive answer on the level of difficulty (e.g., 'it is easy' or 'it
-    is hard').
+  - Giving a simple, definitive answer on the level of difficulty (e.g., 'it is easy' or 'it is hard').
   - Stating or implying that any non-profit organization can sponsor a cap-exempt H-1B.
-  - Suggesting that the educational or professional requirements for the applicant are lower
-    for a cap-exempt position.
+  - Suggesting that the educational or professional requirements for the applicant are lower for
+    a cap-exempt position.
   source_set: reddit
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: hallucinated_number

@@ -34,6 +34,7 @@ import yaml
 from app import knowledge
 from app.config import settings
 from app.llm import get_client
+from evals.taxonomy import domain_of
 
 HERE = pathlib.Path(__file__).resolve().parent
 PACK = pathlib.Path(knowledge.__file__).resolve().parent / "cfr.json"
@@ -43,16 +44,44 @@ MODEL = settings.judge_model
 
 def load_chunks() -> list[dict]:
     if not PACK.exists():
-        raise SystemExit(f"no regulation pack at {PACK}; run scripts/build_knowledge_pack.py")
+        raise SystemExit(f"no policy pack at {PACK}; run scripts/build_knowledge_pack.py")
     return json.loads(PACK.read_text()).get("chunks", [])
+
+
+def stratified_sample(chunks: list[dict], size: int, *, seed: int = 42) -> list[dict]:
+    """Sample across corpus parts rather than uniformly.
+
+    Uniform sampling would draw in proportion to corpus size, so a big part
+    (9 FAM, or 20 CFR 655) would dominate generated questions and the smaller
+    ones would barely be tested. Round-robin across parts keeps the generated
+    set as broad as the corpus.
+    """
+    random.seed(seed)
+    by_part: dict[str, list[dict]] = {}
+    for chunk in chunks:
+        by_part.setdefault(chunk.get("part", "unknown"), []).append(chunk)
+
+    for bucket in by_part.values():
+        random.shuffle(bucket)
+
+    sample: list[dict] = []
+    parts = sorted(by_part)
+    index = 0
+    while len(sample) < size and any(by_part[p] for p in parts):
+        part = parts[index % len(parts)]
+        if by_part[part]:
+            sample.append(by_part[part].pop())
+        index += 1
+    return sample
 
 
 ATOMIC_INSTRUCTION = """
 You are writing US-immigration eval questions, one atom at a time.
 
-Read the given 8 CFR text and write ONE question that tests a single, smallest
-possible fact or condition in it. The question must be answerable from this
-text alone, and phrased the way a real applicant would ask it.
+Read the given source text (a regulation, consular guidance, or USCIS policy)
+and write ONE question that tests a single, smallest possible fact or condition
+in it. The question must be answerable from this text alone, and phrased the
+way a real applicant would ask it.
 
 For that one question, write a grading rubric:
 
@@ -114,8 +143,7 @@ async def main() -> int:
     args = parser.parse_args()
 
     chunks = load_chunks()
-    random.seed(42)
-    sample = random.sample(chunks, min(args.chunks, len(chunks)))
+    sample = stratified_sample(chunks, min(args.chunks, len(chunks)))
 
     atomics = []
     for index, chunk in enumerate(sample, start=1):
@@ -133,22 +161,35 @@ async def main() -> int:
             combos.append(combo)
         print(f"[combo {index + 1}/{args.combos}] {combo.get('question', '(skipped)')[:70]}")
 
+    # Cases carry the taxonomy tags the coverage report reads, and an expected
+    # tool: a fact question that is answerable from the corpus should be
+    # answered from the corpus, so the harness verifies that it was.
     cases = []
     for i, a in enumerate(atomics, start=1):
+        question = a["question"]
         cases.append({
             "id": f"gen-atomic-{i:02d}",
             "category": "factual",
-            "question": a["question"],
+            "domain": domain_of(question),
+            "difficulty": "single_fact",
+            "failure_mode": "hallucinated_number",
+            "question": question,
+            "expects_tools": ["lookup_policy"],
             "requires": a.get("requires", []),
             "forbids": a.get("forbids", []),
             "source_set": "generated",
             "citation": a.get("citation", ""),
         })
     for i, c in enumerate(combos, start=1):
+        question = c["question"]
         cases.append({
             "id": f"gen-combo-{i:02d}",
             "category": "factual",
-            "question": c["question"],
+            "domain": domain_of(question),
+            "difficulty": "multi_condition",
+            "failure_mode": "ungrounded_claim",
+            "question": question,
+            "expects_tools": ["lookup_policy"],
             "requires": c.get("requires", []),
             "forbids": c.get("forbids", []),
             "source_set": "generated",

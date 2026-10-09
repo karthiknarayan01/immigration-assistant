@@ -1,7 +1,10 @@
 - id: strat-01
   category: reasoning
-  question: I am an Indian citizen on H-1B. Should I switch to EB-1 to get my green card as quickly as possible?
-  expects_tools: [search_official_guidance, search_community_experiences]
+  question: I am an Indian citizen on H-1B. Should I switch to EB-1 to get my green card as quickly
+    as possible?
+  expects_tools:
+  - search_official_guidance
+  - search_community_experiences
   requires:
   - Explains EB-1 eligibility and the higher evidentiary bar
   - Notes country-specific backlogs (India) and compares EB-1 against EB-2/EB-3 timelines
@@ -10,10 +13,16 @@
   forbids:
   - Recommending the switch without addressing eligibility
   - Predicting a guaranteed outcome or a specific wait time as certain
+  domain: eb1
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim
 - id: strat-02
   category: reasoning
-  question: I don't have $800k saved. What is the fastest realistic path to a green card for me as an H-1B holder?
-  expects_tools: [search_official_guidance, search_community_experiences]
+  question: I don't have $800k saved. What is the fastest realistic path to a green card for me as
+    an H-1B holder?
+  expects_tools:
+  - search_official_guidance
+  - search_community_experiences
   requires:
   - Rules out EB-5 because of the investment requirement
   - Enumerates realistic alternatives (EB-1, EB-2, EB-3, NIW, PERM) with their timelines
@@ -22,14 +31,24 @@
   forbids:
   - Suggesting EB-5 for someone without the investment capital
   - Guaranteeing any specific timeline
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim
 - id: strat-03
   category: reasoning
-  question: For EB-5, is an independent investment project more likely to get audited or denied than a regional-center project?
-  expects_tools: [search_official_guidance, search_community_experiences]
+  question: For EB-5, is an independent investment project more likely to get audited or denied than
+    a regional-center project?
+  expects_tools:
+  - search_official_guidance
+  - search_community_experiences
   requires:
   - Looks up what data or reporting says about audits and denials by investment structure
-  - States that independent projects are reported to face more audits and denials, with sources and dates
+  - States that independent projects are reported to face more audits and denials, with sources and
+    dates
   - Gives a calibrated, evidence-based view rather than a guess
   forbids:
   - Asserting likelihoods without any source
   - Stating a guaranteed denial or approval
+  domain: eb5
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim

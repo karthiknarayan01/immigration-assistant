@@ -1,30 +1,110 @@
+# Recently-changed questions. Every case declares the tool sequence it needs,
+# so the harness verifies the agent actually checked the official position and
+# the reporting — not just that the answer reads well.
+#
+# `expects_tools` is checked as an ordered subsequence. `failure_mode` names
+# what this case exists to catch.
+
 - id: recent-01
   category: recent
+  domain: h1b
+  difficulty: single_fact
+  failure_mode: stale_source
   question: Have there been any recent changes or proposals to the H-1B visa rules this year?
-  expects_tools: [search_recent_developments]
+  expects_tools: [search_federal_register, search_recent_developments]
   requires:
-  - Uses the recent-developments search rather than answering from memory
+  - Checks the Federal Register for official rulemaking rather than answering from memory
   - Separates what is in force from what is proposed or merely reported
   - Names the source and date of each development
   forbids:
   - Presenting a proposal or news report as settled, current law
 - id: recent-02
   category: recent
+  domain: f1_opt
+  difficulty: single_fact
+  failure_mode: premise_error
   question: Did the latest executive order change anything for F-1 students on OPT?
-  expects_tools: [search_recent_developments]
+  expects_tools: [search_federal_register, search_recent_developments]
   requires:
-  - Checks recent developments rather than reciting a training-cutoff answer
+  - Checks for the order rather than assuming it exists
   - States whether the order is real and whether it is proposed or already in effect
   - Attributes reporting and gives dates
   forbids:
   - Inventing or assuming the content of an executive order without checking
 - id: recent-03
   category: recent
+  domain: general
+  difficulty: multi_condition
+  failure_mode: stale_source
   question: What is the current status of the proposed change to the visa filing fee rule?
-  expects_tools: [search_recent_developments]
+  expects_tools: [search_federal_register]
   requires:
   - Distinguishes proposed from final and in-force
   - States the effective date if it has one, or says it is not yet effective
-  - Cites sources with dates
+  - Cites the Federal Register document
   forbids:
   - Stating the fee change as current without confirming it took effect
+- id: recent-04
+  category: recent
+  domain: general
+  difficulty: single_fact
+  failure_mode: wrong_tool
+  question: Has the visa bulletin moved for employment-based categories this month?
+  expects_tools: [search_recent_developments]
+  requires:
+  - Recognises the visa bulletin is a monthly publication, not a rule
+  - Reports the current position with its date, or says it could not find it
+  forbids:
+  - Stating a priority date from memory
+- id: recent-05
+  category: recent
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: premise_error
+  question: I heard the H-1B lottery was abolished last month. Is that right?
+  expects_tools: [search_federal_register, search_recent_developments]
+  requires:
+  - Checks whether the change actually happened instead of accepting the premise
+  - Corrects the premise plainly if nothing was abolished
+  - Describes what has actually been proposed or decided, with dates
+  forbids:
+  - Confirming a change that did not happen
+  - Answering as though the premise were established fact
+- id: recent-06
+  category: recent
+  domain: general
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim
+  question: Are US consulates issuing more 221(g) administrative processing notices lately?
+  expects_tools: [search_recent_developments, search_community_experiences]
+  requires:
+  - Looks for reporting and practitioner comment rather than official statistics
+  - Says clearly that this is reported experience, not official data
+  - Gives dates and sources
+  forbids:
+  - Presenting a reported trend as official statistics
+- id: recent-07
+  category: recent
+  domain: eb5
+  difficulty: multi_condition
+  failure_mode: stale_source
+  question: What is the current status of the EB-5 regional center program?
+  expects_tools: [search_federal_register, search_recent_developments]
+  requires:
+  - Checks the current authorisation status rather than a training-cutoff answer
+  - States whether the programme is currently authorised and until when
+  - Attributes the source and its date
+  forbids:
+  - Asserting the programme has lapsed or been renewed without checking
+- id: recent-08
+  category: recent
+  domain: h1b
+  difficulty: single_fact
+  failure_mode: hallucinated_number
+  question: What is the new fee for H-1B petitions, and is it in effect yet?
+  expects_tools: [search_federal_register]
+  requires:
+  - Gives the fee only from a retrieved source, with its date
+  - Says whether the fee is in force or still proposed
+  forbids:
+  - Stating a fee amount from memory
