@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from dataclasses import dataclass
@@ -72,10 +73,43 @@ class StatusEvent:
     round: int
 
 
-def models_to_try() -> list[str]:
-    """The ordered list of models for a turn: primary, then fallback."""
-    models = [settings.llm_model]
-    if settings.llm_fallback_model and settings.llm_fallback_model != settings.llm_model:
+#: Signals that a question asks for judgement — a comparison, a choice, a
+#: likelihood — rather than a fact. Deliberately narrow: "can I travel while my
+#: I-485 is pending" is a factual question that happens to start with "can I",
+#: and sending it to an expensive reasoning model would be waste, not rigour.
+_REASONING_SIGNALS = re.compile(
+    r"\b("
+    r"should i|which (?:is|one|route|path|option|visa)|"
+    r"best (?:way|path|option|approach|strategy|route)|"
+    r"fastest|quickest|"
+    r"pros and cons|compare|compared|versus|\bvs\b|instead of|rather than|"
+    r"chance|chances|likelihood|how likely|odds|probability|worth it|"
+    r"strateg(?:y|ies)|my options|"
+    r"what if|would it be|if i (?:were|had)|hypothetical"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def looks_like_reasoning(question: str) -> bool:
+    """True when the question is asking for judgement, not for a fact."""
+    return bool(_REASONING_SIGNALS.search(question or ""))
+
+
+def models_to_try(question: str = "") -> list[str]:
+    """Ordered models for a turn: reasoner first for judgement questions.
+
+    A dedicated reasoning model earns its extra cost on questions that need
+    chain-of-thought — comparisons, choices, likelihoods — and is wasted on
+    "how many days is the grace period". The route is a cheap regex rather
+    than a classifier call, because a second model call to decide which model
+    to use would cost more than it saves.
+    """
+    models: list[str] = []
+    if settings.reasoner_model and looks_like_reasoning(question):
+        models.append(settings.reasoner_model)
+    models.append(settings.llm_model)
+    if settings.llm_fallback_model and settings.llm_fallback_model not in models:
         models.append(settings.llm_fallback_model)
     return models
 
@@ -183,6 +217,7 @@ async def stream_answer(
     *,
     on_status: Callable[[StatusEvent | None], Awaitable[None]] | None = None,
     on_tool: Callable[[str, dict], Awaitable[None]] | None = None,
+    usage_sink: dict | None = None,
 ) -> AsyncIterator[str]:
     """Answer one question, yielding text as it is produced.
 
@@ -224,7 +259,12 @@ async def stream_answer(
         tool_calls: list[dict] = []
         round_opened = False
 
-        for model in models_to_try():
+        # Chosen once per round, not per attempt: the route depends on the
+        # question, and re-deciding it mid-round could switch models between
+        # the tool call and the answer that reads the tool result.
+        models = models_to_try(question)
+        for model_index, model in enumerate(models):
+            is_last_model = model_index == len(models) - 1
             attempts = 0
             while True:
                 yielded_this_round = 0
@@ -247,6 +287,12 @@ async def stream_answer(
                             yield delta.content
                         if delta.tool_calls:
                             tool_calls = delta.tool_calls
+                        # Token usage arrives on the final chunk of each round,
+                        # so rounds are summed into the caller's sink. The
+                        # eval harness uses this to report cost per case.
+                        if delta.usage and usage_sink is not None:
+                            for key, value in delta.usage.items():
+                                usage_sink[key] = usage_sink.get(key, 0) + value
                     # Round completed without raising.
                     break
                 except Exception as error:  # noqa: BLE001 - classified and re-raised
@@ -263,7 +309,7 @@ async def stream_answer(
                         continue
                     # Try the next model if this one is spent and nothing was
                     # shown yet; otherwise surface the failure.
-                    if failure.retryable and yielded_this_round == 0 and model is not models_to_try()[-1]:
+                    if failure.retryable and yielded_this_round == 0 and not is_last_model:
                         bound().warning(f"{model} failed ({failure.detail}); falling back")
                         break
                     bound().warning(f"turn failed ({failure.detail}, {failure.kind.value})")

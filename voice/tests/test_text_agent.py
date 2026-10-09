@@ -59,3 +59,53 @@ def test_tool_declarations_mirror_the_production_schemas():
 
     declared = {t["function"]["name"] for t in build_tools(_SCHEMAS)}
     assert declared == {schema.name for schema in _SCHEMAS}
+
+
+def _with_models(cheap: str, reasoner: str, fallback: str = ""):
+    original = (settings.llm_model, settings.reasoner_model, settings.llm_fallback_model)
+    settings.llm_model, settings.reasoner_model, settings.llm_fallback_model = cheap, reasoner, fallback
+    return original
+
+
+def _restore(original):
+    settings.llm_model, settings.reasoner_model, settings.llm_fallback_model = original
+
+
+def test_judgement_questions_route_to_the_reasoner():
+    original = _with_models("cheap/model", "reasoning/model")
+    try:
+        for question in (
+            "Should I switch from EB-2 to EB-1?",
+            "What are my chances of approval?",
+            "Compare EB-5 regional center vs direct investment.",
+            "What is the best path to a green card for me?",
+        ):
+            assert models_to_try(question)[0] == "reasoning/model", question
+    finally:
+        _restore(original)
+
+
+def test_factual_questions_do_not_route_to_the_reasoner():
+    """A factual question that happens to start with "can I" is not judgement.
+
+    Sending it to a reasoning model would be waste, not rigour.
+    """
+    original = _with_models("cheap/model", "reasoning/model")
+    try:
+        for question in (
+            "What is the H-1B premium processing time?",
+            "How many days of unemployment am I allowed on OPT?",
+            "Can I travel while my adjustment of status is pending?",
+            "What happens after I get an RFE?",
+        ):
+            assert models_to_try(question)[0] == "cheap/model", question
+    finally:
+        _restore(original)
+
+
+def test_reasoner_is_never_used_when_it_is_unset():
+    original = _with_models("cheap/model", "")
+    try:
+        assert models_to_try("Should I switch to EB-1?") == ["cheap/model"]
+    finally:
+        _restore(original)

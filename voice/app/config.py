@@ -36,6 +36,13 @@ class Settings(BaseSettings):
     #: Judge model for evals — stronger than the agent under test.
     judge_model: str = "anthropic/claude-3.5-sonnet"
 
+    #: Optional price per million tokens, used only to put a cost column in the
+    #: eval report. Left at 0 deliberately: prices change, and a stale
+    #: hardcoded price is worse than no number. Set these to your provider's
+    #: current rates to get score-per-dollar in the report.
+    llm_price_in_per_mtok: float = 0.0
+    llm_price_out_per_mtok: float = 0.0
+
     #: Bounds the whole turn. A deadline, not a count, so a retry never starts
     #: with too little time left to help.
     model_timeout_secs: float = 60.0
