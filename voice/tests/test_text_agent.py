@@ -109,3 +109,33 @@ def test_reasoner_is_never_used_when_it_is_unset():
         assert models_to_try("Should I switch to EB-1?") == ["cheap/model"]
     finally:
         _restore(original)
+
+
+async def test_a_successful_round_does_not_also_run_the_fallback(monkeypatch):
+    """The fallback exists for failures, not for every turn.
+
+    A bug let control fall through to the next model after a round had already
+    succeeded, so each turn ran twice: the reader saw the answer repeated and
+    every call was paid for twice. It was found by a smoke test that noticed
+    two models in the usage report, not by the suite — hence this test.
+    """
+    from app import text_agent
+    from app.llm import ChatDelta
+
+    original = _with_models("primary/model", "", "fallback/model")
+    called: list[str] = []
+
+    async def fake_stream_chat(client, *, model, messages, tools, temperature=0):
+        called.append(model)
+        yield ChatDelta(content="An answer.")
+
+    try:
+        monkeypatch.setattr(text_agent, "stream_chat", fake_stream_chat)
+        chunks = []
+        async for chunk in text_agent.stream_answer([], "What is the H-1B filing fee?"):
+            chunks.append(chunk)
+    finally:
+        _restore(original)
+
+    assert "".join(chunks).strip() == "An answer."
+    assert called == ["primary/model"], f"the fallback ran despite success: {called}"

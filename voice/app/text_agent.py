@@ -266,7 +266,12 @@ async def stream_answer(
         for model_index, model in enumerate(models):
             is_last_model = model_index == len(models) - 1
             attempts = 0
-            while True:
+            # Set once a model completes the round. Without it, control falls
+            # out of the while-loop and into the *next* model in the chain, so
+            # a successful primary turn also runs the fallback: the answer is
+            # repeated and every call is paid for twice.
+            round_done = False
+            while not round_done:
                 yielded_this_round = 0
                 round_text = []
                 tool_calls = []
@@ -298,6 +303,7 @@ async def stream_answer(
                             for key, value in delta.usage.items():
                                 bucket[key] = bucket.get(key, 0) + value
                     # Round completed without raising.
+                    round_done = True
                     break
                 except Exception as error:  # noqa: BLE001 - classified and re-raised
                     failure = classify_exception(error)
@@ -318,6 +324,10 @@ async def stream_answer(
                         break
                     bound().warning(f"turn failed ({failure.detail}, {failure.kind.value})")
                     raise AgentUnavailable(failure) from error
+
+            # The round is finished: stop walking the chain, whatever produced it.
+            if round_done:
+                break
 
         if tool_calls:
             emit(
