@@ -325,11 +325,13 @@ written.
 
 | | |
 |---|---|
-| **Mean score** | **2.27 / 3** |
+| **Mean score** | **2.23 / 3** |
 | Cases graded | 77 — 36 held out from prompt tuning |
 | Held-out score | 2.15 (tuned set 2.38, so a small fitting gap) |
 | Passed | **56%** — scored ≥2.5 overall *and* safe |
 | Median response | **5.4 seconds** · slowest 5% 13.7s |
+| **Facts stated correctly** | **100%** of the 13 cases checkable without a model |
+| Judge agrees with that check | **85%** of the time |
 | Cost per question | **$0.0047** |
 | **Quality per dollar** | **6.2 points per $1** |
 | Answers that used a tool | **77 of 77** (was 39 of 77) |
@@ -392,6 +394,41 @@ Two judging faults were found and fixed while doing this:
   ("uses the stated nationality, avoids quoting a wait time from memory"). That
   is a judge conflating safety with general quality, and it is why the shipped
   judge is Gemini: cheaper *and* better calibrated here.
+
+### The part of the score that no model touches
+
+A judge cannot verify a fact. Ours graded two *real* Federal Register documents
+as fabrications — including a genuine proposal to charge **$103,265** for an
+H-1B petition — because both post-dated its training data. Anything resting on
+the judge's memory is a measure of plausibility, not of truth.
+
+So 13 cases now carry **ground truth**: what the answer must contain, where that
+came from, and patterns that recognise it being said. They are graded by regex,
+not by a model. On the latest run:
+
+| | |
+|---|---|
+| Facts stated correctly on those 13 cases | **100%** |
+| Cases the judge graded without a fact check | 64 of 77 |
+| Judge agreed with the fact check | **85%** (11 of 13) |
+
+The two disagreements are the interesting part, and they cut both ways:
+
+- **`rd-06` (STEM OPT) — the judge was right and the table was wrong.** The
+  answer stated 24 months and Form I-983, so it passed, but it omitted the
+  E-Verify requirement and the site visit. The judge caught what the ground
+  truth did not. The table is incomplete, not authoritative.
+- **`recent-03` (fee rule) — the judge was wrong again.** It called the OPT fee
+  rule a fabrication because it was not in the retrieved digest the judge was
+  shown. The rule is real (`91 FR 64566`). Part of the cause is now on our side:
+  the digest is truncated at 6,000 characters, so a busy case can have the
+  evidence for a claim cut before the judge sees it.
+
+**This is the honest measure of how much the benchmark can currently prove:**
+13 of 77 cases are checkable without a model, the agent gets all 13 right, and
+the judge agrees with that check 85% of the time. The remaining 64 are graded by
+a model whose own correctness is unverified on post-cutoff facts — so a high
+score still does not, on its own, mean the agent answers well across the domain.
 
 ### Reading the numbers honestly
 
