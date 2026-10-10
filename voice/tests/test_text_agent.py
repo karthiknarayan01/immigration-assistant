@@ -59,3 +59,120 @@ def test_tool_declarations_mirror_the_production_schemas():
 
     declared = {t["function"]["name"] for t in build_tools(_SCHEMAS)}
     assert declared == {schema.name for schema in _SCHEMAS}
+
+
+def _with_models(cheap: str, reasoner: str, fallback: str = ""):
+    original = (settings.llm_model, settings.reasoner_model, settings.llm_fallback_model)
+    settings.llm_model, settings.reasoner_model, settings.llm_fallback_model = cheap, reasoner, fallback
+    return original
+
+
+def _restore(original):
+    settings.llm_model, settings.reasoner_model, settings.llm_fallback_model = original
+
+
+def test_judgement_questions_route_to_the_reasoner():
+    original = _with_models("cheap/model", "reasoning/model")
+    try:
+        for question in (
+            "Should I switch from EB-2 to EB-1?",
+            "What are my chances of approval?",
+            "Compare EB-5 regional center vs direct investment.",
+            "What is the best path to a green card for me?",
+        ):
+            assert models_to_try(question)[0] == "reasoning/model", question
+    finally:
+        _restore(original)
+
+
+def test_factual_questions_do_not_route_to_the_reasoner():
+    """A factual question that happens to start with "can I" is not judgement.
+
+    Sending it to a reasoning model would be waste, not rigour.
+    """
+    original = _with_models("cheap/model", "reasoning/model")
+    try:
+        for question in (
+            "What is the H-1B premium processing time?",
+            "How many days of unemployment am I allowed on OPT?",
+            "Can I travel while my adjustment of status is pending?",
+            "What happens after I get an RFE?",
+        ):
+            assert models_to_try(question)[0] == "cheap/model", question
+    finally:
+        _restore(original)
+
+
+def test_reasoner_is_never_used_when_it_is_unset():
+    original = _with_models("cheap/model", "")
+    try:
+        assert models_to_try("Should I switch to EB-1?") == ["cheap/model"]
+    finally:
+        _restore(original)
+
+
+async def test_a_successful_round_does_not_also_run_the_fallback(monkeypatch):
+    """The fallback exists for failures, not for every turn.
+
+    A bug let control fall through to the next model after a round had already
+    succeeded, so each turn ran twice: the reader saw the answer repeated and
+    every call was paid for twice. It was found by a smoke test that noticed
+    two models in the usage report, not by the suite — hence this test.
+    """
+    from app import text_agent
+    from app.llm import ChatDelta
+
+    original = _with_models("primary/model", "", "fallback/model")
+    called: list[str] = []
+
+    async def fake_stream_chat(client, *, model, messages, tools, temperature=0, tool_choice=None):
+        called.append(model)
+        yield ChatDelta(content="An answer.")
+
+    try:
+        monkeypatch.setattr(text_agent, "stream_chat", fake_stream_chat)
+        chunks = []
+        async for chunk in text_agent.stream_answer([], "What is the H-1B filing fee?"):
+            chunks.append(chunk)
+    finally:
+        _restore(original)
+
+    assert "".join(chunks).strip() == "An answer."
+    assert called == ["primary/model"], f"the fallback ran despite success: {called}"
+
+
+async def test_the_first_lookup_is_required_and_later_ones_are_not(monkeypatch):
+    """Grounding is mandatory until something has been looked up.
+
+    Left to itself the model answered ordinary factual questions from memory in
+    roughly half of all eval cases, on two different models, and neither a
+    longer prompt nor a rewording fixed it. So the first tool call is forced;
+    after that the model is free to answer.
+    """
+    from app import text_agent
+    from app.llm import ChatDelta
+
+    original = _with_models("primary/model", "")
+    seen: list[str | None] = []
+
+    async def fake_stream_chat(client, *, model, messages, tools, temperature=0, tool_choice=None):
+        seen.append(tool_choice)
+        if len(seen) == 1:
+            # Round one: the forced lookup.
+            yield ChatDelta(tool_calls=[{"id": "c1", "name": "lookup_policy", "arguments": {"query": "fee"}}])
+        else:
+            yield ChatDelta(content="Answered.")
+
+    async def fake_execute_tool(name, arguments, **kwargs):
+        return {"results": [], "count": 0}
+
+    try:
+        monkeypatch.setattr(text_agent, "stream_chat", fake_stream_chat)
+        monkeypatch.setattr(text_agent, "_execute_tool", fake_execute_tool)
+        async for _ in text_agent.stream_answer([], "What is the H-1B filing fee?"):
+            pass
+    finally:
+        _restore(original)
+
+    assert seen[0] == "required", "the first round must force a lookup"
+    assert seen[-1] is None, "later rounds must not force a lookup"

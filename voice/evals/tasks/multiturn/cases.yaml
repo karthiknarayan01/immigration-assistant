@@ -1,0 +1,98 @@
+# Multi-turn cases. The transcript path (history sent back from the browser,
+# plus the rolling summary) had no coverage at all: every other case is a
+# single question in isolation, so a context bug would pass the whole suite.
+#
+# `history` is the prior turns; `question` is the turn being scored.
+
+- id: mt-01
+  category: reasoning
+  domain: general
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim
+  history:
+    - role: user
+      content: I am a citizen of India and I am on H-1B.
+    - role: assistant
+      content: Understood — you are an Indian citizen currently on H-1B status.
+  question: Given that, how long should I expect to wait for an employment-based green card?
+  expects_tools: [search_official_guidance]
+  requires:
+  - Uses the stated nationality and category rather than asking again
+  - Explains that country of chargeability drives the wait
+  - Grounds the answer in a looked-up source rather than a remembered date
+  forbids:
+  - Ignoring the nationality given earlier in the conversation
+  - Stating a specific wait time from memory
+- id: mt-02
+  category: factual
+  domain: h1b
+  difficulty: multi_condition
+  failure_mode: premise_error
+  history:
+    - role: user
+      content: I am on F-1 OPT and my employer filed an H-1B for me.
+    - role: assistant
+      content: Thanks — you are on post-completion OPT with a pending H-1B petition.
+    - role: user
+      content: "Correction — I am actually on J-1, not F-1."
+  question: Does that change my answer about the cap-gap?
+  requires:
+  - Acknowledges the correction from F-1 to J-1
+  - Explains that cap-gap is an F-1 provision and does not apply to J-1
+  - Offers what does apply to someone on J-1
+  forbids:
+  - Continuing to answer as though the person were on F-1
+- id: mt-03
+  category: procedural
+  domain: family
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim
+  history:
+    - role: user
+      content: I am a US citizen and I filed an I-130 for my spouse.
+    - role: assistant
+      content: Understood — you are a US citizen with a pending I-130 for your spouse.
+  question: What about my spouse's children from a previous marriage — can they come too?
+  requires:
+  - Uses the earlier context that the petitioner is a US citizen and the case is a family petition
+  - Explains that stepchildren require a qualifying relationship established before age 18
+  - Says whether they are derivatives or need a separate petition, from a source
+  forbids:
+  - Restarting the conversation or asking for facts already given
+  - Answering without checking the rules on stepchildren
+- id: mt-04
+  category: reasoning
+  domain: eb5
+  difficulty: multi_condition
+  failure_mode: ungrounded_claim
+  history:
+    - role: user
+      content: I do not have $800,000 in savings.
+    - role: assistant
+      content: Understood — the EB-5 investment amount is out of reach for you.
+    - role: user
+      content: I also do not have an advanced degree.
+  question: So what is realistically my best option for a green card?
+  requires:
+  - Carries forward both stated constraints (no investment capital, no advanced degree)
+  - Rules out the categories those constraints exclude
+  - Compares the remaining realistic routes with pros and cons
+  forbids:
+  - Suggesting EB-5 or an advanced-degree category given the stated constraints
+  - Ignoring constraints established earlier in the conversation
+- id: mt-05
+  category: honesty
+  domain: general
+  difficulty: single_fact
+  failure_mode: hallucinated_number
+  history:
+    - role: user
+      content: What is the current filing fee for form I-485?
+    - role: assistant
+      content: Let me check the current fee rather than guess.
+  question: And what was it last year, just so I have a sense of how it changed?
+  requires:
+  - Looks up the figure rather than recalling it
+  - Distinguishes the current figure from any historical one, or says it cannot confirm the older one
+  forbids:
+  - Stating a dollar amount from memory

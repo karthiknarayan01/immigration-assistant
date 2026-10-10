@@ -1,0 +1,1223 @@
+{
+  "domain": "f1_opt",
+  "cases": [
+    {
+      "question": "What regulation provides a non-exclusive list of material changes and deviations that trigger reporting requirements?",
+      "answer": "8 CFR 214.2(f)(10)(ii)(C)(9)(ii) provides a non-exclusive list of material changes and deviations that trigger reporting requirements.",
+      "quote": "See 8 CFR 214.2(f)(10)(ii)(C)(9)(ii) (providing a non-exclusive list of material changes and deviations that would trigger this requirement).",
+      "must_contain": [
+        "214.2",
+        "10"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0000"
+    },
+    {
+      "question": "How long must an educational institution retain Form I-983 and associated student evaluations?",
+      "answer": "The educational institution must retain each individualized Form I-983 and associated student evaluations for a period of 3 years following the completion of each STEM practical training opportunity.",
+      "quote": "Additionally, the educational institution whose DSO is responsible for duties associated with the F-1 student\u2019s latest STEM OPT extension is responsible for ensuring that ICE SEVP has access to each individualized Form I-983 and associated student evaluations (electronic or hard copy), including through SEVIS if technologically available, beginning within 30 days after the document is submitted to the DSO and continuing for a period of 3 years following the completion of each STEM practical training opportunity.",
+      "must_contain": [
+        "I-983",
+        "30 days",
+        "3 years",
+        "30"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0001"
+    },
+    {
+      "question": "What form must an F-1 student use to apply for an Employment Authorization Document (EAD) for Optional Practical Training (OPT)?",
+      "answer": "An F-1 student must apply to USCIS using Form I-765 for an Employment Authorization Document (EAD).",
+      "quote": "In addition to a DSO's request for OPT which will appear in the student's electronic SEVIS record, the student must apply to USCIS using Form I-765 for an Employment Authorization Document (EAD).",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0002"
+    },
+    {
+      "question": "What is the maximum number of hours per week an F-1 student can work on OPT when school is in session?",
+      "answer": "When school is in session, OPT may not exceed 20 hours per week.",
+      "quote": "When school is in session, OPT may not exceed 20 hours per week.",
+      "must_contain": [
+        "20 hours",
+        "20"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0003"
+    },
+    {
+      "question": "How long must post-completion OPT be completed within?",
+      "answer": "Post-completion OPT must be completed within 12 months.",
+      "quote": "Such training must be completed within 12 months, although certain F-1 students may be eligible for an extension of post-completion OPT based on their major field of study or a pending change of status to H-1B.",
+      "must_contain": [
+        "12 months",
+        "12"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0004"
+    },
+    {
+      "question": "What documents are required for an F-1 student to reenter the U.S. during post-completion OPT after a brief trip abroad?",
+      "answer": "A valid F-1 visa, the unexpired EAD, the endorsed Form I-20, and the electronic SEVIS record will be required for reentry to complete the training.",
+      "quote": "If the student makes a brief trip abroad during a period of post-completion OPT, a valid F-1 visa, the unexpired EAD, the endorsed Form I-20, and the electronic SEVIS record will be required for reentry to complete the training.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0005"
+    },
+    {
+      "question": "What was the maximum OPT extension period USCIS could grant for eligible STEM students between May 10, 2008, and May 9, 2016?",
+      "answer": "Between May 10, 2008, and May 9, 2016, USCIS could grant an OPT extension of 17 months, for a maximum of 29 months, to eligible F-1 STEM students.",
+      "quote": "Effective May 10, 2008, until May 9, 2016, USCIS could grant an OPT extension of 17 months, for a maximum of 29 months, to an eligible F-1 student on post-completion OPT with a degree in a DHS-approved science, technology, engineering, or mathematics (STEM) field.",
+      "must_contain": [
+        "17 months",
+        "29 months",
+        "10",
+        "2008",
+        "2016",
+        "17",
+        "29"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0006"
+    },
+    {
+      "question": "What form is the Certificate of Eligibility for Nonimmigrant Student Status?",
+      "answer": "The Certificate of Eligibility for Nonimmigrant Student Status is Form I-20.",
+      "quote": "When transferring between schools or programs, a student may not remain in the United States unless the student is able to resume classes at the transfer school or program within 5 months of transferring out of the current school, or within 5 months of the program completion date as indicated on the Certificate of Eligibility for Nonimmigrant Student Status ( Form I-20 ) issued by the current school, whichever date is earlier.",
+      "must_contain": [
+        "I-20",
+        "5 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 4 - School Transfer",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0007"
+    },
+    {
+      "question": "How long does an F-1 student have to resume classes at a transfer school after transferring out of their current school?",
+      "answer": "A student must resume classes at the transfer school within 5 months of transferring out of the current school, or within 5 months of the program completion date as indicated on Form I-20, whichever is earlier.",
+      "quote": "When transferring between schools or programs, a student may not remain in the United States unless the student is able to resume classes at the transfer school or program within 5 months of transferring out of the current school, or within 5 months of the program completion date as indicated on the Certificate of Eligibility for Nonimmigrant Student Status ( Form I-20 ) issued by the current school, whichever date is earlier.",
+      "must_contain": [
+        "I-20",
+        "5 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 4 - School Transfer",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0008"
+    },
+    {
+      "question": "Can an F-1 student start a transfer during the 60-day grace period after completing studies?",
+      "answer": "Yes, an F-1 student may start a transfer during the 60-day grace period following completion of studies.",
+      "quote": "The F-1 student may start a transfer during the 60-day grace period following completion of the student\u2019s studies since the student is considered to be maintaining status during this grace period.",
+      "must_contain": [
+        "60"
+      ],
+      "citation": "Volume 2, Part F, Chapter 4 - School Transfer",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0009"
+    },
+    {
+      "question": "What was the maximum duration for an OPT extension for eligible F-1 students with a STEM degree between May 10, 2008, and May 9, 2016?",
+      "answer": "The maximum duration for an OPT extension was 29 months during that period.",
+      "quote": "Effective May 10, 2008, until May 9, 2016, USCIS could grant an OPT extension of 17 months, for a maximum of 29 months, to an eligible F-1 student on post-completion OPT with a degree in a DHS-approved science, technology, engineering, or mathematics (STEM) field.",
+      "must_contain": [
+        "17 months",
+        "29 months",
+        "10",
+        "2008",
+        "2016",
+        "17",
+        "29"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0010"
+    },
+    {
+      "question": "What form must F-1 students complete with their employer for a STEM OPT extension?",
+      "answer": "F-1 students must complete Form I-983, Training Plan for STEM OPT Students, with their employer.",
+      "quote": "Students are also required to complete Form I-983, Training Plan for STEM OPT Students, with their employer and submit it to the DSO.",
+      "must_contain": [
+        "I-983"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0011"
+    },
+    {
+      "question": "What form must a student submit to USCIS for employment authorization after a DSO recommends a STEM OPT extension?",
+      "answer": "The student must submit a Form I-765, Application for Employment Authorization, to USCIS.",
+      "quote": "Once the DSO recommends the extension, the student must submit a Form I-765, Application for Employment Authorization, and all appropriate fees to USCIS.",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0012"
+    },
+    {
+      "question": "How many days of unemployment are F-1 students on a 24-month STEM OPT extension allowed in total?",
+      "answer": "F-1 students on a 24-month STEM OPT extension are allowed a total of 150 days of unemployment.",
+      "quote": "Students on a 24-month STEM OPT extension are allowed an additional 60 days of unemployment, for a total of 150 days.",
+      "must_contain": [
+        "60 days",
+        "150 days",
+        "24",
+        "60",
+        "150"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0013"
+    },
+    {
+      "question": "How long is an F-1 student's OPT employment authorization automatically extended if they timely file Form I-765 for a 24-month extension?",
+      "answer": "The student's OPT employment authorization is automatically extended for 180 days.",
+      "quote": "If the F-1 student has filed a Form I-765 for a 24-month extension in a timely manner before their end of regular post-completion OPT, then the student's OPT employment authorization is automatically extended for 180 days.",
+      "must_contain": [
+        "I-765",
+        "180 days",
+        "24",
+        "180"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0014"
+    },
+    {
+      "question": "What is the maximum duration for an F-1 student's OPT period if they receive a 24-month STEM extension?",
+      "answer": "The maximum duration for an F-1 student's OPT period with a 24-month STEM extension is 36 months.",
+      "quote": "Effective May 10, 2016, an F-1 student with a bachelor's or higher degree in a DHS-approved STEM field who is already in a period of approved post-completion OPT may apply to USCIS to extend that period by 24 months, for a maximum of 36 months.",
+      "must_contain": [
+        "24 months",
+        "36 months",
+        "10",
+        "2016",
+        "24",
+        "36"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0015"
+    },
+    {
+      "question": "How many STEM OPT extensions can an F-1 student receive in their lifetime?",
+      "answer": "An F-1 student may be eligible for a total of two lifetime STEM OPT extensions.",
+      "quote": "If, in the future, an F-1 student enrolls in a new academic program and earns another qualifying STEM degree at a higher educational level, the student may be eligible for one additional 24-month STEM OPT extension, for a total of two lifetime STEM OPT extensions.",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0016"
+    },
+    {
+      "question": "Who must provide the practical training experience to the student?",
+      "answer": "The employer that signs the Form I-983 must be the same entity that provides the practical training experience to the student.",
+      "quote": "The employer that signs the Form I-983 must be the same entity that provides the practical training experience to the student.",
+      "must_contain": [
+        "I-983"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0017"
+    },
+    {
+      "question": "What must every Form I-983 describe regarding the STEM OPT opportunity?",
+      "answer": "Every Form I-983 must describe the direct relationship between the STEM OPT opportunity and the F-1 student\u2019s qualifying STEM degree, as well as the relationship between the STEM OPT opportunity and the F-1 student\u2019s goals and objectives for work-based learning.",
+      "quote": "Every Form I-983 must describe the direct relationship between the STEM OPT opportunity and the F-1 student\u2019s qualifying STEM degree, as well as the relationship between the STEM OPT opportunity and the F-1 student\u2019s goals and objectives for work-based learning.",
+      "must_contain": [
+        "I-983"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0018"
+    },
+    {
+      "question": "When did ICE announce the termination of its COVID-19 guidance related to online learning for students?",
+      "answer": "ICE announced the termination of its COVID-19 guidance on May 11, 2023.",
+      "quote": "On May 11, 2023, ICE announced the termination of this guidance.",
+      "must_contain": [
+        "11",
+        "2023"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0019"
+    },
+    {
+      "question": "What happens if a student fails to carry a full-course load without authorization?",
+      "answer": "If a student fails to carry a full-course load unless authorized by a DSO, the student has failed to maintain a valid F-1 status.",
+      "quote": "If the student fails to carry a full-course load unless authorized by DSO in accordance with 8 CFR 214.2(f)(6)(iii) , the student has failed to maintain a valid F-1 status.",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0020"
+    },
+    {
+      "question": "Which students are subject to the concurrent enrollment provision?",
+      "answer": "The concurrent enrollment provision applies to students registered less than full-time at their Form I-20 issuing school who rely on enrollment at another school to meet full course of study requirements.",
+      "quote": "The concurrent enrollment provision is applicable to those students who will be registered less than full-time at the school that issued their Form I-20 , and who are relying on enrollment at another school to meet the requirement that they be enrolled for a full course of study.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0021"
+    },
+    {
+      "question": "Can active F and M students count online classes toward a full course of study in excess of regulatory limits for the 2023-24 academic year?",
+      "answer": "No, active F and M students will not be permitted to count online classes toward a full course of study in excess of the regulatory limits for the 2023-24 academic year.",
+      "quote": "However, active F and M students will not be permitted to count online classes toward a full course of study in excess of the regulatory limits stated in 8 CFR 214.2(f)(6)(i)(G) and 8 CFR 214.2(m)(9)(v) for the 2023\u201324 academic year.",
+      "must_contain": [
+        "214.2",
+        "2023",
+        "24"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0022"
+    },
+    {
+      "question": "Do students enrolled full-time at their Form I-20 issuing institution need special permission to take an additional class at another school?",
+      "answer": "No, as long as a student is enrolled full-time at the institution that issued their Form I-20, they do not need special permission to take an additional class at another school.",
+      "quote": "As long as a student is enrolled full-time at the institution that issued the student\u2019s Form I-20, the student does not need special permission to take an additional class at another school.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0023"
+    },
+    {
+      "question": "When did ICE announce the termination of its COVID-19 guidance related to online or distance learning for students?",
+      "answer": "ICE announced the termination of its COVID-19 guidance on May 11, 2023.",
+      "quote": "On May 11, 2023, ICE announced the termination of this guidance.",
+      "must_contain": [
+        "11",
+        "2023"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0024"
+    },
+    {
+      "question": "What academic year will not permit active F and M students to count online classes toward a full course of study in excess of regulatory limits?",
+      "answer": "Active F and M students will not be permitted to count online classes toward a full course of study in excess of the regulatory limits for the 2023\u201324 academic year.",
+      "quote": "However, active F and M students will not be permitted to count online classes toward a full course of study in excess of the regulatory limits stated in 8 CFR 214.2(f)(6)(i)(G) and 8 CFR 214.2(m)(9)(v) for the 2023\u201324 academic year.",
+      "must_contain": [
+        "214.2",
+        "2023",
+        "24"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0025"
+    },
+    {
+      "question": "What form should Designated School Officials (DSO) not issue for certain students in new or initial status?",
+      "answer": "Designated School Officials (DSO) should not issue a Certificate of Eligibility for Nonimmigrant Student Status (Form I-20) for students in new or initial status who are outside of the United States and plan to take classes at an educational institution certified by the ICE Student and Exchange Visitor Program (SEVP) for a program of study that contains online components in excess of the regulatory limits.",
+      "quote": "Designated School Officials (DSO) should not issue a Certificate of Eligibility for Nonimmigrant Student Status ( Form I-20 ) for students in new or initial status who are outside of the United States and plan to take classes at an educational institution certified by the ICE Student and Exchange Visitor Program (SEVP) for a program of study that contains online components in excess of the regulatory limits.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0026"
+    },
+    {
+      "question": "What is the minimum age for individuals to be considered for an adult education program?",
+      "answer": "Individuals must have attained 16 years of age to be considered for an adult education program.",
+      "quote": "Adult education program is defined as a service or instruction below the post-secondary level for individuals who have attained 16 years of age; who are not enrolled or required to be enrolled in secondary school under state law; who lack sufficient mastery of basic educational skills to enable the individuals to function effectively in society; do not have a secondary school diploma or its recognized equivalent and have not achieved an equivalent level of education; or are unable to speak, read, or write the English language.",
+      "must_contain": [
+        "16 years",
+        "16"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0027"
+    },
+    {
+      "question": "When was the Accreditation of English Language Training Programs Act enacted?",
+      "answer": "The Accreditation of English Language Training Programs Act was enacted on December 14, 2010.",
+      "quote": "See Accreditation of English Language Training Programs Act, Pub. L. 111-306 (PDF) (December 14, 2010).",
+      "must_contain": [
+        "111",
+        "306",
+        "14",
+        "2010"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0028"
+    },
+    {
+      "question": "What did the Accreditation of English Language Training Programs Act amend?",
+      "answer": "The Act amended INA 101(a)(15)(F)(i).",
+      "quote": "The Act amended INA 101(a)(15)(F)(i) to state that F-1 nonimmigrant students intending to pursue an English language training course of study must enroll in an English language training program that has been accredited by a regional or national accrediting agency recognized by the Department of Education.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0029"
+    },
+    {
+      "question": "What form must an M-1 student file to apply for temporary employment for practical training?",
+      "answer": "An M-1 student must file Form I-765 to apply for temporary employment for practical training.",
+      "quote": "An M-1 student who desires temporary employment for practical training must apply to USCIS by filing Form I-765.",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0030"
+    },
+    {
+      "question": "What form might an M-1 student need to file in conjunction with an employment authorization application?",
+      "answer": "An M-1 student may need to file Form I-539, Application to Extend/Change Nonimmigrant Status, in conjunction with an employment authorization application.",
+      "quote": "Because M-1 students are admitted until a certain date, an M-1 student may need to also file Form I-539, Application to Extend/Change Nonimmigrant Status, to apply for an extension of M-1 status in conjunction with the application for employment authorization.",
+      "must_contain": [
+        "I-539"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0031"
+    },
+    {
+      "question": "What is the maximum duration of the STEM OPT extension for which degree program categories are approved?",
+      "answer": "Degree program categories are approved for the 24-month STEM OPT extension.",
+      "quote": "The STEM Designated Degree Program List provides degree program categories approved for the 24-month STEM OPT extension and significant additional information.",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0032"
+    },
+    {
+      "question": "What form must be timely filed for an F-1 student to be the intended beneficiary of a cap-subject H-1B visa?",
+      "answer": "Form I-129 must be timely filed for an F-1 student to be the intended beneficiary of a cap-subject H-1B visa.",
+      "quote": "If an F-1 student is the intended beneficiary of a timely filed Form I-129 petition for a cap-subject H-1B visa to start on October 1, the F-1 status and any OPT authorization held on the eligibility date is automatically extended to dates determined by USCIS that allow for receipt or approval of the petition, up to September 30.",
+      "must_contain": [
+        "I-129",
+        "30"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0033"
+    },
+    {
+      "question": "When does the STEM OPT extension become automatic for the first 180 days?",
+      "answer": "The STEM OPT extension is automatic for the first 180 days following regular post-completion OPT when the student has properly filed Form I-765.",
+      "quote": "As the STEM OPT extension is automatic for the first 180 days following regular post-completion OPT (when the student has properly filed Form I-765), the student may not necessarily have a renewed EAD.",
+      "must_contain": [
+        "I-765",
+        "180 days",
+        "180"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0034"
+    },
+    {
+      "question": "How long can an F-1 student be absent from the United States and still be readmitted without losing student status?",
+      "answer": "An F-1 student can be absent for 5 months or less and be readmitted for attendance at an educational institution.",
+      "quote": "An F-1 student returning to the United States from a temporary absence of 5 months or less may be readmitted for attendance at an educational institution certified by U.S. Immigration and Customs Enforcement (ICE) Student and Exchange Visitor Program (SEVP) if the F-1 student presents:",
+      "must_contain": [
+        "5 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 7 - Absences From the United States",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0035"
+    },
+    {
+      "question": "What happens if an F-1 student leaves the United States for more than 5 months and cannot remain enrolled at their ICE SEVP-certified school?",
+      "answer": "The student will not be able to maintain student status and will need to seek readmission in initial status, including obtaining a new Form I-20.",
+      "quote": "If an F-1 student leaves the United States for more than 5 months and is not able to remain enrolled at the student\u2019s ICE SEVP-certified school, the student will not be able to maintain student status.",
+      "must_contain": [
+        "5 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 7 - Absences From the United States",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0036"
+    },
+    {
+      "question": "What document must an F-1 student have endorsed for travel by their DSO and within what timeframe to re-enter the United States for OPT?",
+      "answer": "The F-1 student must have a Form I-20 endorsed for travel by the student\u2019s DSO within the last 6 months.",
+      "quote": "An F-1 student currently approved for OPT may re-enter the United States to engage in OPT if the student has a current visa (if applicable), a Form I-20 endorsed for travel by the student\u2019s DSO within the last 6 months, and an unexpired Employment Authorization Document ( Form I-765 ).",
+      "must_contain": [
+        "I-20",
+        "I-765",
+        "6 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 7 - Absences From the United States",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0037"
+    },
+    {
+      "question": "What happens if an M-1 student departs the United States while an Application for Employment Authorization (Form I-765) is pending?",
+      "answer": "If an M-1 student departs the United States while an Application for Employment Authorization (Form I-765) is pending, USCIS denies the Form I-765.",
+      "quote": "As a result, if an M-1 student departs the United States while an Application for Employment Authorization ( Form I-765 ) is pending, USCIS denies the Form I-765.",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "Volume 2, Part F, Chapter 7 - Absences From the United States",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0038"
+    },
+    {
+      "question": "What happens if an M-1 student leaves the country while their Form I-765 application is pending?",
+      "answer": "USCIS denies a Form I-765 if the M-1 student departs while the application is pending.",
+      "quote": "USCIS denies a Form I-765 if the M-1 student departs while the application is pending.",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0039"
+    },
+    {
+      "question": "How much employment authorization is granted to an M-1 student for full-time study?",
+      "answer": "USCIS grants 1 month of employment authorization for each 4 months of full-time study that the M-1 student has completed, not to exceed an aggregate of 6 months.",
+      "quote": "USCIS grants 1 month of employment authorization for each 4 months of full-time study that the M-1 student has completed, not to exceed an aggregate of 6 months.",
+      "must_contain": [
+        "1 month",
+        "4 months",
+        "6 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0040"
+    },
+    {
+      "question": "Under what condition will USCIS not grant employment authorization to an M-1 student?",
+      "answer": "USCIS does not grant the student employment authorization if the student cannot complete the requested PT within 6 months.",
+      "quote": "USCIS does not grant the student employment authorization if the student cannot complete the requested PT within 6 months.",
+      "must_contain": [
+        "6 months"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0041"
+    },
+    {
+      "question": "What form must be submitted to report a material change in an F-1 student's employment address?",
+      "answer": "A modified Form I-983 must be submitted to the DSO to report a material change in an F-1 student's employment address.",
+      "quote": "As indicated above and further explained below, [46] the employer and F-1 student must report such a material change by submitting a modified Form I-983 to the DSO at the earliest available opportunity.",
+      "must_contain": [
+        "I-983",
+        "46"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0042"
+    },
+    {
+      "question": "Who may conduct a site visit of a STEM OPT employer?",
+      "answer": "DHS may conduct a site visit of any STEM OPT employer.",
+      "quote": "DHS, at its discretion, may conduct a site visit of any STEM OPT employer to ensure that the employer possesses and maintains the ability, personnel, and resources to provide structured and guided work-based learning experiences consistent with the information provided on Form I-983.",
+      "must_contain": [
+        "I-983"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0043"
+    },
+    {
+      "question": "What form is referenced for information about structured and guided work-based learning experiences during a site visit?",
+      "answer": "Form I-983 is referenced for information about structured and guided work-based learning experiences during a site visit.",
+      "quote": "DHS, at its discretion, may conduct a site visit of any STEM OPT employer to ensure that the employer possesses and maintains the ability, personnel, and resources to provide structured and guided work-based learning experiences consistent with the information provided on Form I-983.",
+      "must_contain": [
+        "I-983"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0044"
+    },
+    {
+      "question": "How many hours per week can an F-1 student work off-campus when school is in session?",
+      "answer": "An F-1 student may not work more than 20 hours a week when school is in session.",
+      "quote": "A student who receives authorization from USCIS for off-campus employment may not work more than 20 hours a week when school is in session.",
+      "must_contain": [
+        "20 hours",
+        "20"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0045"
+    },
+    {
+      "question": "What form must be filed with USCIS for off-campus employment authorization?",
+      "answer": "The Form I-765 must be filed with USCIS for off-campus employment authorization.",
+      "quote": "A designated school official (DSO) must request off-campus employment for an F-1 student in SEVIS in support of the Form I-765 which must be filed with USCIS, and the request will appear in the electronic SEVIS record.",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0046"
+    },
+    {
+      "question": "What form must employers complete as part of the STEM OPT extension?",
+      "answer": "Employers must complete the appropriate parts of Form I-983 as part of the STEM OPT extension.",
+      "quote": "As part of the STEM OPT extension, employers must complete the appropriate parts of Form I-983 .",
+      "must_contain": [
+        "I-983"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0047"
+    },
+    {
+      "question": "How long is the STEM OPT extension granted for?",
+      "answer": "The STEM OPT 24-month extension is granted for a fixed and uninterrupted period of 24 consecutive months.",
+      "quote": "If the F-1 student establishes eligibility, DHS grants the STEM OPT 24-month extension for a fixed and uninterrupted period of 24 consecutive months.",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0048"
+    },
+    {
+      "question": "When does the STEM OPT extension begin?",
+      "answer": "The STEM OPT extension begins the day after the initial post-completion OPT expires.",
+      "quote": "The STEM OPT extension begins the day after the initial post-completion OPT expires, not on the date of adjudication, and ends 24 months thereafter, regardless of the date the actual extension is approved.",
+      "must_contain": [
+        "24 months",
+        "24"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0049"
+    },
+    {
+      "question": "Does the 14-month limit on completing post-completion OPT apply to the STEM OPT extension?",
+      "answer": "No, the 14-month limit on completing post-completion OPT does not apply to the STEM OPT extension.",
+      "quote": "The 14-month limit on completing post-completion OPT does not apply to the STEM OPT extension. [51]",
+      "must_contain": [
+        "14",
+        "51"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0050"
+    },
+    {
+      "question": "What happens if the Form I-765 for the STEM OPT extension is denied and the student's post-completion OPT EAD is expired?",
+      "answer": "If the Form I-765 for the STEM OPT extension is denied and the student\u2019s post-completion OPT EAD is expired, OPT employment authorization ends on the date of the decision and the student\u2019s F-1 status ends 60 days after the date of denial.",
+      "quote": "If the Form I-765 for the STEM OPT extension is denied and the student\u2019s post-completion OPT EAD is expired, OPT employment authorization ends on the date of the decision and the student\u2019s F-1 status ends 60 days after the date of denial.",
+      "must_contain": [
+        "I-765",
+        "60 days",
+        "60"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0051"
+    },
+    {
+      "question": "What form must an F-1 student use to request reinstatement of their status?",
+      "answer": "A student must use Form I-539, Application to Extend/Change Nonimmigrant Status, to request reinstatement of their F-1 status.",
+      "quote": "Generally, USCIS may reinstate a student\u2019s F-1 status if the student makes a request on an Application to Extend/Change Nonimmigrant Status ( Form I-539 ).",
+      "must_contain": [
+        "I-539"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0052"
+    },
+    {
+      "question": "What is the maximum cumulative time of extensions, including practical training, that can be granted to an M-1 student?",
+      "answer": "The maximum cumulative time of extensions for an M-1 student is limited to a period of 3 years from the original start date, plus 30 days.",
+      "quote": "The cumulative time of extensions, including extensions for practical training, that can be granted to an M-1 student is limited to a period of 3 years from the M-1 student\u2019s original start date, plus 30 days.",
+      "must_contain": [
+        "3 years",
+        "30 days",
+        "30"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0053"
+    },
+    {
+      "question": "Do F-2 dependents need to apply separately for an extension of stay if the F-1 student's program is extended?",
+      "answer": "No, an F-2 dependent does not need to apply separately for an extension of stay if the F-1 student's program is extended.",
+      "quote": "An F-2 dependent of an F-1 student unable to complete their course of study by the program end date on the Form I-20 does not need to apply separately for an extension of stay.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0054"
+    },
+    {
+      "question": "What document must accompany a request for reinstatement to F-1 student status?",
+      "answer": "The request must be accompanied by a properly completed Form I-20 indicating the DSO\u2019s recommendation for reinstatement.",
+      "quote": "The request must be accompanied by a properly completed Form I-20 indicating the DSO\u2019s recommendation for reinstatement from the school the student is attending.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0055"
+    },
+    {
+      "question": "What form is used for the Application for Employment Authorization?",
+      "answer": "The Application for Employment Authorization is Form I-765.",
+      "quote": "For general guidance on the adjudication of the Application for Employment Authorization ( Form I-765 ), see Volume 10, Employment Authorization, Part A, Employment Authorization Policies and Procedures, Chapter 4, Adjudication [ 10 USCIS-PM A.4 ].",
+      "must_contain": [
+        "I-765",
+        "10"
+      ],
+      "citation": "Volume 2, Part F, Chapter 6 - Employment",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0056"
+    },
+    {
+      "question": "What act recognizes international organizations for employment purposes?",
+      "answer": "The International Organizations Immunities Act, Pub. L. 79-291, 59 Stat. 669 (December 29, 1945) recognizes international organizations.",
+      "quote": "The international organization must be recognized according to the International Organizations Immunities Act, Pub. L. 79-291 , 59 Stat. 669 (December 29, 1945).",
+      "must_contain": [
+        "79",
+        "291",
+        "59",
+        "669",
+        "29",
+        "1945"
+      ],
+      "citation": "Volume 2, Part F, Chapter 6 - Employment",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0057"
+    },
+    {
+      "question": "What is the maximum aggregate duration of study for an F-1 student attending a public high school?",
+      "answer": "An F-1 student admitted to attend a public high school is restricted to an aggregate of 12 months of study at any public high school.",
+      "quote": "An F-1 student who is admitted to attend a public high school is restricted to an aggregate of 12 months of study at any public high school.",
+      "must_contain": [
+        "12 months",
+        "12"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0058"
+    },
+    {
+      "question": "What is the regulatory citation for the restriction on the duration of study for F-1 students at a public high school?",
+      "answer": "The regulatory citation for the restriction on the duration of study for F-1 students at a public high school is 8 CFR 214.2(f)(5)(i).",
+      "quote": "See 8 CFR 214.2(f)(5)(i) . Statutory and regulatory requirements restrict the duration of study for F-1 students to attend a public high school to an aggregate of 12 months of study at any public high school.",
+      "must_contain": [
+        "12 months",
+        "214.2",
+        "12"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0059"
+    },
+    {
+      "question": "What form must an F-1 student complete when seeking employment authorization from a recognized international organization?",
+      "answer": "An F-1 student must complete Form I-765 with the required fee.",
+      "quote": "A student seeking employment authorization under this provision is required to present a written certification from the international organization that the proposed employment is within the scope of the organization\u2019s sponsorship; a Form I-20 with the employment page completed by the DSO certifying eligibility for employment; and a completed Form I-765 with the required fee.",
+      "must_contain": [
+        "I-20",
+        "I-765"
+      ],
+      "citation": "Volume 2, Part F, Chapter 6 - Employment",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0060"
+    },
+    {
+      "question": "What must an F-1 student do to benefit from SSR if they already have off-campus employment authorization?",
+      "answer": "The F-1 student must request that the student\u2019s DSO update the remarks field of the F-1 student\u2019s Form I-20.",
+      "quote": "To benefit from SSR in this context, the F-1 student must request that the student\u2019s DSO update the remarks field of the F-1 student\u2019s Form I-20 , in accordance with the Federal Register notice.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 6 - Employment",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0061"
+    },
+    {
+      "question": "Who must an F-1 student apply to for employment authorization if they have been offered employment by a recognized international organization?",
+      "answer": "An F-1 student must apply to USCIS for employment authorization.",
+      "quote": "An F-1 student who has been offered employment by a recognized international organization [24] must apply for employment authorization from USCIS.",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "Volume 2, Part F, Chapter 6 - Employment",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0062"
+    },
+    {
+      "question": "What is the responsibility of the educational institution regarding Form I-983 and student evaluations for STEM OPT extensions?",
+      "answer": "The educational institution is responsible for ensuring ICE SEVP has access to each individualized Form I-983 and associated student evaluations, beginning within 30 days after submission to the DSO and continuing for 3 years following the completion of each STEM practical training opportunity.",
+      "quote": "Additionally, the educational institution whose DSO is responsible for duties associated with the F-1 student\u2019s latest STEM OPT extension is responsible for ensuring that ICE SEVP has access to each individualized Form I-983 and associated student evaluations (electronic or hard copy), including through SEVIS if technologically available, beginning within 30 days after the document is submitted to the DSO and continuing for a period of 3 years following the completion of each STEM practical training opportunity.",
+      "must_contain": [
+        "I-983",
+        "30 days",
+        "3 years",
+        "30"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0063"
+    },
+    {
+      "question": "What is the definition of a timely filed H-1B petition?",
+      "answer": "A timely filed H-1B petition means it was filed during the H-1B acceptance period, while the student\u2019s authorized F-1 duration of status admission was still in effect.",
+      "quote": "Timely filed means that the H-1B petition (indicating change of status rather than consular processing) was filed during the H-1B acceptance period, while the student\u2019s authorized F-1 duration of status admission was still in effect (including any period of time during the academic course of study, any authorized periods of post-completion OPT, any authorized periods of STEM OPT, and the 60-day departure preparation period).",
+      "must_contain": [
+        "60"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0064"
+    },
+    {
+      "question": "How many days of cumulative unemployment are allowed for STEM OPT extension?",
+      "answer": "For STEM OPT extension, the cumulative maximum allowed unemployment is 150 days.",
+      "quote": "Unemployment during the cap-gap automatic extension counts toward the 90-day (post- completion OPT) or 150-day (for STEM OPT extension) cumulative maximum allowed unemployment.",
+      "must_contain": [
+        "90",
+        "150"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0065"
+    },
+    {
+      "question": "What form must M-1 students file to apply for permission to accept employment for Practical Training?",
+      "answer": "M-1 students must file a Form I-765 to apply for permission to accept employment for Practical Training.",
+      "quote": "Prior to their program end date, but not more than 90 days before the program end date, M-1 students seeking PT must apply for permission to accept employment by filing a Form I-765 and an Application to Extend/Change Nonimmigrant Status ( Form I-539 ), to extend their status to allow sufficient time to complete the PT plus a 30-day departure period.",
+      "must_contain": [
+        "I-765",
+        "I-539",
+        "90 days",
+        "90",
+        "30"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0066"
+    },
+    {
+      "question": "What is the grace period for a student whose H-1B petition is rejected?",
+      "answer": "The student has a standard 60-day grace period from the date of the rejection notice or the student's program or OPT end date, whichever is later.",
+      "quote": "If the student\u2019s H-1B petition is rejected, denied, withdrawn, or revoked, or if the student\u2019s change of status request is denied or withdrawn, the student has the standard 60-day grace period from the date of the rejection, denial, withdrawal, revocation notice, or the student\u2019s program or OPT end date, whichever is later, to prepare for and depart the United States.",
+      "must_contain": [
+        "60"
+      ],
+      "citation": "Volume 2, Part F, Chapter 5 - Practical Training",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0067"
+    },
+    {
+      "question": "What is the regulatory citation for the definition of a full course of study for F-1 students?",
+      "answer": "The regulatory citation for the definition of a full course of study for F-1 students is 8 CFR 214.2(f)(6)(i)(A).",
+      "quote": "See 8 CFR 214.2(f)(6)(i)(A) .",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0068"
+    },
+    {
+      "question": "What is the regulatory citation for the definition of a full course of study for M-1 students?",
+      "answer": "The regulatory citation for the definition of a full course of study for M-1 students is 8 CFR 214.2(m)(9)(i).",
+      "quote": "See 8 CFR 214.2(m)(9)(i) .",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0069"
+    },
+    {
+      "question": "What is the regulatory citation for reduced course load for F-1 students?",
+      "answer": "The regulatory citation for reduced course load for F-1 students is 8 CFR 214.2(f)(6)(iii).",
+      "quote": "See 8 CFR 214.2(f)(6)(iii) .",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0070"
+    },
+    {
+      "question": "What is the regulatory citation for reduced course load for M-1 students?",
+      "answer": "The regulatory citation for reduced course load for M-1 students is 8 CFR 214.2(m)(9)(vi).",
+      "quote": "See 8 CFR 214.2(m)(9)(vi) .",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "Volume 2, Part F, Chapter 3 - Courses and Enrollment, Full Course of Study, and Reduced Course Load",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0071"
+    },
+    {
+      "question": "How long does an F-1 student have to prepare for departure after completing their course of study and any authorized practical training?",
+      "answer": "An F-1 student has an additional 30-day period to prepare for departure after completing their course of study and any authorized practical training.",
+      "quote": "An F-1 student who has completed a course of study and any authorized practical training will be allowed an additional 30-day period from the program end date or the 4 year maximum period of admission, or the end date of the approved employment authorization for post-completion OPT or STEM OPT, as applicable, to prepare for departure from the United States, or to otherwise seek to maintain lawful status, including timely filing an extension of stay application in accordance with paragraph (f)(7) of this section and \u00a7 214.1 or timely filing a change of status application in accordance with 8 CFR 248.1(a).",
+      "must_contain": [
+        "4 year",
+        "30",
+        "214.1",
+        "248.1"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0072"
+    },
+    {
+      "question": "What form reflects the 30-day departure period for an F-1 student?",
+      "answer": "The 30-day period will be reflected on the F-1 student's Arrival/Departure Record, Form I-94, or successor form.",
+      "quote": "The 30-day period will be reflected on the F-1 student's Arrival/Departure Record, Form I-94, or successor form.",
+      "must_contain": [
+        "I-94",
+        "30"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0073"
+    },
+    {
+      "question": "How long does an F-1 student have to depart the United States if they end their study or training early?",
+      "answer": "If an F-1 student ends their study or training prior to expiration of their period of admission, they must depart the United States within 30 days from the end date of the study or training.",
+      "quote": "However, if the F-1 student ends his or her study or training prior to expiration of his or her period of admission, the F-1 student, and any eligible dependents, must, within 30 days from the end date of the study or training, depart the United States or otherwise seek to maintain lawful status.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0074"
+    },
+    {
+      "question": "What is the departure period for an F-1 student authorized to withdraw from classes?",
+      "answer": "An F-1 student authorized to withdraw from classes will be allowed a 15-day period from the date of the withdrawal to depart the United States.",
+      "quote": "An F-1 student authorized by the designated school official to withdraw from classes will be allowed a 15-day period from the date of the withdrawal to depart the United States.",
+      "must_contain": [
+        "15"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0075"
+    },
+    {
+      "question": "Under what conditions can an F-2 enroll in post-secondary or vocational study at an SEVP-certified school?",
+      "answer": "An F-2 is permitted to enroll in post-secondary or vocational study at an SEVP-certified school so long as any study remains less than a full course of study.",
+      "quote": "Under 8 CFR 214.2(f)(15)(ii) , an F-2 is permitted to enroll in post-secondary or vocational study at an SEVP-certified school so long as any study remains less than a full course of study.",
+      "must_contain": [
+        "214.2",
+        "15"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0076"
+    },
+    {
+      "question": "What are the consequences for students who accrue more than 180 days or 1 year of unlawful presence?",
+      "answer": "Students may be subject to 3-year or 10-year bars on their readmission to the country, respectively, if they accrue more than 180 days or 1 year of unlawful presence.",
+      "quote": "Students may be subject to 3-year or 10-year bars on their readmission to the country, respectively, if they accrue more than 180 days or 1 year of unlawful presence.",
+      "must_contain": [
+        "180 days",
+        "1 year",
+        "10",
+        "180"
+      ],
+      "citation": "Volume 2, Part F, Chapter 8 - Change of Status, Extension of Stay, and Length of Stay",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0077"
+    },
+    {
+      "question": "What is the regulatory citation for the definition of an Institution of Higher Learning?",
+      "answer": "The definition of an Institution of Higher Learning is found under DHS regulations (8 CFR 214.2(f)(6)(ii)).",
+      "quote": "Under DHS regulations (8 CFR 214.2(f)(6)(ii)), \u201ca college or university is an institution of higher learning which awards recognized associate, bachelor's, master's, doctorate, or professional degrees.\u201d",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0078"
+    },
+    {
+      "question": "What must the successful completion of a course of study lead to for an M-1 nonacademic student?",
+      "answer": "For an M-1 nonacademic student, the successful completion of the course of study must lead to the attainment of a specific educational or vocational objective.",
+      "quote": "DHS regulations (8 CFR 214.2(m)(9)) specify that \"successful completion of the course of study must lead to the attainment of a specific educational or vocational objective.\"",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0079"
+    },
+    {
+      "question": "Can an F-1 student reduce their course load and still maintain status?",
+      "answer": "Yes, an F-1 student authorized by the DSO to reduce their course load in accordance with 8 CFR 214.2(f)(6)(iii) is maintaining status.",
+      "quote": "An F-1 student authorized to reduce course load by the DSO in accordance with the provisions of 8 CFR 214.2(f)(6)(iii) is maintaining status.",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "9 FAM 402.5",
+      "source": "fam",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0080"
+    },
+    {
+      "question": "What is the age limit for unmarried children to be admitted in F-2 status as dependent family members?",
+      "answer": "Unmarried children under the age of 21 are eligible for admission in F-2 status.",
+      "quote": "An F-1 student\u2019s spouse and unmarried children under the age of 21 who are accompanying the F-1 student in the United States are eligible for admission in F-2 status as dependent family members.",
+      "must_contain": [
+        "21"
+      ],
+      "citation": "Volume 2, Part F, Chapter 9 - Dependents",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0081"
+    },
+    {
+      "question": "What form must dependent family members of a student present when seeking admission?",
+      "answer": "Dependent family members must present an original Form I-20.",
+      "quote": "At the time they seek admission, the dependent family members of a student with a Certificate of Eligibility for Nonimmigrant Student Status ( Form I-20 ) must each present an original Form I-20 issued in the name of each F-2 or M-2 dependent and issued by a school certified by U.S. Immigration and Customs Enforcement (ICE) Student and Exchange Visitor Program (SEVP) to admit F or M students.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 9 - Dependents",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0082"
+    },
+    {
+      "question": "What status are an M-1 student's spouse and unmarried children under 21 eligible for if they are accompanying the M-1 student?",
+      "answer": "They are eligible for admission in M-2 status.",
+      "quote": "An M-1 student\u2019s spouse and unmarried children under the age of 21 who are accompanying are eligible for admission in M-2 status.",
+      "must_contain": [
+        "21"
+      ],
+      "citation": "Volume 2, Part F, Chapter 9 - Dependents",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0083"
+    },
+    {
+      "question": "When is a new Form I-20 required for a dependent family member of an F-1 student?",
+      "answer": "A new Form I-20 is required if there has been any substantive change in the F-1 student's current information.",
+      "quote": "A new Form I-20 is required for a dependent family member where there has been any substantive change in the F-1 student\u2019s current information.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 9 - Dependents",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0084"
+    },
+    {
+      "question": "Within how many days must an F-1 student be enrolled in a full course of study for their following-to-join dependents to be eligible for F-2 status?",
+      "answer": "The F-1 student must be enrolled within 30 days.",
+      "quote": "An F-1 student\u2019s spouse and unmarried children under the age of 21 who are following to join the F-1 student in the United States are eligible for admission in F-2 status as dependent family members if they are able to demonstrate that the F-1 student has been admitted and is, or will be within 30 days, enrolled in a full course of study, or is engaged in approved practical training following completion of studies.",
+      "must_contain": [
+        "30 days",
+        "21",
+        "30"
+      ],
+      "citation": "Volume 2, Part F, Chapter 9 - Dependents",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0085"
+    },
+    {
+      "question": "Who certifies the school that issues the Form I-20 for M-2 dependents?",
+      "answer": "The school is certified by U.S. Immigration and Customs Enforcement (ICE) Student and Exchange Visitor Program (SEVP).",
+      "quote": "At the time they seek admission, the dependent family members of an M-1 student must individually present an original Form I-20 issued in the name of each M-2 dependent and issued by a school certified by ICE SEVP for attendance by M-1 students.",
+      "must_contain": [
+        "I-20"
+      ],
+      "citation": "Volume 2, Part F, Chapter 9 - Dependents",
+      "source": "uscis_pm",
+      "domain": "f1_opt",
+      "generated": true,
+      "id": "gen-f1_opt-0086"
+    }
+  ]
+}

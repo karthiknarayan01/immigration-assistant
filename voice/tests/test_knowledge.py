@@ -80,12 +80,18 @@ def test_a_narrow_section_is_still_findable_when_asked_for():
 
 
 def test_lookup_is_fast_enough_to_skip_filler_audio():
-    """The tool is exempt from filler audio on the grounds that it is instant."""
+    """The tool is exempt from filler audio on the grounds that it is instant.
+
+    The budget is 150ms, not 50ms: the corpus grew from 684 chunks to ~5,600
+    when 9 FAM and the Policy Manual were added, and a query is now ~60ms. That
+    is still two orders of magnitude below the ~2s a network search costs, which
+    is the comparison that matters.
+    """
     import time
 
     started = time.perf_counter()
     knowledge.search("grace period after employment ends")
-    assert (time.perf_counter() - started) * 1000 < 50
+    assert (time.perf_counter() - started) * 1000 < 150
 
 
 def test_empty_query_returns_nothing_rather_than_everything():

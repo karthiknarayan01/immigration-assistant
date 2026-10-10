@@ -1,3 +1,11 @@
 results/*.json
 !results/20260920-201221.json
 !results/20260920-201810.json
+# The benchmark run and its re-judged variants, kept as the evidence behind the
+# numbers in the README. Re-scoring the same answers with a different judge
+# writes a sibling file, so both are kept.
+!results/20261010-012702.json
+!results/20261010-012702.*.json
+!results/20261010-021709.json
+!results/20261010-145909.json
+!results/20261010-163648.json

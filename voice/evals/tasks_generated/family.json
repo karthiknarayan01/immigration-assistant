@@ -1,0 +1,1108 @@
+{
+  "domain": "family",
+  "cases": [
+    {
+      "question": "What form is used to file a petition on behalf of a qualifying relative?",
+      "answer": "The Petition for Alien Relative (Form I-130) is used to file a petition on behalf of a qualifying relative.",
+      "quote": "A U.S. citizen, U.S. national, [1] or lawful permanent resident (LPR) may file a petition on behalf of a qualifying relative using the Petition for Alien Relative ( Form I-130 ), in accordance with the regulations and form instructions.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0000"
+    },
+    {
+      "question": "When might an immediate relative beneficiary file an Application to Register Permanent Residence or Adjust Status (Form I-485)?",
+      "answer": "An immediate relative beneficiary who is in the United States may file an Application to Register Permanent Residence or Adjust Status (Form I-485) concurrently with the immigrant petition or after it is approved.",
+      "quote": "For example, since immediate relatives are not subject to numerical limitations on visa availability, an immediate relative beneficiary who is in the United States may file an Application to Register Permanent Residence or Adjust Status ( Form I-485 ) concurrently with the immigrant petition or after it is approved.",
+      "must_contain": [
+        "I-485"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0001"
+    },
+    {
+      "question": "Under what circumstances can the U.S. Department of State (DOS) accept and adjudicate a Form I-130 filed abroad?",
+      "answer": "The U.S. Department of State (DOS) may accept and adjudicate a clearly approvable Form I-130 filed abroad by a U.S. citizen petitioner for an immediate relative if the petitioner establishes exceptional circumstances or falls under blanket authorization criteria defined by USCIS.",
+      "quote": "USCIS has delegated [7] authority to DOS to accept and adjudicate a clearly approvable Form I-130 filed abroad by a U.S. citizen petitioner for an immediate relative [8] if the petitioner establishes exceptional circumstances or falls under blanket authorization criteria defined by USCIS.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0002"
+    },
+    {
+      "question": "Under what circumstances might a Consular section accept local Form I-130 filings for emergency situations?",
+      "answer": "The Consular section may exercise its discretion to accept local Form I-130 filings for other emergency or exceptional circumstances of a non-routine nature, subject to the limitations set forth in 9 FAM 504.2-4(B)(1) paragraph f above.",
+      "quote": "The Consular section may exercise its discretion to accept local Form I-130 filings for other emergency or exceptional circumstances of a non-routine nature, subject to the limitations set forth in 9 FAM 504.2-4(B)(1) paragraph f above.",
+      "must_contain": [
+        "I-130",
+        "504.2"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0003"
+    },
+    {
+      "question": "What kind of events might lead to temporary blanket authorizations for consular officers to accept Form I-130 petitions?",
+      "answer": "In an event such as a natural disaster or prolonged or severe civil strife, USCIS may give blanket authorization to consular officers to accept and adjudicate clearly approvable Form I-130 immediate relative petitions from petitioners directly affected by such events.",
+      "quote": "In an event such as a natural disaster or prolonged or severe civil strife, USCIS may give blanket authorization to consular officers to accept and adjudicate clearly approvable Form I-130 immediate relative petitions from petitioners directly affected by such events.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0004"
+    },
+    {
+      "question": "Do temporary blanket authorizations require consular officers to accept Form I-130 petitions?",
+      "answer": "These temporary blanket authorizations do not require, but rather, allow you to use your discretion to accept a Form I-130.",
+      "quote": "These temporary blanket authorizations do not require, but rather, allow you to use your discretion to accept a Form I-130.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0005"
+    },
+    {
+      "question": "Where can I find more detailed guidance on the approval of petitions and applications after the death of a qualifying relative under INA 204(l)?",
+      "answer": "More detailed guidance can be found in the documents issued on December 16, 2010, and November 18, 2015.",
+      "quote": "For more detailed guidance on the approval of petitions and applications after the death of a qualifying relative under INA 204(l) , see Approval of Petitions and Applications after the Death of the Qualifying Relative under New Section 204(l) of the Immigration and Nationality Act (PDF) , issued December 16, 2010, and Approval of a Spousal Immediate Relative Visa Petition under Section 204(l) of the Immigration and Nationality Act after the Death of a U.S. Citizen Petitioner (PDF) , issued November 18, 2015.",
+      "must_contain": [
+        "204",
+        "16",
+        "2010",
+        "18",
+        "2015"
+      ],
+      "citation": "Volume 9, Part B, Chapter 4 - Qualifying Relative",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0006"
+    },
+    {
+      "question": "What regulation should be consulted regarding qualifying relatives?",
+      "answer": "One should consult 8 CFR 204.2(i)(1)(iv).",
+      "quote": "See 8 CFR 204.2(i)(1)(iv) .",
+      "must_contain": [
+        "204.2"
+      ],
+      "citation": "Volume 9, Part B, Chapter 4 - Qualifying Relative",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0007"
+    },
+    {
+      "question": "What is the citation for Matter of Federiso?",
+      "answer": "The citation for Matter of Federiso is 24 I&N Dec. 661 (BIA 2008).",
+      "quote": "See Matter of Federiso (PDF) , 24 I&N Dec. 661 (BIA 2008).",
+      "must_contain": [
+        "24",
+        "661",
+        "2008"
+      ],
+      "citation": "Volume 9, Part B, Chapter 4 - Qualifying Relative",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0008"
+    },
+    {
+      "question": "What is the citation for Matter of Gonzalez Recinas?",
+      "answer": "The citation for Matter of Gonzalez Recinas is 23 I&N Dec. 467, 471 (BIA 2002).",
+      "quote": "See Matter of Gonzalez Recinas (PDF) , 23 I&N Dec. 467, 471 (BIA 2002) (\u201cIn addition to the hardship of the United States citizen children, factors that relate only to the respondent may also be considered to the extent that they affect the potential level of hardship to her qualifying relatives.\u201d).",
+      "must_contain": [
+        "23",
+        "467",
+        "471",
+        "2002"
+      ],
+      "citation": "Volume 9, Part B, Chapter 4 - Qualifying Relative",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0009"
+    },
+    {
+      "question": "What is the citation for Matter of O-J-O-?",
+      "answer": "The citation for Matter of O-J-O- is 21 I&N Dec. 381, 383 (BIA 1996).",
+      "quote": "See Matter of O-J-O- (PDF) , 21 I&N Dec. 381, 383 (BIA 1996).",
+      "must_contain": [
+        "21",
+        "381",
+        "383",
+        "1996"
+      ],
+      "citation": "Volume 9, Part B, Chapter 4 - Qualifying Relative",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0010"
+    },
+    {
+      "question": "What does 'connected to' mean as it is used in INA 204(a)(1)(C)?",
+      "answer": "'Connected to' as used in INA 204(a)(1)(C) means 'having a causal or logical relationship'.",
+      "quote": "The court held that \u201cconnected to\u201d as it is used in INA 204(a)(1)(C) means \u201chaving a causal or logical relationship.\u201d",
+      "must_contain": [
+        "204"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0011"
+    },
+    {
+      "question": "Which act superseded 8 CFR 204.2(e)(4)?",
+      "answer": "The Victims of Trafficking and Violence Protection Act of 2000 superseded 8 CFR 204.2(e)(4).",
+      "quote": "8 CFR 204.2(e)(4) has been superseded by the Victims of Trafficking and Violence Protection Act of 2000, Pub. L. 106-386 (PDF) , 114 Stat. 1464 (October 28, 2000), which amended the INA to allow children of child self-petitioners to be classified as derivative beneficiaries under INA 204(a)(1)(A)(iv) and INA 204(a)(1)(B)(iii) .",
+      "must_contain": [
+        "204.2",
+        "2000",
+        "106",
+        "386",
+        "114",
+        "1464",
+        "28",
+        "204"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0012"
+    },
+    {
+      "question": "When was the Victims of Trafficking and Violence Protection Act of 2000 enacted?",
+      "answer": "The Victims of Trafficking and Violence Protection Act of 2000 was enacted on October 28, 2000.",
+      "quote": "8 CFR 204.2(e)(4) has been superseded by the Victims of Trafficking and Violence Protection Act of 2000, Pub. L. 106-386 (PDF) , 114 Stat. 1464 (October 28, 2000), which amended the INA to allow children of child self-petitioners to be classified as derivative beneficiaries under INA 204(a)(1)(A)(iv) and INA 204(a)(1)(B)(iii) .",
+      "must_contain": [
+        "204.2",
+        "2000",
+        "106",
+        "386",
+        "114",
+        "1464",
+        "28",
+        "204"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0013"
+    },
+    {
+      "question": "What date is associated with 61 FR 13061, 13068?",
+      "answer": "The date associated with 61 FR 13061, 13068 is March 26, 1996.",
+      "quote": "See 61 FR 13061, 13068 (PDF) (Mar. 26, 1996).",
+      "must_contain": [
+        "61",
+        "13061",
+        "13068",
+        "26",
+        "1996"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0014"
+    },
+    {
+      "question": "Which section provides more information on a self-petitioning child or derivative turning 21 years old after the self-petition is filed?",
+      "answer": "More information on a self-petitioning child or derivative turning 21 years old after the self-petition is filed can be found in Chapter 3, Effect of Certain life Events, Section G, Child Turning 21 Years Old, Subsection 2, Self-Petitioning Child or Derivative Turns 21 Years Old After the Self-Petition is Filed.",
+      "quote": "For more information, see Chapter 3, Effect of Certain life Events, Section G, Child Turning 21 Years Old, Subsection 2, Self-Petitioning Child or Derivative Turns 21 Years Old After the Self-Petition is Filed [ 3 USCIS-PM D.3(G)(2) ].",
+      "must_contain": [
+        "21 Years",
+        "21"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0015"
+    },
+    {
+      "question": "What does USCIS consider for evidence submitted for self-petitioning spouses?",
+      "answer": "USCIS considers the same evidence submitted for a spousal-based Petition for Alien Relative (Form I-130) under 8 CFR 204.2(a)(1)(iii) for self-petitioning spouses.",
+      "quote": "USCIS considers the same evidence submitted for a spousal-based Petition for Alien Relative ( Form I-130 ) under 8 CFR 204.2(a)(1)(iii) for self-petitioning spouses.",
+      "must_contain": [
+        "I-130",
+        "204.2"
+      ],
+      "citation": "Volume 3, Part D, Chapter 3 - Effect of Certain Life Events",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0016"
+    },
+    {
+      "question": "What is the minimum age a U.S. citizen must be for their parent to be classified as an immediate relative?",
+      "answer": "A U.S. citizen must be at least 21 years of age for their parent to be classified as an immediate relative.",
+      "quote": "An alien who is a spouse or child of a United States citizen, or a parent of a U.S. citizen at least 21 years of age, shall be classified as an immediate relative under INA 201(b) if the consular officer has received from DHS an approved Petition to Classify Status of Alien Relative for Issuance of an Immigrant Visa, filed on the alien's behalf by the U.S. citizen and approved in accordance with INA 204, and the officer is satisfied that the alien has the relationship claimed in the petition.",
+      "must_contain": [
+        "21 years",
+        "21",
+        "201",
+        "204"
+      ],
+      "citation": "22 CFR 42.21",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0017"
+    },
+    {
+      "question": "What form is required to be filed for an alien to be classified as an immediate relative?",
+      "answer": "An approved Petition to Classify Status of Alien Relative for Issuance of an Immigrant Visa is required.",
+      "quote": "An alien who is a spouse or child of a United States citizen, or a parent of a U.S. citizen at least 21 years of age, shall be classified as an immediate relative under INA 201(b) if the consular officer has received from DHS an approved Petition to Classify Status of Alien Relative for Issuance of an Immigrant Visa, filed on the alien's behalf by the U.S. citizen and approved in accordance with INA 204, and the officer is satisfied that the alien has the relationship claimed in the petition.",
+      "must_contain": [
+        "21 years",
+        "21",
+        "201",
+        "204"
+      ],
+      "citation": "22 CFR 42.21",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0018"
+    },
+    {
+      "question": "Under what circumstances would an immediate relative not be documented as such?",
+      "answer": "An immediate relative will not be documented as such if the U.S. citizen refuses to file the required petition, or if the immediate relative is also a special immigrant under INA 101(a)(27) (A) or (B) and not subject to any numerical limitation.",
+      "quote": "An immediate relative shall be documented as such unless the U.S. citizen refuses to file the required petition, or unless the immediate relative is also a special immigrant under INA 101(a)(27) (A) or (B) and not subject to any numerical limitation.",
+      "must_contain": [
+        "101",
+        "27"
+      ],
+      "citation": "22 CFR 42.21",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0019"
+    },
+    {
+      "question": "What must the consular officer receive for the spouse of a deceased U.S. citizen to be entitled to immediate relative status?",
+      "answer": "The consular officer must receive an approved petition from the DHS or official notification of such approval.",
+      "quote": "The spouse of a deceased U.S. citizen, and each child of the spouse, will be entitled to immediate relative status after the date of the citizen's death provided the spouse or child meets the criteria of INA 201(b)(2)(A)(i) or of section 423(a)(1) of Public Law 107-56 (USA Patriot Act) and the Consular Officer has received an approved petition from the DHS which accords such status, or official notification of such approval, and the Consular Officer is satisfied that the alien meets those criteria.",
+      "must_contain": [
+        "201",
+        "423",
+        "107",
+        "56"
+      ],
+      "citation": "22 CFR 42.21",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0020"
+    },
+    {
+      "question": "What public law is referenced regarding the spouse of a deceased U.S. citizen?",
+      "answer": "Public Law 107-56 (USA Patriot Act) is referenced.",
+      "quote": "The spouse of a deceased U.S. citizen, and each child of the spouse, will be entitled to immediate relative status after the date of the citizen's death provided the spouse or child meets the criteria of INA 201(b)(2)(A)(i) or of section 423(a)(1) of Public Law 107-56 (USA Patriot Act) and the Consular Officer has received an approved petition from the DHS which accords such status, or official notification of such approval, and the Consular Officer is satisfied that the alien meets those criteria.",
+      "must_contain": [
+        "201",
+        "423",
+        "107",
+        "56"
+      ],
+      "citation": "22 CFR 42.21",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0021"
+    },
+    {
+      "question": "What is the deadline for a child of a U.S. citizen victim of the September 11, 2001, terrorist actions to file a petition for immediate relative status?",
+      "answer": "The child must file a petition for such status within two years of the citizen's death.",
+      "quote": "The child of a U.S. citizen slain in the terrorist actions of September 11, 2001, shall retain the status of an immediate relative child (regardless of changes in age or marital status) if the child files a petition for such status within two years of the citizen's death pursuant to section 423(a)(2) of Public Law 107-56, and the consular officer has received an approved petition according such status or official notification of such approval.",
+      "must_contain": [
+        "11",
+        "2001",
+        "423",
+        "107",
+        "56"
+      ],
+      "citation": "22 CFR 42.21",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0022"
+    },
+    {
+      "question": "Where can I find more information about a child turning 21 years old?",
+      "answer": "More information can be found in Chapter 3, Effect of Certain Life Events, Section G, Child Turning 21 Years Old [3 USCIS-PM D.3(G)].",
+      "quote": "For more information, see Chapter 3, Effect of Certain Life Events, Section G, Child Turning 21 Years Old [ 3 USCIS-PM D.3(G) ].",
+      "must_contain": [
+        "21 Years",
+        "21"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0023"
+    },
+    {
+      "question": "Which regulation pertains to the eligibility requirements for children born in wedlock?",
+      "answer": "The regulation pertaining to the eligibility requirements for children born in wedlock is 12 USCIS-PM H.3(B).",
+      "quote": "and Volume 12, Citizenship and Naturalization, Part H, Children of U.S. Citizens, Chapter 3, U.S. Citizens at Birth (INA 301 and 309), Section B, Child Born in Wedlock [ 12 USCIS-PM H.3(B) ].",
+      "must_contain": [
+        "12",
+        "301",
+        "309"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0024"
+    },
+    {
+      "question": "What form does a U.S. citizen, U.S. national, or lawful permanent resident file for certain relatives seeking to immigrate?",
+      "answer": "They may file a Petition for Alien Relative (Form I-130).",
+      "quote": "A U.S. citizen, U.S. national, [1] or lawful permanent resident (LPR) may file a Petition for Alien Relative ( Form I-130 ) on behalf of certain relatives who seek to immigrate based on a qualifying family relationship.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "Volume 6, Part B, Chapter 2 - General Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0025"
+    },
+    {
+      "question": "Who are considered immediate relatives?",
+      "answer": "Immediate relatives include spouses, certain children, and parents of U.S. citizens.",
+      "quote": "Immediate relatives include spouses, certain children [13] and parents of U.S. citizens.",
+      "must_contain": [
+        "13"
+      ],
+      "citation": "Volume 6, Part B, Chapter 2 - General Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0026"
+    },
+    {
+      "question": "What is the minimum age for a U.S. citizen petitioning for a parent?",
+      "answer": "The U.S. citizen petitioning for the parent must be 21 years of age or older.",
+      "quote": "The U.S. citizen petitioning for the parent must be 21 years of age or older.",
+      "must_contain": [
+        "21 years",
+        "21"
+      ],
+      "citation": "Volume 6, Part B, Chapter 2 - General Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0027"
+    },
+    {
+      "question": "Which preference category applies to unmarried sons and daughters of U.S. citizens?",
+      "answer": "Unmarried sons and daughters of U.S. citizens fall under the 1st preference category.",
+      "quote": "Unmarried sons and daughters of U.S. citizens [21]\n(1st preference)",
+      "must_contain": [
+        "21"
+      ],
+      "citation": "Volume 6, Part B, Chapter 2 - General Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0028"
+    },
+    {
+      "question": "What form number is mentioned for filing petitions?",
+      "answer": "The form number mentioned for filing petitions is Form I-130.",
+      "quote": "If not permitted to file locally abroad, a petitioner may still file a Form I-130 petition with a USCIS lockbox or online and may request expedited processing for that petition in accordance with the published USCIS expedite process and criteria.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0029"
+    },
+    {
+      "question": "Who retains the authority to accept and adjudicate a local Form I-130 filing abroad?",
+      "answer": "USCIS retains authority to accept and adjudicate a local Form I-130 filing abroad.",
+      "quote": "Although USCIS has delegated authority to DOS to accept Form I-130 petitions in all locations abroad in the limited instances described above, USCIS retains authority to accept and adjudicate a local Form I-130 filing abroad or conduct an in-person interview abroad as warranted, regardless of where or how the petition was filed.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0030"
+    },
+    {
+      "question": "What happens if multiple Form I-130 petitions for the same beneficiary and classification are approved?",
+      "answer": "If a Form I-130 petition and subsequent Form I-130 petition filed by the same petitioner for the same beneficiary and for the same classification are approved, USCIS regards the subsequent petition approval as a reaffirmation or reinstatement of the validity of the first petition.",
+      "quote": "If a Form I-130 petition and subsequent Form I-130 petition filed by the same petitioner for the same beneficiary and for the same classification are approved, USCIS regards the subsequent petition approval as a reaffirmation or reinstatement of the validity of the first petition.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0031"
+    },
+    {
+      "question": "When is the original priority date retained for multiple Form I-130 petitions?",
+      "answer": "The original priority date is retained unless the original petition was terminated by the DOS, had its approval revoked, or a visa has been issued based on the original petition.",
+      "quote": "The original priority date is retained unless the original petition was terminated by the DOS, [20] had its approval revoked, [21] or a visa has been issued based on the original petition.",
+      "must_contain": [
+        "20",
+        "21"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0032"
+    },
+    {
+      "question": "What happens if an adoption-based Form I-130 is filed with other Form I-130s for additional relative beneficiaries?",
+      "answer": "If an adoption-based Form I-130 is filed along with any Form I-130 for additional relative beneficiaries, the adoption-based Form I-130 is adjudicated apart from the other family-based Form I-130s.",
+      "quote": "If an adoption-based Form I-130 is filed along with any Form I-130 for additional relative beneficiaries, the adoption-based Form I-130 is adjudicated apart from the other family-based Form I-130s.",
+      "must_contain": [
+        "I-130",
+        "I-130S"
+      ],
+      "citation": "Volume 6, Part B, Chapter 3 - Filing",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0033"
+    },
+    {
+      "question": "What form is prohibited from approval if an alien beneficiary has attempted or conspired to enter into a fraudulent marriage?",
+      "answer": "USCIS is barred from approving Form I-140 if the beneficiary has attempted or conspired to enter into a fraudulent marriage.",
+      "quote": "Accordingly, if an alien is a beneficiary of an Immigrant Petition for Alien Workers ( Form I-140 ) or a Petition for Amerasian, Widow(er) or Special Immigrant ( Form I-360 ), and the beneficiary has attempted or conspired to enter into a fraudulent marriage, USCIS is also be barred from approving the Form I-140 petition.",
+      "must_contain": [
+        "I-140",
+        "I-360"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0034"
+    },
+    {
+      "question": "What is the citation for the regulation that defines when an alien has been placed into proceedings and when proceedings are terminated?",
+      "answer": "The regulation that defines when an alien has been placed into proceedings and when proceedings are terminated is 8 CFR 245.1(c)(8).",
+      "quote": "See 8 CFR 245.1(c)(8) , which defines when an alien has been placed into proceedings and when proceedings are terminated.",
+      "must_contain": [
+        "245.1"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0035"
+    },
+    {
+      "question": "What must the record contain to apply the marriage fraud bar according to Matter of Pak?",
+      "answer": "The record must contain substantial and probative evidence of prior marriage fraud.",
+      "quote": "See Matter of Pak , 28 I&N Dec. 113 (BIA 2020) (the record must contain substantial and probative evidence of prior marriage fraud).",
+      "must_contain": [
+        "28",
+        "113",
+        "2020"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0036"
+    },
+    {
+      "question": "Does INA 204(c) require the filing of a previous spousal petition or the existence of a prior marriage?",
+      "answer": "No, INA 204(c) does not require the filing of a previous spousal petition or the existence of a prior marriage.",
+      "quote": "INA 204(c) does not require the filing of a previous spousal petition or the existence of a prior marriage.",
+      "must_contain": [
+        "204"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0037"
+    },
+    {
+      "question": "What provides a clear and substantial basis for applying the INA 204(c) bar?",
+      "answer": "A final order of deportation based on a marriage fraud finding provides a clear and substantial basis for applying the INA 204(c) bar.",
+      "quote": "See Matter of Agdinaoay , 16 I&N Dec. 545 (BIA 1978) (a final order of deportation based on a marriage fraud finding provides a clear and substantial basis for applying the INA 204(c) bar).",
+      "must_contain": [
+        "16",
+        "545",
+        "1978",
+        "204"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0038"
+    },
+    {
+      "question": "What form must a consular officer receive from DHS for an alien to be classified as a family-sponsored immigrant?",
+      "answer": "A consular officer must receive a Petition to Classify Status of Alien Relative for Issuance of Immigrant Visa from DHS.",
+      "quote": "An alien shall be classifiable as a family-sponsored immigrant under INA 203(a) (1), (2), (3) or (4) if the consular officer has received from DHS a Petition to Classify Status of Alien Relative for Issuance of Immigrant Visa approved in accordance with INA 204 to accord the alien such preference status, or official notification of such an approval, and the consular officer is satisfied that the alien has the relationship to the petitioner indicated in the petition.",
+      "must_contain": [
+        "203",
+        "204"
+      ],
+      "citation": "22 CFR 42.31",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0039"
+    },
+    {
+      "question": "What is the minimum age requirement for a petitioner filing for an alien status under INA 203(a)(4) on or after January 1, 1977?",
+      "answer": "The petitioner must be at least twenty-one years of age for a petition to accord an alien status under INA 203(a)(4) filed on or after January 1, 1977.",
+      "quote": "In the case of a petition to accord an alien status under INA 203(a)(4) filed on or after January 1, 1977, the petitioner must be at least twenty-one years of age.",
+      "must_contain": [
+        "203",
+        "1977"
+      ],
+      "citation": "22 CFR 42.31",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0040"
+    },
+    {
+      "question": "Under which INA sections can an alien be classified as a family-sponsored immigrant?",
+      "answer": "An alien can be classified as a family-sponsored immigrant under INA 203(a) (1), (2), (3) or (4).",
+      "quote": "An alien shall be classifiable as a family-sponsored immigrant under INA 203(a) (1), (2), (3) or (4) if the consular officer has received from DHS a Petition to Classify Status of Alien Relative for Issuance of Immigrant Visa approved in accordance with INA 204 to accord the alien such preference status, or official notification of such an approval, and the consular officer is satisfied that the alien has the relationship to the petitioner indicated in the petition.",
+      "must_contain": [
+        "203",
+        "204"
+      ],
+      "citation": "22 CFR 42.31",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0041"
+    },
+    {
+      "question": "Who is entitled to derivative status as a child of a family-sponsored immigrant?",
+      "answer": "The child of a family-sponsored first, second, third or fourth preference immigrant is entitled to derivative status.",
+      "quote": "Pursuant to INA 203(d), and whether or not named in the petition, the child of a family-sponsored first, second, third or fourth preference immigrant or the spouse of a family-sponsored third or fourth preference immigrant, if not otherwise entitled to an immigrant status and the immediate issuance of a visa, is entitled to a derivative status corresponding to the classification and priority date of the beneficiary of the petition.",
+      "must_contain": [
+        "203"
+      ],
+      "citation": "22 CFR 42.31",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0042"
+    },
+    {
+      "question": "Who is entitled to derivative status as the spouse of a family-sponsored immigrant?",
+      "answer": "The spouse of a family-sponsored third or fourth preference immigrant is entitled to derivative status.",
+      "quote": "Pursuant to INA 203(d), and whether or not named in the petition, the child of a family-sponsored first, second, third or fourth preference immigrant or the spouse of a family-sponsored third or fourth preference immigrant, if not otherwise entitled to an immigrant status and the immediate issuance of a visa, is entitled to a derivative status corresponding to the classification and priority date of the beneficiary of the petition.",
+      "must_contain": [
+        "203"
+      ],
+      "citation": "22 CFR 42.31",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0043"
+    },
+    {
+      "question": "Which form is used to classify an individual as a preference immigrant under INA 203(b)(5)?",
+      "answer": "Form I-526, Immigrant Petition by Alien Entrepreneur, is used to classify an individual as a preference immigrant under INA 203(b)(5).",
+      "quote": "Form I-526, Immigrant Petition by Alien Entrepreneur, is used to classify an individual as a preference immigrant under INA 203(b)(5).",
+      "must_contain": [
+        "I-526",
+        "203"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0044"
+    },
+    {
+      "question": "What form is used to classify an orphan not habitually resident in a Hague Convention country?",
+      "answer": "Form I-600, Petition to Classify Orphan as an Immediate Relative, is used to classify an orphan not habitually resident in a Hague Convention country.",
+      "quote": "Form I-600, Petition to Classify Orphan as an Immediate Relative, is used to classify a child not habitually resident in a Hague Convention country to be adopted in the United States or abroad by a U.S. citizen as an immediate relative under INA 201(b):",
+      "must_contain": [
+        "I-600",
+        "201"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0045"
+    },
+    {
+      "question": "Which form is used for the spouse of a U.S. citizen?",
+      "answer": "Form I-130, Petition for Alien Relative, is used for the spouse of a U.S. citizen.",
+      "quote": "Form I-130, Petition for Alien Relative, is used to classify the following as immediate relatives.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0046"
+    },
+    {
+      "question": "Which form is used to classify a child habitually resident in a Hague Convention country?",
+      "answer": "Form I-800, Petition to Classify Convention Adoptee as an Immediate Relative, is used to classify a child habitually resident in a Hague Convention country.",
+      "quote": "Form I-800, Petition to Classify Convention Adoptee as an Immediate Relative, is used to classify a child habitually resident in a Hague Convention country to be adopted in the United States or abroad by a U.S. citizen as an immediate relative under INA 201(b).",
+      "must_contain": [
+        "I-800",
+        "201"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0047"
+    },
+    {
+      "question": "What form is used to classify an individual as a preference immigrant under INA 203(b)(1), (2) or (3)?",
+      "answer": "Form I-140, Immigrant Petition for Alien Worker, is used to classify an individual as a preference immigrant under INA 203(b)(1), (2) or (3).",
+      "quote": "Form I-140, Immigrant Petition for Alien Worker, is used to classify an individual as a preference immigrant under INA 203(b)(1), (2) or (3) (see 9 FAM 502.4-4) :",
+      "must_contain": [
+        "I-140",
+        "203",
+        "502.4"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0048"
+    },
+    {
+      "question": "When did all birth certificates issued in Puerto Rico before July 1, 2010, become invalid?",
+      "answer": "All birth certificates issued in Puerto Rico before July 1, 2010, became invalid as of September 30, 2010.",
+      "quote": "As of September 30, 2010, all birth certificates that were issued in Puerto Rico before July 1, 2010, are invalid.",
+      "must_contain": [
+        "30",
+        "2010"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0049"
+    },
+    {
+      "question": "What should officers verify for benefit requests received after September 30, 2010, regarding Puerto Rico birth certificates?",
+      "answer": "Officers should verify that the Puerto Rico birth certificate was issued by the General Vital Statistics Office of Puerto Rico on or after July 1, 2010.",
+      "quote": "For any benefit request received after September 30, 2010, officers should verify that the Puerto Rico birth certificate was issued by the General Vital Statistics Office of Puerto Rico (Puerto Rico Department of Health) on or after July 1, 2010.",
+      "must_contain": [
+        "30",
+        "2010"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0050"
+    },
+    {
+      "question": "What form do U.S. citizen Prospective Adoptive Parents file for a Convention Adoptee?",
+      "answer": "U.S. citizen Prospective Adoptive Parents file Form I-800, Petition to Classify a Convention Adoptee as an Immediate Relative.",
+      "quote": "Once U.S. citizen Prospective Adoptive Parent(s) (PAP(s)) have accepted the referral of a child from the Central Authority of the country of origin, the PAP(s) file the Form I-800, Petition to Classify a Convention Adoptee as an Immediate Relative.",
+      "must_contain": [
+        "I-800"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0051"
+    },
+    {
+      "question": "Which entity has exclusive authority over the approval and denial of IV petitions?",
+      "answer": "DHS possesses exclusive authority over the approval and denial of IV petitions, with some exceptions.",
+      "quote": "DHS possesses exclusive authority over the approval and denial of IV petitions (except for those filed for beneficiaries classifiable under INA 203(c) or INA 101(a)(27)(D).",
+      "must_contain": [
+        "203",
+        "101",
+        "27"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0052"
+    },
+    {
+      "question": "What form is the Permanent Resident Card?",
+      "answer": "The Permanent Resident Card is Form I-551.",
+      "quote": "In the case of an LPR who has not yet received a Permanent Resident Card (Form I-551), a temporary U.S. Customs and Border Protection-issued or USCIS-issued stamp in a passport or on an Arrival/Departure Record (Form I-94) reflecting LPR status is acceptable evidence of lawful permanent residence.",
+      "must_contain": [
+        "I-551",
+        "I-94"
+      ],
+      "citation": "Volume 6, Part B, Chapter 4 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0053"
+    },
+    {
+      "question": "What is acceptable evidence of lawful permanent residence for an LPR who has not yet received a Permanent Resident Card?",
+      "answer": "A temporary U.S. Customs and Border Protection-issued or USCIS-issued stamp in a passport or on an Arrival/Departure Record (Form I-94) reflecting LPR status is acceptable evidence of lawful permanent residence.",
+      "quote": "In the case of an LPR who has not yet received a Permanent Resident Card (Form I-551), a temporary U.S. Customs and Border Protection-issued or USCIS-issued stamp in a passport or on an Arrival/Departure Record (Form I-94) reflecting LPR status is acceptable evidence of lawful permanent residence.",
+      "must_contain": [
+        "I-551",
+        "I-94"
+      ],
+      "citation": "Volume 6, Part B, Chapter 4 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0054"
+    },
+    {
+      "question": "What regulation specifies primary evidence to demonstrate U.S. citizenship or LPR status?",
+      "answer": "8 CFR 204.1(f) and 8 CFR 204.1(g)(1) specify primary evidence to demonstrate U.S. citizenship or LPR status.",
+      "quote": "See 8 CFR 204.1(f) and 8 CFR 204.1(g)(1) for primary evidence to demonstrate U.S. citizenship or LPR status.",
+      "must_contain": [
+        "204.1"
+      ],
+      "citation": "Volume 6, Part B, Chapter 4 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0055"
+    },
+    {
+      "question": "What regulation specifies primary evidence to establish a qualifying relationship?",
+      "answer": "8 CFR 204.2 specifies primary evidence to establish a qualifying relationship.",
+      "quote": "See 8 CFR 204.2 for primary evidence to establish a qualifying relationship.",
+      "must_contain": [
+        "204.2"
+      ],
+      "citation": "Volume 6, Part B, Chapter 4 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0056"
+    },
+    {
+      "question": "Which USCIS service center adjudicates Form I-130 petitions?",
+      "answer": "The USCIS Nebraska Service Center adjudicates Form I-130 petitions.",
+      "quote": "(1) (U) Form I-130: USCIS Nebraska Service Center;",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0057"
+    },
+    {
+      "question": "Which USCIS center adjudicates Form I-130 petitions for adopted children?",
+      "answer": "The USCIS National Benefits Center adjudicates Form I-130 petitions for adopted children.",
+      "quote": "(2) (U) Form I-130 (adopted children): USCIS National Benefits Center;",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0058"
+    },
+    {
+      "question": "When must fee payments for petitions be made?",
+      "answer": "Fee payments must be made when the petition is filed.",
+      "quote": "(U) Fee payments must be made when the petition is filed and are collected in accordance with standard procedures in 7 FAH-1 H-700.",
+      "must_contain": [
+        "700"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0059"
+    },
+    {
+      "question": "What form number is used for a Petition for Alien Relative?",
+      "answer": "Form I-130 is used for a Petition for Alien Relative.",
+      "quote": "c. (U) You may not approve a Form I-130, Petition for Alien Relative, until after receiving clearance on a background check (\"Adam Walsh Act check\"), confirming that the petitioner is eligible to file a petition under INA 204(a)(1)(A)(viii) or 204(a)(1)(B)(i).",
+      "must_contain": [
+        "I-130",
+        "204"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0060"
+    },
+    {
+      "question": "Is an Adam Walsh Act check required for a Form I-360 filed by a widow or widower?",
+      "answer": "No, an Adam Walsh Act check is not required for a Form I-360 filed by a widow or widower.",
+      "quote": "You do not need to request an Adam Walsh Act check for a Form I-360, Petition for Amerasian, Widow(er), or Special Immigrant, filed by a widow or widower.",
+      "must_contain": [
+        "I-360"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0061"
+    },
+    {
+      "question": "What forms require a prescribed fee for filing?",
+      "answer": "A prescribed fee is required for filing Form I-130, Form I-360, or Form I-600.",
+      "quote": "b. (U) You must charge the prescribed fee for filing Form I-130, Form I-360, or Form I-600.",
+      "must_contain": [
+        "I-130",
+        "I-360",
+        "I-600"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0062"
+    },
+    {
+      "question": "Does divorce terminate a stepchild relationship for VAWA self-petition eligibility?",
+      "answer": "No, divorce does not terminate a stepchild relationship for the purposes of eligibility for a VAWA self-petition.",
+      "quote": "See Arguijo v. USCIS , 991 F.3d 736 (7th Cir. 2021), holding that divorce does not terminate a stepchild relationship for the purposes of eligibility for a VAWA self-petition.",
+      "must_contain": [
+        "991",
+        "736",
+        "2021"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0063"
+    },
+    {
+      "question": "What is the publication number for the Child Status Protection Act?",
+      "answer": "The publication number for the Child Status Protection Act is Pub. L. 107-208.",
+      "quote": "See the Child Status Protection Act (CSPA), Pub. L. 107-208 (PDF) (August 6, 2002).",
+      "must_contain": [
+        "107",
+        "208",
+        "2002"
+      ],
+      "citation": "Volume 6, Part B, Chapter 2 - General Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0064"
+    },
+    {
+      "question": "When was the Child Status Protection Act enacted?",
+      "answer": "The Child Status Protection Act was enacted on August 6, 2002.",
+      "quote": "See the Child Status Protection Act (CSPA), Pub. L. 107-208 (PDF) (August 6, 2002).",
+      "must_contain": [
+        "107",
+        "208",
+        "2002"
+      ],
+      "citation": "Volume 6, Part B, Chapter 2 - General Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0065"
+    },
+    {
+      "question": "What form is used for a Petition for Alien Relative?",
+      "answer": "The Form I-130 is used for a Petition for Alien Relative.",
+      "quote": "Consular officers can accept and adjudicate a clearly approvable Form I-130, Petition for Alien Relative, filed by a U.S. citizen who is a U.S. government or military employee assigned to a U.S. mission abroad under Chief of Mission authority or at an office of the American Institute in Taiwan, or a military service member stationed abroad, for any immediate relative.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0066"
+    },
+    {
+      "question": "Do exceptional circumstances need to be present for a U.S. citizen government or military employee to file a Form I-130 overseas?",
+      "answer": "No, exceptional circumstances are not required for a U.S. citizen government or military employee to file a Form I-130 overseas.",
+      "quote": "Exceptional circumstances are not required, and you do not need to seek permission from USCIS to accept a Form I-130 filed under these circumstances.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0067"
+    },
+    {
+      "question": "What must be confirmed before accepting a Form I-130 from a U.S. citizen government or military employee overseas?",
+      "answer": "Before acceptance, it must be confirmed that the petitioner has not previously filed a Form I-130 on behalf of the beneficiary with USCIS domestically or electronically.",
+      "quote": "Before acceptance, you must confirm that the petitioner has not previously filed a Form I-130 on behalf of the beneficiary with USCIS domestically or electronically.",
+      "must_contain": [
+        "I-130"
+      ],
+      "citation": "9 FAM 504.2",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0068"
+    },
+    {
+      "question": "What must a petitioner file before filing an I-129F petition for a K-3 visa?",
+      "answer": "The petitioner must first file an I-130 Petition for an Alien Relative with USCIS.",
+      "quote": "To file an I-129F petition for a K-3 visa, the petitioner must first file an I-130 Petition for an Alien Relative with USCIS.",
+      "must_contain": [
+        "I-129F",
+        "I-130"
+      ],
+      "citation": "9 FAM 502.7",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0069"
+    },
+    {
+      "question": "What happens to the approval of a K visa petition if the petitioner dies before the beneficiary arrives in the United States?",
+      "answer": "The death of a petitioner before the arrival of the beneficiary in the United States automatically terminates the approval of the petition.",
+      "quote": "USCIS regulations (8 CFR 214.2(k)) provide that the death of a petitioner or written withdrawal of the petition before the arrival of the beneficiary in the United States automatically terminates the approval of the petition.",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "9 FAM 502.7",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0070"
+    },
+    {
+      "question": "What should be done with an inactive petition if no response is received within 60 days after its expiration?",
+      "answer": "The petition should be treated as inactive and destroyed after one year.",
+      "quote": "If the petition has not been automatically terminated but the applicant chooses not to pursue the visa while the petition is still valid (or if no response is received within 60 days if the petition has expired and the applicant does not respond to your letter per 9 FAM 502.7-3(C)(2) paragraph b below), the petition should be treated as inactive and destroyed after one year.",
+      "must_contain": [
+        "60 days",
+        "60",
+        "502.7"
+      ],
+      "citation": "9 FAM 502.7",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0071"
+    },
+    {
+      "question": "Where should the notation for a revalidated K visa petition be placed?",
+      "answer": "The notation \"Revalidated to (date)\" should be placed in the \"Remarks\" block of the petition over your signature and title.",
+      "quote": "When a K visa petition is revalidated as described in 9 FAM 502.7-3(B) paragraph d(1)(b) above, the notation \u201cRevalidated to (date)\u201d should be placed in the \u201cRemarks\u201d block of the petition over your signature and title.",
+      "must_contain": [
+        "502.7"
+      ],
+      "citation": "9 FAM 502.7",
+      "source": "fam",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0072"
+    },
+    {
+      "question": "What regulation covers the requirements for an abused adopted child to self-petition under the family-based process?",
+      "answer": "The requirements for an abused adopted child to self-petition under the family-based process are covered by INA 101(b)(1)(E), INA 204(a)(1)(A)(iv), and INA 204(a)(1)(B)(iii).",
+      "quote": "The requirements to self-petition as an abused adopted child apply to the family-based process under INA 101(b)(1)(E) , INA 204(a)(1)(A)(iv) , and INA 204(a)(1)(B)(iii) .",
+      "must_contain": [
+        "101",
+        "204"
+      ],
+      "citation": "Volume 3, Part D, Chapter 2 - Eligibility Requirements and Evidence",
+      "source": "uscis_pm",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0073"
+    },
+    {
+      "question": "Under which section of the INA is an immediate relative entitled to status?",
+      "answer": "An immediate relative is entitled to status under INA 201(b).",
+      "quote": "an immediate relative entitled to status under 201(b)",
+      "must_contain": [
+        "201"
+      ],
+      "citation": "22 CFR 42.42",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0074"
+    },
+    {
+      "question": "Under which sections of the INA is a family-sponsored immigrant entitled to preference status?",
+      "answer": "A family-sponsored immigrant is entitled to preference status under INA 203(a)(1)-(4).",
+      "quote": "a family-sponsored immigrant entitled to preference status under 203(a)(1)-(4)",
+      "must_contain": [
+        "203"
+      ],
+      "citation": "22 CFR 42.42",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0075"
+    },
+    {
+      "question": "Under which sections of the INA is an employment-based preference immigrant entitled to status?",
+      "answer": "An employment-based preference immigrant is entitled to status under INA 203(b)(1)-(5).",
+      "quote": "an employment-based preference immigrant entitled to status under INA 203(b)(1)-(5)",
+      "must_contain": [
+        "203"
+      ],
+      "citation": "22 CFR 42.42",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0076"
+    },
+    {
+      "question": "What must a consular officer receive before issuing a visa for immediate relative or preference status?",
+      "answer": "The consular officer must receive a petition filed and approved in accordance with INA 204 or official notification of such filing and approval.",
+      "quote": "unless the officer has received a petition filed and approved in accordance with INA 204 or official notification of such filing and approval.",
+      "must_contain": [
+        "204"
+      ],
+      "citation": "22 CFR 42.42",
+      "source": "ecfr",
+      "domain": "family",
+      "generated": true,
+      "id": "gen-family-0077"
+    }
+  ]
+}

@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     # provider's own endpoint (Groq, Together, DeepSeek) to skip the router fee.
     llm_base_url: str = "https://openrouter.ai/api/v1"
     llm_api_key: str = ""  # e.g. OPENROUTER_API_KEY
-    llm_model: str = "deepseek/deepseek-chat"
+    llm_model: str = "google/gemini-2.5-flash"
 
     #: Used when the primary model fails with a transient error. Leave blank to
     #: disable fallback.
@@ -34,7 +34,20 @@ class Settings(BaseSettings):
     reasoner_model: str = ""
 
     #: Judge model for evals — stronger than the agent under test.
-    judge_model: str = "anthropic/claude-3.5-sonnet"
+    judge_model: str = "google/gemini-2.5-pro"
+
+    #: Per-model prices for the eval report's cost column, as JSON:
+    #:   {"deepseek/deepseek-chat": [0.27, 1.10], "deepseek/deepseek-r1": [0.55, 2.19]}
+    #: prices in dollars per million input and output tokens.
+    #:
+    #: Per model rather than one pair, because a single turn can use more than
+    #: one: judgement questions go to the reasoner. One price pair would
+    #: misprice every such case, and the report's headline is score per dollar,
+    #: so a wrong cost is a wrong conclusion.
+    #:
+    #: Left empty by default. Prices change, and a stale hardcoded price lies
+    #: quietly; with no prices the report shows tokens and omits cost.
+    llm_prices: str = ""
 
     #: Bounds the whole turn. A deadline, not a count, so a retry never starts
     #: with too little time left to help.
@@ -46,8 +59,6 @@ class Settings(BaseSettings):
     # providers' crawlers, never fetched directly.
     tavily_api_key: str = ""
     exa_api_key: str = ""
-    parallel_api_key: str = ""
-    xai_api_key: str = ""
 
     # ── Tool budget ─────────────────────────────────────────────────────────
     tool_timeout_secs: float = 12.0

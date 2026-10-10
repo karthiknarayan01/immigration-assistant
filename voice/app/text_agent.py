@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 import time
 from collections.abc import AsyncIterator, Awaitable, Callable
 from dataclasses import dataclass
@@ -72,10 +73,43 @@ class StatusEvent:
     round: int
 
 
-def models_to_try() -> list[str]:
-    """The ordered list of models for a turn: primary, then fallback."""
-    models = [settings.llm_model]
-    if settings.llm_fallback_model and settings.llm_fallback_model != settings.llm_model:
+#: Signals that a question asks for judgement — a comparison, a choice, a
+#: likelihood — rather than a fact. Deliberately narrow: "can I travel while my
+#: I-485 is pending" is a factual question that happens to start with "can I",
+#: and sending it to an expensive reasoning model would be waste, not rigour.
+_REASONING_SIGNALS = re.compile(
+    r"\b("
+    r"should i|which (?:is|one|route|path|option|visa)|"
+    r"best (?:way|path|option|approach|strategy|route)|"
+    r"fastest|quickest|"
+    r"pros and cons|compare|compared|versus|\bvs\b|instead of|rather than|"
+    r"chance|chances|likelihood|how likely|odds|probability|worth it|"
+    r"strateg(?:y|ies)|my options|"
+    r"what if|would it be|if i (?:were|had)|hypothetical"
+    r")\b",
+    re.IGNORECASE,
+)
+
+
+def looks_like_reasoning(question: str) -> bool:
+    """True when the question is asking for judgement, not for a fact."""
+    return bool(_REASONING_SIGNALS.search(question or ""))
+
+
+def models_to_try(question: str = "") -> list[str]:
+    """Ordered models for a turn: reasoner first for judgement questions.
+
+    A dedicated reasoning model earns its extra cost on questions that need
+    chain-of-thought — comparisons, choices, likelihoods — and is wasted on
+    "how many days is the grace period". The route is a cheap regex rather
+    than a classifier call, because a second model call to decide which model
+    to use would cost more than it saves.
+    """
+    models: list[str] = []
+    if settings.reasoner_model and looks_like_reasoning(question):
+        models.append(settings.reasoner_model)
+    models.append(settings.llm_model)
+    if settings.llm_fallback_model and settings.llm_fallback_model not in models:
         models.append(settings.llm_fallback_model)
     return models
 
@@ -103,6 +137,7 @@ async def _execute_tool(
     *,
     on_status: Callable[[StatusEvent | None], Awaitable[None]] | None,
     on_tool: Callable[[str, dict], Awaitable[None]] | None,
+    on_tool_result: Callable[[str, dict], Awaitable[None]] | None,
     round_index: int,
 ) -> dict:
     """Run one tool handler, returning its result for the model.
@@ -151,6 +186,12 @@ async def _execute_tool(
     )
     result = params.result or {"error": "no handler"}
     log_tool_result(name, result)
+    # Handed to the eval harness so the judge can see what was retrieved. An
+    # LLM judge cannot verify a citation from its own knowledge, and a correct
+    # citation of a surprising recent rule looks exactly like an invention
+    # unless the judge is shown the source it came from.
+    if on_tool_result is not None:
+        await on_tool_result(name, result)
     return result
 
 
@@ -183,6 +224,8 @@ async def stream_answer(
     *,
     on_status: Callable[[StatusEvent | None], Awaitable[None]] | None = None,
     on_tool: Callable[[str, dict], Awaitable[None]] | None = None,
+    on_tool_result: Callable[[str, dict], Awaitable[None]] | None = None,
+    usage_sink: dict | None = None,
 ) -> AsyncIterator[str]:
     """Answer one question, yielding text as it is produced.
 
@@ -217,6 +260,13 @@ async def stream_answer(
     #: text from the next. A paragraph break is inserted between rounds.
     text_already_yielded = False
 
+    #: Until something has actually been looked up, a tool call is required
+    #: rather than optional. Left to itself the model answers ordinary factual
+    #: questions from memory — measured at roughly half of all cases, on two
+    #: different models — and an ungrounded answer is the failure this app
+    #: exists to prevent. After the first lookup it is free to answer.
+    force_tools = True
+
     for round_index in range(MAX_TOOL_ROUNDS):
         segment_start = time.perf_counter()
         first_token_ms: float | None = None
@@ -224,16 +274,30 @@ async def stream_answer(
         tool_calls: list[dict] = []
         round_opened = False
 
-        for model in models_to_try():
+        # Chosen once per round, not per attempt: the route depends on the
+        # question, and re-deciding it mid-round could switch models between
+        # the tool call and the answer that reads the tool result.
+        models = models_to_try(question)
+        for model_index, model in enumerate(models):
+            is_last_model = model_index == len(models) - 1
             attempts = 0
-            while True:
+            # Set once a model completes the round. Without it, control falls
+            # out of the while-loop and into the *next* model in the chain, so
+            # a successful primary turn also runs the fallback: the answer is
+            # repeated and every call is paid for twice.
+            round_done = False
+            while not round_done:
                 yielded_this_round = 0
                 round_text = []
                 tool_calls = []
                 first_token_ms = None
                 try:
                     async for delta in stream_chat(
-                        client, model=model, messages=messages, tools=tools
+                        client,
+                        model=model,
+                        messages=messages,
+                        tools=tools,
+                        tool_choice="required" if force_tools else None,
                     ):
                         if first_token_ms is None and (delta.content or delta.tool_calls):
                             first_token_ms = (time.perf_counter() - segment_start) * 1000
@@ -247,7 +311,18 @@ async def stream_answer(
                             yield delta.content
                         if delta.tool_calls:
                             tool_calls = delta.tool_calls
+                        # Token usage arrives on the final chunk of each round,
+                        # so rounds are summed into the caller's sink, keyed by
+                        # the model that produced them. Keyed rather than
+                        # flat because a turn can mix models — judgement
+                        # questions go to the reasoner — and the two have
+                        # different prices.
+                        if delta.usage and usage_sink is not None:
+                            bucket = usage_sink.setdefault(model, {})
+                            for key, value in delta.usage.items():
+                                bucket[key] = bucket.get(key, 0) + value
                     # Round completed without raising.
+                    round_done = True
                     break
                 except Exception as error:  # noqa: BLE001 - classified and re-raised
                     failure = classify_exception(error)
@@ -263,11 +338,15 @@ async def stream_answer(
                         continue
                     # Try the next model if this one is spent and nothing was
                     # shown yet; otherwise surface the failure.
-                    if failure.retryable and yielded_this_round == 0 and model is not models_to_try()[-1]:
+                    if failure.retryable and yielded_this_round == 0 and not is_last_model:
                         bound().warning(f"{model} failed ({failure.detail}); falling back")
                         break
                     bound().warning(f"turn failed ({failure.detail}, {failure.kind.value})")
                     raise AgentUnavailable(failure) from error
+
+            # The round is finished: stop walking the chain, whatever produced it.
+            if round_done:
+                break
 
         if tool_calls:
             emit(
@@ -285,10 +364,16 @@ async def stream_answer(
             tool_results = []
             for call_id, name, arguments in callables:
                 result = await _execute_tool(
-                    name, arguments, on_status=status, on_tool=on_tool, round_index=round_index
+                    name,
+                    arguments,
+                    on_status=status,
+                    on_tool=on_tool,
+                    on_tool_result=on_tool_result,
+                    round_index=round_index,
                 )
                 tool_results.append({"role": "tool", "tool_call_id": call_id, "content": json.dumps(result)})
             messages.extend(tool_results)
+            force_tools = False  # it has looked something up; let it answer now
             continue
 
         # No tool call: this round produced the answer.

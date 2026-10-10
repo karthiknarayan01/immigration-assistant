@@ -7,7 +7,7 @@ being load-bearing for immigration questions.
 """
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from loguru import logger
 
@@ -20,10 +20,10 @@ from app.observability import (
     log_tool_result,
     measure,
 )
-from app.tools import providers, x_search
+from app.tools import federal_register, providers
 from app.tools.credibility import Anecdote, filter_anecdotes
 from app.tools.schema import FunctionSchema, ToolCallParams, ToolsSchema
-from app.tools.sources import SEARCH_GROUPS, SourceTier
+from app.tools.sources import PROFESSIONAL_GROUP, SEARCH_GROUPS, SourceTier
 
 MAX_SPOKEN_HITS = 4
 
@@ -219,31 +219,19 @@ async def search_community_experiences(params: ToolCallParams):
         await params.result_callback({"error": "No query provided."})
         return
 
-    # X alone is enough to answer from, so a missing forum provider is not a
-    # dead end when Grok is configured.
-    if not providers.available_providers() and not x_search.available():
+    if not providers.available_providers():
         await params.result_callback({
             "unavailable": True,
             "message": "Community search is not configured. Do not guess at what people report.",
         })
         return
 
-    # Parallel when configured — it indexes forums far better than the
-    # general providers — otherwise an unconstrained search filtered to forum
-    # sources afterwards.
     log_tool_call("search_community_experiences", {"query": query, "topic": topic})
     with measure(
         STAGE_TOOL, "search_community_experiences", query_chars=len(query), topic=topic
     ) as span:
-        # Forums and X in parallel. X is where a change in practice shows up
-        # first; forums carry the longer, more detailed accounts. Neither is
-        # trusted more than the other — both land in the same filter.
-        hits, posts = await asyncio.gather(
-            providers.search_community(query, limit=10),
-            x_search.search(query),
-        )
+        hits = await providers.search_community(query, limit=10)
         span["hits"] = len(hits)
-        span["x_posts"] = len(posts)
     # Unlike official guidance, this tool is optional: losing it costs colour,
     # not correctness. A billing failure here degrades quietly rather than
     # interrupting the answer with an account problem the user cannot act on.
@@ -253,13 +241,8 @@ async def search_community_experiences(params: ToolCallParams):
 
     anecdotal = [h for h in hits if h.tier is SourceTier.ANECDOTAL]
 
-    # X posts are appended as peers, not as context. Twenty posts saying the
-    # same thing is usually one claim and nineteen quote-tweets, so they face
-    # the same corroboration gate — three independent authors — as anything
-    # else here.
     kept, corroborated = filter_anecdotes(
-        [Anecdote(text=h.text, url=h.url, published=h.published, author=h.author) for h in anecdotal]
-        + posts,
+        [Anecdote(text=h.text, url=h.url, published=h.published, author=h.author) for h in anecdotal],
         topic,
         now=datetime.now(timezone.utc),
     )
@@ -313,12 +296,17 @@ async def search_community_experiences(params: ToolCallParams):
     })
 
 
-async def lookup_regulation(params: ToolCallParams):
-    """Read the regulation text itself, from a local copy of the CFR.
+async def lookup_policy(params: ToolCallParams):
+    """Read authoritative source text, from a local corpus.
 
-    Faster and more complete than web search for the rules that do not
-    change: no network call, and the full text of the section rather than
-    whichever 1500 characters a search provider chose to return.
+    Covers the rules that do not change — 8 CFR (DHS), 22 CFR (State
+    Department visas), 20 CFR (Labor/PERM) and the State Department's 9 FAM
+    consular guidance — with no network call, and the full text of the section
+    rather than whichever 1500 characters a search provider chose to return.
+
+    Consular practice lives only in 9 FAM, which is why the corpus is not
+    regulations alone: a question about a consulate cannot be answered from the
+    CFR.
     """
     query = str(params.arguments.get("query", "")).strip()
     if not query:
@@ -329,14 +317,14 @@ async def lookup_regulation(params: ToolCallParams):
         await params.result_callback({
             "unavailable": True,
             "message": (
-                "The regulation text is not loaded. Use search_official_guidance "
-                "instead, and say you could not check the regulation directly."
+                "The policy corpus is not loaded. Use search_official_guidance "
+                "instead, and say you could not check the source text directly."
             ),
         })
         return
 
-    log_tool_call("lookup_regulation", {"query": query})
-    with measure(STAGE_TOOL, "lookup_regulation", query_chars=len(query)) as span:
+    log_tool_call("lookup_policy", {"query": query})
+    with measure(STAGE_TOOL, "lookup_policy", query_chars=len(query)) as span:
         passages = knowledge.search(query, limit=3)
         span["hits"] = len(passages)
 
@@ -369,60 +357,180 @@ async def lookup_regulation(params: ToolCallParams):
             "bulletin — search for those instead, because they change."
         ),
     }
-    log_tool_result("lookup_regulation", payload)
+    log_tool_result("lookup_policy", payload)
     await params.result_callback(payload)
 
 
 async def search_recent_developments(params: ToolCallParams):
-    """Recent news and announcements: proposals, orders, rule changes.
+    """The reporting half of "what changed": press and practitioner comment.
 
-    This is the second of the app's three jobs. Settled rules live in the
-    regulations (lookup_regulation); current fees and processing times live in
-    official guidance (search_official_guidance); what just changed or was just
-    proposed lives here — and it is usually reported by press before it is
-    published anywhere official, so this searches the open web, not an
-    allowlist.
+    Companion to `search_federal_register`, not a duplicate of it. The Federal
+    Register says what is officially proposed or in force; this says how a
+    change is being reported and what immigration lawyers are saying it means
+    in practice — which is where the practical reading of a rule shows up
+    first, and often long before it is settled.
+
+    Both halves are returned in one payload, clearly separated, because an
+    answer that reads a proposal as settled law is the failure this function
+    exists to prevent.
     """
     query = str(params.arguments.get("query", "")).strip()
     if not query:
         await params.result_callback({"error": "No query provided."})
         return
 
+    if not providers.available_providers():
+        await params.result_callback({
+            "unavailable": True,
+            "reason": "no_search_provider",
+            "message": (
+                "No search provider is configured, so you cannot check recent "
+                "developments. Say so plainly, and do not describe recent "
+                "changes from memory — your knowledge has a cutoff and recent "
+                "immigration changes are exactly what it will be wrong about."
+            ),
+        })
+        return
+
     log_tool_call("search_recent_developments", {"query": query})
     with measure(STAGE_TOOL, "search_recent_developments", query_chars=len(query)) as span:
-        payload = await _search_web(query)
-        span["hits"] = payload.get("count", 0)
+        # Press and the immigration bar in parallel: one says what happened,
+        # the other says what it means. Recency is enforced inside search_news,
+        # because a well-ranked page from three years ago is not a development.
+        news, commentary = await asyncio.gather(
+            providers.search_news(query, days=45, limit=6),
+            providers.search(query, domains=list(PROFESSIONAL_GROUP), limit=4),
+        )
+        span["news_hits"] = len(news)
+        span["commentary_hits"] = len(commentary)
 
-    payload["guidance"] = (
-        "These results are about developments — proposals, executive orders, "
-        "rule changes, court decisions, announcements — which may not yet be "
-        "final or in force. State what is reported, who reported it, and the "
-        "date. Distinguish clearly between a proposal or announcement and "
-        "something already in effect, and between an official statement and "
-        "press reporting. If nothing is dated or the sources disagree, say so."
-    )
+    failure = providers.take_last_failure()
+    if failure:
+        logger.warning(f"developments search degraded ({failure.value})")
+
+    def _item(hit) -> dict:
+        return {
+            "title": hit.title,
+            "url": hit.url,
+            "excerpt": hit.text[:MAX_EXCERPT_CHARS],
+            "published": hit.published.date().isoformat() if hit.published else "undated",
+            "currency": _age_note(hit.published),
+            "trust": hit.tier.value,
+        }
+
+    if not news and not commentary:
+        await params.result_callback({
+            "reported_developments": [],
+            "practitioner_commentary": [],
+            "count": 0,
+            "guidance": (
+                "Nothing recent was found. Say you could not find recent "
+                "reporting rather than describing changes from memory, and "
+                "suggest checking the Federal Register for official actions."
+            ),
+        })
+        return
+
+    payload = {
+        "reported_developments": [_item(hit) for hit in news],
+        "practitioner_commentary": [_item(hit) for hit in commentary],
+        "count": len(news) + len(commentary),
+        "guidance": (
+            "These are REPORTED developments, not official rulemaking. For what "
+            "is actually proposed or in force, check search_federal_register. "
+            "Say who reported each item and give its date. Distinguish a proposal "
+            "or announcement from something in effect, and press reporting from "
+            "an official statement. Practitioner commentary is attributed "
+            "opinion, not law."
+        ),
+    }
     log_tool_result("search_recent_developments", payload)
+    await params.result_callback(payload)
+
+
+async def search_federal_register(params: ToolCallParams):
+    """Official rulemaking: what is proposed, in force, or announced.
+
+    Free, no key, and structured. It is the only source here that states
+    outright whether a change is a final rule (in force), a proposed rule (not
+    in force), a notice, or a presidential document — and it carries the
+    effective date and comment deadline. That distinction is the whole point:
+    a development answer that lets a proposal sound like current law is the
+    failure this tool exists to prevent.
+    """
+    query = str(params.arguments.get("query", "")).strip()
+    if not query:
+        await params.result_callback({"error": "No query provided."})
+        return
+
+    document_type = str(params.arguments.get("document_type", "any")).strip() or "any"
+    agency = str(params.arguments.get("agency", "any")).strip() or "any"
+    try:
+        since_days = int(params.arguments.get("since_days") or 365)
+    except (TypeError, ValueError):
+        since_days = 365
+    since = (datetime.now(timezone.utc) - timedelta(days=since_days)).date().isoformat()
+
+    log_tool_call(
+        "search_federal_register",
+        {"query": query, "document_type": document_type, "agency": agency, "since_days": since_days},
+    )
+    with measure(STAGE_TOOL, "search_federal_register", query_chars=len(query)) as span:
+        documents = await federal_register.search(
+            query, document_type=document_type, agency=agency, since=since, limit=8
+        )
+        span["hits"] = len(documents)
+
+    if not documents:
+        await params.result_callback({
+            "results": [],
+            "count": 0,
+            "guidance": (
+                f"No Federal Register documents matched since {since}. That does "
+                "not mean nothing changed — check press reporting with "
+                "search_recent_developments, and say you could not find an "
+                "official document rather than guessing."
+            ),
+        })
+        return
+
+    payload = {
+        "results": [document.as_dict() for document in documents],
+        "count": len(documents),
+        "guidance": (
+            "This is official rulemaking. 'status' states whether each document "
+            "is in force (final rule), proposed (NOT yet in force), a notice, or "
+            "a presidential document — say which, and never let a proposed rule "
+            "sound like current law. Give the publication date and, when there "
+            "is one, the effective date. Cite the Federal Register citation."
+        ),
+    }
+    log_tool_result("search_federal_register", payload)
     await params.result_callback(payload)
 
 
 _SCHEMAS = [
     FunctionSchema(
-        name="lookup_regulation",
+        name="lookup_policy",
         description=(
-            "Read the actual text of US immigration regulations (8 CFR) from a "
-            "local copy — instant, no network. Use this FIRST for anything the "
-            "regulations settle: grace periods, day counts, unemployment limits, "
-            "status conditions, eligibility requirements, change of status rules. "
-            "It returns the full section with its citation. It does NOT contain "
-            "fees, processing times or the visa bulletin, because those change — "
-            "use search_official_guidance for those."
+            "Read authoritative US immigration source text from a local corpus — "
+            "instant, no network. It covers 8 CFR (DHS rules: status, grace "
+            "periods, work authorisation, adjustment), 22 CFR (State Department "
+            "visa regulations: refusal grounds, issuance), 20 CFR (Labor: PERM) "
+            "and the State Department's 9 FAM consular guidance (what actually "
+            "happens at an embassy: interviews, 221(g), refusals). "
+            "Use this FIRST for anything these sources settle. It returns the "
+            "full passage with its citation. It does NOT contain fees, "
+            "processing times or the visa bulletin, because those change — use "
+            "search_official_guidance for those."
         ),
         properties={
             "query": {
                 "type": "string",
                 "description": (
-                    "What rule to look up, e.g. 'unemployment days allowed on "
-                    "post-completion OPT' or 'grace period after H-1B employment ends'."
+                    "What to look up, e.g. 'unemployment days allowed on "
+                    "post-completion OPT', 'grace period after H-1B employment "
+                    "ends', or '221(g) administrative processing'."
                 ),
             }
         },
@@ -480,22 +588,60 @@ _SCHEMAS = [
     FunctionSchema(
         name="search_recent_developments",
         description=(
-            "Find recent news and developments about US immigration: proposed "
-            "rules, executive orders, policy memos, court decisions, and "
-            "announcements from the last several months. Use this when the "
-            "question is about what has changed recently, what was just proposed, "
-            "or what is expected to happen next — NOT for settled rules (use "
-            "lookup_regulation) or current fees/processing times (use "
-            "search_official_guidance)."
+            "Find how recent US immigration developments are being REPORTED: "
+            "press coverage and what immigration lawyers are saying about them. "
+            "Use this alongside search_federal_register when a question is about "
+            "what has changed lately — the Federal Register says what is official, "
+            "this says what it means in practice and what people are saying. "
+            "Results are reported, not official, and must be attributed."
         ),
         properties={
             "query": {
                 "type": "string",
                 "description": (
                     "A focused query about the recent development, e.g. 'new H-1B "
-                    "rule 2026' or 'latest executive order on visas'."
+                    "rule' or 'latest executive order on visas'."
                 ),
             }
+        },
+        required=["query"],
+    ),
+    FunctionSchema(
+        name="search_federal_register",
+        description=(
+            "Search the Federal Register for official US immigration rulemaking: "
+            "final rules (in force), proposed rules (NOT yet in force), notices, "
+            "and presidential documents such as executive orders. Free and "
+            "authoritative. Use this FIRST for any question about what has "
+            "recently changed, been proposed, or been announced, because each "
+            "result states outright whether it is in force — then use "
+            "search_recent_developments for how it is being reported."
+        ),
+        properties={
+            "query": {
+                "type": "string",
+                "description": "What to look for, e.g. 'H-1B grace period' or 'OPT fees'.",
+            },
+            "document_type": {
+                "type": "string",
+                "enum": ["any", "final_rule", "proposed_rule", "notice", "presidential_document"],
+                "description": (
+                    "Restrict to one kind of document. Use 'proposed_rule' to find "
+                    "what is not yet in force, 'final_rule' for what is."
+                ),
+            },
+            "agency": {
+                "type": "string",
+                "enum": ["any", "uscis", "dhs", "ice", "state", "labor", "eta", "eoir"],
+                "description": (
+                    "Restrict to the agency that issued it. Note USCIS and EOIR "
+                    "publish separately from their parent departments."
+                ),
+            },
+            "since_days": {
+                "type": "integer",
+                "description": "How far back to look, in days. Default 365.",
+            },
         },
         required=["query"],
     ),
@@ -504,7 +650,8 @@ _SCHEMAS = [
 _HANDLERS = {
     "search_official_guidance": search_official_guidance,
     "search_community_experiences": search_community_experiences,
-    "lookup_regulation": lookup_regulation,
+    "search_federal_register": search_federal_register,
+    "lookup_policy": lookup_policy,
     "search_recent_developments": search_recent_developments,
 }
 

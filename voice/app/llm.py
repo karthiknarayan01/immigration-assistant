@@ -106,12 +106,20 @@ async def stream_chat(
     messages: list[dict],
     tools: list[dict] | None,
     temperature: float = 0,
+    tool_choice: str | None = None,
 ) -> AsyncIterator[ChatDelta]:
     """Stream one chat completion, yielding text and accumulated tool calls.
 
     Raises on failure; the caller decides retry/fallback and what the user is
     told. Tool calls arrive as deltas across chunks and are merged here so the
     caller sees whole, parsed calls rather than fragments.
+
+    `tool_choice="required"` makes a lookup mandatory rather than optional.
+    A system prompt cannot achieve that reliably: measured on two models, tool
+    use for ordinary factual questions fell from 3/3 with no system prompt to
+    1-2/3 with one, and rewording the rule did not restore it. When the
+    product's promise is a grounded answer, whether it looked anything up
+    cannot be left to the model's mood.
     """
     response = await client.chat.completions.create(
         model=model,
@@ -120,6 +128,7 @@ async def stream_chat(
         temperature=temperature,
         stream=True,
         stream_options={"include_usage": True},
+        **({"tool_choice": tool_choice} if tool_choice and tools else {}),
     )
 
     calls: dict[int, dict] = {}

@@ -21,6 +21,7 @@ _DIR = pathlib.Path(__file__).resolve().parent
 #: (anecdotes, calibration, escalation).
 TASKS = (
     "conversation",
+    "answer_structure",
     "official_answer",
     "recent_developments",
     "reasoning",

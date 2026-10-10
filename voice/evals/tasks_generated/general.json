@@ -1,0 +1,776 @@
+{
+  "domain": "general",
+  "cases": [
+    {
+      "question": "What is the minimum age requirement for foreign nationals to participate in camp counselor exchange programs?",
+      "answer": "Foreign nationals must be at least 18 years of age to participate in camp counselor exchange programs.",
+      "quote": "Are at least 18 years of age;",
+      "must_contain": [
+        "18 years",
+        "18"
+      ],
+      "citation": "22 CFR 62.30",
+      "source": "ecfr",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0000"
+    },
+    {
+      "question": "What kind of contact must sponsors provide to all participants for supervision?",
+      "answer": "Sponsors must provide all participants with a phone number which allows 24 hour immediate contact with the sponsor.",
+      "quote": "Sponsors shall provide all participants with a phone number which allows 24 hour immediate contact with the sponsor.",
+      "must_contain": [
+        "24 hour",
+        "24"
+      ],
+      "citation": "22 CFR 62.30",
+      "source": "ecfr",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0001"
+    },
+    {
+      "question": "What forms does USCIS use to calculate annual income for fee waiver purposes?",
+      "answer": "USCIS uses the adjusted gross income from an IRS Form 1040 or the gross income from an IRS Form W-2 to calculate the annual income.",
+      "quote": "USCIS uses the adjusted gross income from an IRS Form 1040 or the gross income from an IRS Form W-2 including any overtime and irregular hours as listed to calculate the annual income.",
+      "must_contain": [
+        "1040"
+      ],
+      "citation": "Volume 1, Part B, Chapter 4 - Fee Waivers and Fee Exemptions",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0002"
+    },
+    {
+      "question": "What percentage of the FPG must household income be at or below to demonstrate eligibility for a fee waiver?",
+      "answer": "To demonstrate household income at or below 150 percent of the FPG, the requestor may provide documentation.",
+      "quote": "To demonstrate household income at or below 150 percent of the FPG, the requestor may provide a copy of one or more of the following, where applicable, for each household member:",
+      "must_contain": [
+        "150 percent",
+        "150"
+      ],
+      "citation": "Volume 1, Part B, Chapter 4 - Fee Waivers and Fee Exemptions",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0003"
+    },
+    {
+      "question": "What happens if a requestor for a fee waiver has been deemed legally incompetent by a court of law?",
+      "answer": "If the requestor has been deemed legally incompetent by a court of law, their individual income is still used to determine household income, but the income of any household member, legal guardian or surrogate, or any other care provider, does not count towards the calculation.",
+      "quote": "Additionally, if the requestor has been deemed legally incompetent [25] by a court of law, then the requestor\u2019s individual income is still used to determine household income.",
+      "must_contain": [
+        "25"
+      ],
+      "citation": "Volume 1, Part B, Chapter 4 - Fee Waivers and Fee Exemptions",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0004"
+    },
+    {
+      "question": "What are the legal grounds for refusing a nonimmigrant visa?",
+      "answer": "Nonimmigrant visa refusals must be based on legal grounds, such as one or more provisions of INA 212(a), INA 212(e), INA 214(b) or (f) or (l), INA 221(g), INA 222(g), or other applicable law.",
+      "quote": "Nonimmigrant visa refusals must be based on legal grounds, such as one or more provisions of INA 212(a), INA 212(e), INA 214(b) or (f) or (l) (as added by Section 625 of Pub. L. 104-208), INA 221(g), INA 222(g), or other applicable law.",
+      "must_contain": [
+        "212",
+        "214",
+        "625",
+        "104",
+        "208",
+        "221",
+        "222"
+      ],
+      "citation": "22 CFR 41.121",
+      "source": "ecfr",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0005"
+    },
+    {
+      "question": "What must a consular officer do when refusing a nonimmigrant visa?",
+      "answer": "When a consular officer knows or has reason to believe a visa applicant is ineligible and refuses the issuance of a visa, he or she must inform the alien of the ground(s) of ineligibility and whether there is a mechanism to overcome the refusal.",
+      "quote": "When a consular officer knows or has reason to believe a visa applicant is ineligible and refuses the issuance of a visa, he or she must inform the alien of the ground(s) of ineligibility (unless disclosure is barred under INA 212(b)(2) or (3)) and whether there is, in law or regulations, a mechanism (such as a waiver) to overcome the refusal.",
+      "must_contain": [
+        "212"
+      ],
+      "citation": "22 CFR 41.121",
+      "source": "ecfr",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0006"
+    },
+    {
+      "question": "What is the definition of a 'proscribed organization'?",
+      "answer": "A proscribed organization is any group that falls within the purview of INA 212(a)(3)(D).",
+      "quote": "The term \u201cproscribed organization\u201d means any group that falls within the purview of INA 212(a)(3)(D).",
+      "must_contain": [
+        "212"
+      ],
+      "citation": "9 FAM 302.5",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0007"
+    },
+    {
+      "question": "How does INA 101(a)(37) define a totalitarian party?",
+      "answer": "INA 101(a)(37) defines a totalitarian party as an organization which advocates the establishment in the United States of a totalitarian dictatorship or totalitarianism.",
+      "quote": "INA 101(a)(37) defines a totalitarian party as, \"an organization which advocates the establishment in the United States of a totalitarian dictatorship or totalitarianism.",
+      "must_contain": [
+        "101",
+        "37"
+      ],
+      "citation": "9 FAM 302.5",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0008"
+    },
+    {
+      "question": "Under what conditions is a former or present voluntary member of a noncommunist totalitarian party not ineligible for a visa?",
+      "answer": "A former or present voluntary member of a noncommunist party is not ineligible under INA 212(a)(3)(D) if their affiliation was during a period when the party did not advocate the establishment of a totalitarian dictatorship in the United States.",
+      "quote": "As indicated in 22 CFR 40.34(f), a former or present voluntary member of, or an applicant who was, or is voluntarily affiliated with a noncommunist party, organization, or group, or any section, subsidiary, branch, affiliate, or subdivision thereof, during the period in which the totalitarian party did not or does not advocate the establishment of totalitarian dictatorship in the United States, is not ineligible under INA 212(a)(3)(D) to receive a visa.",
+      "must_contain": [
+        "22",
+        "40.34",
+        "212"
+      ],
+      "citation": "9 FAM 302.5",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0009"
+    },
+    {
+      "question": "What is the maximum response time allowed for an RFE?",
+      "answer": "The maximum response time for an RFE is 12 weeks (84 days).",
+      "quote": "The maximum response time for an RFE is 12 weeks (84 days); regulations prohibit officers from granting additional time to respond to an RFE.",
+      "must_contain": [
+        "12 weeks",
+        "84 days",
+        "12",
+        "84"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0010"
+    },
+    {
+      "question": "Can officers grant additional time to respond to an RFE?",
+      "answer": "No, regulations prohibit officers from granting additional time to respond to an RFE.",
+      "quote": "The maximum response time for an RFE is 12 weeks (84 days); regulations prohibit officers from granting additional time to respond to an RFE.",
+      "must_contain": [
+        "12 weeks",
+        "84 days",
+        "12",
+        "84"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0011"
+    },
+    {
+      "question": "What form should a derivative T nonimmigrant use to file a motion to reopen a denied adjustment of status application?",
+      "answer": "A derivative T nonimmigrant should use Form I-290B, Notice of Appeal or Motion, to file a motion to reopen a denied adjustment of status application.",
+      "quote": "If, under a previous policy, [43] USCIS denied a derivative T nonimmigrant\u2019s application to adjust status solely because the principal had already adjusted status under INA 245(l) , the derivative should file a motion to reopen under 8 CFR 103.5 using a Notice of Appeal or Motion ( Form I-290B ) in accordance with the instructions, include a copy of the previous denial, and ask that USCIS excuse the late filing.",
+      "must_contain": [
+        "I-290B",
+        "43",
+        "245",
+        "103.5"
+      ],
+      "citation": "Volume 7, Part J, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0012"
+    },
+    {
+      "question": "Under what regulation should a derivative file a motion to reopen a denied adjustment of status application?",
+      "answer": "A derivative should file a motion to reopen under 8 CFR 103.5.",
+      "quote": "If, under a previous policy, [43] USCIS denied a derivative T nonimmigrant\u2019s application to adjust status solely because the principal had already adjusted status under INA 245(l) , the derivative should file a motion to reopen under 8 CFR 103.5 using a Notice of Appeal or Motion ( Form I-290B ) in accordance with the instructions, include a copy of the previous denial, and ask that USCIS excuse the late filing.",
+      "must_contain": [
+        "I-290B",
+        "43",
+        "245",
+        "103.5"
+      ],
+      "citation": "Volume 7, Part J, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0013"
+    },
+    {
+      "question": "Do Canadian TN professionals need to file a Petition for a Nonimmigrant Worker (Form I-129) with USCIS before applying for admission to the United States?",
+      "answer": "No, Canadian TN professionals may apply for admission to the United States without first filing a Petition for a Nonimmigrant Worker (Form I-129) with USCIS.",
+      "quote": "Canadian TN professionals may apply for admission to the United States without first filing a Petition for a Nonimmigrant Worker ( Form I-129 ) with USCIS or obtaining a nonimmigrant visa from the U.S. Department of State (DOS).",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "Volume 2, Part P, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0014"
+    },
+    {
+      "question": "What form must a qualified Canadian or Mexican professional file with USCIS to apply for an extension of their TN status or a change of status to TN?",
+      "answer": "Such professionals must file a Petition for a Nonimmigrant Worker (Form I-129) with USCIS.",
+      "quote": "In all cases, such professionals must file a Petition for a Nonimmigrant Worker ( Form I-129 ) with USCIS to do so.",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "Volume 2, Part P, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0015"
+    },
+    {
+      "question": "Where is the TN classification included in the Immigration and Nationality Act (INA)?",
+      "answer": "The TN classification is included at INA 214(e).",
+      "quote": "The TN classification is not found in the general temporary immigration provisions at section 101(a)(15) of the Immigration and Nationality Act (INA), but is included at INA 214(e) .",
+      "must_contain": [
+        "101",
+        "15",
+        "214"
+      ],
+      "citation": "Volume 2, Part P, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0016"
+    },
+    {
+      "question": "What is the publication number and date of the United States-Mexico-Canada Agreement Implementation Act?",
+      "answer": "The United States-Mexico-Canada Agreement Implementation Act is Pub. L. 116-113, dated January 29, 2020.",
+      "quote": "See United States-Mexico-Canada Agreement Implementation Act, Pub. L. 116-113 (PDF) (January 29 2020).",
+      "must_contain": [
+        "116",
+        "113",
+        "29",
+        "2020"
+      ],
+      "citation": "Volume 2, Part P, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0017"
+    },
+    {
+      "question": "What is the requirement for IV applicants regarding medical examinations?",
+      "answer": "All applicants applying for IVs must undergo a physical and mental examination.",
+      "quote": "IV Applicants: INA 221(d) requires all applicants applying for IV s to undergo a physical and mental examination.",
+      "must_contain": [
+        "221"
+      ],
+      "citation": "9 FAM 302.2",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0018"
+    },
+    {
+      "question": "When was the blanket waiver for medical exams for certain Afghan SIV applicants issued?",
+      "answer": "The blanket waiver was issued on August 12, 2021.",
+      "quote": "On August 12, 2021, the Deputy Secretary of State for Management and Resources and the Deputy Secretary of Homeland Security jointly issued a blanket waiver of the requirement to undergo a medical exam before IV issuance or admission to the United States for certain Afghan SIV applicants who are in Afghanistan, who have met all requirements for SIV issuance other than the medical exam, and for whom the Chief of Mission has determined are unable to complete the required medical exam in a timely manner without undue hardship or risk to personal safety.",
+      "must_contain": [
+        "12",
+        "2021"
+      ],
+      "citation": "9 FAM 302.2",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0019"
+    },
+    {
+      "question": "How long is the medical exam waiver for certain Afghan SIV applicants valid?",
+      "answer": "This waiver is valid through August 11, 2022, and may be extended for additional one-year periods.",
+      "quote": "This waiver is valid through August 11, 2022, and may be extended for additional one-year periods.",
+      "must_contain": [
+        "11",
+        "2022"
+      ],
+      "citation": "9 FAM 302.2",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0020"
+    },
+    {
+      "question": "When must Afghan SIV applicants who receive a medical exam waiver undergo a medical exam after admission into the United States?",
+      "answer": "They must undergo a medical exam no later than 30 days after admission into the United States.",
+      "quote": "You should inform Afghan SIV applicants eligible for this waiver that a medical exam is not required before visa issuance or admission, but that they must undergo a medical exam no later than 30 days after admission into the United States per the procedures established by the Department in coordination with DHS, HHS, and entities providing resettlement services domestically to Afghan SIV immigrants.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "9 FAM 302.2",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0021"
+    },
+    {
+      "question": "Are the spouses and children of E-3 principals counted against the annual numerical limitation?",
+      "answer": "No, the spouses and children of E-3 principals are not counted against the 10,500 annual numerical limitation.",
+      "quote": "They are not counted against the 10,500 annual numerical limitation described at INA 214(g)(11)(B).",
+      "must_contain": [
+        "10,500",
+        "214",
+        "11"
+      ],
+      "citation": "9 FAM 402.9",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0022"
+    },
+    {
+      "question": "Can the spouse of a principal E-3 nonimmigrant work in the United States?",
+      "answer": "Yes, the spouse of a principal E-3 nonimmigrant is permitted to engage in employment in the United States.",
+      "quote": "INA 214(e)(6) permits the spouse (but not dependent children) of a principal E-3 nonimmigrant to engage in employment in the United States.",
+      "must_contain": [
+        "214"
+      ],
+      "citation": "9 FAM 402.9",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0023"
+    },
+    {
+      "question": "What form cannot be filed by individuals seeking permission to appear with a benefit requestor before USCIS?",
+      "answer": "Individuals seeking permission to appear with a benefit requestor before USCIS cannot file a Notice of Entry of Appearance as Attorney or Accredited Representative (Form G-28).",
+      "quote": "However, they cannot file a Notice of Entry of Appearance as Attorney or Accredited Representative ( Form G-28 ).",
+      "must_contain": [
+        "G-28"
+      ],
+      "citation": "Volume 1, Part D, Chapter 3 - Other Representatives",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0024"
+    },
+    {
+      "question": "What must reputable individuals provide before accompanying a benefit requestor for an interview?",
+      "answer": "Reputable individuals must first provide a written request and demonstrate they meet the criteria before they accompany a benefit requestor for an interview or other appearance.",
+      "quote": "Reputable individuals must first provide a written request [10] and demonstrate they meet the above criteria before they accompany a benefit requestor for an interview or other appearance.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 1, Part D, Chapter 3 - Other Representatives",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0025"
+    },
+    {
+      "question": "When is a Conditional Permanent Resident (CPR) generally not eligible to file a Form I-90?",
+      "answer": "A CPR is generally not eligible to file a Form I-90 during the 90-day period before the second anniversary of obtaining permanent resident status.",
+      "quote": "In general, a CPR is not eligible to file a Form I-90 for any reason during the 90-day period before the second anniversary of obtaining permanent resident status.",
+      "must_contain": [
+        "I-90"
+      ],
+      "citation": "Volume 11, Part B, Chapter 2 - Replacement of Permanent Resident Card",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0026"
+    },
+    {
+      "question": "What form must a Lawful Permanent Resident (LPR) use to request replacement of a Permanent Resident Card (PRC) expiring within 6 months?",
+      "answer": "An LPR must use Form I-90 to request replacement of a PRC expiring within 6 months.",
+      "quote": "An Application to Replace Permanent Resident Card ( Form I-90 ) must be used by an LPR to request replacement of a PRC expiring within 6 months.",
+      "must_contain": [
+        "I-90",
+        "6 months"
+      ],
+      "citation": "Volume 11, Part B, Chapter 2 - Replacement of Permanent Resident Card",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0027"
+    },
+    {
+      "question": "Can Conditional Permanent Residents (CPRs) use Form I-90 to request removal of conditions on residence?",
+      "answer": "No, CPRs may not use Form I-90 to request removal of the conditions on residence.",
+      "quote": "CPRs may not use Form I-90 to request removal of the conditions on residence.",
+      "must_contain": [
+        "I-90"
+      ],
+      "citation": "Volume 11, Part B, Chapter 2 - Replacement of Permanent Resident Card",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0028"
+    },
+    {
+      "question": "What form should an applicant refer to for the appropriate fees required for filing a Form I-90?",
+      "answer": "An applicant should refer to the Fee Schedule (Form G-1055) for the appropriate fees required for filing a Form I-90.",
+      "quote": "An applicant should refer to the Fee Schedule ( Form G-1055 ) for the appropriate fees required for filing a Form I-90.",
+      "must_contain": [
+        "G-1055",
+        "I-90"
+      ],
+      "citation": "Volume 11, Part B, Chapter 2 - Replacement of Permanent Resident Card",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0029"
+    },
+    {
+      "question": "When does USCIS issue a denial notice for a Form I-730 petition?",
+      "answer": "USCIS issues a denial notice if the officer determines that the petitioner is not eligible to file the Form I-730 petition or the beneficiary is not eligible for following-to-join status.",
+      "quote": "The officer issues a denial notice if the officer determines that the petitioner is not eligible to file the Form I-730 petition or the beneficiary is not eligible for following-to-join status.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "Volume 4, Part C, Chapter 5 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0030"
+    },
+    {
+      "question": "What happens if USCIS does not have an international field office with jurisdiction over the country where the beneficiary is located?",
+      "answer": "If USCIS does not have an international field office with jurisdiction, USCIS adjudicates the Form I-730 petition and forwards it to the DOS embassy or consulate where the beneficiary is located.",
+      "quote": "If the beneficiary lives outside of the United States and USCIS does not have an international field office with jurisdiction over the country where the beneficiary is located, USCIS adjudicates the Form I-730 petition and forwards it to the DOS embassy or consulate where the beneficiary is located, for the beneficiary interview and verification of travel eligibility.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "Volume 4, Part C, Chapter 5 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0031"
+    },
+    {
+      "question": "What does USCIS issue to the Form I-730 petitioner when initial domestic processing is complete?",
+      "answer": "When initial domestic processing is complete, USCIS issues an approval notice to the Form I-730 petitioner.",
+      "quote": "When initial domestic processing is complete, USCIS issues an approval notice to the Form I-730 petitioner stating that USCIS has forwarded the petition to the NVC to be sent to the appropriate DOS embassy or consulate.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "Volume 4, Part C, Chapter 5 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0032"
+    },
+    {
+      "question": "Are interviews generally required for Form I-730 petitioners?",
+      "answer": "Generally, USCIS does not require interviews for Form I-730 petitioners.",
+      "quote": "Generally, USCIS does not require interviews for Form I-730 petitioners.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "Volume 4, Part C, Chapter 5 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0033"
+    },
+    {
+      "question": "Under which section of the INA is it generally impermissible for an individual to enter the United States on an NIV to seek adjustment of status?",
+      "answer": "It is generally impermissible for an individual to enter the United States on an NIV to seek adjustment of status under INA 245.",
+      "quote": "Generally, it is impermissible for an individual to enter the United States on an NIV to seek adjustment of status under INA 245.",
+      "must_contain": [
+        "245"
+      ],
+      "citation": "9 FAM 401.1",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0034"
+    },
+    {
+      "question": "Which INA section defines an immigrant?",
+      "answer": "INA 101(a)(15) defines an immigrant.",
+      "quote": "INA 101(a)(15) defines an immigrant as an individual who does not meet the requirements of one of the nonimmigrant classifications listed in that section.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "9 FAM 401.1",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0035"
+    },
+    {
+      "question": "Which INA section presumes all visa applicants to be immigrants?",
+      "answer": "INA 214(b) presumes all visa applicants to be immigrants.",
+      "quote": "To put this distinction into practice, INA 214(b) presumes all visa applicants (except for applicants for H-1B, L, or V visas) to be immigrants until they prove to you that they qualify for the NIV classification sought.",
+      "must_contain": [
+        "214"
+      ],
+      "citation": "9 FAM 401.1",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0036"
+    },
+    {
+      "question": "Which visa applicants are exempt from the presumption of being immigrants under INA 214(b)?",
+      "answer": "Applicants for H-1B, L, or V visas are exempt from the presumption of being immigrants under INA 214(b).",
+      "quote": "To put this distinction into practice, INA 214(b) presumes all visa applicants (except for applicants for H-1B, L, or V visas) to be immigrants until they prove to you that they qualify for the NIV classification sought.",
+      "must_contain": [
+        "214"
+      ],
+      "citation": "9 FAM 401.1",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0037"
+    },
+    {
+      "question": "Under which INA section must an applicant prove entitlement to nonimmigrant status?",
+      "answer": "Pursuant to INA 291, an applicant must prove entitlement to nonimmigrant status.",
+      "quote": "Pursuant to INA 291, to be classified as a nonimmigrant, the applicant must prove to your satisfaction that he or she is entitled to a nonimmigrant status under INA 101(a)(15).",
+      "must_contain": [
+        "291",
+        "101",
+        "15"
+      ],
+      "citation": "9 FAM 401.1",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0038"
+    },
+    {
+      "question": "Which NIV classifications have no prohibition on residence in the U.S. or adjustment of status to LPR?",
+      "answer": "NIV classifications such as those found at INA 101(a)(15)(H)(i)(b), (K), and (L) have no prohibition on residence in the U.S. or adjustment of status to LPR.",
+      "quote": "On the other hand, there are NIV classifications, such as those found at INA 101(a)(15)(H)(i)(b), (K), and (L), which hold no prohibition on residence in the U.S. or adjustment of status to LPR.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "9 FAM 401.1",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0039"
+    },
+    {
+      "question": "What is the age restriction for international marriage brokers doing business with individuals?",
+      "answer": "International marriage brokers are prohibited from doing business with individuals who are under 18 years of age.",
+      "quote": "It is prohibited from doing business with individuals who are under 18 years of age.",
+      "must_contain": [
+        "18 years",
+        "18"
+      ],
+      "citation": "9 FAM 502.7",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0040"
+    },
+    {
+      "question": "What U.S. Code section pertains to INA 101(a)(15)(N)?",
+      "answer": "INA 101(a)(15)(N) is found in 8 U.S.C. 1101(a)(15)(N).",
+      "quote": "(U) INA 101(a)(15)(N) (8 U.S.C. 1101(a)(15)(N); INA 101(a)(27)(I) (8 U.S.C. 1101(a)(27)(I)); INA 101(a)(27)(L) (8 U.S.C. 1101(a)(27)(L)); INA 101(b)(1) (8 U.S.C. 1101(b)(1)).",
+      "must_contain": [
+        "101",
+        "15",
+        "1101",
+        "27"
+      ],
+      "citation": "9 FAM 502.7",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0041"
+    },
+    {
+      "question": "Under what section should a visa application be refused if a U.S. passport or CRBA application is pending?",
+      "answer": "The visa application should be refused under INA 221(g) pending resolution of the citizenship issue.",
+      "quote": "If a visa applicant has a U.S. passport or Consular Report of Birth Abroad (CRBA) application pending, you should refuse the visa application under INA 221(g) pending resolution of the citizenship issue unless the Department authorizes visa issuance.",
+      "must_contain": [
+        "221"
+      ],
+      "citation": "9 FAM 301.3",
+      "source": "fam",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0042"
+    },
+    {
+      "question": "What is the publication date of the Federal Information Security Modernization Act?",
+      "answer": "The Federal Information Security Modernization Act was published on December 18, 2014.",
+      "quote": "See the Federal Information Security Modernization Act of 2014, Pub. L. 113-284 (PDF) (December 18, 2014).",
+      "must_contain": [
+        "2014",
+        "113",
+        "284",
+        "18"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0043"
+    },
+    {
+      "question": "What is the date of DHS Management Directive 11042.1?",
+      "answer": "DHS Management Directive 11042.1 was signed on January 6, 2005.",
+      "quote": "See Safeguarding Sensitive But Unclassified (For Official Use Only) Information (PDF) , DHS Management Directive 11042.1, signed January 6, 2005.",
+      "must_contain": [
+        "11042.1",
+        "2005"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0044"
+    },
+    {
+      "question": "What regulation does not require USCIS to provide the benefit requestor with an opportunity to inspect actual evidence or cross-examine witnesses?",
+      "answer": "8 CFR 103.2(b)(16) does not require USCIS to provide the benefit requestor with an opportunity to inspect actual evidence or cross-examine witnesses.",
+      "quote": "Notably, 8 CFR 103.2(b)(16) does not require USCIS to provide the benefit requestor with an opportunity to inspect actual evidence or cross-examine witnesses.",
+      "must_contain": [
+        "103.2",
+        "16"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0045"
+    },
+    {
+      "question": "What does 8 CFR 103.2(b)(16) require USCIS to do regarding derogatory information?",
+      "answer": "8 CFR 103.2(b)(16) only requires USCIS to inform the benefit requestor of derogatory information and offer the benefit requestor an opportunity to rebut it.",
+      "quote": "8 CFR 103.2(b)(16) only requires USCIS to inform the benefit requestor of derogatory information and offer the benefit requestor an opportunity to rebut it.",
+      "must_contain": [
+        "103.2",
+        "16"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0046"
+    },
+    {
+      "question": "What types of records are considered other agency documents?",
+      "answer": "DOS visa records covered under INA 222(f) and consular return memoranda are considered other agency documents.",
+      "quote": "For example, DOS visa records covered under INA 222(f) and consular return memoranda are considered other agency documents, and unclassified derogatory information contained in such records and memoranda may generally be disclosed with a few exceptions.",
+      "must_contain": [
+        "222"
+      ],
+      "citation": "Volume 1, Part E, Chapter 6 - Evidence",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0047"
+    },
+    {
+      "question": "What is the citation for the Naturalization Examination?",
+      "answer": "The citation for the Naturalization Examination is 8 CFR 335.9.",
+      "quote": "See 8 CFR 335.9 .",
+      "must_contain": [
+        "335.9"
+      ],
+      "citation": "Volume 12, Part B, Chapter 3 - Naturalization Examination",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0048"
+    },
+    {
+      "question": "What was the notice used prior to the enactment of the Illegal Immigration Reform and Immigrant Responsibility Act (IIRIRA)?",
+      "answer": "An Order to Show Cause was the notice used prior to enactment of the Illegal Immigration Reform and Immigrant Responsibility Act (IIRIRA).",
+      "quote": "An Order to Show Cause was the notice used prior to enactment of the Illegal Immigration Reform and Immigrant Responsibility Act (IIRIRA), Pub. L. 104\u2013208 (PDF) , 110 Stat. 3009 (September 30, 1996).",
+      "must_contain": [
+        "104",
+        "208",
+        "110",
+        "3009",
+        "30",
+        "1996"
+      ],
+      "citation": "Volume 12, Part B, Chapter 3 - Naturalization Examination",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0049"
+    },
+    {
+      "question": "What is the citation for the Oath of Allegiance Modifications and Waivers?",
+      "answer": "The citation for the Oath of Allegiance Modifications and Waivers is 12 USCIS-PM J.3.",
+      "quote": "See Part J, Oath of Allegiance, Chapter 3, Oath of Allegiance Modifications and Waivers [ 12 USCIS-PM J.3 ].",
+      "must_contain": [
+        "12"
+      ],
+      "citation": "Volume 12, Part B, Chapter 3 - Naturalization Examination",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0050"
+    },
+    {
+      "question": "What is the citation for the Medical Certification for Disability Exceptions (N-648)?",
+      "answer": "The citation for the Medical Certification for Disability Exceptions (N-648) is 12 USCIS-PM E.3.",
+      "quote": "See Part E, English and Civics Testing and Exceptions, Chapter 3, Medical Certification for Disability Exceptions (N-648) [ 12 USCIS-PM E.3 ].",
+      "must_contain": [
+        "N-648",
+        "12"
+      ],
+      "citation": "Volume 12, Part B, Chapter 3 - Naturalization Examination",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0051"
+    },
+    {
+      "question": "What is the citation for the General Naturalization Requirements?",
+      "answer": "The citation for the General Naturalization Requirements is 12 USCIS-PM D.",
+      "quote": "See Part D, General Naturalization Requirements [ 12 USCIS-PM D ].",
+      "must_contain": [
+        "12"
+      ],
+      "citation": "Volume 12, Part B, Chapter 3 - Naturalization Examination",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0052"
+    },
+    {
+      "question": "What is the citation for the English and Civics Testing and Exceptions?",
+      "answer": "The citation for the English and Civics Testing and Exceptions is 12 USCIS-PM E.",
+      "quote": "See Part E, English and Civics Testing and Exceptions [ 12 USCIS-PM E ].",
+      "must_contain": [
+        "12"
+      ],
+      "citation": "Volume 12, Part B, Chapter 3 - Naturalization Examination",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0053"
+    },
+    {
+      "question": "What is the first step a PAP must take in the Convention process?",
+      "answer": "The PAP must first file an application to determine their suitability and eligibility as an adoptive parent.",
+      "quote": "For the Convention process, the PAP must first file an application to determine the PAP\u2019s suitability and eligibility as an adoptive parent [17] and then file a petition to determine the child\u2019s eligibility as a Convention adoptee.",
+      "must_contain": [
+        "17"
+      ],
+      "citation": "Volume 5, Part D, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "general",
+      "generated": true,
+      "id": "gen-general-0054"
+    }
+  ]
+}

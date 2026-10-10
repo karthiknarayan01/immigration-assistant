@@ -12,6 +12,9 @@ dependencies = [
     "loguru>=0.7",
     "openai>=1.60",
     "pyyaml>=6.0.3",
+    # Corpus builds: fam.state.gov serves an incomplete certificate chain, so
+    # verification is delegated to the OS trust store (see ingest/fam.py).
+    "truststore>=0.10",
 ]
 
 [tool.uv]

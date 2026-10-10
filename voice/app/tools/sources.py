@@ -105,6 +105,17 @@ def classify(url: str) -> SourceTier:
 #: Traveler Program at relevance 0.09, while uscis.gov alone returned the right
 #: page at 0.90. So official lookups run as a few narrow parallel searches
 #: instead of one wide one, and the results are merged.
+#: The immigration bar's own publications, kept as one narrow group. Providers
+#: rank badly when constrained to many domains at once, so this is deliberately
+#: the handful that publish practitioner analysis of changes as they land.
+PROFESSIONAL_GROUP: tuple[str, ...] = (
+    "aila.org",
+    "murthy.com",
+    "fragomen.com",
+    "boundless.com",
+    "nolo.com",
+)
+
 SEARCH_GROUPS: tuple[tuple[str, ...], ...] = (
     ("uscis.gov",),
     ("ecfr.gov", "law.cornell.edu", "federalregister.gov"),
@@ -114,7 +125,7 @@ SEARCH_GROUPS: tuple[tuple[str, ...], ...] = (
     # travel.state.gov was not in it. Interviews, 221(g), stamping, refusal
     # rates and embassy practice all live here.
     ("travel.state.gov", "state.gov", "usembassy.gov"),
-    ("aila.org", "murthy.com", "fragomen.com", "boundless.com", "nolo.com"),
+    PROFESSIONAL_GROUP,
 )
 
 #: Run only when the allowlist finds nothing usable. An allowlist is a list of

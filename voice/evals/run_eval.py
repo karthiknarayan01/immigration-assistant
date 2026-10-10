@@ -33,7 +33,9 @@ import yaml
 from app.config import settings
 from app.observability import measure, new_request
 from app.text_agent import stream_answer
+from evals.facts import check as check_facts
 from evals.score import FACTORS, JUDGE_MODEL, judge
+from evals.taxonomy import coverage, gaps
 
 HERE = pathlib.Path(__file__).resolve().parent
 TASKS_DIR = HERE / "tasks"
@@ -93,18 +95,73 @@ def load_cases() -> list[dict]:
     return cases
 
 
-async def ask(question: str) -> tuple[str, list[str]]:
-    """Put one question to the agent, running any tools it calls for real."""
+def sources_digest(sources: list[dict]) -> str:
+    """A compact rendering of what the tools returned, for the judge.
+
+    The judge cannot look anything up, so a *correct* citation of a recent rule
+    is indistinguishable from an invention unless it is shown the material the
+    answer was written from. Two cases were scored near zero for citing real
+    Federal Register documents ("91 FR 54817", a genuine $103,265 H-1B fee
+    proposal) that the judge judged implausible.
+
+    Capped generously. At 6,000 characters a case that made several tool
+    calls had the evidence for a late claim cut before the judge saw it, and
+    the judge called the claim a fabrication — a fault manufactured by the
+    harness rather than found in the answer.
+    """
+    lines: list[str] = []
+    for entry in sources:
+        payload = entry.get("result") or {}
+        lines.append(f"[{entry.get('tool', '?')}]")
+        if payload.get("unavailable"):
+            lines.append(f"  UNAVAILABLE ({payload.get('reason', '')})")
+        for key in ("results", "reports", "reported_developments", "practitioner_commentary"):
+            for item in (payload.get(key) or [])[:6]:
+                if isinstance(item, dict):
+                    bits = [
+                        str(item.get(field, ""))
+                        for field in ("title", "citation", "url", "published", "status", "effective_on")
+                    ]
+                    lines.append("  - " + " | ".join(bit for bit in bits if bit))
+        if payload.get("as_of"):
+            lines.append(f"  as_of: {payload['as_of']}")
+    return "\n".join(lines)[:20000]
+
+
+async def ask(
+    question: str, history: list[dict] | None = None
+) -> tuple[str, list[str], dict, float, list[dict]]:
+    """Put one question to the agent, running any tools it calls for real.
+
+    Returns the answer, the ordered tools used, summed token usage, wall time,
+    and what the tools returned — the last so the judge can check an answer
+    against its sources instead of against its own memory. Multi-turn cases
+    pass their prior turns as `history`, so the context-handling path is
+    exercised rather than assumed.
+    """
     tools_used: list[str] = []
     chunks: list[str] = []
+    usage: dict = {}
+    sources: list[dict] = []
 
     async def on_tool(name: str, _arguments: dict) -> None:
         tools_used.append(name)
 
-    async for chunk in stream_answer([], question, on_tool=on_tool):
-        chunks.append(chunk)
+    async def on_tool_result(name: str, result: dict) -> None:
+        sources.append({"tool": name, "result": result})
 
-    return "".join(chunks).strip(), tools_used
+    started = time.perf_counter()
+    async for chunk in stream_answer(
+        history or [],
+        question,
+        on_tool=on_tool,
+        on_tool_result=on_tool_result,
+        usage_sink=usage,
+    ):
+        chunks.append(chunk)
+    latency_ms = (time.perf_counter() - started) * 1000
+
+    return "".join(chunks).strip(), tools_used, usage, latency_ms, sources
 
 
 def _is_subsequence(seq: list[str], sub: list[str]) -> bool:
@@ -129,6 +186,53 @@ def tool_sequence_score(used: list[str], expected: list[str] | None) -> int | No
     return 0
 
 
+def _percentile(values: list[float], pct: float) -> float:
+    """Nearest-rank percentile — no interpolation, so small n stays honest."""
+    if not values:
+        return 0.0
+    ordered = sorted(values)
+    index = max(0, min(len(ordered) - 1, int(round(pct / 100 * len(ordered) + 0.5)) - 1))
+    return ordered[index]
+
+
+def _prices() -> dict:
+    """Parse LLM_PRICES, tolerating an unset or malformed value."""
+    if not settings.llm_prices:
+        return {}
+    try:
+        parsed = json.loads(settings.llm_prices)
+    except json.JSONDecodeError:
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def token_totals(usage_by_model: dict) -> tuple[int, int]:
+    """Sum prompt and completion tokens across however many models ran."""
+    prompt = sum(u.get("prompt_tokens", 0) for u in (usage_by_model or {}).values())
+    completion = sum(u.get("completion_tokens", 0) for u in (usage_by_model or {}).values())
+    return prompt, completion
+
+
+def cost_usd(usage_by_model: dict) -> float:
+    """Cost of one case, priced per model.
+
+    A turn can use more than one model — judgement questions go to the
+    reasoner — so a single price pair would misprice exactly the cases the
+    reasoner exists for. Models with no configured price contribute nothing;
+    the report separately states whether anything was priced, so an unpriced
+    run cannot be mistaken for a free one.
+    """
+    prices = _prices()
+    total = 0.0
+    for model, usage in (usage_by_model or {}).items():
+        rate = prices.get(model)
+        if not isinstance(rate, (list, tuple)) or len(rate) != 2:
+            continue
+        total += usage.get("prompt_tokens", 0) / 1_000_000 * float(rate[0])
+        total += usage.get("completion_tokens", 0) / 1_000_000 * float(rate[1])
+    return total
+
+
 def summarise(rows: list[dict]) -> dict:
     if not rows:
         return {}
@@ -143,11 +247,57 @@ def summarise(rows: list[dict]) -> dict:
         by_category[row["category"]].append(row["mean"])
         by_task[row.get("task", "?")].append(row["mean"])
 
+    scored_facts = [row for row in rows if row.get("facts")]
+    fact_accuracy = (
+        round(statistics.mean(row["facts"]["accuracy"] for row in scored_facts), 3)
+        if scored_facts
+        else None
+    )
+    # Do the judge and the deterministic check agree on what is correct? They
+    # are different instruments and will not agree perfectly; a low figure
+    # means the headline is measuring style rather than substance.
+    agree = sum(
+        1
+        for row in scored_facts
+        if (row["facts"]["accuracy"] == 1.0) == (row["scores"].get("correctness", 0) >= 2)
+    )
+    agreement = round(100 * agree / len(scored_facts)) if scored_facts else None
+
+    latencies = [row["latency_ms"] for row in rows if row.get("latency_ms")]
+    totals = [token_totals(r.get("usage", {})) for r in rows]
+    prompt_tokens = sum(t[0] for t in totals)
+    completion_tokens = sum(t[1] for t in totals)
+    cost = sum(r.get("cost_usd", 0.0) for r in rows)
+    mean_score = statistics.mean(means)
+    priced = bool(_prices())
+
     return {
         "cases": len(rows),
-        "mean": round(statistics.mean(means), 2),
+        "mean": round(mean_score, 2),
         "pass_rate_pct": round(100 * sum(row["passed"] for row in rows) / len(rows)),
         "unsafe_pct": round(100 * sum(row["unsafe"] for row in rows) / len(rows)),
+        # Cost and latency sit beside the score, because the model choice is a
+        # score-per-dollar question and a score alone cannot answer it.
+        "latency_ms": {
+            "mean": round(statistics.mean(latencies), 1) if latencies else 0,
+            "p50": round(_percentile(latencies, 50), 1),
+            "p95": round(_percentile(latencies, 95), 1),
+        },
+        # The judge-free half of the score. `fact_coverage` says how much of
+        # the run this covers, so a thin table cannot look like a clean sweep.
+        "fact_accuracy": fact_accuracy,
+        "fact_coverage": f"{len(scored_facts)}/{len(rows)}",
+        "judge_fact_agreement_pct": agreement,
+        "tokens": {"prompt": prompt_tokens, "completion": completion_tokens},
+        # Which models actually ran, since routing decides that per question.
+        "models_used": sorted({m for row in rows for m in (row.get("usage") or {})}),
+        # `priced` is stated explicitly: a cost of 0.00 because nothing was
+        # priced must not read as a cost of 0.00 because it was free.
+        "priced": priced,
+        "cost_usd": round(cost, 4) if priced else None,
+        "cost_per_case_usd": round(cost / len(rows), 6) if priced else None,
+        # The headline for choosing a model: quality bought per dollar spent.
+        "score_per_dollar": round(mean_score / cost, 1) if cost > 0 else None,
         "by_factor": by_factor,
         "by_category": {
             name: round(statistics.mean(values), 2) for name, values in sorted(by_category.items())
@@ -158,7 +308,7 @@ def summarise(rows: list[dict]) -> dict:
     }
 
 
-def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
+def _report(rows: list[dict], unjudged: list[dict], args, cases: list[dict]) -> dict:
     return {
         "generated": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "agent_model": settings.llm_model,
@@ -169,6 +319,10 @@ def _report(rows: list[dict], unjudged: list[dict], args) -> dict:
         "overall": summarise(rows),
         "tune": summarise([r for r in rows if r["split"] == "tune"]),
         "holdout": summarise([r for r in rows if r["split"] == "holdout"]),
+        # Coverage is reported alongside the score, so "79 cases" cannot be
+        # mistaken for "the domain is covered".
+        "coverage": coverage(cases),
+        "coverage_gaps": gaps(cases),
     }
 
 
@@ -186,8 +340,6 @@ async def main() -> int:
     if args.no_tools:
         settings.tavily_api_key = ""
         settings.exa_api_key = ""
-        settings.parallel_api_key = ""
-        settings.xai_api_key = ""
         print("running with search DISABLED (simulating exhausted credits)\n")
 
     cases = load_cases()
@@ -206,7 +358,9 @@ async def main() -> int:
         new_request(session_id="eval")
         try:
             with measure("user_turn", "turn", case_id=case["id"]):
-                answer, tools_used = await with_backoff(lambda: ask(case["question"]), what="agent")
+                answer, tools_used, usage, latency_ms, sources = await with_backoff(
+                    lambda: ask(case["question"], case.get("history")), what="agent"
+                )
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
             unjudged.append({"id": case["id"], "error": f"agent: {type(error).__name__}"})
             print(f"[{index:>2}/{len(cases)}] {case['id']:<8} AGENT FAILED ({type(error).__name__}) — excluded", flush=True)
@@ -214,7 +368,9 @@ async def main() -> int:
             continue
 
         try:
-            verdict = await with_backoff(lambda: judge(case, answer, tools_used), what="judge")
+            verdict = await with_backoff(
+                lambda: judge(case, answer, tools_used, sources_digest(sources)), what="judge"
+            )
         except Exception as error:  # noqa: BLE001 - a dead judge must not end the run
             unjudged.append({"id": case["id"], "error": f"{type(error).__name__}: {error}"})
             print(f"[{index:>2}/{len(cases)}] {case['id']:<8} JUDGE FAILED ({type(error).__name__})", flush=True)
@@ -223,6 +379,7 @@ async def main() -> int:
 
         await asyncio.sleep(INTER_CASE_DELAY_SECS)
 
+        fact_result = check_facts(case["id"], answer)
         scores = dict(verdict.scores)
         tool_score = tool_sequence_score(tools_used, case.get("expects_tools"))
         if tool_score is not None:
@@ -238,7 +395,25 @@ async def main() -> int:
             "question": case["question"],
             "answer": answer,
             "tools_used": tools_used,
+            "sources": sources_digest(sources),
+            # Deterministic, judge-free: the facts the answer had to contain.
+            "facts": (
+                {
+                    "satisfied": fact_result.satisfied,
+                    "missing": fact_result.missing,
+                    "accuracy": round(fact_result.accuracy, 3),
+                }
+                if fact_result
+                else None
+            ),
             "expects_tools": case.get("expects_tools", []),
+            "domain": case.get("domain", "unset"),
+            "difficulty": case.get("difficulty", "unset"),
+            "failure_mode": case.get("failure_mode", "unset"),
+            "multi_turn": bool(case.get("history")),
+            "usage": usage,
+            "latency_ms": round(latency_ms, 1),
+            "cost_usd": round(cost_usd(usage), 6),
             "scores": scores,
             "mean": mean,
             "passed": mean >= 2.5 and scores.get("safety", 0) >= 2,
@@ -247,10 +422,14 @@ async def main() -> int:
         }
         rows.append(row)
         flag = " UNSAFE" if row["unsafe"] else ""
-        print(f"[{index:>2}/{len(cases)}] {case['id']:<8} {case['split']:<8} mean={mean:.2f}{flag}", flush=True)
-        out_path.write_text(json.dumps({"report": _report(rows, unjudged, args), "rows": rows}, indent=2))
+        print(
+            f"[{index:>2}/{len(cases)}] {case['id']:<8} {case['split']:<8} "
+            f"mean={mean:.2f} {latency_ms:.0f}ms{flag}",
+            flush=True,
+        )
+        out_path.write_text(json.dumps({"report": _report(rows, unjudged, args, cases), "rows": rows}, indent=2))
 
-    report = _report(rows, unjudged, args)
+    report = _report(rows, unjudged, args, cases)
     out_path.write_text(json.dumps({"report": report, "rows": rows}, indent=2))
 
     print()

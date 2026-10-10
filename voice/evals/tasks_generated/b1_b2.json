@@ -1,0 +1,1072 @@
+{
+  "domain": "b1_b2",
+  "cases": [
+    {
+      "question": "What form must a school use to file an electronic petition for SEVP certification?",
+      "answer": "A school must use Form I-17 to file an electronic petition for SEVP certification.",
+      "quote": "A school seeking SEVP certification for attendance by nonimmigrants under section 101(a)(15)(F) or 101(a)(15)(M) of the Act must use SEVIS to file an electronic petition (which compiles the data for the Form I-17) and must submit the nonrefundable certification petition fee on-line.",
+      "must_contain": [
+        "I-17",
+        "101",
+        "15"
+      ],
+      "citation": "8 CFR 214.3",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0000"
+    },
+    {
+      "question": "What happens if a school does not complete the site visit within 30 days after SEVP contacts them?",
+      "answer": "If a school does not complete the site visit within 30 days, the petition for certification will be denied as abandoned.",
+      "quote": "The school must comply with and complete the visit within 30 days after the date SEVP contacts the school to arrange the visit, or the petition for certification will be denied as abandoned.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "8 CFR 214.3",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0001"
+    },
+    {
+      "question": "What must DSOs and school officials demonstrate during the site visit regarding regulations?",
+      "answer": "DSOs and school officials must demonstrate how they obtain access to the regulations cited in the certification petition.",
+      "quote": "DSOs and school officials that have signed the school's Form I-17 petition must be able to demonstrate to DHS representatives how they obtain access to the regulations cited in the certification petition as part of the site visit.",
+      "must_contain": [
+        "I-17"
+      ],
+      "citation": "8 CFR 214.3",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0002"
+    },
+    {
+      "question": "What form must a principal alien of a qualifying family member in removal proceedings file to seek U nonimmigrant status?",
+      "answer": "The principal alien must file a Form I-918, Supplement A directly with USCIS.",
+      "quote": "The principal alien of a qualifying family member who is in removal proceedings under section 240 of the Act, 8 U.S.C. 1229a, or in exclusion or deportation proceedings initiated under former sections 236 or 242 of the Act, 8 U.S.C. 1226 and 1252 (as in effect prior to April 1, 1997), and who is seeking U nonimmigrant status, must file a Form I-918, Supplement A directly with USCIS.",
+      "must_contain": [
+        "I-918",
+        "240",
+        "236",
+        "242",
+        "1226",
+        "1252",
+        "1997"
+      ],
+      "citation": "8 CFR 214.14",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0003"
+    },
+    {
+      "question": "What form is required if a qualifying family member is inadmissible?",
+      "answer": "If the qualifying family member is inadmissible, Form I-192, \"Application for Advance Permission to Enter as a Non-Immigrant,\" is required.",
+      "quote": "If the qualifying family member is inadmissible, Form I-192, \u201cApplication for Advance Permission to Enter as a Non-Immigrant,\u201d in accordance with 8 CFR 212.17.",
+      "must_contain": [
+        "I-192",
+        "212.17"
+      ],
+      "citation": "8 CFR 214.14",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0004"
+    },
+    {
+      "question": "When must the relationship between the U-1 principal alien and the qualifying family member exist?",
+      "answer": "The relationship must exist at the time Form I-918 was filed, at the time Form I-918, Supplement A is adjudicated, and at the time of the qualifying family member's subsequent admission to the United States.",
+      "quote": "Except as set forth in paragraphs (f)(4)(i) and (ii) of this section, the relationship between the U-1 principal alien and the qualifying family member must exist at the time Form I-918 was filed, and the relationship must continue to exist at the time Form I-918, Supplement A is adjudicated, and at the time of the qualifying family member's subsequent admission to the United States.",
+      "must_contain": [
+        "I-918"
+      ],
+      "citation": "8 CFR 214.14",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0005"
+    },
+    {
+      "question": "What is the effect of filing a petition for U-2, U-3, U-4, or U-5 nonimmigrant status on ICE's authority to execute a final order?",
+      "answer": "The filing of a petition for U-2, U-3, U-4, or U-5 nonimmigrant status has no effect on ICE's authority to execute a final order.",
+      "quote": "The filing of a petition for U-2, U-3, U-4, or U-5 nonimmigrant status has no effect on ICE's authority to execute a final order, although the alien may file a request for a stay of removal pursuant to 8 CFR 241.6(a) and 8 CFR 1241.6(a).",
+      "must_contain": [
+        "241.6",
+        "1241.6"
+      ],
+      "citation": "8 CFR 214.14",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0006"
+    },
+    {
+      "question": "What happens if a U-1 principal alien becomes a parent of a child after Form I-918 was filed?",
+      "answer": "If the U-1 principal alien proves that he or she has become the parent of a child after Form I-918 was filed, the child shall be eligible to accompany or follow to join the U-1 principal alien.",
+      "quote": "If the U-1 principal alien proves that he or she has become the parent of a child after Form I-918 was filed, the child shall be eligible to accompany or follow to join the U-1 principal alien.",
+      "must_contain": [
+        "I-918"
+      ],
+      "citation": "8 CFR 214.14",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0007"
+    },
+    {
+      "question": "What is the maximum duration a Q-2 or Q-3 visa holder can remain in the United States under this program?",
+      "answer": "The principal alien and any accompanying, or following-to-join, spouse or minor children are admitted for the duration of the principal alien's planned cultural and training program or 36 months, whichever is shorter.",
+      "quote": "The principal alien and any accompanying, or following-to-join, spouse or minor children of the principal alien are admitted for the duration of the principal alien's planned cultural and training program or 36 months, whichever is shorter.",
+      "must_contain": [
+        "36 months",
+        "36"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0008"
+    },
+    {
+      "question": "Can participants admitted for less than 36 months extend their stay?",
+      "answer": "Yes, participants and eligible dependents admitted for specific periods less than 36 months may extend their period of stay through the Service so that their total period of stay is 36 months, provided the extension of stay is related to employment or training certified by the DOS' Program Administrator.",
+      "quote": "Those participants and eligible dependents admitted for specific periods less than 36 months may extend their period of stay through the Service so that their total period of stay is 36 months, provided the extension of stay is related to employment or training certified by the DOS' Program Administrator.",
+      "must_contain": [
+        "36 months",
+        "36"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0009"
+    },
+    {
+      "question": "How is employment authorized for a principal alien admitted under section 101(a)(15)(Q)(ii) of the Act?",
+      "answer": "Following endorsement of his/her Form I-94, Arrival-Departure Record, by a Service officer, any principal alien admitted under section 101(a)(15)(Q)(ii) of the Act is permitted to work for an employer or employers listed on the Certification Letter issued by the DOS' Program Administrator.",
+      "quote": "Following endorsement of his/her Form I-94, Arrival-Departure Record, by a Service officer, any principal alien admitted under section 101(a)(15)(Q)(ii) of the Act is permitted to work for an employer or employers listed on the Certification Letter issued by the DOS' Program Administrator.",
+      "must_contain": [
+        "I-94",
+        "101",
+        "15"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0010"
+    },
+    {
+      "question": "How long can an alien in E-1 classification and their dependents be admitted to the United States?",
+      "answer": "An alien in E-1 classification and their dependents can be admitted for the validity period of the petition, or for a validity period otherwise authorized for the E-1 classification, plus an additional period of up to 10 days before the validity period begins and 10 days after the validity period ends.",
+      "quote": "An alien admissible in E-1, E-2, E-3, H-1B, L-1, or TN classification and his or her dependents may be admitted to the United States or otherwise provided such status for the validity period of the petition, or for a validity period otherwise authorized for the E-1, E-2, E-3, and TN classifications, plus an additional period of up to 10 days before the validity period begins and 10 days after the validity period ends.",
+      "must_contain": [
+        "10 days",
+        "10"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0011"
+    },
+    {
+      "question": "Can an alien work during the 10-day period before or after their validity period?",
+      "answer": "No, an alien may not work during the 10-day period before or after their validity period unless authorized under 8 CFR 274a.12.",
+      "quote": "Unless authorized under 8 CFR 274a.12, the alien may not work except during the validity period.",
+      "must_contain": [
+        "12"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0012"
+    },
+    {
+      "question": "How long can an alien in H-1B status maintain nonimmigrant status after employment cessation?",
+      "answer": "An alien in H-1B status can maintain nonimmigrant status for up to 60 consecutive days or until the end of the authorized validity period, whichever is shorter, after employment cessation.",
+      "quote": "An alien admitted or otherwise provided status in E-1, E-2, E-3, H-1B, H-1B1, L-1, O-1 or TN classification and his or her dependents shall not be considered to have failed to maintain nonimmigrant status solely on the basis of a cessation of the employment on which the alien's classification was based, for up to 60 consecutive days or until the end of the authorized validity period, whichever is shorter, once during each authorized validity period.",
+      "must_contain": [
+        "60"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0013"
+    },
+    {
+      "question": "Can the 60-day period for maintaining nonimmigrant status after employment cessation be changed?",
+      "answer": "Yes, DHS may eliminate or shorten this 60-day period as a matter of discretion.",
+      "quote": "DHS may eliminate or shorten this 60-day period as a matter of discretion.",
+      "must_contain": [
+        "60"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0014"
+    },
+    {
+      "question": "Can an alien work during the 60-day period after employment cessation?",
+      "answer": "No, an alien may not work during such a period unless otherwise authorized under 8 CFR 274a.12.",
+      "quote": "Unless otherwise authorized under 8 CFR 274a.12, the alien may not work during such a period.",
+      "must_contain": [
+        "12"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0015"
+    },
+    {
+      "question": "Under what regulation can an alien apply for a change of status?",
+      "answer": "An alien can apply for a change of status under 8 CFR 248.1.",
+      "quote": "An alien in any authorized period described in paragraph (l) of this section may apply for and be granted an extension of stay under paragraph (c)(4) of this section or change of status under 8 CFR 248.1, if otherwise eligible.",
+      "must_contain": [
+        "248.1"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0016"
+    },
+    {
+      "question": "What forms are required for F or J nonimmigrants applying for admission after September 15, 2026?",
+      "answer": "Aliens applying for admission as F or J nonimmigrants after September 15, 2026, must be in possession of a valid Form I-20 or Form DS-2019, or a successor form.",
+      "quote": "Aliens applying for admission as F or J nonimmigrants after September 15, 2026, will be inspected and may be admitted into the United States, if in possession of a valid Form I-20 or Form DS-2019, or successor form, and otherwise eligible, and subject to the following:",
+      "must_contain": [
+        "I-20",
+        "15",
+        "2026",
+        "2019"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0017"
+    },
+    {
+      "question": "What is the maximum admission period for F nonimmigrants whose previous authorized period of admission expired?",
+      "answer": "F nonimmigrants whose previous authorized period of admission expired may be admitted for a maximum period of 4 years or the length of the program as specified on Form I-20, whichever is shorter, plus additional 30-day periods for arrival and departure.",
+      "quote": "Aliens seeking admission to the United States, including those seeking admission with a properly filed pending application for an extension of stay, as an F nonimmigrant after a previously authorized period of admission as an F nonimmigrant expired, may be admitted for a maximum period of 4 years or the length of program as specified on Form I-20, whichever is shorter, plus additional 30 day periods for arrival and departure as provided in \u00a7 214.2(f)(5)(i);",
+      "must_contain": [
+        "I-20",
+        "4 years",
+        "30 day",
+        "30",
+        "214.2"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0018"
+    },
+    {
+      "question": "How long can an F nonimmigrant with an approved extension of stay be admitted?",
+      "answer": "An F nonimmigrant with an approved extension of stay can be admitted until the expiration of the approved extension of stay, plus an additional 30 days.",
+      "quote": "Aliens seeking admission to the United States as an F nonimmigrant with an approved extension of stay for F nonimmigrant status may be admitted until the expiration of the approved extension of stay, plus an additional 30 days, as provided in \u00a7 214.2(f)(5)(v).",
+      "must_contain": [
+        "30 days",
+        "30",
+        "214.2"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0019"
+    },
+    {
+      "question": "What is the maximum initial period an R-1 alien may be admitted or changed to R-1 status?",
+      "answer": "An R-1 alien may be admitted or changed to R-1 status for an initial period of up to 30 months from the date of initial admission.",
+      "quote": "If otherwise admissible, an alien who meets the requirements of section 101(a)(15)(R) of the Act may be admitted as an R-1 alien or changed to R-1 status for an initial period of up to 30 months from date of initial admission.",
+      "must_contain": [
+        "30 months",
+        "101",
+        "15",
+        "30"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0020"
+    },
+    {
+      "question": "What is the maximum total period an R-1 alien can spend in R-1 status, including extensions?",
+      "answer": "The total period spent in R-1 status cannot exceed a maximum of 5 years.",
+      "quote": "A Petition for a Nonimmigrant Worker to request an extension of R-1 status must be filed by the employer with a supplement prescribed by USCIS containing attestations required by this section, the fee specified in 8 CFR part 106, and the supporting evidence, in accordance with the applicable form instructions.",
+      "must_contain": [
+        "106"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0021"
+    },
+    {
+      "question": "How quickly must a student inform DHS and the DSO of a change to their name or address?",
+      "answer": "A student must inform DHS and the DSO of any legal changes to the student's name or of any change of address within 10 days of the change.",
+      "quote": "A student must inform DHS and the DSO of any legal changes to the student's name or of any change of address, within 10 days of the change, in a manner prescribed by the school.",
+      "must_contain": [
+        "10 days",
+        "10"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0022"
+    },
+    {
+      "question": "What is the deadline for the DSO to enter a student's change of address information into SEVIS after being notified by the student?",
+      "answer": "The DSO must enter the information in SEVIS within 21 days of notification by the student.",
+      "quote": "A student can satisfy the requirement in 8 CFR 265.1 of notifying DHS by providing a notice of a change of address within 10 days to the DSO, and the DSO in turn must enter the information in SEVIS within 21 days of notification by the student.",
+      "must_contain": [
+        "10 days",
+        "21 days",
+        "265.1",
+        "10",
+        "21"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0023"
+    },
+    {
+      "question": "What is the maximum distance a certified school can be from a United States land border for a border commuter student?",
+      "answer": "A certified school must be located within 75 miles of a United States land border for a border commuter student.",
+      "quote": "For purposes of the special rules in this paragraph (m)(19), the term \u201cborder commuter student\u201d means a national of Canada or Mexico who is admitted to the United States as an M-1 student to enroll in a full course of study, albeit on a part-time basis, in a certified school located within 75 miles of a United States land border.",
+      "must_contain": [
+        "19",
+        "75"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0024"
+    },
+    {
+      "question": "Can an M-1 border commuter student receive the additional 30-day period of stay?",
+      "answer": "An M-1 border commuter student is not entitled to an additional 30-day period of stay.",
+      "quote": "An M-1 border commuter student is not entitled to an additional 30-day period of stay otherwise available under paragraph (m)(5) of this section.",
+      "must_contain": [
+        "30"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0025"
+    },
+    {
+      "question": "Can an M-2 spouse or child enroll in any study?",
+      "answer": "An M-2 spouse or child violates his or her nonimmigrant status by enrolling in any study except as provided in paragraph (m)(17)(ii)(A) or (B) of this section.",
+      "quote": "An M-2 spouse or child violates his or her nonimmigrant status by enrolling in any study except as provided in paragraph (m)(17)(ii)(A) or (B) of this section.",
+      "must_contain": [
+        "17"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0026"
+    },
+    {
+      "question": "Can a border commuter student accept employment?",
+      "answer": "A border commuter student may not be authorized to accept any employment in connection with his or her M-1 student status, except for practical training as provided in paragraph (m)(14) of this section.",
+      "quote": "A border commuter student may not be authorized to accept any employment in connection with his or her M-1 student status, except for practical training as provided in paragraph (m)(14) of this section.",
+      "must_contain": [
+        "14"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0027"
+    },
+    {
+      "question": "What is the maximum period of admission for an alien admitted to the United States in V-1 nonimmigrant status?",
+      "answer": "An alien admitted to the United States in V-1 nonimmigrant status will be granted a period of admission not to exceed 2 years.",
+      "quote": "An alien admitted to the United States in V-1 nonimmigrant status (or whose status in the United States is changed to V-1) will be granted a period of admission not to exceed 2 years.",
+      "must_contain": [
+        "2 years"
+      ],
+      "citation": "8 CFR 214.15",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0028"
+    },
+    {
+      "question": "What is the maximum period of admission for an alien admitted to the United States in V-2 or V-3 nonimmigrant status?",
+      "answer": "An alien admitted to the United States in V-2 or V-3 nonimmigrant status will be granted a period of admission not to exceed 2 years or the day before the alien's 21st birthday, whichever comes first.",
+      "quote": "An alien admitted to the United States in V-2 or V-3 nonimmigrant status (or whose status in the United States is changed to V-2 or V-3) will be granted a period of admission not to exceed 2 years or the day before the alien's 21st birthday, whichever comes first.",
+      "must_contain": [
+        "2 years"
+      ],
+      "citation": "8 CFR 214.15",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0029"
+    },
+    {
+      "question": "What form should aliens submit to apply for an extension of V nonimmigrant status?",
+      "answer": "Aliens may apply for the extension of V nonimmigrant status by submitting Form I-539.",
+      "quote": "Aliens may apply for the extension of V nonimmigrant status, submitting Form I-539, and the associated filing fee, on or before 120 days before the expiration of their status.",
+      "must_contain": [
+        "I-539",
+        "120 days",
+        "120"
+      ],
+      "citation": "8 CFR 214.15",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0030"
+    },
+    {
+      "question": "When can aliens apply for an extension of V nonimmigrant status?",
+      "answer": "Aliens may apply for the extension of V nonimmigrant status on or before 120 days before the expiration of their status.",
+      "quote": "Aliens may apply for the extension of V nonimmigrant status, submitting Form I-539, and the associated filing fee, on or before 120 days before the expiration of their status.",
+      "must_contain": [
+        "I-539",
+        "120 days",
+        "120"
+      ],
+      "citation": "8 CFR 214.15",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0031"
+    },
+    {
+      "question": "What form does the Service use to notify a petitioner when an H classification petition is approved?",
+      "answer": "The Service uses Form I-797 to notify the petitioner of an approved H classification petition.",
+      "quote": "The Service shall notify the petitioner on Form I-797 whenever a visa petition, an extension of a visa petition, or an alien's extension of stay is approved under the H classification.",
+      "must_contain": [
+        "I-797"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0032"
+    },
+    {
+      "question": "What happens if an H nonimmigrant alien's visa expires before their intended return date?",
+      "answer": "If an H nonimmigrant alien's visa expires before their intended return date, they may use a copy of Form I-797 to apply for a new or revalidated visa during the petition's validity period.",
+      "quote": "A beneficiary who is required to present a visa for admission and whose visa will have expired before the date of his or her intended return may use a copy of Form I-797 to apply for a new or revalidated visa during the validity period of the petition.",
+      "must_contain": [
+        "I-797"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0033"
+    },
+    {
+      "question": "When should the beneficiary retain and present the copy of Form I-797?",
+      "answer": "The copy of Form I-797 shall be retained by the beneficiary and presented during the validity of the petition when reentering the United States to resume the same employment with the same petitioner.",
+      "quote": "The copy of Form I-797 shall be retained by the beneficiary and presented during the validity of the petition when reentering the United States to resume the same employment with the same petitioner.",
+      "must_contain": [
+        "I-797"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0034"
+    },
+    {
+      "question": "What is the maximum age for a child to meet INA 322 requirements for expeditious naturalization?",
+      "answer": "The child must be under the age of 18 when INA 322 requirements are met.",
+      "quote": "The child must be under the age of 18 when INA 322 requirements are met.",
+      "must_contain": [
+        "18",
+        "322"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0035"
+    },
+    {
+      "question": "Is Form I-864 required for a child applying for a B-2 visa to facilitate naturalization under INA 322?",
+      "answer": "Form I-864, Affidavit of Support Under INA 213A, is not required because the child is applying for a nonimmigrant visa.",
+      "quote": "Form I-864, Affidavit of Support Under INA 213A, is not required because the child is applying for a nonimmigrant visa, not an IV subject to that requirement.",
+      "must_contain": [
+        "I-864"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0036"
+    },
+    {
+      "question": "What form is associated with a naturalization interview for an adopted foreign-born child seeking a B-2 visa under INA 322?",
+      "answer": "The child must present a USCIS-issued appointment notification for a naturalization interview regarding a Form N-600K, Application for Citizenship and Issuance of Certificate.",
+      "quote": "Presents a USCIS-issued appointment notification signifying the child has an appointment for a naturalization interview regarding a Form N-600K, Application for Citizenship and Issuance of Certificate; and",
+      "must_contain": [
+        "N-600K"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0037"
+    },
+    {
+      "question": "What type of visa is permissible for naturalization under INA 322?",
+      "answer": "Naturalization under INA 322 is a permissible activity in B-2 status.",
+      "quote": "Naturalization under INA 322 is a permissible activity in B-2 status.",
+      "must_contain": [
+        "322"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0038"
+    },
+    {
+      "question": "What is required before a petitioner can file an H-1B cap-subject petition for a beneficiary?",
+      "answer": "The petitioner must register to file a petition on behalf of a beneficiary electronically through the USCIS website.",
+      "quote": "Before a petitioner can file an H-1B cap-subject petition for a beneficiary who may be counted under section 214(g)(1)(A) of the Act (\u201cH-1B regular cap\u201d) or eligible for exemption under section 214(g)(5)(C) of the Act (\u201cH-1B advanced degree exemption\u201d), the petitioner must register to file a petition on behalf of a beneficiary electronically through the USCIS website ( www.uscis.gov ).",
+      "must_contain": [
+        "214"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0039"
+    },
+    {
+      "question": "Where must a petitioner register to file an H-1B cap-subject petition?",
+      "answer": "The petitioner must register electronically through the USCIS website (www.uscis.gov).",
+      "quote": "Before a petitioner can file an H-1B cap-subject petition for a beneficiary who may be counted under section 214(g)(1)(A) of the Act (\u201cH-1B regular cap\u201d) or eligible for exemption under section 214(g)(5)(C) of the Act (\u201cH-1B advanced degree exemption\u201d), the petitioner must register to file a petition on behalf of a beneficiary electronically through the USCIS website ( www.uscis.gov ).",
+      "must_contain": [
+        "214"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0040"
+    },
+    {
+      "question": "What regulation governs the proper submission of a registration for an H-1B cap-subject petition?",
+      "answer": "A registration must be properly submitted in accordance with 8 CFR 103.2(a)(1), paragraph (h)(8)(iii) of this section, and the form instructions.",
+      "quote": "To be eligible to file a petition for a beneficiary who may be counted against the H-1B regular cap or the H-1B advanced degree exemption for a particular fiscal year, a registration must be properly submitted in accordance with 8 CFR 103.2(a)(1), paragraph (h)(8)(iii) of this section, and the form instructions, for the same fiscal year.",
+      "must_contain": [
+        "103.2"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0041"
+    },
+    {
+      "question": "What are schools obligated to the U.S. government to comply with?",
+      "answer": "Schools are obligated to the U.S. government to comply with the recordkeeping, retention, reporting and other requirements contained in 8 CFR 214.3.",
+      "quote": "Schools are obligated to the U.S. government to comply with the recordkeeping, retention, reporting and other requirements contained in 8 CFR 214.3.",
+      "must_contain": [
+        "214.3"
+      ],
+      "citation": "8 CFR 214.4",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0042"
+    },
+    {
+      "question": "What is the maximum total period of stay allowed for an alien under section 101(a)(15)(Q)(i) of the Act?",
+      "answer": "An alien's total period of stay in the United States under section 101(a)(15)(Q)(i) of the Act cannot exceed fifteen (15) months.",
+      "quote": "An alien's total period of stay in the United States under section 101(a)(15)(Q)(i) of the Act cannot exceed fifteen (15) months.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0043"
+    },
+    {
+      "question": "Who can employ an alien classified under section 101(a)(15)(Q)(i) of the Act?",
+      "answer": "An alien classified under section 101(a)(15)(Q)(i) of the Act may be employed only by the qualified employer through which the alien attained Q-1 nonimmigrant status.",
+      "quote": "An alien classified under section 101(a)(15)(Q)(i) of the Act may be employed only by the qualified employer through which the alien attained Q-1 nonimmigrant status.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0044"
+    },
+    {
+      "question": "What are the age requirements for a principal alien participating in the Irish Peace Process Cultural and Training Program?",
+      "answer": "The principal alien must be between the ages of 18 and 35.",
+      "quote": "The principal alien must be between the ages of 18 and 35.",
+      "must_contain": [
+        "18",
+        "35"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0045"
+    },
+    {
+      "question": "How long must a principal alien have been physically resident in Northern Ireland or specific counties of the Republic of Ireland before applying to the Irish Peace Process Cultural and Training Program?",
+      "answer": "The principal alien must have been physically resident in either Northern Ireland or the counties of Louth, Monaghan, Cavan, Leitrim, Sligo, and Donegal in the Republic of Ireland, for at least 3 months immediately preceding application to the program.",
+      "quote": "The principal alien must have been physically resident in either Northern Ireland or the counties of Louth, Monaghan, Cavan, Leitrim, Sligo, and Donegal in the Republic of Ireland, for at least 3 months immediately preceding application to the program and must show that he or she has no intention of abandoning this residence.",
+      "must_contain": [
+        "3 months"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0046"
+    },
+    {
+      "question": "When will USCIS stop approving petitions filed under paragraph (h)(6)(xv)?",
+      "answer": "USCIS will not approve petitions filed under paragraph (h)(6)(xv) on or after October 1, 2025.",
+      "quote": "USCIS will not approve a petition filed pursuant to this paragraph (h)(6)(xv) on or after October 1, 2025.",
+      "must_contain": [
+        "2025"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0047"
+    },
+    {
+      "question": "What is the expiration date for paragraph (h)(6)(xv)?",
+      "answer": "Paragraph (h)(6)(xv) expires on October 1, 2025.",
+      "quote": "This paragraph (h)(6)(xv) expires on October 1, 2025.",
+      "must_contain": [
+        "2025"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0048"
+    },
+    {
+      "question": "What happens if a numerical limit is reached within the first 5 business days of filing?",
+      "answer": "USCIS will randomly apply all numbers among petitions received on any of those 5 business days.",
+      "quote": "If the final receipt date is any of the first 5 business days on which petitions subject to the applicable numerical limits described in paragraph (h)(6)(xv)(A)(1) or (2) may be received (in other words, if either of the numerical limits described in paragraph (h)(6)(xv)(A)(1) or (2) is reached on any one of the first 5 business days that filings can be made), USCIS will randomly apply all of the numbers among the petitions received on any of those 5 business days.",
+      "must_contain": [
+        "5 business days"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0049"
+    },
+    {
+      "question": "What is the maximum duration of stay allowed for a temporary visitor for business or pleasure under INA 101(a)(15)(B) when using a BBBCC or BBBCV?",
+      "answer": "The maximum duration of stay is not exceeding six months.",
+      "quote": "Seeks to enter the United States as a temporary visitor for business or pleasure as defined in INA 101(a)(15)(B) for periods of stay not exceeding six months;",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0050"
+    },
+    {
+      "question": "What is the maximum distance into Arizona that a BCC can be used for land border entry without a passport?",
+      "answer": "The maximum distance into Arizona is 75 miles.",
+      "quote": "The BCC aspect of a BBBCC or BBBCV can still be used for land border entry without a passport within the border zone (25 miles in TX and CA; 55 miles in NM; and 75 miles in AZ) for up to 30 days.",
+      "must_contain": [
+        "30 days",
+        "25",
+        "55",
+        "75",
+        "30"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0051"
+    },
+    {
+      "question": "What is the maximum number of days a BCC can be used for land border entry without a passport?",
+      "answer": "A BCC can be used for up to 30 days for land border entry without a passport.",
+      "quote": "The BCC aspect of a BBBCC or BBBCV can still be used for land border entry without a passport within the border zone (25 miles in TX and CA; 55 miles in NM; and 75 miles in AZ) for up to 30 days.",
+      "must_contain": [
+        "30 days",
+        "25",
+        "55",
+        "75",
+        "30"
+      ],
+      "citation": "9 FAM 402.2",
+      "source": "fam",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0052"
+    },
+    {
+      "question": "When will USCIS deny or revoke an H-2B petition if a prohibited fee is paid?",
+      "answer": "USCIS will deny or revoke an H-2B petition filed on or after January 17, 2025, if a prohibited fee is paid or agreed to be paid.",
+      "quote": "USCIS will deny or revoke the H-2B petition filed on or after January 17, 2025 on notice unless the petitioner demonstrates to USCIS through clear and convincing evidence that: the petitioner made ongoing, good faith, reasonable efforts to prevent and learn of the prohibited fee(s) collection or agreement by such parties throughout the recruitment, hiring, and employment process; the petitioner took immediate remedial action as soon as it became aware of the payment of the prohibited fee or agreement; and all affected beneficiaries, or their designees only if such beneficiaries cannot be located or are deceased, have been fully reimbursed.",
+      "must_contain": [
+        "17",
+        "2025"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0053"
+    },
+    {
+      "question": "What is the minimum period for which USCIS will deny subsequent H-2B petitions after a previous denial or revocation based on specific paragraphs?",
+      "answer": "USCIS will deny any H-2B petition filed by the same petitioner or a successor in interest within 1 year after the decision denying or revoking on notice an H-2B or H-2A petition on the basis of paragraph (h)(6)(i)(B) or (h)(5)(xi)(A).",
+      "quote": "USCIS will deny any H-2B petition filed by the same petitioner or a successor in interest within 1 year after the decision denying or revoking on notice an H-2B or H-2A petition on the basis of paragraph (h)(6)(i)(B) or (h)(5)(xi)(A), respectively, of this section, provided that the denied or revoked petition was filed on or after January 17, 2025.",
+      "must_contain": [
+        "1 year",
+        "17",
+        "2025"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0054"
+    },
+    {
+      "question": "What is the earliest date for which a denied or revoked petition would trigger a one-year denial period for subsequent H-2B petitions?",
+      "answer": "The denied or revoked petition must have been filed on or after January 17, 2025, to trigger the one-year denial period.",
+      "quote": "USCIS will deny any H-2B petition filed by the same petitioner or a successor in interest within 1 year after the decision denying or revoking on notice an H-2B or H-2A petition on the basis of paragraph (h)(6)(i)(B) or (h)(5)(xi)(A), respectively, of this section, provided that the denied or revoked petition was filed on or after January 17, 2025.",
+      "must_contain": [
+        "1 year",
+        "17",
+        "2025"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0055"
+    },
+    {
+      "question": "Under what circumstances will USCIS deny an H-2B petition after a withdrawal of a previous H-2B or H-2A petition?",
+      "answer": "USCIS will deny any H-2B petition filed by the same petitioner or successor in interest within 1 year after withdrawal of an H-2B or H-2A petition filed on or after January 17, 2025, that was withdrawn following USCIS issuance of a request for evidence or notice of intent to deny or revoke the petition on the basis of paragraph (h)(6)(i)(B) or (h)(5)(xi)(A).",
+      "quote": "In addition, USCIS will deny any H-2B petition filed by the same petitioner or successor in interest within 1 year after withdrawal of an H-2B or H-2A petition filed on or after January 17, 2025, that was withdrawn following USCIS issuance of a request for evidence or notice of intent to deny or revoke the petition on the basis of paragraph (h)(6)(i)(B) or (h)(5)(xi)(A), respectively, of this section.",
+      "must_contain": [
+        "1 year",
+        "17",
+        "2025"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0056"
+    },
+    {
+      "question": "What documents are required to demonstrate lawful presence in the CNMI for a waiver of inadmissibility?",
+      "answer": "Appropriate documents required for such a waiver include a valid unexpired passport and other documentary evidence demonstrating that the applicant is lawfully present in the CNMI, such as a DHS-issued Form I-94.",
+      "quote": "Appropriate documents required for such a waiver include a valid unexpired passport and other documentary evidence demonstrating that the applicant is lawfully present in the CNMI, such as a DHS-issued Form I-94.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0057"
+    },
+    {
+      "question": "When must an employer file a semiannual report for an approved petition with a validity period of six months or more?",
+      "answer": "The semiannual report must be filed within a 60 day window surrounding the six month anniversary of the petition validity start date, with the filing window opening 30 days before and closing 30 days after the six month anniversary of the petition validity start date.",
+      "quote": "The semiannual report must be filed within a 60 day window surrounding the six month anniversary of the petition validity start date, with the filing window opening 30 days before and closing 30 days after the six month anniversary of the petition validity start date.",
+      "must_contain": [
+        "60 day",
+        "30 days",
+        "60",
+        "30"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0058"
+    },
+    {
+      "question": "What is the consequence of failing to comply with the semiannual report requirements?",
+      "answer": "Failure to comply with the requirements of paragraph (w)(26) of this section may be a basis for revocation of an approved petition or for denial of subsequent petitions filed by the employer.",
+      "quote": "Failure to comply with the requirements of paragraph (w)(26) of this section may be a basis for revocation of an approved petition as provided in paragraph (w)(27) of this section, or for denial of subsequent petitions filed by the employer.",
+      "must_contain": [
+        "26",
+        "27"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0059"
+    },
+    {
+      "question": "For which petitions is a semiannual report required?",
+      "answer": "A semiannual report is required for an employer whose petition has been approved for an employment start date on or after October 1, 2019 and for a validity period of six months or more.",
+      "quote": "During the validity period of the petition, an employer whose petition has been approved for an employment start date on or after October 1, 2019 and for a validity period of six months or more, shall file a semiannual report, every six months after the petition validity start date up to and including the sixth month preceding the petition's validity end date.",
+      "must_contain": [
+        "2019"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0060"
+    },
+    {
+      "question": "Can an alien change their nonimmigrant status to E-2 CNMI Investor?",
+      "answer": "Yes, an alien lawfully admitted to the United States in another valid nonimmigrant status may apply to change nonimmigrant status to E-2 CNMI Investor.",
+      "quote": "An alien lawfully admitted to the United States in another valid nonimmigrant status who is continuing to maintain that status may apply to change nonimmigrant status to E-2 CNMI Investor in accordance with paragraph (e)(21) of this section, if otherwise eligible, including but not limited to having been in CNMI long-term investor status on the transition date and within the period provided by paragraph (e)(23)(v) of this section.",
+      "must_contain": [
+        "21",
+        "23"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0061"
+    },
+    {
+      "question": "Under which section of the Act can a waiver of inadmissibility be granted for an E-2 CNMI Investor applicant?",
+      "answer": "A waiver of inadmissibility may be granted under section 212(d)(3)(A)(ii) of the Act.",
+      "quote": "An applicant for E-2 CNMI Investor nonimmigrant status, who is otherwise eligible for such status and otherwise admissible to the United States, and who has provided all appropriate documents as described in paragraph (e)(23)(vi) of this section, may be granted a waiver of inadmissibility under section 212(d)(3)(A)(ii) of the Act, including the grounds of inadmissibility described in sections 212(a)(6)(A)(i) (to the extent such grounds arise solely because of the alien's presence in the CNMI on November 28, 2009) and 212(a)(7)(B)(i)(II) of the Act, for the purpose of granting the E-2 CNMI Investor nonimmigrant status.",
+      "must_contain": [
+        "23",
+        "212",
+        "28",
+        "2009"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0062"
+    },
+    {
+      "question": "What documents are required for a waiver of inadmissibility for a spouse or child of an E-2 CNMI Investor who is present in the CNMI?",
+      "answer": "The required documents are a valid unexpired passport and evidence that the spouse or child is lawfully present in the CNMI under section 1806(e) of title 48, U.S. Code.",
+      "quote": "In the case of an application by a spouse or child as described in paragraph (e)(23)(x) of this section who is present in the CNMI, the appropriate documents required for such waiver are a valid unexpired passport and evidence that the spouse or child is lawfully present in the CNMI under section 1806(e) of title 48, U.S. Code (which may include evidence of a grant of parole by USCIS or by the Department of Homeland Security pursuant to a grant of advance parole by USCIS in furtherance of section 1806(e) of title 48, U.S. Code).",
+      "must_contain": [
+        "23",
+        "1806",
+        "48"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0063"
+    },
+    {
+      "question": "What form is used for the CW-1 Application for Temporary Employment Certification?",
+      "answer": "The form used for the CW-1 Application for Temporary Employment Certification is OMB-approved Form ETA-9142C (or successor form).",
+      "quote": "CW-1 Application for Temporary Employment Certification means the Office of Management and Budget (OMB)-approved Form ETA-9142C (or successor form) and the appropriate appendices, a valid prevailing wage determination (Form ETA-9141C, or successor form), and all supporting documentation submitted by an employer, as set forth in the U.S. Department of Labor's (DOL) regulations at 20 CFR 655.420 through 655.422, to secure a temporary labor certification determination from DOL's Office of Foreign Labor Certification (OFLC) Administrator.",
+      "must_contain": [
+        "20",
+        "655.420",
+        "655.422"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0064"
+    },
+    {
+      "question": "What is the form number for a valid prevailing wage determination?",
+      "answer": "The form number for a valid prevailing wage determination is Form ETA-9141C (or successor form).",
+      "quote": "CW-1 Application for Temporary Employment Certification means the Office of Management and Budget (OMB)-approved Form ETA-9142C (or successor form) and the appropriate appendices, a valid prevailing wage determination (Form ETA-9141C, or successor form), and all supporting documentation submitted by an employer, as set forth in the U.S. Department of Labor's (DOL) regulations at 20 CFR 655.420 through 655.422, to secure a temporary labor certification determination from DOL's Office of Foreign Labor Certification (OFLC) Administrator.",
+      "must_contain": [
+        "20",
+        "655.420",
+        "655.422"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0065"
+    },
+    {
+      "question": "How many hours per week can a student work on-campus while school is in session?",
+      "answer": "A student can work up to 20 hours per week while school is in session.",
+      "quote": "Employment authorized under this paragraph (f)(9)(i) must not exceed 20 hours a week while school is in session, unless the Secretary suspends the applicability of this limitation due to emergent circumstances, as determined by the Secretary, by means of notice in the Federal Register , the student demonstrates to the DSO that the employment is necessary to avoid severe economic hardship resulting from the emergent circumstances, and the DSO notates the Form I-20 or successor form in accordance with the Federal Register document.",
+      "must_contain": [
+        "I-20",
+        "20 hours"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0066"
+    },
+    {
+      "question": "What form must be notated by the DSO for employment exceeding 20 hours due to emergent circumstances?",
+      "answer": "The DSO must notate the Form I-20 or successor form.",
+      "quote": "Employment authorized under this paragraph (f)(9)(i) must not exceed 20 hours a week while school is in session, unless the Secretary suspends the applicability of this limitation due to emergent circumstances, as determined by the Secretary, by means of notice in the Federal Register , the student demonstrates to the DSO that the employment is necessary to avoid severe economic hardship resulting from the emergent circumstances, and the DSO notates the Form I-20 or successor form in accordance with the Federal Register document.",
+      "must_contain": [
+        "I-20",
+        "20 hours"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0067"
+    },
+    {
+      "question": "Can an F-1 student engage in on-campus employment after completing a course of study?",
+      "answer": "An F-1 student may not engage in on-campus employment after completing a course of study, except for practical training as authorized under paragraph (f)(10) of this section.",
+      "quote": "Otherwise, an F-1 student may not engage in on-campus employment after completing a course of study, except employment for practical training as authorized under paragraph (f)(10) of this section.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0068"
+    },
+    {
+      "question": "When can an F-1 student begin on-campus employment upon initial entry for a new course of study?",
+      "answer": "An F-1 student may not begin on-campus employment more than 30 days prior to the actual start of classes upon initial entry for a new course of study.",
+      "quote": "Upon initial entry to begin a new course of study, an F-1 student may not begin on-campus employment more than 30 days prior to the actual start of classes.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0069"
+    },
+    {
+      "question": "What is the purpose of waiving FERPA provisions for F, J, and M nonimmigrants?",
+      "answer": "Waiving FERPA provisions for F, J, and M nonimmigrants is necessary for the proper implementation of 8 U.S.C. 1372.",
+      "quote": "DHS has determined that, with respect to F and M nonimmigrant students and J nonimmigrant exchange visitors, waiving the provisions of the Family Educational Rights and Privacy Act (FERPA), 20 U.S.C. 1232g, is necessary for the proper implementation of 8 U.S.C. 1372.",
+      "must_contain": [
+        "20",
+        "1372"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0070"
+    },
+    {
+      "question": "What must an alien coming to the United States to perform labor in a health care occupation obtain?",
+      "answer": "An alien coming to the United States to perform labor in a health care occupation must obtain a certificate from a credentialing organization described in 8 CFR 212.15(e).",
+      "quote": "Except as provided in 8 CFR 212.15(n), any alien described in 8 CFR 212.15(a) who is coming to the United States to perform labor in a health care occupation described in 8 CFR 212.15(c) must obtain a certificate from a credentialing organization described in 8 CFR 212.15(e).",
+      "must_contain": [
+        "212.15"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0071"
+    },
+    {
+      "question": "Where must the certificate or certified statement for health care occupation employment be presented?",
+      "answer": "The certificate or certified statement must be presented to the Department of Homeland Security in accordance with 8 CFR 212.15(d).",
+      "quote": "The certificate or certified statement must be presented to the Department of Homeland Security in accordance with 8 CFR 212.15(d).",
+      "must_contain": [
+        "212.15"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0072"
+    },
+    {
+      "question": "When must a TN nonimmigrant's initial admission as a health care worker have occurred to be eligible for a waiver?",
+      "answer": "A TN nonimmigrant's initial admission as a TN (or TC) nonimmigrant health care worker must have occurred before September 23, 2003, to be eligible for a waiver.",
+      "quote": "A TN nonimmigrant may establish that he or she is eligible for a waiver described at 8 CFR 212.15(n) by providing evidence that his or her initial admission as a TN (or TC) nonimmigrant health care worker occurred before September 23, 2003, and he or she was licensed and employed in the United States as a health care worker before September 23, 2003.",
+      "must_contain": [
+        "212.15",
+        "23",
+        "2003"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0073"
+    },
+    {
+      "question": "What is one type of evidence a TN nonimmigrant can provide to establish eligibility for a waiver?",
+      "answer": "One type of evidence a TN nonimmigrant can provide is copies of TN or TC approval notices.",
+      "quote": "Evidence may include, but is not limited to, copies of TN or TC approval notices, copies of Form I-94 Arrival/Departure Records, employment verification letters and/or pay-stubs or other employment records, and state health care worker licenses.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0074"
+    },
+    {
+      "question": "Can an educational institution refuse to report information about F or M nonimmigrant students based on FERPA?",
+      "answer": "No, an educational agency or institution may not refuse to report information concerning an F or M nonimmigrant student on the basis of FERPA.",
+      "quote": "An educational agency or institution may not refuse to report information concerning an F or M nonimmigrant student or a J nonimmigrant exchange visitor that the educational agency or institution is required to report under 8 U.S.C. 1372 and \u00a7 214.3(g) (or any corresponding Department of State regulation concerning J nonimmigrants) on the basis of FERPA and any regulation implementing FERPA.",
+      "must_contain": [
+        "1372",
+        "214.3"
+      ],
+      "citation": "8 CFR 214.1",
+      "source": "ecfr",
+      "domain": "b1_b2",
+      "generated": true,
+      "id": "gen-b1_b2-0075"
+    }
+  ]
+}

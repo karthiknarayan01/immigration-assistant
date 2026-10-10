@@ -54,7 +54,6 @@ async def check_provider(name: str) -> tuple[bool | None, str]:
     key = {
         "tavily": settings.tavily_api_key,
         "exa": settings.exa_api_key,
-        "parallel": settings.parallel_api_key,
     }[name]
     if not key:
         return None, "no key configured"
@@ -66,7 +65,7 @@ async def check_provider(name: str) -> tuple[bool | None, str]:
         elif name == "exa":
             hits = await providers._exa(client, "H-1B grace period", None, 3)
         else:
-            hits = await providers._parallel(client, "H-1B grace period", 3)
+            raise ValueError(f"unknown provider {name!r}")
     except Exception as error:  # noqa: BLE001 - reporting, not handling
         failure = classify_exception(error)
         hint = (
@@ -97,7 +96,7 @@ async def main() -> int:
     healthy = ok
 
     provider_states = []
-    for name in ("tavily", "exa", "parallel"):
+    for name in ("tavily", "exa"):
         state, detail = await check_provider(name)
         mark = SKIP if state is None else (OK if state else FAIL)
         print(f"[{mark}] {name:<26} {detail}")

@@ -1,0 +1,411 @@
+{
+  "domain": "eb1",
+  "cases": [
+    {
+      "question": "What form is used to request an extension of a nonimmigrant's stay in the United States?",
+      "answer": "The petitioner must request the extension of a nonimmigrant\u2019s stay in the United States on Form I-129, Petition for a Nonimmigrant Worker.",
+      "quote": "The petitioner must request the extension of a nonimmigrant\u2019s stay in the United States on the same Form I-129, Petition for a Nonimmigrant Worker, used to file for the extension of the petition.",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "9 FAM 402.13",
+      "source": "fam",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0000"
+    },
+    {
+      "question": "How long can an extension of stay be authorized for an O-1 or O-2 nonimmigrant?",
+      "answer": "An extension of stay may be authorized in increments of up to one year for an O-1 or O-2 nonimmigrant.",
+      "quote": "An extension of stay may be authorized in increments of up to one year for an O-1 or O-2 nonimmigrant to continue or complete the same event or activity for which they are admitted, plus an additional 10 days to allow the beneficiary to get their personal affairs in order.",
+      "must_contain": [
+        "10 days",
+        "10"
+      ],
+      "citation": "9 FAM 402.13",
+      "source": "fam",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0001"
+    },
+    {
+      "question": "Does objectively meeting the regulatory criteria in the first step alone establish that a person meets the requirements for classification as extraordinary ability?",
+      "answer": "No, objectively meeting the regulatory criteria in the first step alone does not establish that the person in fact meets the requirements for classification as a person with extraordinary ability.",
+      "quote": "However, objectively meeting the regulatory criteria in the first step alone does not establish that the person in fact meets the requirements for classification as a person with extraordinary ability. [41]",
+      "must_contain": [
+        "41"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0002"
+    },
+    {
+      "question": "What type of evidence must be provided for experience in a leading or critical role?",
+      "answer": "Evidence of experience must consist of letters from employers.",
+      "quote": "Evidence of experience must consist of letters from employers. [35]",
+      "must_contain": [
+        "35"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0003"
+    },
+    {
+      "question": "What is the definition of \"extraordinary ability\"?",
+      "answer": "Extraordinary ability means a level of expertise indicating that the individual is one of that small percentage who have risen to the top of the field of endeavor.",
+      "quote": "8 CFR 204.5(h)(2) defines \u201cextraordinary ability\u201d as follows: \u201cExtraordinary ability means a level of expertise indicating that the individual is one of that small percentage who have risen to the top of the field of endeavor.\u201d",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "9 FAM 502.4",
+      "source": "fam",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0004"
+    },
+    {
+      "question": "What regulation defines \"permanent, in reference to a research position\"?",
+      "answer": "The regulation 8 CFR 204.5(i)(2) defines \"permanent, in reference to a research position.\"",
+      "quote": "See 8 CFR 204.5(i)(2) , defining \u201cpermanent, in reference to a research position\u201d as \u201ceither tenured, tenure-track, or for a term of indefinite or unlimited duration, and in which the employee will ordinarily have an expectation of continued employment unless there is good cause for termination.\u201d",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0005"
+    },
+    {
+      "question": "What form is filed for classification as a person of extraordinary ability?",
+      "answer": "An Immigrant Petition for Alien Workers (Form I-140) is filed for classification as a person of extraordinary ability.",
+      "quote": "When seeking classification as a person of extraordinary ability, a petitioner files an Immigrant Petition for Alien Workers ( Form I-140 ) on behalf of an alien (who may be the petitioner) with evidence demonstrating that the beneficiary is eligible.",
+      "must_contain": [
+        "I-140"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0006"
+    },
+    {
+      "question": "What document can be submitted to verify that a principal is maintaining O status?",
+      "answer": "A copy of Form I-94, Arrival and Departure Record, can be submitted.",
+      "quote": "If there are no readily available means of verification, you may suggest to the applicant that the principal in the United States submit a copy of their Form I-94, Arrival and Departure Record, (if the principal received a paper I-94, copies of both sides must be submitted) and a copy of their current visa for presentation to you.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "9 FAM 402.13",
+      "source": "fam",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0007"
+    },
+    {
+      "question": "Where can one find guidance on sending a petition to USCIS for reconsideration?",
+      "answer": "Guidance on sending a petition to USCIS for reconsideration can be found in 9 FAM 601.13.",
+      "quote": "For guidance on sending a petition to USCIS for reconsideration, refer to 9 FAM 601.13.",
+      "must_contain": [
+        "601.13"
+      ],
+      "citation": "9 FAM 402.13",
+      "source": "fam",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0008"
+    },
+    {
+      "question": "What percentage does academic reputation account for in the QS World University Rankings methodology?",
+      "answer": "Academic reputation accounts for 40 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0009"
+    },
+    {
+      "question": "What percentage does employer reputation account for in the QS World University Rankings methodology?",
+      "answer": "Employer reputation accounts for 10 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0010"
+    },
+    {
+      "question": "What percentage does faculty to student ratio account for in the QS World University Rankings methodology?",
+      "answer": "Faculty to student ratio accounts for 20 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0011"
+    },
+    {
+      "question": "What percentage does citations per faculty account for in the QS World University Rankings methodology?",
+      "answer": "Citations per faculty accounts for 20 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0012"
+    },
+    {
+      "question": "What percentage does international faculty ratio account for in the QS World University Rankings methodology?",
+      "answer": "International faculty ratio accounts for 5 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0013"
+    },
+    {
+      "question": "What percentage does international student ratio account for in the QS World University Rankings methodology?",
+      "answer": "International student ratio accounts for 5 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0014"
+    },
+    {
+      "question": "What is the classification for aliens with extraordinary ability?",
+      "answer": "Aliens with extraordinary ability are classifiable under the provisions of INA 101(a)(15)(O).",
+      "quote": "An alien shall be classifiable under the provisions of INA 101(a)(15)(O) if:",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "22 CFR 41.55",
+      "source": "ecfr",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0015"
+    },
+    {
+      "question": "What action must a consular officer take if they believe an alien applying for an O visa is not entitled to the classification?",
+      "answer": "The consular officer must suspend action on the alien's application and submit a report to the approving DHS office.",
+      "quote": "The consular officer must suspend action on the alien's application and submit a report to the approving DHS office if the consular officer knows or has reason to believe that an alien applying for a visa under INA 101(a)(15)(O) is not entitled to the classification as approved.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "22 CFR 41.55",
+      "source": "ecfr",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0016"
+    },
+    {
+      "question": "What is the definition of an h-index of 10?",
+      "answer": "An h-index of 10 means the researcher has 10 publications that have 10 or more citations each.",
+      "quote": "For example, if a researcher has an h-index of 10, it means the researcher has 10 publications that have 10 or more citations each (but not 11 publications with at least 11 citations each).",
+      "must_contain": [
+        "10",
+        "11"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0017"
+    },
+    {
+      "question": "What percentage of the QS World University Rankings methodology is based on academic reputation?",
+      "answer": "Academic reputation accounts for 40 percent of the QS World University Rankings methodology.",
+      "quote": "The QS World University Rankings annually evaluate universities according to a methodology based on six consistent and empirical metrics: academic reputation (40 percent), employer reputation (10 percent), faculty to student ratio (20 percent), citations per faculty (20 percent), international faculty ratio (5 percent), and international student ratio (5 percent).",
+      "must_contain": [
+        "40 percent",
+        "10 percent",
+        "20 percent",
+        "5 percent",
+        "40",
+        "10",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0018"
+    },
+    {
+      "question": "What is the publication date of \"Keeping Men Out of Women's Sports\"?",
+      "answer": "The publication date of \"Keeping Men Out of Women's Sports\" is February 11, 2025.",
+      "quote": "See Keeping Men Out of Women's Sports, 90 FR 9279 (Feb. 11, 2025).",
+      "must_contain": [
+        "90",
+        "9279",
+        "11",
+        "2025"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0019"
+    },
+    {
+      "question": "What is the citation for the definition of 'male' and 'men' in the context of defending women from gender ideology extremism?",
+      "answer": "The definition of 'male' and 'men' is found in Executive Order 14168, Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government, 90 FR 8615 (Jan. 20, 2025) (Sec. 2).",
+      "quote": "Executive Order 14168, Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government, 90 FR 8615 (Jan. 20, 2025) (Sec. 2 defining \u201cmale\u201d and \u201cmen\u201d).",
+      "must_contain": [
+        "14168",
+        "90",
+        "8615",
+        "20",
+        "2025"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0020"
+    },
+    {
+      "question": "What regulation covers the requirements for extraordinary ability petitions?",
+      "answer": "The requirements for extraordinary ability petitions are covered by 8 CFR 204.5(h)(3)-(4).",
+      "quote": "See 8 CFR 204.5(h)(3)-(4) .",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0021"
+    },
+    {
+      "question": "What is the citation for the Matter of Price case?",
+      "answer": "The citation for the Matter of Price case is 20 I&N Dec. 953 (Assoc. Comm. 1994).",
+      "quote": "See Matter of Price (PDF) , 20 I&N Dec. 953 (Assoc. Comm. 1994) (golfer of beneficiary\u2019s caliber will substantially benefit prospectively the United States given the popularity of the sport).",
+      "must_contain": [
+        "20",
+        "953",
+        "1994"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0022"
+    },
+    {
+      "question": "What is the role of USCIS in determining membership requirements for associations?",
+      "answer": "USCIS determines if the association for which the person claims present or past membership requires that members have outstanding achievements in the field as judged by recognized experts in that field.",
+      "quote": "USCIS determines if the association for which the person claims present or past membership [24] requires that members have outstanding achievements in the field as judged by recognized experts in that field.",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0023"
+    },
+    {
+      "question": "What kind of awards may have little national or international recognition?",
+      "answer": "An award available only to persons within a single locality, employer, or school may have little national or international recognition.",
+      "quote": "For example, an award available only to persons within a single locality, employer, or school may have little national or international recognition, while an award open to members of a well-known national institution (including an R1 or R2 doctoral university [22] ) or professional organization may be nationally recognized.",
+      "must_contain": [
+        "22"
+      ],
+      "citation": "Volume 6, Part F, Chapter 2 - Extraordinary Ability",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0024"
+    },
+    {
+      "question": "What regulation defines 'permanent' and 'academic field'?",
+      "answer": "The definitions for permanent and academic field can be found in 8 CFR 204.5(i)(2).",
+      "quote": "See 8 CFR 204.5(i)(2) for definitions for permanent and academic field.",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0025"
+    },
+    {
+      "question": "What regulation allows for comparable evidence if the standard criteria do not apply?",
+      "answer": "The regulation at 8 CFR 204.5(i)(3)(ii) allows a petitioner to submit comparable evidence.",
+      "quote": "The regulation at 8 CFR 204.5(i)(3)(ii) allows a petitioner to submit comparable evidence to establish eligibility if the standards in 8 CFR 204.5(i)(3)(i) do not readily apply.",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 3 - Outstanding Professor or Researcher",
+      "source": "uscis_pm",
+      "domain": "eb1",
+      "generated": true,
+      "id": "gen-eb1-0026"
+    }
+  ]
+}
