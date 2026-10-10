@@ -33,6 +33,7 @@ import yaml
 from app.config import settings
 from app.observability import measure, new_request
 from app.text_agent import stream_answer
+from evals.facts import check as check_facts
 from evals.score import FACTORS, JUDGE_MODEL, judge
 from evals.taxonomy import coverage, gaps
 
@@ -243,6 +244,22 @@ def summarise(rows: list[dict]) -> dict:
         by_category[row["category"]].append(row["mean"])
         by_task[row.get("task", "?")].append(row["mean"])
 
+    scored_facts = [row for row in rows if row.get("facts")]
+    fact_accuracy = (
+        round(statistics.mean(row["facts"]["accuracy"] for row in scored_facts), 3)
+        if scored_facts
+        else None
+    )
+    # Do the judge and the deterministic check agree on what is correct? They
+    # are different instruments and will not agree perfectly; a low figure
+    # means the headline is measuring style rather than substance.
+    agree = sum(
+        1
+        for row in scored_facts
+        if (row["facts"]["accuracy"] == 1.0) == (row["scores"].get("correctness", 0) >= 2)
+    )
+    agreement = round(100 * agree / len(scored_facts)) if scored_facts else None
+
     latencies = [row["latency_ms"] for row in rows if row.get("latency_ms")]
     totals = [token_totals(r.get("usage", {})) for r in rows]
     prompt_tokens = sum(t[0] for t in totals)
@@ -263,6 +280,11 @@ def summarise(rows: list[dict]) -> dict:
             "p50": round(_percentile(latencies, 50), 1),
             "p95": round(_percentile(latencies, 95), 1),
         },
+        # The judge-free half of the score. `fact_coverage` says how much of
+        # the run this covers, so a thin table cannot look like a clean sweep.
+        "fact_accuracy": fact_accuracy,
+        "fact_coverage": f"{len(scored_facts)}/{len(rows)}",
+        "judge_fact_agreement_pct": agreement,
         "tokens": {"prompt": prompt_tokens, "completion": completion_tokens},
         # Which models actually ran, since routing decides that per question.
         "models_used": sorted({m for row in rows for m in (row.get("usage") or {})}),
@@ -354,6 +376,7 @@ async def main() -> int:
 
         await asyncio.sleep(INTER_CASE_DELAY_SECS)
 
+        fact_result = check_facts(case["id"], answer)
         scores = dict(verdict.scores)
         tool_score = tool_sequence_score(tools_used, case.get("expects_tools"))
         if tool_score is not None:
@@ -370,6 +393,16 @@ async def main() -> int:
             "answer": answer,
             "tools_used": tools_used,
             "sources": sources_digest(sources),
+            # Deterministic, judge-free: the facts the answer had to contain.
+            "facts": (
+                {
+                    "satisfied": fact_result.satisfied,
+                    "missing": fact_result.missing,
+                    "accuracy": round(fact_result.accuracy, 3),
+                }
+                if fact_result
+                else None
+            ),
             "expects_tools": case.get("expects_tools", []),
             "domain": case.get("domain", "unset"),
             "difficulty": case.get("difficulty", "unset"),

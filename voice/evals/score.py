@@ -23,6 +23,7 @@ _today = date.today().isoformat()
 
 from app.config import settings
 from app.llm import get_client
+from evals.facts import facts_for
 
 TASKS_DIR = pathlib.Path(__file__).resolve().parent / "tasks"
 
@@ -63,6 +64,13 @@ citation of a real final rule ("90 FR 60864") as invented because that rule
 post-dated their knowledge. Penalising an accurate citation of a recent rule is
 a grading error, and it punishes exactly the behaviour this product exists to
 produce.
+
+**When required facts are supplied, they are authoritative.** They were taken
+from the source and are correct even if they surprise you, contradict what you
+remember, or look implausible. Score correctness by whether the answer states
+them — the substance, not the wording. An answer that states them correctly
+cannot score below 2 on correctness, however differently it is phrased; an
+answer that contradicts one scores 0.
 
 **When retrieved sources are supplied, judge against them.** If a claim matches
 what the assistant retrieved, it is correct — however surprising, unusual or
@@ -166,6 +174,8 @@ async def judge(case: dict, answer: str, tools_used: list[str], sources: str = "
             "requires": case.get("requires", []),
             "forbids": case.get("forbids", []),
             "tools_used": tools_used,
+            # Authoritative, source-derived ground truth. See evals/facts.py.
+            "required_facts": [f.statement for f in facts_for(case.get("id", ""))],
             # What the tools actually returned. Without this the judge can only
             # compare the answer to its own memory, which is how it came to call
             # real Federal Register citations fabrications.
