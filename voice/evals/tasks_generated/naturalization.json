@@ -1,0 +1,627 @@
+{
+  "domain": "naturalization",
+  "cases": [
+    {
+      "question": "How many questions must an applicant answer correctly to pass the civics test?",
+      "answer": "An applicant must answer at least 12 out of 20 questions correctly to pass the civics test.",
+      "quote": "An alien passes the civics test if he or she provides a correct answer or provides an alternative phrasing of the correct answer for at least 12 out of the 20 questions.",
+      "must_contain": [
+        "12",
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0000"
+    },
+    {
+      "question": "How many incorrect answers or non-responses result in failing the civics test?",
+      "answer": "An applicant fails the civics test if they provide an incorrect answer or fail to respond to nine out of the 20 questions.",
+      "quote": "An alien fails the civics test if he or she provides an incorrect answer or fails to respond to nine out of the 20 questions.",
+      "must_contain": [
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0001"
+    },
+    {
+      "question": "What are the age and residency requirements for special consideration on the civics test?",
+      "answer": "An applicant must be 65 years of age or older and have lived in the United States for at least 20 years subsequent to lawful permanent residence to receive special consideration.",
+      "quote": "An officer gives special consideration to an alien who is 65 years of age or older and who has been living in the United States for periods totaling at least 20 years subsequent to a lawful admission for permanent residence.",
+      "must_contain": [
+        "65 years",
+        "20 years",
+        "65",
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0002"
+    },
+    {
+      "question": "How many questions are on the civics test for applicants receiving special consideration?",
+      "answer": "The civics test for applicants given special consideration contains 10 questions.",
+      "quote": "The civics test for aliens given special consideration contains 10 questions.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0003"
+    },
+    {
+      "question": "How many questions must an applicant with special consideration answer correctly to pass the civics test?",
+      "answer": "An applicant who meets the criteria for special consideration passes the civics test if they provide a correct answer for at least six of 10 civics test questions.",
+      "quote": "An alien who meets the criteria for special consideration passes the civics test if he or she provides a correct answer or provides an alternative phrasing of the correct answer for at least six of 10 civics test questions from the specially designated list of 20 questions.",
+      "must_contain": [
+        "10",
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0004"
+    },
+    {
+      "question": "When is an applicant rescheduled for a second examination if they fail a test?",
+      "answer": "If an applicant fails any portion of the English test, civics test, or all tests during the initial examination, USCIS reschedules them for a second examination between 60 and 90 days after the initial examination.",
+      "quote": "If an alien fails any portion of the English test, the civics test, or all tests during the initial naturalization examination, USCIS reschedules the alien to appear for a second examination between 60 and 90 days after the initial examination.",
+      "must_contain": [
+        "90 days",
+        "60",
+        "90"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0005"
+    },
+    {
+      "question": "When did USCIS first implement a redesigned English and civics test?",
+      "answer": "USCIS implemented a redesigned English and civics test on October 1, 2008.",
+      "quote": "In 2003, USCIS began redesigning the naturalization test, and on October 1, 2008, USCIS implemented a redesigned English and civics test.",
+      "must_contain": [
+        "2003",
+        "2008"
+      ],
+      "citation": "Volume 12, Part E, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0006"
+    },
+    {
+      "question": "When did USCIS announce the 2020 Naturalization Civics Test?",
+      "answer": "USCIS announced the 2020 Naturalization Civics Test on November 13, 2020.",
+      "quote": "On November 13, 2020, USCIS announced, as part of a decennial test review, a redesigned naturalization civics test (2020 Naturalization Civics Test) to ensure that it remained an instrument that comprehensively and more meaningfully assessed an alien\u2019s knowledge of American history, government, and civics.",
+      "must_contain": [
+        "13",
+        "2020"
+      ],
+      "citation": "Volume 12, Part E, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0007"
+    },
+    {
+      "question": "When did USCIS implement the redesigned civics test that was later reverted?",
+      "answer": "USCIS implemented the redesigned civics test on December 1, 2020.",
+      "quote": "USCIS implemented the redesigned civics test on December 1, 2020; however, shortly after implementation, USCIS reverted to the 2008 test version.",
+      "must_contain": [
+        "2020",
+        "2008"
+      ],
+      "citation": "Volume 12, Part E, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0008"
+    },
+    {
+      "question": "When did USCIS announce it would resume administering the 2020 Naturalization Civics Test with modifications?",
+      "answer": "USCIS announced it would resume administering the 2020 Naturalization Civics Test with certain modifications on September 18, 2025.",
+      "quote": "On September 18, 2025, USCIS announced that it would resume administering the 2020 Naturalization Civics Test, with certain modifications [the 2025 Naturalization Civics Test], to aliens who filed applications for naturalization on or after October 20, 2025.",
+      "must_contain": [
+        "18",
+        "2025",
+        "2020",
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0009"
+    },
+    {
+      "question": "What is the form number for The Citizen's Almanac?",
+      "answer": "The form number for The Citizen's Almanac is Form M-76.",
+      "quote": "[^ 1] See The Citizen\u2019s Almanac ( Form M-76 (PDF, 8.53 MB) ).",
+      "must_contain": [
+        "76",
+        "8.53"
+      ],
+      "citation": "Volume 12, Part E, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0010"
+    },
+    {
+      "question": "What is the citation for the Nationality Act of 1940?",
+      "answer": "The citation for the Nationality Act of 1940 is Pub. L. 76-853, 54 Stat. 1137 (October 14, 1940).",
+      "quote": "[^ 9] See the Nationality Act of 1940, Pub. L. 76-853 (PDF) , 54 Stat. 1137 (October 14, 1940).",
+      "must_contain": [
+        "1940",
+        "76",
+        "853",
+        "54",
+        "1137",
+        "14"
+      ],
+      "citation": "Volume 12, Part E, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0011"
+    },
+    {
+      "question": "What form is used for Medical Certification for Disability Exceptions?",
+      "answer": "The form used for Medical Certification for Disability Exceptions is Form N-648.",
+      "quote": "A licensed medical professional [6] must complete a Medical Certification for Disability Exceptions ( Form N-648 ) and certify, under penalty of perjury, that the alien\u2019s disability or impairment prevents the alien from meeting the English requirement, the civics requirement, or both requirements.",
+      "must_contain": [
+        "N-648"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0012"
+    },
+    {
+      "question": "What is the minimum duration a disability or impairment must last to qualify for an exception to the English and civics requirements?",
+      "answer": "A disability or impairment must have lasted, or be expected to last, at least 12 months to qualify for an exception.",
+      "quote": "The English and civics requirements do not apply to aliens filing for naturalization who are unable to comply due to a \u201cmedically determinable\u201d physical or developmental disability or mental impairment [4] that has lasted, or is expected to last, at least 12 months.",
+      "must_contain": [
+        "12 months",
+        "12"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0013"
+    },
+    {
+      "question": "When should an alien submit Form N-648?",
+      "answer": "An alien must submit an initial Form N-648 as an attachment to the Application for Naturalization (Form N-400).",
+      "quote": "An alien seeking an exception to the English or civics requirements or both must submit an initial Form N-648 as an attachment to the Application for Naturalization ( Form N-400 ).",
+      "must_contain": [
+        "N-648",
+        "N-400"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0014"
+    },
+    {
+      "question": "Who must complete Form N-648?",
+      "answer": "A licensed medical professional must complete Form N-648.",
+      "quote": "A licensed medical professional [6] must complete a Medical Certification for Disability Exceptions ( Form N-648 ) and certify, under penalty of perjury, that the alien\u2019s disability or impairment prevents the alien from meeting the English requirement, the civics requirement, or both requirements.",
+      "must_contain": [
+        "N-648"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0015"
+    },
+    {
+      "question": "Can USCIS accept a Form N-648 submitted after the Form N-400?",
+      "answer": "USCIS may accept an initial Form N-648 submitted after filing Form N-400 in limited circumstances.",
+      "quote": "However, USCIS may accept an initial Form N-648 submitted after filing Form N-400, or the submission of multiple Forms N-648, in limited circumstances as set forth below.",
+      "must_contain": [
+        "N-648",
+        "N-400"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0016"
+    },
+    {
+      "question": "What is the form number for the Medical Certification for Disability Exceptions?",
+      "answer": "The form number for the Medical Certification for Disability Exceptions is Form N-648.",
+      "quote": "In addition, the officer also should follow the same procedures in the hearing as provided in this chapter when making a determination that a Form N-648 filed for the first time at the hearing is sufficient or insufficient.",
+      "must_contain": [
+        "N-648"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0017"
+    },
+    {
+      "question": "Where can aliens filing a naturalization application online upload a scanned copy of Form N-648?",
+      "answer": "Aliens filing a naturalization application online should upload a scanned copy of Form N-648 using their USCIS online account.",
+      "quote": "Aliens filing a naturalization application online should upload a scanned copy of the Medical Certification for Disability Exceptions ( Form N-648 ) using their USCIS online account.",
+      "must_contain": [
+        "N-648"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0018"
+    },
+    {
+      "question": "What is the citation for the Immigration and Nationality Technical Corrections Act of 1994?",
+      "answer": "The citation for the Immigration and Nationality Technical Corrections Act of 1994 is Pub. L. 103-416, 108 Stat. 4305, 4309 (October 25, 1994).",
+      "quote": "See Section 108 of the Immigration and Nationality Technical Corrections Act of 1994, Pub. L. 103-416 (PDF) , 108 Stat. 4305, 4309 (October 25, 1994) (adding INA 312(b) ).",
+      "must_contain": [
+        "108",
+        "1994",
+        "103",
+        "416",
+        "4305",
+        "4309",
+        "25",
+        "312"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0019"
+    },
+    {
+      "question": "What form must an applicant submit to USCIS for naturalization?",
+      "answer": "An applicant must submit an Application for Naturalization (Form N-400) to USCIS.",
+      "quote": "An applicant submits to USCIS an Application for Naturalization ( Form N-400 ) along with supporting evidence to establish eligibility for naturalization.",
+      "must_contain": [
+        "N-400"
+      ],
+      "citation": "Volume 12, Part K, Chapter 3 - Certificate of Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0020"
+    },
+    {
+      "question": "What form should a naturalized person file if they change their legal name after naturalizing?",
+      "answer": "A naturalized person who changes their legal name after naturalizing may file an Application for Replacement Naturalization/Citizenship Document (Form N-565).",
+      "quote": "If a naturalized person changes their legal name after naturalizing, they may file an Application for Replacement Naturalization/Citizenship Document ( Form N-565 ), together with the required fees and proof of the legal change of name.",
+      "must_contain": [
+        "N-565"
+      ],
+      "citation": "Volume 12, Part K, Chapter 3 - Certificate of Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0021"
+    },
+    {
+      "question": "What happens if an applicant's name changes after filing Form N-400 but before naturalization?",
+      "answer": "If an applicant's name changes after filing Form N-400 but before naturalization, the applicant must provide supporting documentation of the name change before USCIS may issue the Certificate of Naturalization in the new name.",
+      "quote": "If the applicant\u2019s name changes after filing Form N-400 but before naturalization, the applicant must provide supporting documentation of the name change before USCIS may issue the Certificate of Naturalization in the new name.",
+      "must_contain": [
+        "N-400"
+      ],
+      "citation": "Volume 12, Part K, Chapter 3 - Certificate of Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0022"
+    },
+    {
+      "question": "What form must LPRs generally file to replace an expired, lost, or stolen Permanent Resident Card?",
+      "answer": "LPRs generally must file an Application to Replace Permanent Resident Card (Form I-90) to replace the PRC.",
+      "quote": "If the PRC is expired or the LPR has lost the card, or the card has been stolen, LPRs generally must file an Application to Replace Permanent Resident Card ( Form I-90 ) to replace the PRC.",
+      "must_contain": [
+        "I-90"
+      ],
+      "citation": "Volume 12, Part D, Chapter 2 - Lawful Permanent Resident Admission for Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0023"
+    },
+    {
+      "question": "How long does a Form N-400 receipt notice extend the validity of a Permanent Resident Card for naturalization applicants who file on or after December 12, 2022?",
+      "answer": "A Form N-400 receipt notice extends the validity of the PRC for 24 months from the \u201cCard Expires\u201d date on the PRC.",
+      "quote": "A naturalization applicant who properly files Form N-400 on or after December 12, 2022 receives a Form N-400 receipt notice that, when presented with their PRC, automatically extends the validity of the PRC for 24 months from the \u201cCard Expires\u201d date on the PRC.",
+      "must_contain": [
+        "N-400",
+        "24 months",
+        "12",
+        "2022",
+        "24"
+      ],
+      "citation": "Volume 12, Part D, Chapter 2 - Lawful Permanent Resident Admission for Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0024"
+    },
+    {
+      "question": "What can an applicant do if they lose their Form N-400 receipt notice and their PRC's expiration date has passed?",
+      "answer": "The applicant may seek an Alien Documentation, Identification and Telecommunication (ADIT) stamp or file Form I-90 with fee to obtain evidence of status.",
+      "quote": "If the applicant loses the Form N-400 receipt notice extending the validity of the PRC, and the \u201cCard Expires\u201d date on the PRC has passed, then the applicant may seek an Alien Documentation, Identification and Telecommunication (ADIT) stamp or file Form I-90 with fee to obtain evidence of status.",
+      "must_contain": [
+        "N-400",
+        "I-90"
+      ],
+      "citation": "Volume 12, Part D, Chapter 2 - Lawful Permanent Resident Admission for Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0025"
+    },
+    {
+      "question": "Under what section of the INA is an applicant ineligible for naturalization if their LPR status was obtained in error?",
+      "answer": "An applicant is ineligible for naturalization under INA 318 if his or her LPR status was obtained in error.",
+      "quote": "An applicant is ineligible for naturalization under INA 318 if his or her LPR status was obtained in error, even in the absence of fraud or willful misrepresentation.",
+      "must_contain": [
+        "318"
+      ],
+      "citation": "Volume 12, Part D, Chapter 2 - Lawful Permanent Resident Admission for Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0026"
+    },
+    {
+      "question": "What must an applicant be to naturalize under most provisions of the immigration laws?",
+      "answer": "An applicant must be lawfully admitted for permanent residence and have maintained LPR status through the naturalization process.",
+      "quote": "To naturalize under most provisions of the immigration laws, [22] an applicant must be lawfully admitted for permanent residence and have maintained LPR status through the naturalization process.",
+      "must_contain": [
+        "22"
+      ],
+      "citation": "Volume 12, Part D, Chapter 2 - Lawful Permanent Resident Admission for Naturalization",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0027"
+    },
+    {
+      "question": "What is the passing score for either version of the civics test?",
+      "answer": "The passing score for either version of the civics test is 60 percent.",
+      "quote": "The percentage of questions required to pass either version of the civics test remains at 60 percent.",
+      "must_contain": [
+        "60 percent",
+        "60"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0028"
+    },
+    {
+      "question": "Under what conditions does an alien receive special consideration in the civics test?",
+      "answer": "An alien receives special consideration in the civics test if, at the time of filing the application, the alien is 65 years of age or older and has been living in the United States for periods totaling at least 20 years subsequent to a lawful admission for permanent residence.",
+      "quote": "An alien receives special consideration in the civics test if, at the time of filing the application, the alien is 65 years of age or older and has been living in the United States for periods totaling at least 20 years subsequent to a lawful admission for permanent residence.",
+      "must_contain": [
+        "65 years",
+        "20 years",
+        "65",
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0029"
+    },
+    {
+      "question": "What form should an applicant file if their naturalization application was denied?",
+      "answer": "An applicant whose naturalization application was denied may file a Request for a Hearing on a Decision in Naturalization Proceedings Under Section 336 (Form N-336).",
+      "quote": "An applicant whose naturalization application was denied may file a Request for a Hearing on a Decision in Naturalization Proceedings Under Section 336 ( Form N-336 ) within 30 calendar days of receiving the adverse decision.",
+      "must_contain": [
+        "N-336",
+        "30"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0030"
+    },
+    {
+      "question": "What is the deadline to file a Request for a Hearing on a Decision in Naturalization Proceedings Under Section 336?",
+      "answer": "An applicant must file a Request for a Hearing on a Decision in Naturalization Proceedings Under Section 336 (Form N-336) within 30 calendar days of receiving the adverse decision.",
+      "quote": "An applicant whose naturalization application was denied may file a Request for a Hearing on a Decision in Naturalization Proceedings Under Section 336 ( Form N-336 ) within 30 calendar days of receiving the adverse decision.",
+      "must_contain": [
+        "N-336",
+        "30"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0031"
+    },
+    {
+      "question": "How many Form N-648s can an applicant submit at a hearing?",
+      "answer": "At the hearing, an applicant will only be allowed to submit one Form N-648.",
+      "quote": "At the hearing, an applicant will only be allowed to submit one Form N-648 and only allowed to attempt to satisfy the educational requirements once.",
+      "must_contain": [
+        "N-648"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0032"
+    },
+    {
+      "question": "How many times is an applicant allowed to attempt to satisfy the educational requirements at a hearing?",
+      "answer": "At the hearing, an applicant is only allowed to attempt to satisfy the educational requirements once.",
+      "quote": "At the hearing, an applicant will only be allowed to submit one Form N-648 and only allowed to attempt to satisfy the educational requirements once.",
+      "must_contain": [
+        "N-648"
+      ],
+      "citation": "Volume 12, Part E, Chapter 3 - Medical Certification for Disability Exceptions (Form N-648)",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0033"
+    },
+    {
+      "question": "Which legal references are relevant to the educational requirements for naturalization?",
+      "answer": "The relevant legal references are INA 312 and 8 CFR 312.",
+      "quote": "See INA 312 and 8 CFR 312 .",
+      "must_contain": [
+        "312"
+      ],
+      "citation": "Volume 12, Part D, Chapter 8 - Educational Requirements",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0034"
+    },
+    {
+      "question": "What percentage of questions must an applicant answer correctly to pass either version of the civics test?",
+      "answer": "An applicant must answer 60 percent of the questions correctly to pass either version of the civics test.",
+      "quote": "The percentage of questions required to pass either version of the civics test remains at 60 percent.",
+      "must_contain": [
+        "60 percent",
+        "60"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0035"
+    },
+    {
+      "question": "Which civics test must aliens who filed a naturalization application before October 20, 2025, take?",
+      "answer": "Aliens who filed a naturalization application before October 20, 2025, must take the 2008 Naturalization Civics Test.",
+      "quote": "Aliens who filed a naturalization application before October 20, 2025, must take the 2008 Naturalization Civics Test.",
+      "must_contain": [
+        "20",
+        "2025",
+        "2008"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0036"
+    },
+    {
+      "question": "How many questions must an applicant answer correctly to pass the 2008 Naturalization Civics Test?",
+      "answer": "An applicant must answer at least six out of 10 questions correctly to pass the 2008 Naturalization Civics Test.",
+      "quote": "To sufficiently demonstrate knowledge of civics, the applicant must answer correctly at least six out of 10 questions (also called test items) from the standardized civics test form administered by an officer.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0037"
+    },
+    {
+      "question": "How many questions are in the bank for the 2008 Naturalization Civics Test?",
+      "answer": "The 2008 Naturalization Civics Test contains a bank of 100 questions.",
+      "quote": "The 2008 Naturalization Civics Test contains a bank of 100 questions from which a USCIS system randomly selects the test questions, and an officer administers the test orally.",
+      "must_contain": [
+        "2008",
+        "100"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0038"
+    },
+    {
+      "question": "Which civics test must aliens who file a naturalization application on or after October 20, 2025, take?",
+      "answer": "Aliens who file a naturalization application on or after October 20, 2025, must take the 2025 Naturalization Civics Test.",
+      "quote": "Aliens who file a naturalization application on or after October 20, 2025, must take the 2025 Naturalization Civics Test.",
+      "must_contain": [
+        "20",
+        "2025"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0039"
+    },
+    {
+      "question": "How many questions must an alien answer correctly to pass the 2025 Naturalization Civics Test?",
+      "answer": "An alien must answer at least 12 of 20 questions correctly to pass the 2025 Naturalization Civics Test.",
+      "quote": "To sufficiently demonstrate knowledge of civics, an alien applying for naturalization must pass a civics test by answering at least 12 of 20 questions correctly.",
+      "must_contain": [
+        "12",
+        "20"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0040"
+    },
+    {
+      "question": "What form must officers use for Naturalization Interview Results?",
+      "answer": "Officers must use Naturalization Interview Results (Form N-652).",
+      "quote": "Officers must use Naturalization Interview Results (Form N-652).",
+      "must_contain": [
+        "N-652"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0041"
+    },
+    {
+      "question": "What is the earliest a re-examination can be scheduled from the initial examination?",
+      "answer": "A re-examination can be scheduled no earlier than 60 days from the initial examination.",
+      "quote": "See 8 CFR 335.3(b) (re-examination no earlier than 60 days from initial examination).",
+      "must_contain": [
+        "60 days",
+        "335.3",
+        "60"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0042"
+    },
+    {
+      "question": "What is the latest a re-examination can be scheduled from the initial examination?",
+      "answer": "A re-examination can be scheduled no later than 90 days from the initial examination.",
+      "quote": "See 8 CFR 312.5(a) (re-examination no later than 90 days from initial examination).",
+      "must_contain": [
+        "90 days",
+        "312.5",
+        "90"
+      ],
+      "citation": "Volume 12, Part E, Chapter 2 - English and Civics Testing",
+      "source": "uscis_pm",
+      "domain": "naturalization",
+      "generated": true,
+      "id": "gen-naturalization-0043"
+    }
+  ]
+}

@@ -1,0 +1,997 @@
+{
+  "domain": "asylum",
+  "cases": [
+    {
+      "question": "How many days does an asylee have to respond to a Notice of Intent to Terminate (NOIT)?",
+      "answer": "The asylee must be given at least 30 days to respond to the NOIT.",
+      "quote": "The asylee must be given at least 30 days to respond to the NOIT and present evidence that he or she is still eligible for asylum.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "Volume 7, Part M, Chapter 6 - Termination of Status and Notice to Appear Considerations",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0000"
+    },
+    {
+      "question": "Where can I find more information on the grounds of asylum termination and procedures?",
+      "answer": "More information on the grounds of asylum termination and procedures can be found in 8 CFR 208.24 and Chapter 6, Termination of Status and Notice to Appear Considerations [7 USCIS-PM M.6].",
+      "quote": "For more information on the grounds of asylum termination and procedures, see 8 CFR 208.24 and Chapter 6, Termination of Status and Notice to Appear Considerations [ 7 USCIS-PM M.6 ].",
+      "must_contain": [
+        "208.24"
+      ],
+      "citation": "Volume 7, Part M, Chapter 5 - Adjudication Procedures",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0001"
+    },
+    {
+      "question": "What regulation pertains to the criteria for retaining an officer's discretion in determining admissibility and eligibility?",
+      "answer": "The criteria for retaining an officer's discretion in determining admissibility and eligibility are within the parameters of 8 CFR 209.2(e).",
+      "quote": "These criteria are well within the parameters of 8 CFR 209.2(e) , as they retain an officer\u2019s discretion, and each is reasonably related to the admissibility and eligibility of the alien.",
+      "must_contain": [
+        "209.2"
+      ],
+      "citation": "Volume 7, Part M, Chapter 5 - Adjudication Procedures",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0002"
+    },
+    {
+      "question": "When does the INA 204(c) bar not apply?",
+      "answer": "The INA 204(c) bar does not apply when the petitioner has filed a subsequent petition for the same beneficiary.",
+      "quote": "The INA 204(c) bar does not apply when the petitioner has filed a subsequent petition for the same beneficiary, [108] but USCIS may use the original evidence in subsequent petitions filed on the alien beneficiary\u2019s behalf.",
+      "must_contain": [
+        "204",
+        "108"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0003"
+    },
+    {
+      "question": "What is the consequence for an alien who knowingly made a frivolous application for asylum on or after April 1, 1997?",
+      "answer": "An alien who knowingly made a frivolous application for asylum on or after April 1, 1997, and has a final order by an immigration judge or the Board of Immigration Appeals specifically finding the alien knowingly filed a frivolous asylum application, is permanently ineligible for any benefits under the INA.",
+      "quote": "An alien who knowingly made a frivolous application for asylum on or after April 1, 1997, and has a final order by an immigration judge or the Board of Immigration Appeals specifically finding the alien knowingly filed a frivolous asylum application, is permanently ineligible for any benefits under the INA, [109] including as the beneficiary of a family-based immigrant visa petition.",
+      "must_contain": [
+        "1997",
+        "109"
+      ],
+      "citation": "Volume 6, Part B, Chapter 6 - Spouses",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0004"
+    },
+    {
+      "question": "What form is used for filing asylum or other forms of humanitarian protection?",
+      "answer": "Form I-589, Application for Asylum and for Withholding of Removal, is used for filing asylum or other forms of humanitarian protection.",
+      "quote": "Filing for asylum or any other form of humanitarian protection that is submitted on Form I-589, Application for Asylum and for Withholding of Removal.",
+      "must_contain": [
+        "I-589"
+      ],
+      "citation": "22 CFR 41.11",
+      "source": "ecfr",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0005"
+    },
+    {
+      "question": "What is the eligibility for Form I-730 benefits if a beneficiary child was married and divorced before the Form I-730 was filed?",
+      "answer": "If the beneficiary child was married and divorced before the Form I-730 was even filed, that beneficiary is eligible for Form I-730 benefits.",
+      "quote": "(b) (U) If the beneficiary child was married and divorced before the Form I-730 was even filed, that beneficiary is eligible for Form I-730 benefits;",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0006"
+    },
+    {
+      "question": "What is the eligibility for Form I-730 benefits if a beneficiary child was married when the principal was granted asylum or admitted as a refugee or when a Form I-730 was filed on their behalf?",
+      "answer": "If the beneficiary child was married when the principal was granted asylum or admitted as a refugee or when a Form I-730 was filed on that beneficiary\u2019s behalf, even if the beneficiary later divorced, that individual is not eligible for Form I-730 benefits.",
+      "quote": "(c) (U) If the beneficiary child was married when the principal was granted asylum or admitted as a refugee or when a Form I-730 was filed on that beneficiary\u2019s behalf, even if the beneficiary later divorced, that individual is not eligible for Form I-730 benefits.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0007"
+    },
+    {
+      "question": "What is the effective date of the CT:VISA-2155 update?",
+      "answer": "The effective date of the CT:VISA-2155 update is June 3, 2025.",
+      "quote": "(CT:VISA-2155; 06-03-2025)",
+      "must_contain": [
+        "2155",
+        "06",
+        "03",
+        "2025"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0008"
+    },
+    {
+      "question": "What documentation must be prepared for each beneficiary found eligible to travel to the United States by a consular officer?",
+      "answer": "A V92 boarding foil, placed in a passport or other travel document, and a travel packet must be prepared for each beneficiary found eligible to travel to the United States by a consular officer.",
+      "quote": "(1) (U) Overview: A V92 boarding foil (see 9 FAM 203.5-15 paragraph d(2) below), placed in a passport or other travel document (see paragraph (b) below), and a travel packet (see 9 FAM 203.5-15 paragraph e below) must be prepared for each beneficiary found eligible to travel to the United States by a consular officer.",
+      "must_contain": [
+        "203.5",
+        "15"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0009"
+    },
+    {
+      "question": "What form is used for an Application for Asylum and for Withholding of Removal?",
+      "answer": "The form used for an Application for Asylum and for Withholding of Removal is Form I-589.",
+      "quote": "For purposes of determining a beneficiary\u2019s eligibility under the CSPA, the petitioning parent\u2019s asylum application is either an Application for Asylum and for Withholding of Removal ( Form I-589 ), or the written record of the petitioning parent\u2019s positive credible fear determination if USCIS grants asylum through the Asylum Merits Interview (AMI) process.",
+      "must_contain": [
+        "I-589"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0010"
+    },
+    {
+      "question": "What is the date USCIS considers as the parent's application date for refugee status?",
+      "answer": "USCIS considers the date a USCIS officer interviews the principal refugee parent for Registration for Classification as Refugee (Form I-590) as the date that the parent applied for refugee status.",
+      "quote": "USCIS considers the date a USCIS officer interviews the principal refugee parent for Registration for Classification as Refugee (Form I-590), as the date that the parent applied for refugee status.",
+      "must_contain": [
+        "I-590"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0011"
+    },
+    {
+      "question": "When are stepchildren included in the INA definition of a child?",
+      "answer": "Stepchildren are included in the INA definition of a child so long as the parents married when the stepchild, or the spouse\u2019s biological child, was under the age of 18.",
+      "quote": "Stepchildren are included in the INA definition of a child so long as the parents married when the stepchild, or the spouse\u2019s biological child, was under the age of 18.",
+      "must_contain": [
+        "18"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0012"
+    },
+    {
+      "question": "What is the publication number and date for the Child Status Protection Act?",
+      "answer": "The Child Status Protection Act is Pub. L. 107-208, enacted on August 6, 2002.",
+      "quote": "See Child Status Protection Act, Pub. L. 107-208 (PDF) (August 6, 2002).",
+      "must_contain": [
+        "107",
+        "208",
+        "2002"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0013"
+    },
+    {
+      "question": "Can an otherwise eligible beneficiary be approved regardless of their status in the United States?",
+      "answer": "Yes, an otherwise eligible beneficiary may be approved regardless of the status of that spouse or child in the United States.",
+      "quote": "See 8 CFR 208.21(c) (explaining that an otherwise eligible beneficiary may be approved \u201cregardless of the status of that spouse or child in the United States\u201d).",
+      "must_contain": [
+        "208.21"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0014"
+    },
+    {
+      "question": "What happens to an alien who applies for admission under the CNMI EVS-TAP and is found inadmissible?",
+      "answer": "An alien found inadmissible under the CNMI EVS-TAP will be refused admission into the CNMI and removed.",
+      "quote": "An alien who applies for admission under the provisions of the CNMI EVS-TAP, who is determined by an immigration officer to be inadmissible to the CNMI under one or more of the grounds of inadmissibility listed in section 212 of the Act (other than for lack of a visa), or who is in possession of and presents fraudulent or counterfeit travel documents, will be refused admission into the CNMI and removed.",
+      "must_contain": [
+        "212"
+      ],
+      "citation": "8 CFR 212.1",
+      "source": "ecfr",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0015"
+    },
+    {
+      "question": "Until what date do the provisions of 8 CFR subpart 208 subpart A not apply to an alien in the CNMI seeking asylum?",
+      "answer": "The provisions of 8 CFR subpart 208 subpart A shall not apply to an alien present or arriving in the CNMI seeking to apply for asylum prior to January 1, 2030.",
+      "quote": "The provisions of 8 CFR subpart 208 subpart A shall not apply to an alien present or arriving in the CNMI seeking to apply for asylum prior to January 1, 2030.",
+      "must_contain": [
+        "208",
+        "2030"
+      ],
+      "citation": "8 CFR 212.1",
+      "source": "ecfr",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0016"
+    },
+    {
+      "question": "Can an alien file for asylum in the CNMI prior to January 1, 2030?",
+      "answer": "No, an application for asylum may not be filed pursuant to section 208 of the Act by an alien present or arriving in the CNMI prior to January 1, 2030.",
+      "quote": "No application for asylum may be filed pursuant to section 208 of the Act by an alien present or arriving in the CNMI prior to January 1, 2030; however, aliens physically present in the CNMI during the transition period who express a fear of persecution or torture only may establish eligibility for withholding of removal pursuant to INA 241(b)(3) or pursuant to the regulations implementing Article 3 of the United Nations Convention Against Torture and Other Cruel, Inhuman or Degrading Treatment or Punishment.",
+      "must_contain": [
+        "208",
+        "2030",
+        "241"
+      ],
+      "citation": "8 CFR 212.1",
+      "source": "ecfr",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0017"
+    },
+    {
+      "question": "What is the latest update date for the CT:VISA for referrals for refugee status?",
+      "answer": "The latest update date for the CT:VISA for referrals for refugee status is 03-26-2025.",
+      "quote": "(CT:VISA-2143; 03-26-2025) (Office of Origin: CA/VO)",
+      "must_contain": [
+        "2143",
+        "03",
+        "26",
+        "2025"
+      ],
+      "citation": "9 FAM 203.4",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0018"
+    },
+    {
+      "question": "Which organizations can refer cases to the U.S. Refugee Admissions Program (USRAP) as Priority 1 refugee cases?",
+      "answer": "The United Nations High Commissioner for Refugees (UNHCR), a U.S. embassy, or a non-governmental organization can refer cases to the U.S. Refugee Admissions Program (USRAP) as Priority 1 refugee cases.",
+      "quote": "Priority 1 (P-1) refugee cases include all cases individually identified and referred to the U.S. Refugee Admissions Program (USRAP) by the United Nations High Commissioner for Refugees (UNHCR), a U.S. embassy (see 9 FAM 203.4-2) , or a non-governmental organization (see paragraph d below).",
+      "must_contain": [
+        "203.4"
+      ],
+      "citation": "9 FAM 203.4",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0019"
+    },
+    {
+      "question": "What is the purpose of the consular interview with V92 beneficiaries?",
+      "answer": "The purpose of the consular interview with V92 beneficiaries is to verify the beneficiary\u2019s identity, confirm the qualifying relationship between the petitioner and beneficiary, and determine whether any bars to asylum exist.",
+      "quote": "(U) The purpose of the consular interview with V92 beneficiaries is to:\n(a) (U) Verify the beneficiary\u2019s identity;\n(b) (U) Confirm the qualifying relationship between the petitioner and beneficiary (see 9 FAM 203.5-2 and 9 FAM 203.5-8) ; and\n(c) (U) Determine whether any bars to asylum exist, and if a bar does not apply, assess whether other derogatory information exists that would warrant a discretionary denial (see additional information in 9 FAM 203.5-9)",
+      "must_contain": [
+        "203.5"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0020"
+    },
+    {
+      "question": "What is the effective date for unauthorized employment to disqualify an individual from the asylee exception?",
+      "answer": "Only unauthorized employment occurring on or after April 1, 1997, will disqualify an individual from being eligible for the bona fide asylum exception.",
+      "quote": "Therefore, only unauthorized employment occurring on or after April 1, 1997, will disqualify the individual from being eligible for the bona fide asylum exception in INA 212(a)(9)(B)(iii)(II).",
+      "must_contain": [
+        "1997",
+        "212"
+      ],
+      "citation": "9 FAM 302.11",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0021"
+    },
+    {
+      "question": "How long must an asylum application be pending for an individual to potentially obtain work authorization from DHS?",
+      "answer": "Individuals who apply for asylum may be able to obtain work authorization from DHS if their application is pending for more than 180 days.",
+      "quote": "Individuals who apply for asylum may be able to obtain work authorization from DHS if their application is pending for more than 180 days even if they are not in a status that would normally allow employment.",
+      "must_contain": [
+        "180 days",
+        "180"
+      ],
+      "citation": "9 FAM 302.11",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0022"
+    },
+    {
+      "question": "What happens if no report is received from the \"HQDHS for Asylum Office\" within 60 days of a referral?",
+      "answer": "The application may be presumed to have been bona fide if no report is received from the \"HQDHS for Asylum Office\" within 60 days from the date of the referral.",
+      "quote": "You may presume the application to have been bona fide if you receive no report from the \"HQDHS for Asylum Office\" within 60 days from the date of the referral.",
+      "must_contain": [
+        "60 days",
+        "60"
+      ],
+      "citation": "9 FAM 302.11",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0023"
+    },
+    {
+      "question": "Does unlawful presence while under the age of 18 count towards the accrual of unlawful presence for INA 212(a)(9)(B)?",
+      "answer": "No, any period an individual spends unlawfully in the United States while under the age of 18 does not count toward calculating the accrual of unlawful presence for purposes of INA 212(a)(9)(B).",
+      "quote": "Any period that an individual spends unlawfully in the United States while under the age of 18 does not count toward calculating the accrual of unlawful presence for purposes of INA 212(a)(9)(B).",
+      "must_contain": [
+        "18",
+        "212"
+      ],
+      "citation": "9 FAM 302.11",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0024"
+    },
+    {
+      "question": "Is a waiver available for an IV applicant ineligible under 22 U.S.C. 6713(f)?",
+      "answer": "No, there is no waiver available for an IV applicant ineligible under 22 U.S.C. 6713(f).",
+      "quote": "(U) There is no waiver available for an IV applicant ineligible under 22 U.S.C. 6713(f).",
+      "must_contain": [
+        "22",
+        "6713"
+      ],
+      "citation": "9 FAM 302.13",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0025"
+    },
+    {
+      "question": "When does the frivolous asylum application ineligibility apply?",
+      "answer": "The frivolous asylum application ineligibility only applies if a final order from an Immigration Judge or the Board of Immigration Appeals specifically finds that the individual knowingly filed a frivolous asylum application, consistent with 8 CFR 208.20 and 8 CFR 1208.20.",
+      "quote": "(U) The frivolous asylum application ineligibility only applies if a final order from an Immigration Judge or the Board of Immigration Appeals specifically finds that the individual knowingly filed a frivolous asylum application, consistent with 8 CFR 208.20 and 8 CFR 1208.20.",
+      "must_contain": [
+        "208.20",
+        "1208.20"
+      ],
+      "citation": "9 FAM 302.13",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0026"
+    },
+    {
+      "question": "Is an Advisory Opinion required for a potential 22 U.S.C. 6713(f) ineligibility?",
+      "answer": "No, an Advisory Opinion is not required for a potential 22 U.S.C. 6713(f) ineligibility.",
+      "quote": "(U) An AO is not required for a potential 22 U.S.C. 6713(f) ineligibility; however, if you have a question about the interpretation or application of law or regulation, you may request an AO from L/CA.",
+      "must_contain": [
+        "22",
+        "6713"
+      ],
+      "citation": "9 FAM 302.13",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0027"
+    },
+    {
+      "question": "What is the effective date for the INA 208(d)(6) provision regarding frivolous asylum applications?",
+      "answer": "INA 208(d)(6) applies to individuals who applied for asylum on or after April 1, 1997.",
+      "quote": "(U) INA 208(d)(6) provides that an individual who applied for asylum on or after April 1, 1997, and who has knowingly made a frivolous application for asylum after being notified of the consequences is permanently ineligible for any benefit under the INA.",
+      "must_contain": [
+        "208",
+        "1997"
+      ],
+      "citation": "9 FAM 302.13",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0028"
+    },
+    {
+      "question": "Is a waiver available for an NIV applicant ineligible under INA 208(d)(6)?",
+      "answer": "No, there is no waiver available for an NIV applicant ineligible under INA 208(d)(6).",
+      "quote": "(U) There is no waiver available for an NIV applicant ineligible under INA 208(d)(6).",
+      "must_contain": [
+        "208"
+      ],
+      "citation": "9 FAM 302.13",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0029"
+    },
+    {
+      "question": "Who is ineligible to receive an IV until they execute a written waiver of all rights, privileges, exemptions, and immunities?",
+      "answer": "An individual entitled to nonimmigrant classification under INA 101(a)(15)(A), (E), or (G), who is applying for an IV and who intends to continue the activities required for such nonimmigrant classification in the United States is ineligible.",
+      "quote": "(U) An individual entitled to nonimmigrant classification under INA 101(a)(15)(A), (E), or (G), who is applying for an IV and who intends to continue the activities required for such nonimmigrant classification in the United States is not eligible to receive an IV until they execute a written waiver of all rights, privileges, exemptions, and immunities which would accrue by reason of such occupational status.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "9 FAM 302.13",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0030"
+    },
+    {
+      "question": "What forms should an A-file contain as proof of asylum status?",
+      "answer": "The A-file should contain an approved Application for Asylum and for Withholding of Removal (Form I-589) or an approved Refugee/Asylee Relative Petition (Form I-730).",
+      "quote": "The A-file should contain an approved Application for Asylum and for Withholding of Removal ( Form I-589 ) or an approved Refugee/Asylee Relative Petition ( Form I-730 ).",
+      "must_contain": [
+        "I-589",
+        "I-730"
+      ],
+      "citation": "Volume 7, Part M, Chapter 4 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0031"
+    },
+    {
+      "question": "What documents, if submitted by an applicant, must be cross-checked with evidence in the A-file and USCIS systems?",
+      "answer": "An Arrival/Departure Record (Form I-94) or an approval notice of the relative petition must always be cross-checked with evidence in the A-file and in USCIS' systems.",
+      "quote": "Although an applicant may submit an Arrival/Departure Record (Form I-94) or an approval notice of the relative petition with their application, these documents must always be cross-checked with evidence in the A-file and in USCIS\u2019 systems to confirm the applicant\u2019s asylum status.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "Volume 7, Part M, Chapter 4 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0032"
+    },
+    {
+      "question": "What form does DHS issue to certain non-resident aliens upon their arrival in the United States?",
+      "answer": "DHS issues an Arrival/Departure Record (Form I-94) to certain non-resident aliens upon their arrival in the United States.",
+      "quote": "DHS issues an Arrival/Departure Record (Form I-94) to certain non-resident aliens upon their arrival in the United States or when they change status or extend their stay in the United States.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "Volume 11, Part F, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0033"
+    },
+    {
+      "question": "What is the purpose of Form I-94?",
+      "answer": "DHS uses Form I-94 to document arrival and departure and provide evidence of the terms of admission or parole.",
+      "quote": "DHS uses Form I-94 to document arrival and departure and provide evidence of the terms of admission or parole.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "Volume 11, Part F, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0034"
+    },
+    {
+      "question": "When did CBP automate the I-94 process for aliens arriving at an airport or seaport?",
+      "answer": "CBP automated the I-94 process on April 30, 2013, for aliens arriving at an airport or seaport.",
+      "quote": "On April 30, 2013, CBP automated the I-94 process to create an electronic Form I-94 for an alien arriving at an airport or seaport.",
+      "must_contain": [
+        "I-94",
+        "30",
+        "2013"
+      ],
+      "citation": "Volume 11, Part F, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0035"
+    },
+    {
+      "question": "Who issues Form I-94 to persons granted asylum at an asylum office?",
+      "answer": "The USCIS Asylum Division issues Form I-94 to persons granted asylum at an asylum office.",
+      "quote": "In addition, the USCIS Asylum Division issues Form I-94 to persons granted asylum at an asylum office.",
+      "must_contain": [
+        "I-94"
+      ],
+      "citation": "Volume 11, Part F, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0036"
+    },
+    {
+      "question": "What form cannot be used by asylees to replace a lost, mutilated, or destroyed Form I-94?",
+      "answer": "Asylees cannot use the Application for Replacement/Initial Nonimmigrant Arrival-Departure Document (Form I-102) to replace a lost, mutilated, or destroyed Form I-94.",
+      "quote": "Asylees and those who have Form I-94 as a temporary Form I-551 cannot use the Application for Replacement/Initial Nonimmigrant Arrival-Departure Document ( Form I-102 ) to replace a lost, mutilated, or destroyed Form I-94.",
+      "must_contain": [
+        "I-94",
+        "I-551",
+        "I-102"
+      ],
+      "citation": "Volume 11, Part F, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0037"
+    },
+    {
+      "question": "Who can file a Form I-102 to obtain a replacement or corrected Form I-94?",
+      "answer": "Those who obtained derivative asylee status through a Refugee/Asylee Relative Petition (Form I-730) may file a Form I-102 to obtain a replacement or corrected Form I-94.",
+      "quote": "Those who obtained derivative asylee status through a Refugee/Asylee Relative Petition ( Form I-730 ) may file a Form I-102 to obtain a replacement or corrected Form I-94.",
+      "must_contain": [
+        "I-730",
+        "I-102",
+        "I-94"
+      ],
+      "citation": "Volume 11, Part F, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0038"
+    },
+    {
+      "question": "What form is used to apply for asylum?",
+      "answer": "The form used to apply for asylum is either Form I-589 or Form I-730.",
+      "quote": "The officer should review the underlying application (either Form I-589 or Form I-730 ) that provided the alien with asylum status.",
+      "must_contain": [
+        "I-589",
+        "I-730"
+      ],
+      "citation": "Volume 7, Part M, Chapter 5 - Adjudication Procedures",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0039"
+    },
+    {
+      "question": "What form is used for an Application by Refugee for Waiver of Inadmissibility Grounds?",
+      "answer": "The form used for an Application by Refugee for Waiver of Inadmissibility Grounds is Form I-602.",
+      "quote": "When the officer determines that an alien is inadmissible and a waiver is available, the officer may grant the waiver without requiring submission of an Application by Refugee for Waiver of Inadmissibility Grounds ( Form I-602 ) if:",
+      "must_contain": [
+        "I-602"
+      ],
+      "citation": "Volume 7, Part M, Chapter 5 - Adjudication Procedures",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0040"
+    },
+    {
+      "question": "What form is the Report of Immigration Medical Examination and Vaccination Record?",
+      "answer": "The Report of Immigration Medical Examination and Vaccination Record is Form I-693.",
+      "quote": "Waivers granted because the vaccinations were not medically appropriate or other blanket waivers for medical grounds do not require a waiver annotation on the adjustment application or the Report of Immigration Medical Examination and Vaccination Record ( Form I-693 ).",
+      "must_contain": [
+        "I-693"
+      ],
+      "citation": "Volume 7, Part M, Chapter 5 - Adjudication Procedures",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0041"
+    },
+    {
+      "question": "Do waivers for vaccinations that were not medically appropriate require an annotation on the adjustment application?",
+      "answer": "No, waivers for vaccinations that were not medically appropriate do not require a waiver annotation on the adjustment application.",
+      "quote": "Waivers granted because the vaccinations were not medically appropriate or other blanket waivers for medical grounds do not require a waiver annotation on the adjustment application or the Report of Immigration Medical Examination and Vaccination Record ( Form I-693 ).",
+      "must_contain": [
+        "I-693"
+      ],
+      "citation": "Volume 7, Part M, Chapter 5 - Adjudication Procedures",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0042"
+    },
+    {
+      "question": "What forms are covered by the confidentiality protections as a matter of policy?",
+      "answer": "As a matter of policy, the confidentiality protections are extended to Registration for Classification as Refugee (Form I-590), Refugee/Asylee Relative Petitions (Form I-730), and Applications for Suspension of Deportation or Special Rule Cancellation of Removal (Pursuant to Section 203 of Public Law 105-100 (NACARA)) (Form I-881).",
+      "quote": "As a matter of policy, the confidentiality protections in these regulations are extended to Registration for Classification as Refugee (Form I-590), Refugee/Asylee Relative Petitions ( Form I-730 ), and Applications for Suspension of Deportation or Special Rule Cancellation of Removal (Pursuant to Section 203 of Public Law 105-100 (NACARA)) ( Form I-881 ).",
+      "must_contain": [
+        "I-590",
+        "I-730",
+        "I-881",
+        "203",
+        "105",
+        "100"
+      ],
+      "citation": "Volume 1, Part A, Chapter 7 - Privacy and Confidentiality",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0043"
+    },
+    {
+      "question": "What is the 2018 replacement for RAPS/APSS?",
+      "answer": "The 2018 replacement for RAPS/APSS is the Global System.",
+      "quote": "This includes information contained in the legacy Refugee Asylum and Parole System (RAPS) or the legacy Asylum Pre-Screening System (APSS), and Global System (the 2018 replacement for RAPS/APSS) or related information as displayed in CIS2 and PCQS, except under certain limited circumstances.",
+      "must_contain": [
+        "2018"
+      ],
+      "citation": "Volume 1, Part A, Chapter 7 - Privacy and Confidentiality",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0044"
+    },
+    {
+      "question": "What form encompasses applications for withholding or deferral of removal under Article 3 of the Convention Against Torture?",
+      "answer": "Applications for withholding or deferral of removal under Article 3 of the Convention Against Torture are encompassed within the Application for Asylum and for Withholding of Removal (Form I-589).",
+      "quote": "The same principles generally govern the disclosure of information related to credible fear and reasonable fear determinations, and applications for withholding or deferral of removal under Article 3 of the Convention Against Torture, which are encompassed within the Application for Asylum and for Withholding of Removal ( Form I-589 ).",
+      "must_contain": [
+        "I-589"
+      ],
+      "citation": "Volume 1, Part A, Chapter 7 - Privacy and Confidentiality",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0045"
+    },
+    {
+      "question": "What systems contain information that is generally prohibited from disclosure to third parties?",
+      "answer": "Information contained in the legacy Refugee Asylum and Parole System (RAPS) or the legacy Asylum Pre-Screening System (APSS), and Global System (the 2018 replacement for RAPS/APSS) or related information as displayed in CIS2 and PCQS is generally prohibited from disclosure to third parties.",
+      "quote": "This includes information contained in the legacy Refugee Asylum and Parole System (RAPS) or the legacy Asylum Pre-Screening System (APSS), and Global System (the 2018 replacement for RAPS/APSS) or related information as displayed in CIS2 and PCQS, except under certain limited circumstances.",
+      "must_contain": [
+        "2018"
+      ],
+      "citation": "Volume 1, Part A, Chapter 7 - Privacy and Confidentiality",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0046"
+    },
+    {
+      "question": "What form may provide information about the beneficiary's family structure?",
+      "answer": "A Form I-730 petitioner's Form I-589 may provide information about the beneficiary's family structure.",
+      "quote": "A Form I-730 petitioner\u2019s Form I-589 may provide information about the beneficiary\u2019s family structure, the petitioner\u2019s profession, places of residency, and dates of departure for the United States, which may assist the officer in formulating questions to verify beneficiary/petitioner relationship.",
+      "must_contain": [
+        "I-730",
+        "I-589"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0047"
+    },
+    {
+      "question": "What should officers not use information from the petitioner's Form I-589 for?",
+      "answer": "Officers must not use information in the petitioner\u2019s Form I-589 to specifically probe the credibility of the petitioner\u2019s asylum claim.",
+      "quote": "Officers must not use information in the petitioner\u2019s Form I-589 to specifically probe the credibility of the petitioner\u2019s asylum claim, even if, during the probing of the family relationship, possible fraud issues become apparent.",
+      "must_contain": [
+        "I-589"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0048"
+    },
+    {
+      "question": "What should happen to the petitioner's Form I-589 and accompanying statement after the travel packet has been issued to the beneficiary?",
+      "answer": "The petitioner\u2019s Form I-589, Application for Asylum and Withholding of Removal, and accompanying statement should be shredded after the travel packet has been issued to the beneficiary, and after an officer has verified that they are copies and not original documents.",
+      "quote": "Rather, the petitioner\u2019s Form I-589, Application for Asylum and Withholding of Removal, and accompanying statement should be shredded after the travel packet has been issued to the beneficiary, and after an officer has verified that they are copies and not original documents.",
+      "must_contain": [
+        "I-589"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0049"
+    },
+    {
+      "question": "What should be done if an original Form I-589 or petitioner statement is found in the case file?",
+      "answer": "If the case file is found to contain, in error, an original Form I-589 or petitioner statement, those documents must be sealed in an envelope and returned via the National Visa Center (NVC) to the appropriate USCIS office for interfiling in the petitioner\u2019s A-file.",
+      "quote": "If the case file is found to contain, in error, an original Form I-589 or petitioner statement, those documents must be sealed in an envelope and returned via the National Visa Center (NVC) to the appropriate USCIS office for interfiling in the petitioner\u2019s A-file.",
+      "must_contain": [
+        "I-589"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0050"
+    },
+    {
+      "question": "What should consular officers do upon receipt of the Form I-730 case from NVC?",
+      "answer": "Upon receipt of the Form I-730 case from NVC, consular officers should stamp the hard-copy file with the date the case is received, and manually enter or update the beneficiary\u2019s case in either IVO or NIV.",
+      "quote": "Upon receipt of the Form I-730 case from NVC, consular officers should: Stamp the hard-copy file with the date the case is received, and manually enter or update the beneficiary\u2019s case in either IVO or NIV.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0051"
+    },
+    {
+      "question": "What does 'Visas 92' mean?",
+      "answer": "The spouse or child of an approved Form I-730 filed by the principal asylee is often referred to as a following-to-join asylee (FTJ-A), or a 'Visas 92' or V92 beneficiary.",
+      "quote": "The spouse or child of an approved Form I-730 filed by the principal asylee is often referred to as a following -to-join asylee (FTJ-A), or a \u201cVisas 92\u201d or V92 beneficiary.",
+      "must_contain": [
+        "I-730",
+        "92"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0052"
+    },
+    {
+      "question": "What form must be filed for each qualifying family member for following-to-join asylee status?",
+      "answer": "A separate Form I-730 must be filed for each qualifying family member.",
+      "quote": "A separate Form I-730 must be filed for each qualifying family member.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0053"
+    },
+    {
+      "question": "What is the deadline for a petitioner to file Form I-730?",
+      "answer": "The petitioner must file Form I-730 within 2 years of their admission as a refugee or grant of asylum.",
+      "quote": "By regulation, the petitioner must file the Form I-730 within 2 years of the petitioner\u2019s admission as a refugee or grant of asylum.",
+      "must_contain": [
+        "I-730",
+        "2 years"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0054"
+    },
+    {
+      "question": "What happens if a petitioner becomes a naturalized U.S. citizen after filing Form I-730?",
+      "answer": "If the petitioner became a naturalized U.S. citizen after filing the Form I-730, USCIS will generally continue to process the petition.",
+      "quote": "However, if the petitioner became a naturalized U.S. citizen after filing the Form I-730, USCIS will generally continue to process the petition.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "Volume 4, Part C, Chapter 2 - Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0055"
+    },
+    {
+      "question": "How long after adjustment to LPR status can USCIS rescind a person's permanent resident status if an asylum termination ground applied before the adjustment?",
+      "answer": "USCIS may rescind a person's permanent resident status within 5 years of adjustment if an asylum termination ground applied before the adjustment occurred.",
+      "quote": "If a person adjusted to LPR status and an officer later determines there is evidence that an asylum termination ground or related inadmissibility ground applied before the adjustment occurred, USCIS may take steps to rescind the person\u2019s permanent resident status (if within 5 years of adjustment) [8] or issue an NTA.",
+      "must_contain": [
+        "5 years"
+      ],
+      "citation": "Volume 7, Part M, Chapter 6 - Termination of Status and Notice to Appear Considerations",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0056"
+    },
+    {
+      "question": "What form is used for an Application for Asylum and for Withholding of Removal?",
+      "answer": "The form used for an Application for Asylum and for Withholding of Removal is Form I-589.",
+      "quote": "Derivative asylee includes family members included on the principal asylee\u2019s Application for Asylum and for Withholding of Removal ( Form I-589 ) or who followed to join as asylee beneficiaries of a Refugee/Asylee Relative Petition ( Form I-730 ).",
+      "must_contain": [
+        "I-589",
+        "I-730"
+      ],
+      "citation": "Volume 7, Part M, Chapter 6 - Termination of Status and Notice to Appear Considerations",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0057"
+    },
+    {
+      "question": "What form is used for a Refugee/Asylee Relative Petition?",
+      "answer": "The form used for a Refugee/Asylee Relative Petition is Form I-730.",
+      "quote": "Derivative asylee includes family members included on the principal asylee\u2019s Application for Asylum and for Withholding of Removal ( Form I-589 ) or who followed to join as asylee beneficiaries of a Refugee/Asylee Relative Petition ( Form I-730 ).",
+      "must_contain": [
+        "I-589",
+        "I-730"
+      ],
+      "citation": "Volume 7, Part M, Chapter 6 - Termination of Status and Notice to Appear Considerations",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0058"
+    },
+    {
+      "question": "Are applications for asylum subject to denial under 8 CFR 103.2(b)?",
+      "answer": "Generally, applications for asylum are not subject to denial under 8 CFR 103.2(b).",
+      "quote": "Generally, applications for asylum are not subject to denial under 8 CFR 103.2(b) , unlike most other benefit requests.",
+      "must_contain": [
+        "103.2"
+      ],
+      "citation": "Volume 1, Part E, Chapter 9 - Rendering a Decision",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0059"
+    },
+    {
+      "question": "What regulation covers the inability to appeal a denial due to abandonment?",
+      "answer": "The inability to appeal a denial due to abandonment is covered by 8 CFR 103.2(b)(15).",
+      "quote": "See 8 CFR 103.2(b)(15) .",
+      "must_contain": [
+        "103.2",
+        "15"
+      ],
+      "citation": "Volume 1, Part E, Chapter 9 - Rendering a Decision",
+      "source": "uscis_pm",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0060"
+    },
+    {
+      "question": "Who has the primary responsibility for Form I-730 petition adjudications of following-to-join asylees interviewed by consular officers?",
+      "answer": "USCIS has primary responsibility for Form I-730 petition adjudications of following-to-join asylees interviewed by consular officers.",
+      "quote": "USCIS is the DHS administering agency, and USCIS has primary responsibility for Form I-730 petition adjudications of following -to-join asylees interviewed by consular officers.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0061"
+    },
+    {
+      "question": "What is the first step in the process for a V92 application?",
+      "answer": "The first step in the process is the filing of Form I-730, Asylee Relative Petition, for each qualifying relative with USCIS.",
+      "quote": "The first step in the process is the filing of Form I-730, Asylee Relative Petition, for each qualifying relative with USCIS.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0062"
+    },
+    {
+      "question": "Can a naturalized citizen file an I-730 petition?",
+      "answer": "A naturalized citizen is not eligible to file an I-730 petition.",
+      "quote": "A naturalized citizen is not eligible to file an I-730 petition; however, a Form I-730 already filed and pending upon the naturalization of an eligible asylee, or LPR, will continue to be processed.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0063"
+    },
+    {
+      "question": "Who has the authority to adjudicate and process affirmative asylum applications, including Form I-730 following-to-join derivatives of asylees?",
+      "answer": "Authority to adjudicate and process affirmative asylum applications, including Form I-730 following-to-join derivatives of asylees, rests exclusively with DHS.",
+      "quote": "As a matter of law, authority to adjudicate and process affirmative asylum applications, including Form I-730 following -to-join derivatives of asylees, rests exclusively with DHS.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0064"
+    },
+    {
+      "question": "What form is used for an Asylee Relative Petition?",
+      "answer": "The Form I-730 is used for an Asylee Relative Petition.",
+      "quote": "The first step in the process is the filing of Form I-730, Asylee Relative Petition, for each qualifying relative with USCIS.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0065"
+    },
+    {
+      "question": "What happens if a V92 beneficiary was previously granted asylum status?",
+      "answer": "If a V92 beneficiary was previously granted asylum status, they are not eligible to derive status.",
+      "quote": "Even if a V92 beneficiary is a spouse or unmarried child of the petitioner and meets the criteria for relationship eligibility, the beneficiary is not eligible to derive status if they were previously granted asylum status (see INA 207(c)(2)(A) and INA 208(b)(3)(A)).",
+      "must_contain": [
+        "207",
+        "208"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0066"
+    },
+    {
+      "question": "When can an alien present or arriving in the CNMI apply for asylum?",
+      "answer": "An alien present or arriving in the CNMI cannot apply for asylum prior to January 1, 2030.",
+      "quote": "No application for asylum may be filed pursuant to section 208 of the INA by an alien present or arriving in the CNMI prior to January 1, 2030; however, aliens physically present or arriving in the CNMI prior to January 1, 2030, may apply for withholding of removal under section 241(b)(3) of the Act and withholding and deferral of removal under the regulations implementing Article 3 of the United Nations Convention Against Torture, Inhuman or Degrading Treatment or Punishment.",
+      "must_contain": [
+        "208",
+        "2030",
+        "241"
+      ],
+      "citation": "8 CFR 212.1",
+      "source": "ecfr",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0067"
+    },
+    {
+      "question": "When does the Child Status Protection Act (CSPA) become effective?",
+      "answer": "The Child Status Protection Act (CSPA) became effective on August 6, 2002.",
+      "quote": "The Child Status Protection Act (CSPA) (Public Law 107-208, 116 Statute 927, effective August 6, 2002) allows some children reaching the age of 21 to continue being classified as a \u201cchild\u201d to derive eligibility for asylum or refugee status from a parent.",
+      "must_contain": [
+        "107",
+        "208",
+        "116",
+        "927",
+        "2002",
+        "21"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0068"
+    },
+    {
+      "question": "What form number is associated with the Child Status Protection Act (CSPA) for beneficiaries?",
+      "answer": "The Child Status Protection Act (CSPA) applies to beneficiaries of Form I-730.",
+      "quote": "This provision continues to protect the beneficiary through approval of the Form I-730 until they enter the United States as a derivative asylee or refugee.",
+      "must_contain": [
+        "I-730"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0069"
+    },
+    {
+      "question": "When does the CSPA apply to a child who was not included in their parent's asylum application?",
+      "answer": "The CSPA applies if the child was under 21 when their parent filed the Form I-730 and the child is unmarried.",
+      "quote": "The child was not included in their parent\u2019s asylum application, but the child was under 21 when their parent filed the Form I-730, and the child is unmarried.",
+      "must_contain": [
+        "I-730",
+        "21"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0070"
+    },
+    {
+      "question": "Are children who turned 21 before August 6, 2002, covered by the CSPA?",
+      "answer": "Children who turned 21 years of age before August 6, 2002, are not covered by the CSPA, unless either the Form I-730 or the petitioner's Form I-589 was pending on that date.",
+      "quote": "Children who turned 21 years of age before August 6, 2002, are not covered by the CSPA, unless either the Form I-730 or the petitioner's Form I-589 was pending on that date.",
+      "must_contain": [
+        "I-730",
+        "I-589",
+        "21 years",
+        "21",
+        "2002"
+      ],
+      "citation": "9 FAM 203.5",
+      "source": "fam",
+      "domain": "asylum",
+      "generated": true,
+      "id": "gen-asylum-0071"
+    }
+  ]
+}

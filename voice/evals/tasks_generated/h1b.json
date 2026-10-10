@@ -1,0 +1,862 @@
+{
+  "domain": "h1b",
+  "cases": [
+    {
+      "question": "What is the maximum validity period for an H-1B petition in a specialty occupation?",
+      "answer": "An H-1B petition in a specialty occupation can be valid for a period of up to three years.",
+      "quote": "An approved petition classified under section 101(a)(15)(H)(i)(b) of the Act for an alien in a specialty occupation shall be valid for a period of up to three years but may not exceed the validity period of the labor condition application.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0000"
+    },
+    {
+      "question": "To whom must the employer provide notice of the filing of the labor condition application?",
+      "answer": "The employer must provide notice to the bargaining representative of the employer's employees in the occupational classification in the area of intended employment for which the H-1B nonimmigrants are sought.",
+      "quote": "The employer has provided and will provide notice of the filing of the labor condition application to:\n(i)(A) The bargaining representative of the employer's employees in the occupational classification in the area of intended employment for which the H-1B nonimmigrants are sought, in the manner described in \u00a7 655.734(a)(1)(i); or",
+      "must_contain": [
+        "655.734"
+      ],
+      "citation": "20 CFR 655.730",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0001"
+    },
+    {
+      "question": "Under what conditions must an employer comply with the 'required wages rate' and 'prevailing working conditions' statements of its labor condition application?",
+      "answer": "An employer must comply with these statements at any time H-1B nonimmigrants are employed pursuant to the application, unless the application is superseded by a subsequent application certified by ETA.",
+      "quote": "An employer shall comply with the \u201crequired wages rate\u201d and \u201cprevailing working conditions\u201d statements of its labor condition application required under \u00a7\u00a7 655.731 and 655.732 of this part, respectively, even if such application is suspended or invalidated, at any time H-1B nonimmigrants are employed pursuant to the application, unless the application is superseded by a subsequent application which is certified by ETA.",
+      "must_contain": [
+        "655.731",
+        "655.732"
+      ],
+      "citation": "20 CFR 655.750",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0002"
+    },
+    {
+      "question": "When does an employer's obligation to comply with the 'no strike or lockout' and 'notice' statements of its labor condition application remain in effect?",
+      "answer": "The employer's obligation remains in effect even if the application is suspended or invalidated, regardless of whether H-1B nonimmigrants are actually employed, unless superseded by a subsequent ETA-certified application.",
+      "quote": "An employer's obligation to comply with the \u201cno strike or lockout\u201d and \u201cnotice\u201d statements of its labor condition application (required under \u00a7\u00a7 655.733 and 655.734 of this part, respectively), shall remain in effect and the employer shall remain subject to investigation and sanctions for misrepresentation on these statements even if such application is suspended or invalidated, regardless of whether H-1B nonimmigrants are actually employed, unless the application is superseded by a subsequent application which is certified by ETA.",
+      "must_contain": [
+        "655.733",
+        "655.734"
+      ],
+      "citation": "20 CFR 655.750",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0003"
+    },
+    {
+      "question": "When must an agency's finding of a willful failure be entered to be considered for purposes of this paragraph?",
+      "answer": "The agency's finding must be entered on or after October 21, 1998.",
+      "quote": "The agency's finding is entered on or after October 21, 1998.",
+      "must_contain": [
+        "21",
+        "1998"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0004"
+    },
+    {
+      "question": "What is the definition of \"willful failure\" for the purposes of this paragraph?",
+      "answer": "Willful failure means a violation which is a \"willful failure\" as defined in \u00a7 655.805(c).",
+      "quote": "For purposes of this paragraph, \u201cwillful failure\u201d means a violation which is a \u201cwillful failure\u201d as defined in \u00a7 655.805(c).",
+      "must_contain": [
+        "655.805"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0005"
+    },
+    {
+      "question": "What attestation obligations apply to H-1B-dependent employers or willful violators?",
+      "answer": "H-1B-dependent employers or willful violators are subject to attestation obligations regarding displacement of U.S. workers and recruitment of U.S. workers.",
+      "quote": "An employer that is \u201cH-1B-dependent\u201d (under the standards described in paragraphs (a) through (e) of this section) or is a \u201cwillful violator\u201d (under the standards described in paragraph (f) of this section) is subject to the attestation obligations regarding displacement of U.S. workers and recruitment of U.S. workers (under the standards described in \u00a7\u00a7 655.738 and 655.739, respectively) for all LCAs that are filed during the time period specified in paragraph (g)(2) of this section, to be used to support any petitions for new H-1B nonimmigrants or any requests for extensions of status for existing H-1B nonimmigrants.",
+      "must_contain": [
+        "655.738",
+        "655.739"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0006"
+    },
+    {
+      "question": "During what period must an H-1B-dependent employer or willful violator file a new LCA accurately indicating their status?",
+      "answer": "An H-1B-dependent employer or willful violator must file a new LCA accurately indicating their status during the period between January 19, 2001 through September 30, 2003, and on or after March 8, 2005.",
+      "quote": "During the period between January 19, 2001 through September 30, 2003, and on or after March 8, 2005, any employer that is \u201cH-1B-dependent\u201d (under the standards described in paragraphs (a) through (e) of this section) or is a \u201cwillful violator\u201d (under the standards described in paragraph (f) of this section) shall file a new LCA accurately indicating that status in order to be able to file petition(s) for new H-1B nonimmigrant(s) or request(s) for extension(s) of status for existing H-1B nonimmigrant(s).",
+      "must_contain": [
+        "19",
+        "2001",
+        "30",
+        "2003",
+        "2005"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0007"
+    },
+    {
+      "question": "Can an LCA filed before January 19, 2001, be used by an H-1B dependent employer to support new H-1B petitions?",
+      "answer": "No, an LCA filed before January 19, 2001, may not be used by an H-1B dependent employer or willful violator to support petitions for new H-1B nonimmigrants or requests for extensions of status.",
+      "quote": "An LCA filed during a period when the special attestation obligations for H-1B dependent employers and willful violators were not in effect (that is before January 19, 2001, and from October 1, 2003 through March 7, 2005) may not be used by an H-1B dependent employer or willful violator to support petition(s) for new H-1B nonimmigrant(s) or request(s) for extension(s) of status for existing H-1B nonimmigrants.",
+      "must_contain": [
+        "19",
+        "2001",
+        "2003",
+        "2005"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0008"
+    },
+    {
+      "question": "How can a treaty investor demonstrate they will \"solely to develop and direct\" an enterprise?",
+      "answer": "A treaty investor can demonstrate they will \"solely to develop and direct\" an enterprise by controlling it through ownership of at least 50% of the business, by possessing operational control through a managerial position or other corporate device, or by other means.",
+      "quote": "The business or individual treaty investor does or will develop and direct the enterprise by controlling the enterprise through ownership of at least 50% of the business, by possessing operational control through a managerial position or other corporate device, or by other means.",
+      "must_contain": [
+        "50"
+      ],
+      "citation": "22 CFR 41.51",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0009"
+    },
+    {
+      "question": "When did the State Workforce Agency (SWA) stop processing prevailing wage determinations?",
+      "answer": "The State Workforce Agency (SWA) stopped processing prevailing wage determinations before January 1, 2010.",
+      "quote": "Before January 1, 2010, the State Workforce Agency (SWA) having jurisdiction over the area of intended employment processed prevailing wage determinations.",
+      "must_contain": [
+        "2010"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0010"
+    },
+    {
+      "question": "What address must the employer list on the posting notice for petitions filed on or after June 1, 2008?",
+      "answer": "On or after June 1, 2008, the employer must list the address of the Atlanta Processing Center on the posting notice.",
+      "quote": "On or after June 1, 2008, the employer must list the address of the Atlanta Processing Center on the posting notice.",
+      "must_contain": [
+        "2008"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0011"
+    },
+    {
+      "question": "When did employers need to comply with the posting requirements for petitions filed?",
+      "answer": "Employers must comply with these posting requirements for all petitions filed after March 20, 2006.",
+      "quote": "For all petitions filed after March 20, 2006 (or motions to reopen filed after March 20, 2006 to reopen a petition that was filed and denied after March 28, 2005), employers must comply with these posting requirements.",
+      "must_contain": [
+        "20",
+        "2006",
+        "28",
+        "2005"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0012"
+    },
+    {
+      "question": "When was the H-1A visa classification eliminated?",
+      "answer": "The H-1A visa classification was eliminated with the repeal of INA 101(a)(15)(H)(i)(a) by Section 2(c) of the Nursing Relief for Disadvantaged Areas Act of 1999.",
+      "quote": "The H-1A visa classification was eliminated with the repeal of INA 101(a)(15)(H)(i)(a) by Section 2(c) of the Nursing Relief for Disadvantaged Areas Act of 1999 (Public Law 106-95).",
+      "must_contain": [
+        "101",
+        "15",
+        "1999",
+        "106",
+        "95"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0013"
+    },
+    {
+      "question": "Where can I find information on H-1B1 classification for nationals of Chile and Singapore?",
+      "answer": "Information on H-1B1 classification for nationals of Chile and Singapore can be found in 9 FAM 402.10-5.",
+      "quote": "For information on H-1B1 classification for nationals of Chile and Singapore deriving from free trade agreements see 9 FAM 402.10-5 below.",
+      "must_contain": [
+        "402.10"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0014"
+    },
+    {
+      "question": "What must a petitioner obtain before filing a petition with USCIS for an individual in a specialty occupation?",
+      "answer": "Before filing a petition with USCIS on behalf of an individual in a specialty occupation, the petitioner must have obtained a certification from DOL that it has filed a labor condition application (LCA) as specified in INA 212(n)(1).",
+      "quote": "Before filing a petition with USCIS on behalf of an individual in a specialty occupation, the petitioner must have obtained a certification from DOL that it has filed a labor condition application (LCA) as specified in INA 212(n)(1).",
+      "must_contain": [
+        "212"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0015"
+    },
+    {
+      "question": "What is the timeframe during which an H-1B dependent employer must not have displaced any U.S. worker?",
+      "answer": "An H-1B dependent employer must not have displaced any U.S. worker within the period beginning 90 days before the filing of the H-1B petition and ending 90 days after its filing.",
+      "quote": "(3) (U) It has not \u201cdisplaced\u201d any U.S. worker employed within the period beginning 90 days before the filing of the H-1B petition and ending 90 days after its filing.",
+      "must_contain": [
+        "90 days",
+        "90"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0016"
+    },
+    {
+      "question": "What is the citation for information on petitioner and beneficiary requirements when there is a change of employment?",
+      "answer": "The citation for information on petitioner and beneficiary requirements when there is a change of employment is 9 FAM 402.10-8.",
+      "quote": "For more information on petitioner and beneficiary requirements when there is a change of employment, see 9 FAM 402.10-8 below.",
+      "must_contain": [
+        "402.10"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0017"
+    },
+    {
+      "question": "What is the effective date of the CT:VISA-1623 update regarding DHS's responsibility for adjudicating H Petitions?",
+      "answer": "The effective date of the CT:VISA-1623 update is 09-29-2022.",
+      "quote": "(CT:VISA-1623; 09-29-2022)",
+      "must_contain": [
+        "1623",
+        "09",
+        "29",
+        "2022"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0018"
+    },
+    {
+      "question": "What is the maximum penalty for knowingly submitting false statements to the Federal Government?",
+      "answer": "The maximum penalty for knowingly submitting false statements to the Federal Government is $10,000 and/or imprisonment of up to five years.",
+      "quote": "Federal criminal statutes provide penalties of up to $10,000 and/or imprisonment of up to five years for knowing and willful submission of false statements to the Federal Government.",
+      "must_contain": [
+        "$10,000",
+        "10,000"
+      ],
+      "citation": "20 CFR 655.805",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0019"
+    },
+    {
+      "question": "What is the citation for federal criminal statutes regarding false statements?",
+      "answer": "The citation for federal criminal statutes regarding false statements is 18 U.S.C. 1001.",
+      "quote": "18 U.S.C. 1001; see also 18 U.S.C. 1546",
+      "must_contain": [
+        "18",
+        "1001",
+        "1546"
+      ],
+      "citation": "20 CFR 655.805",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0020"
+    },
+    {
+      "question": "Can an H-1B employer require an H-1B nonimmigrant to pay the additional $500/$1,000 fee for filing an H-1B petition?",
+      "answer": "No, an H-1B employer cannot require or accept payment from an H-1B nonimmigrant for the additional $500/$1,000 fee incurred in filing an H-1B petition.",
+      "quote": "Required or accepted from an H-1B nonimmigrant payment or remittance of the additional $500/$1,000 fee incurred in filing an H-1B petition with the DHS, as prohibited by \u00a7 655.731(c)(10)(ii);",
+      "must_contain": [
+        "$500",
+        "$1,000",
+        "500",
+        "1,000",
+        "655.731",
+        "10"
+      ],
+      "citation": "20 CFR 655.805",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0021"
+    },
+    {
+      "question": "Is it permissible for an H-1B employer to require a nonimmigrant to pay a penalty for leaving employment early?",
+      "answer": "No, it is not permissible for an H-1B employer to require or attempt to require an H-1B nonimmigrant to pay a penalty for ceasing employment prior to an agreed upon date.",
+      "quote": "Required or attempted to require an H-1B nonimmigrant to pay a penalty for ceasing employment prior to an agreed upon date, as prohibited by \u00a7 655.731(c)(10)(i);",
+      "must_contain": [
+        "655.731",
+        "10"
+      ],
+      "citation": "20 CFR 655.805",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0022"
+    },
+    {
+      "question": "Where must an employer make the labor condition application and necessary documents available for public examination?",
+      "answer": "An employer must make the labor condition application and necessary documents available for public examination at the employer's principal place of business or worksite.",
+      "quote": "Failed to make available for public examination the application and necessary document(s) at the employer's principal place of business or worksite, as required by \u00a7 655.760(a);",
+      "must_contain": [
+        "655.760"
+      ],
+      "citation": "20 CFR 655.805",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0023"
+    },
+    {
+      "question": "How long must an H-3 alien trainee reside outside the U.S. before being readmitted under sections 101(a)(15)(H) and/or (L) of the Act, if they have already spent 24 months in the U.S.?",
+      "answer": "An H-3 alien trainee must reside and be physically present outside the United States for the immediate prior 6 months.",
+      "quote": "An H-3 alien trainee who has spent 24 months in the United States under sections 101(a)(15)(H) and/or (L) of the Act may not seek extension, change status, or be readmitted to the United States under sections 101(a)(15)(H) and/or (L) of the Act unless the alien has resided and been physically present outside the United States for the immediate prior 6 months.",
+      "must_contain": [
+        "24 months",
+        "6 months",
+        "24",
+        "101",
+        "15"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0024"
+    },
+    {
+      "question": "What is the maximum period before the requested H-1B start date that a petitioner may file an H-1B petition seeking a per-country limitation exemption?",
+      "answer": "A petitioner may file an H-1B petition seeking a per-country limitation exemption within 6 months of the requested H-1B start date.",
+      "quote": "A petitioner may file an H-1B petition seeking a per-country limitation exemption under paragraph (h)(13)(iii)(E) of this section within 6 months of the requested H-1B start date.",
+      "must_contain": [
+        "6 months",
+        "13"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0025"
+    },
+    {
+      "question": "Who is eligible for an exemption to the maximum period of admission under section 214(g)(4) of the Act?",
+      "answer": "Only the principal beneficiary of an approved immigrant visa petition for classification under section 203(b)(1), (2), or (3) of the Act may be eligible for an exemption.",
+      "quote": "Only the principal beneficiary of an approved immigrant visa petition for classification under section 203(b)(1), (2), or (3) of the Act may be eligible under paragraph (h)(13)(iii)(E) of this section for an exemption to the maximum period of admission under section 214(g)(4) of the Act.",
+      "must_contain": [
+        "203",
+        "13",
+        "214"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0026"
+    },
+    {
+      "question": "Is an alien required to be in H-1B status at the time an H-1B petition is filed on their behalf to seek an exemption of the 6-year limitation?",
+      "answer": "No, an alien who is not in H-1B status at the time the H-1B petition on his or her behalf is filed may seek an exemption of the 6-year limitation.",
+      "quote": "An alien who is not in H-1B status at the time the H-1B petition on his or her behalf is filed, including an alien who is not in the United States, may seek an exemption of the 6-year limitation under 214(g)(4) of the Act under this clause, if otherwise eligible.",
+      "must_contain": [
+        "214"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0027"
+    },
+    {
+      "question": "Can a subsequent H-1B petition be approved with respect to a different approved immigrant visa petition for the same alien?",
+      "answer": "Yes, a subsequent H-1B petition may be approved with respect to a different approved immigrant visa petition on behalf of the same alien.",
+      "quote": "An H-1B petition may be approved under paragraph (h)(13)(iii)(E) of this section with respect to any approved immigrant visa petition, and a subsequent H-1B petition may be approved with respect to a different approved immigrant visa petition on behalf of the same alien.",
+      "must_contain": [
+        "13"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0028"
+    },
+    {
+      "question": "How long must an H-3 alien participant in a special education program reside outside the U.S. before being readmitted under sections 101(a)(15)(H) and/or (L) of the Act, if they have spent 18 months in the U.S.?",
+      "answer": "An H-3 alien participant in a special education program must reside and be physically present outside the United States for the immediate prior 6 months.",
+      "quote": "An H-3 alien participant in a special education program who has spent 18 months in the United States under sections 101(a)(15)(H) and/or (L) of the Act; and an H-3 alien trainee who has spent 24 months in the United States under sections 101(a)(15)(H) and/or (L) of the Act may not seek extension, change status, or be readmitted to the United States under sections 101(a)(15)(H) and/or (L) of the Act unless the alien has resided and been physically present outside the United States for the immediate prior 6 months.",
+      "must_contain": [
+        "18 months",
+        "24 months",
+        "6 months",
+        "18",
+        "101",
+        "15",
+        "24"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0029"
+    },
+    {
+      "question": "What is one way an H-1B nonimmigrant can be considered an \"exempt\" worker?",
+      "answer": "An H-1B nonimmigrant can be considered an \"exempt\" worker if they receive wages at an annual rate of at least $60,000.",
+      "quote": "Receives wages (including cash bonuses and similar compensation) at an annual rate equal to at least $60,000; or",
+      "must_contain": [
+        "$60,000",
+        "60,000"
+      ],
+      "citation": "20 CFR 655.737",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0030"
+    },
+    {
+      "question": "Can employer contributions for benefits like health insurance be counted towards the $60,000 annual wage for exempt status?",
+      "answer": "No, employer contributions or costs for benefits such as health insurance, life insurance, and pension plans cannot be counted toward this $60,000.",
+      "quote": "Thus, employer contributions or costs for benefits such as health insurance, life insurance, and pension plans cannot be counted toward this $60,000.",
+      "must_contain": [
+        "$60,000",
+        "60,000"
+      ],
+      "citation": "20 CFR 655.737",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0031"
+    },
+    {
+      "question": "Can cash bonuses be counted towards the $60,000 for \"exempt\" status if their payment is contingent?",
+      "answer": "Cash bonuses and similar compensation can be counted or credited toward the $60,000 for \"exempt\" status only if payment is assured.",
+      "quote": "Cash bonuses and similar compensation can be counted or credited toward the $60,000 for \u201cexempt\u201d status only if payment is assured ( i.e., if the payment is contingent or conditional on some event such as the employer's annual profits, the employer must guarantee payment even if the contingency is not met).",
+      "must_contain": [
+        "$60,000",
+        "60,000"
+      ],
+      "citation": "20 CFR 655.737",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0032"
+    },
+    {
+      "question": "Can the required wages for \"exempt\" status be decreased for a part-time employee?",
+      "answer": "No, the wages or salary required for \"exempt\" status cannot be decreased or pro rated based on the employee's part-time work schedule.",
+      "quote": "The wages or salary required for \u201cexempt\u201d status cannot be decreased or pro rated based on the employee's part-time work schedule; an H-1B nonimmigrant working part-time, whose actual annual compensation is less than $60,000, would not qualify as exempt on the basis of wages, even if the worker's earnings, if projected to a full-time work schedule, would theoretically exceed $60,000 in a year.",
+      "must_contain": [
+        "$60,000,",
+        "$60,000",
+        "60,000"
+      ],
+      "citation": "20 CFR 655.737",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0033"
+    },
+    {
+      "question": "If an employee works for less than a full year, what must they receive to be considered \"exempt\"?",
+      "answer": "If an employee works for less than a full year, they must receive at least the appropriate pro rata share of the $60,000 to be \"exempt\".",
+      "quote": "Where an employee works for less than a full year, the employee must receive at least the appropriate pro rata share of the $60,000 in order to be \u201cexempt\u201d (e.g., an employee who resigns after three months must be paid at least $15,000).",
+      "must_contain": [
+        "$60,000",
+        "$15,000",
+        "60,000",
+        "15,000"
+      ],
+      "citation": "20 CFR 655.737",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0034"
+    },
+    {
+      "question": "How can an employer convert an hourly prevailing wage determination to a yearly salary?",
+      "answer": "An employer may convert an hourly prevailing wage determination to a yearly salary by multiplying the hourly rate by 2080.",
+      "quote": "Where an employer obtains a prevailing wage determination (from any of the sources identified in paragraphs (a)(2)(i) and (ii) of this section) that is expressed as an hourly rate, the employer may convert this determination to a yearly salary by multiplying the hourly rate by 2080.",
+      "must_contain": [
+        "2080"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0035"
+    },
+    {
+      "question": "How can an employer convert a yearly salary prevailing wage determination to an hourly rate?",
+      "answer": "An employer may convert a yearly salary prevailing wage determination to an hourly rate by dividing the salary by 2080.",
+      "quote": "Conversely, where an employer obtains a prevailing wage (from any of these sources) that is expressed as a yearly salary, the employer may convert this determination to an hourly rate by dividing the salary by 2080.",
+      "must_contain": [
+        "2080"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0036"
+    },
+    {
+      "question": "For which types of organizations does the prevailing wage level only take into account employees at such institutions and organizations in the area of intended employment?",
+      "answer": "The prevailing wage level only takes into account employees at such institutions and organizations in the area of intended employment for an institution of higher education or an affiliated or related nonprofit entity, a nonprofit research organization, or a Governmental research organization as these terms are defined in 20 CFR 656.40(e).",
+      "quote": "In computing the prevailing wage for a job opportunity in an occupational classification in an area of intended employment in the case of an employee of an institution of higher education or an affiliated or related nonprofit entity, a nonprofit research organization, or a Governmental research organization as these terms are defined in 20 CFR 656.40(e), the prevailing wage level shall only take into account employees at such institutions and organizations in the area of intended employment.",
+      "must_contain": [
+        "20",
+        "656.40"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0037"
+    },
+    {
+      "question": "What are the two obligations that apply to H-1B-dependent employers and willful violators?",
+      "answer": "These employers must not displace U.S. workers from jobs and must recruit U.S. workers before hiring H-1B nonimmigrants.",
+      "quote": "These obligations require that such employers not displace U.S. workers from jobs (as described in \u00a7 655.738) and that such employers recruit U.S. workers before hiring H-1B nonimmigrants (as described in \u00a7 655.739).",
+      "must_contain": [
+        "655.738",
+        "655.739"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0038"
+    },
+    {
+      "question": "How long can an H-1B petition for a specialty occupation worker be approved for?",
+      "answer": "Each H-1B petition for a specialty occupation worker or fashion model may be approved for up to 3 years.",
+      "quote": "Each H-1B petition for a specialty occupation worker or fashion model may be approved for up to 3 years.",
+      "must_contain": [
+        "3 years"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0039"
+    },
+    {
+      "question": "Under what conditions can an H-1B petition be approved for an unlimited number of times beyond the six-year minimum?",
+      "answer": "Under the American Competitiveness in the Twenty-first Century Act, USCIS may approve an H-1B petition for an unlimited number of times beyond the six-year minimum in three-year increments if the individual is the beneficiary of an approved employment-based immigrant petition but is unable to adjust status due to unavailability of IV numbers.",
+      "quote": "Under the American Competitiveness in the Twenty-first Century Act (\u201cAC21,\u201d Public Law 106-313), USCIS may approve an H-1B petition for an unlimited number of times beyond the six-year minimum in three-year increments if the individual is the beneficiary of an approved employment-based immigrant petition but is unable to adjust status due to unavailability of IV numbers.",
+      "must_contain": [
+        "106",
+        "313"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0040"
+    },
+    {
+      "question": "What is the maximum total stay for H-2A and H-2B nonimmigrants?",
+      "answer": "The individual\u2019s total stay may not exceed three years, except in the U.S. Virgin Islands, where the total length of stay may not exceed 45 days.",
+      "quote": "The individual\u2019s total stay may not exceed three years, except in the U.S. Virgin Islands, where the total length of stay may not exceed 45 days.",
+      "must_contain": [
+        "45 days",
+        "45"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0041"
+    },
+    {
+      "question": "Which department may issue regulations addressing other business arrangements, including employee leasing?",
+      "answer": "The Department of the Treasury may issue regulations addressing other business arrangements, including employee leasing.",
+      "quote": "Section 414(o) of the IRC provides that the Department of the Treasury may issue regulations addressing other business arrangements, including employee leasing, in which a group of employees are treated as employed by the same employer.",
+      "must_contain": [
+        "414"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0042"
+    },
+    {
+      "question": "Where are the definitions of \"single employer\" set forth?",
+      "answer": "The definitions of \"single employer\" are set forth in regulations located at 26 CFR 1.414(b)-1(a), (c)-2 and (m)-5.",
+      "quote": "The definitions of \u201csingle employer\u201d set forth in paragraphs (b)(1) through (b)(3) of this section are established by the Internal Revenue Service (IRS) in regulations located at 26 CFR 1.414(b)-1(a), (c)-2 and (m)-5.",
+      "must_contain": [
+        "26",
+        "1.414"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0043"
+    },
+    {
+      "question": "Which federal agency administers the labor condition application process and enforcement provisions?",
+      "answer": "The Department of Labor (DOL) administers the labor condition application process and enforcement provisions.",
+      "quote": "DOL administers the labor condition application process and enforcement provisions (exclusive of complaints regarding non-selection of U.S. workers, as described in 8 U.S.C. 1182(n)(1)(G)(i)(II) and 1182(n)(5)).",
+      "must_contain": [
+        "1182"
+      ],
+      "citation": "20 CFR 655.705",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0044"
+    },
+    {
+      "question": "Where can the public examine the list of LCAs compiled by ETA?",
+      "answer": "The list of LCAs is available for public examination at the Department of Labor, 200 Constitution Avenue, NW., Room C-4312, Washington, DC 20210.",
+      "quote": "ETA is also responsible for compiling and maintaining a list of LCAs and makes such list available for public examination at the Department of Labor, 200 Constitution Avenue, NW., Room C-4312, Washington, DC 20210.",
+      "must_contain": [
+        "200",
+        "4312",
+        "20210"
+      ],
+      "citation": "20 CFR 655.705",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0045"
+    },
+    {
+      "question": "How recently must a prevailing wage survey from an independent authoritative source have been published to be valid?",
+      "answer": "A prevailing wage survey from an independent authoritative source must have been published within the 24-month period immediately preceding the filing of the employer's application.",
+      "quote": "For purposes of this paragraph (b)(3)(iii)(B), a prevailing wage survey for the occupation in the area of intended employment published by an independent authoritative source shall mean a survey of wages published in a book, newspaper, periodical, loose-leaf service, newsletter, or other similar medium, within the 24-month period immediately preceding the filing of the employer's application.",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0046"
+    },
+    {
+      "question": "How recently must the data for a prevailing wage survey from an independent authoritative source have been collected?",
+      "answer": "The data for a prevailing wage survey from an independent authoritative source must have been collected within the 24-month period immediately preceding the date of publication of the survey.",
+      "quote": "Be based upon recently collected data\u2014e.g., within the 24-month period immediately preceding the date of publication of the survey; and",
+      "must_contain": [
+        "24"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0047"
+    },
+    {
+      "question": "If an H-1B nonimmigrant has not yet entered into employment, when must the employer begin paying the required wage if the nonimmigrant is admitted into the U.S.?",
+      "answer": "If an H-1B nonimmigrant has not yet entered into employment, the employer must pay the required wage beginning 30 days after the date the nonimmigrant first is admitted into the U.S. pursuant to the petition.",
+      "quote": "Even if the H-1B nonimmigrant has not yet \u201centered into employment\u201d with the employer (as described in paragraph (c)(6)(i) of this section), the employer that has had an LCA certified and an H-1B petition approved for the H-1B nonimmigrant shall pay the nonimmigrant the required wage beginning 30 days after the date the nonimmigrant first is admitted into the U.S. pursuant to the petition, or, if the nonimmigrant is present in the United States on the date of the approval of the petition, beginning 60 days after the date the nonimmigrant becomes eligible to work for the employer.",
+      "must_contain": [
+        "30 days",
+        "60 days",
+        "30",
+        "60"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0048"
+    },
+    {
+      "question": "If an H-1B nonimmigrant is present in the United States on the date of petition approval but has not entered employment, when must the employer begin paying the required wage?",
+      "answer": "If an H-1B nonimmigrant is present in the United States on the date of petition approval but has not entered employment, the employer must pay the required wage beginning 60 days after the date the nonimmigrant becomes eligible to work for the employer.",
+      "quote": "Even if the H-1B nonimmigrant has not yet \u201centered into employment\u201d with the employer (as described in paragraph (c)(6)(i) of this section), the employer that has had an LCA certified and an H-1B petition approved for the H-1B nonimmigrant shall pay the nonimmigrant the required wage beginning 30 days after the date the nonimmigrant first is admitted into the U.S. pursuant to the petition, or, if the nonimmigrant is present in the United States on the date of the approval of the petition, beginning 60 days after the date the nonimmigrant becomes eligible to work for the employer.",
+      "must_contain": [
+        "30 days",
+        "60 days",
+        "30",
+        "60"
+      ],
+      "citation": "20 CFR 655.731",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0049"
+    },
+    {
+      "question": "How long can an H-1B beneficiary be placed at short-term assignments outside the area of intended employment if they maintain an office at their permanent worksite?",
+      "answer": "An H-1B beneficiary can be placed at short-term assignments outside the area of intended employment for a total of 60 days or less in a 1-year period if they maintain an office or work station at their permanent worksite.",
+      "quote": "Placing a beneficiary at a short-term placements(s) or assignment(s) at any worksite(s) outside of the area of intended employment for a total of 30 days or less in a 1-year period, or for a total of 60 days or less in a 1-year period where the H-1B beneficiary continues to maintain an office or work station at their permanent worksite, the beneficiary spends a substantial amount of time at the permanent worksite in a 1-year period, and the beneficiary's residence is located in the area of the permanent worksite and not in the area of the short-term worksite(s)",
+      "must_contain": [
+        "30 days",
+        "60 days",
+        "30",
+        "60"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0050"
+    },
+    {
+      "question": "What is the maximum duration for a single visit by a peripatetic worker to another location?",
+      "answer": "A peripatetic worker's single visit to another location should not exceed 5 consecutive workdays.",
+      "quote": "Peripatetic jobs include situations where the job is primarily at one location, but the beneficiary occasionally travels for short periods to other locations on a casual, short-term basis, which can be recurring but not excessive ( i.e., not exceeding 5 consecutive workdays for any one visit by a peripatetic worker, or 10 consecutive workdays for any one visit by a worker who spends most work time at one location and travels occasionally to other locations).",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0051"
+    },
+    {
+      "question": "What is the maximum duration for a single visit by a worker who spends most work time at one location and travels occasionally to other locations?",
+      "answer": "A worker who spends most work time at one location and travels occasionally to other locations should not exceed 10 consecutive workdays for any one visit.",
+      "quote": "Peripatetic jobs include situations where the job is primarily at one location, but the beneficiary occasionally travels for short periods to other locations on a casual, short-term basis, which can be recurring but not excessive ( i.e., not exceeding 5 consecutive workdays for any one visit by a peripatetic worker, or 10 consecutive workdays for any one visit by a worker who spends most work time at one location and travels occasionally to other locations).",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0052"
+    },
+    {
+      "question": "When did paragraph (c)(3) regarding E-3 visas become applicable?",
+      "answer": "Paragraph (c)(3) regarding E-3 visas applies to labor condition applications filed on or after April 11, 2008.",
+      "quote": "This paragraph (c)(3) applies to labor condition applications filed on or after April 11, 2008.",
+      "must_contain": [
+        "11",
+        "2008"
+      ],
+      "citation": "20 CFR 655.700",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0053"
+    },
+    {
+      "question": "When did paragraph (c)(4) regarding H-1B1 visas become applicable?",
+      "answer": "Paragraph (c)(4) regarding H-1B1 visas applies to labor condition applications filed on or after November 23, 2004.",
+      "quote": "This paragraph (c)(4) applies to H-1B1 labor condition applications filed on or after November 23, 2004.",
+      "must_contain": [
+        "23",
+        "2004"
+      ],
+      "citation": "20 CFR 655.700",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0054"
+    },
+    {
+      "question": "How are E-3 labor condition applications filed between May 11, 2005, and April 11, 2008, processed?",
+      "answer": "E-3 labor condition applications filed between May 11, 2005, and April 11, 2008, are processed according to the E-3 statutory terms and procedures published on July 19, 2005, in the Federal Register.",
+      "quote": "E-3 labor condition applications filed prior to that date but on or after May 11, 2005 ( i.e. , the effective date of the statute), will be processed according to the E-3 statutory terms and the E-3 processing procedures published on July 19, 2005 in the Federal Register at 74 FR 41434.",
+      "must_contain": [
+        "11",
+        "2005",
+        "19",
+        "74",
+        "41434"
+      ],
+      "citation": "20 CFR 655.700",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0055"
+    },
+    {
+      "question": "What is the effective date of the H-1B1 program?",
+      "answer": "The effective date of the H-1B1 program is January 1, 2004.",
+      "quote": "Further, H-1B1 labor condition applications filed prior to that date but on or after January 1, 2004, the effective date of the H-1B1 program, will be handled according to the H-1B1 statutory terms and the H-1B1 processing procedures as described in paragraph (d)(3) of this section.",
+      "must_contain": [
+        "2004"
+      ],
+      "citation": "20 CFR 655.700",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0056"
+    },
+    {
+      "question": "Which subparts apply to employers seeking to employ foreign workers under the E-3 visa classification?",
+      "answer": "Subpart H and subpart I of this part apply to employers seeking to employ foreign workers under the E-3 visa classification.",
+      "quote": "Except as provided in paragraph (d) of this section, this subpart H and subpart I of this part apply to all employers seeking to employ foreign workers under the E-3 visa classification in specialty occupations under INA section 101(a)(15)(E)(iii) (8 U.S.C. 1101(a)(15)(E)(iii)).",
+      "must_contain": [
+        "101",
+        "15",
+        "1101"
+      ],
+      "citation": "20 CFR 655.700",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0057"
+    },
+    {
+      "question": "What records would an employer need to make available to the Administrator during an enforcement action to verify its non-H-1B-dependent determination?",
+      "answer": "The employer's records, such as copies of H-1B petitions and payroll records described in \u00a7 655.731(b)(1), would enable verification.",
+      "quote": "In the event of an enforcement action pursuant to subpart I of this part, the employer's records to be made available to the Administrator would enable the employer to show and the Administrator to verify the employer's determination (e.g., copies of H-1B petitions; payroll records described in \u00a7 655.731(b)(1)).",
+      "must_contain": [
+        "655.731"
+      ],
+      "citation": "20 CFR 655.736",
+      "source": "ecfr",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0058"
+    },
+    {
+      "question": "What must the petitioner describe according to 8 CFR 214.2(h)(7)(ii)(B)(6)?",
+      "answer": "The petitioner must describe any benefit that will accrue to it for providing the training.",
+      "quote": "As noted above, the regulation at 8 CFR 214.2(h)(7)(ii)(B)(6) requires the petitioner to describe \u201cany benefit that will accrue to [it] for providing the training.\u201d",
+      "must_contain": [
+        "214.2"
+      ],
+      "citation": "Volume 2, Part J, Chapter 6 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "h1b",
+      "generated": true,
+      "id": "gen-h1b-0059"
+    }
+  ]
+}

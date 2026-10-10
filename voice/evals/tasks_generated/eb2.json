@@ -1,0 +1,472 @@
+{
+  "domain": "eb2",
+  "cases": [
+    {
+      "question": "What is the definition of a profession according to 8 CFR 204.5(k)(2)?",
+      "answer": "A profession is defined as one of the occupations listed in section 101(a)(32) of the Act, as well as any occupation for which a United States baccalaureate degree or its foreign equivalent is the minimum requirement for entry into the occupation.",
+      "quote": "See 8 CFR 204.5(k)(2) (\u201cProfession means one of the occupations listed in section 101(a)(32) of the Act, as well as any occupation for which a United States baccalaureate degree or its foreign equivalent is the minimum requirement for entry into the occupation.\u201d).",
+      "must_contain": [
+        "204.5",
+        "101",
+        "32"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0000"
+    },
+    {
+      "question": "Where can I find the definition of an advanced degree?",
+      "answer": "The definition of an advanced degree can be found in 8 CFR 204.5(k)(2).",
+      "quote": "See 8 CFR 204.5(k)(2) (definition of advanced degree).",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0001"
+    },
+    {
+      "question": "What is the definition of an advanced degree?",
+      "answer": "The definition of an advanced degree can be found in 8 CFR 204.5(k)(2).",
+      "quote": "See 8 CFR 204.5(k)(2) (definition of advanced degree).",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0002"
+    },
+    {
+      "question": "When did DOL publish a final rule that restructured the permanent labor certification process?",
+      "answer": "DOL published a final rule entitled Labor Certification for the Permanent Employment of Aliens in the United States; Implementation of New System on December 27, 2004.",
+      "quote": "On December 27, 2004, DOL published a final rule entitled Labor Certification for the Permanent Employment of Aliens in the United States; Implementation of New System, which significantly restructured the permanent labor certification process.",
+      "must_contain": [
+        "27",
+        "2004"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0003"
+    },
+    {
+      "question": "What form is the Fee Schedule?",
+      "answer": "The Fee Schedule is Form G-1055.",
+      "quote": "See Fee Schedule ( Form G-1055 ).",
+      "must_contain": [
+        "G-1055"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0004"
+    },
+    {
+      "question": "Who issued the prevailing wage determination if the petition was filed before January 1, 2010?",
+      "answer": "If the petition was filed before January 1, 2010, the prevailing wage determination would have been issued by the applicable State Workforce Agency (SWA).",
+      "quote": "If the petition was filed before January 1, 2010, then the prevailing wage determination would have been issued by the applicable State Workforce Agency (SWA).",
+      "must_contain": [
+        "2010"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0005"
+    },
+    {
+      "question": "What is the definition of a profession for the second preference classification?",
+      "answer": "A profession is defined as one of the occupations listed in INA 101(a)(32), or any occupation for which a U.S. bachelor\u2019s degree or its foreign degree equivalent is the minimum requirement for entry into the occupation.",
+      "quote": "For the second preference classification, a profession is defined as one of the occupations listed in INA 101(a)(32) , or any occupation for which a U.S. bachelor\u2019s degree or its foreign degree equivalent is the minimum requirement for entry into the occupation.",
+      "must_contain": [
+        "101",
+        "32"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0006"
+    },
+    {
+      "question": "What must be true for those relying on a bachelor\u2019s degree followed by 5 years of progressive experience in the specialty?",
+      "answer": "That experience must be in the specialty, as required by regulation.",
+      "quote": "Separately, for those relying on a bachelor\u2019s degree followed by 5 years of progressive experience in the specialty, that experience must be in the specialty, as required by regulation.",
+      "must_contain": [
+        "5 years"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0007"
+    },
+    {
+      "question": "What regulation should I refer to regarding permanent labor certification?",
+      "answer": "You should refer to 20 CFR 656.1 for permanent labor certification.",
+      "quote": "See 20 CFR 656.1 .",
+      "must_contain": [
+        "20",
+        "656.1"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0008"
+    },
+    {
+      "question": "How many categories of documentation must an employer submit for immigrants of exceptional ability in the sciences or arts?",
+      "answer": "The employer must submit documentation concerning the beneficiary from at least two of the seven categories.",
+      "quote": "Finally, the employer must submit documentation concerning the beneficiary from at least two of the following seven categories, [47] where \u201cfield\u201d refers to the one in which the petitioner seeks certification for the beneficiary:",
+      "must_contain": [
+        "47"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0009"
+    },
+    {
+      "question": "What is the minimum work experience requirement for immigrants of exceptional ability in the performing arts?",
+      "answer": "The employer must submit documentary evidence that the beneficiary\u2019s work experience during the past 12 months did, and the intended work in the United States will, require exceptional ability.",
+      "quote": "To show that an alien is of exceptional ability in the performing arts, the employer must submit documentary evidence that the beneficiary\u2019s work experience during the past 12 months did, and the intended work in the United States will, require exceptional ability.",
+      "must_contain": [
+        "12 months",
+        "12"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0010"
+    },
+    {
+      "question": "What resource can officers use to determine minimum educational requirements for professional nursing occupations?",
+      "answer": "Officers may refer to The Occupational Information Network (O*NET) to determine the minimum educational requirements for professional nursing occupations.",
+      "quote": "Officers may refer to The Occupational Information Network ( O*NET ) [55] to determine the minimum educational requirements for professional nursing occupations.",
+      "must_contain": [
+        "55"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0011"
+    },
+    {
+      "question": "Where can one find a list of research and development intensive industries?",
+      "answer": "The Science and Technology Policy Institute provided a list of research and development intensive industries at Appendix C of a report on Economic Benefits and Losses from Foreign STEM Talent in the United States (October 2021).",
+      "quote": "For example, the Science and Technology Policy Institute provided a list of research and development intensive industries at Appendix C of a report on Economic Benefits and Losses from Foreign STEM Talent in the United States (October 2021).",
+      "must_contain": [
+        "2021"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0012"
+    },
+    {
+      "question": "What case is referenced regarding advanced degree or exceptional ability?",
+      "answer": "Matter of Dhanasar, 26 I&N Dec. 884, 893 (AAO 2016) is referenced.",
+      "quote": "See Matter of Dhanasar , 26 I&N Dec. 884, 893 (AAO 2016).",
+      "must_contain": [
+        "26",
+        "884",
+        "893",
+        "2016"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0013"
+    },
+    {
+      "question": "When did Company A file a permanent labor certification request for a scientist with an advanced degree?",
+      "answer": "Company A filed a permanent labor certification request on January 10, 2020.",
+      "quote": "For example, Company A files a permanent labor certification request on behalf of a beneficiary as a scientist with an advanced degree on January 10, 2020.",
+      "must_contain": [
+        "10",
+        "2020"
+      ],
+      "citation": "Volume 6, Part E, Chapter 8 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0014"
+    },
+    {
+      "question": "When did DOL issue the certification for Company A's permanent labor certification request?",
+      "answer": "DOL issued the certification on March 20, 2020.",
+      "quote": "DOL issues the certification on March 20, 2020.",
+      "must_contain": [
+        "20",
+        "2020"
+      ],
+      "citation": "Volume 6, Part E, Chapter 8 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0015"
+    },
+    {
+      "question": "When did the beneficiary file a second petition as an extraordinary scientist under the EB-1 category?",
+      "answer": "The beneficiary filed a second petition on July 15, 2020.",
+      "quote": "On July 15, 2020, the beneficiary files a second petition on his or her own behalf as an extraordinary scientist under the employment-based 1st preference (EB-1) category, which USCIS approves.",
+      "must_contain": [
+        "15",
+        "2020"
+      ],
+      "citation": "Volume 6, Part E, Chapter 8 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0016"
+    },
+    {
+      "question": "What form can be submitted in support of a petition for a national interest waiver?",
+      "answer": "The petitioner may submit either Form ETA 750B or Form ETA 9089.",
+      "quote": "The petitioner may submit either the Form ETA 750B or Form ETA 9089.",
+      "must_contain": [
+        "9089"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0017"
+    },
+    {
+      "question": "When did permanent labor certifications for professional athletes filed electronically with the DOL using its FLAG system stop containing minimum job requirements?",
+      "answer": "Permanent labor certifications for professional athletes filed electronically with the DOL using its FLAG system on or after June 1, 2023, no longer contain the minimum job requirements for the offered position.",
+      "quote": "Permanent labor certifications for professional athletes that were electronically filed with the DOL using its Foreign Labor Application Gateway (FLAG) system on or after June 1, 2023, no longer contain the minimum job requirements for the offered position.",
+      "must_contain": [
+        "2023"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0018"
+    },
+    {
+      "question": "What happens if a professional athlete's labor certification does not contain job requirements and the petitioner does not provide them with Form I-140?",
+      "answer": "If a professional athlete\u2019s labor certification does not contain this information and the petitioner does not otherwise provide the minimum requirements of the job with the Form I-140 petition, an officer may request additional evidence to determine whether the job requires an alien of exceptional ability.",
+      "quote": "Therefore, if a professional athlete\u2019s labor certification does not contain this information and the petitioner does not otherwise provide the minimum requirements of the job with the Form I-140 petition, an officer may request additional evidence to determine whether the job requires an alien of exceptional ability.",
+      "must_contain": [
+        "I-140"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0019"
+    },
+    {
+      "question": "Is it in the national interest of the United States to waive the job offer for male athletes who propose to compete in women's sports?",
+      "answer": "No, it is not in the national interest of the United States to waive the job offer for male athletes whose proposed endeavor is to compete in women's sports.",
+      "quote": "Consistent with this reasoning, it is not in the national interest to the United States to waive the job offer and, thus, the labor certification, for male athletes [90] whose proposed endeavor is to compete in women\u2019s sports.",
+      "must_contain": [
+        "90"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0020"
+    },
+    {
+      "question": "What role do persons with advanced STEM degrees play in fostering progress in STEM fields?",
+      "answer": "Persons with advanced STEM degrees play an essential role in fostering progress in STEM fields, especially in focused critical and emerging technologies or other STEM areas important to U.S. competitiveness or national security.",
+      "quote": "USCIS recognizes the importance of progress in STEM fields and the essential role of persons with advanced STEM degrees in fostering this progress, especially in focused critical and emerging technologies [93] or other STEM areas important to U.S. competitiveness or national security.",
+      "must_contain": [
+        "93"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0021"
+    },
+    {
+      "question": "When must a beneficiary have obtained both the bachelor\u2019s degree and the 5 years of progressive experience?",
+      "answer": "The beneficiary must have obtained both the bachelor\u2019s degree and the 5 years of progressive experience before the filing date of the permanent labor certification.",
+      "quote": "The beneficiary must have obtained both the bachelor\u2019s degree and the 5 years of progressive experience before the filing date of the permanent labor certification.",
+      "must_contain": [
+        "5 years"
+      ],
+      "citation": "Volume 6, Part E, Chapter 7 - Schedule A Designation Petitions",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0022"
+    },
+    {
+      "question": "Where can one find information regarding the definition of 'male' and 'men' in the context of immigration?",
+      "answer": "The definition of 'male' and 'men' can be found in Executive Order 14168, Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government, 90 FR 8615 (Jan. 20, 2025) (Sec. 2).",
+      "quote": "See Keeping Men Out of Women's Sports, 90 FR 9279 (Feb. 11, 2025) and Executive Order 14168, Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government, 90 FR 8615 (Jan. 20, 2025) (Sec. 2 defining \u201cmale\u201d and \u201cmen\u201d).",
+      "must_contain": [
+        "90",
+        "9279",
+        "11",
+        "2025",
+        "14168",
+        "8615",
+        "20"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0023"
+    },
+    {
+      "question": "Who can file a petition for classification under INA 203(b)(2) as a member of the professions holding an advanced degree or an individual of exceptional ability?",
+      "answer": "Any U.S. employer may file such a petition.",
+      "quote": "Any U.S. employer may file a petition for classification of an individual under INA 203(b)(2) as a member of the professions holding an advanced degree or an individual of exceptional ability in the sciences, arts, or business.",
+      "must_contain": [
+        "203"
+      ],
+      "citation": "9 FAM 502.4",
+      "source": "fam",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0024"
+    },
+    {
+      "question": "Where should E2 Petitions be filed?",
+      "answer": "Petitions must be filed with the appropriate DHS service center in accordance with USCIS instructions for the Form I-140, Immigrant Petition for Alien Worker.",
+      "quote": "Petitions must be filed with the appropriate DHS service center in accordance with USCIS instructions for the Form I-140, Immigrant Petition for Alien Worker.",
+      "must_contain": [
+        "I-140"
+      ],
+      "citation": "9 FAM 502.4",
+      "source": "fam",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0025"
+    },
+    {
+      "question": "What form is used for an Immigrant Petition for Alien Worker?",
+      "answer": "The form used is Form I-140.",
+      "quote": "Petitions must be filed with the appropriate DHS service center in accordance with USCIS instructions for the Form I-140, Immigrant Petition for Alien Worker.",
+      "must_contain": [
+        "I-140"
+      ],
+      "citation": "9 FAM 502.4",
+      "source": "fam",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0026"
+    },
+    {
+      "question": "What does STEM stand for in the context of STEM optional practical training?",
+      "answer": "STEM stands for science, technology, engineering, or mathematics.",
+      "quote": "See 8 CFR 214.2(f)(10)(ii)(C)(2)(i) (defining STEM as \u201cscience, technology, engineering, or mathematics\u201d).",
+      "must_contain": [
+        "214.2",
+        "10"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0027"
+    },
+    {
+      "question": "When was the document \"Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government\" published in the Federal Register?",
+      "answer": "The document \"Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government\" was published on January 20, 2025.",
+      "quote": "See Defending Women From Gender Ideology Extremism and Restoring Biological Truth to the Federal Government, 90 FR 8615 (Jan. 20, 2025).",
+      "must_contain": [
+        "90",
+        "8615",
+        "20",
+        "2025"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0028"
+    },
+    {
+      "question": "What is the citation for the case Matter of Dhanasar?",
+      "answer": "The citation for the case Matter of Dhanasar is 26 I&N Dec. 884, 890 (AAO 2016).",
+      "quote": "See Matter of Dhanasar , 26 I&N Dec. 884, 890 (AAO 2016).",
+      "must_contain": [
+        "26",
+        "884",
+        "890",
+        "2016"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0029"
+    },
+    {
+      "question": "Where can I find the definition of an advanced degree?",
+      "answer": "The definition of an advanced degree can be found in 8 CFR 204.5(k)(2).",
+      "quote": "See 8 CFR 204.5(k)(2) (definition of advanced degree).",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0030"
+    },
+    {
+      "question": "Where can I find the definition of exceptional ability?",
+      "answer": "The definition of exceptional ability in the sciences, arts, or business can be found in 8 CFR 204.5(k)(2).",
+      "quote": "See 8 CFR 204.5(k)(2) (defining exceptional ability in the sciences, arts, or business as a degree of expertise significantly above that ordinarily encountered in the sciences, arts, or business).",
+      "must_contain": [
+        "204.5"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0031"
+    },
+    {
+      "question": "When does experience count towards qualifying as an advanced degree professional based on a bachelor's degree and five years of progressive experience?",
+      "answer": "The five years of progressive experience must occur after the completion of the bachelor's degree or its foreign equivalent.",
+      "quote": "With respect to individuals who seek to qualify as an advanced degree professional based on a combination of a bachelor\u2019s degree and \u201cfive years of progressive experience in the specialty,\u201d [54] such experience must occur after completion of the bachelor's degree or foreign equivalent degree.",
+      "must_contain": [
+        "54"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0032"
+    },
+    {
+      "question": "What is generally considered qualifying experience for someone with 5 years of progressive post-baccalaureate experience?",
+      "answer": "If the person has 5 years of progressive post-baccalaureate experience in the same specialty as the degree and seeks to work in a related endeavor, the experience is generally considered to be qualifying.",
+      "quote": "Where the person has 5 years of progressive post-baccalaureate experience in the same specialty as the degree and seeks to work in a related endeavor, the experience is generally considered to be qualifying.",
+      "must_contain": [
+        "5 years"
+      ],
+      "citation": "Volume 6, Part F, Chapter 5 - Advanced Degree or Exceptional Ability",
+      "source": "uscis_pm",
+      "domain": "eb2",
+      "generated": true,
+      "id": "gen-eb2-0033"
+    }
+  ]
+}

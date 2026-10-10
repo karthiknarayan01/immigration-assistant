@@ -1,0 +1,944 @@
+{
+  "domain": "l1",
+  "cases": [
+    {
+      "question": "How long must a beneficiary have been employed abroad to meet the L-1 classification requirement?",
+      "answer": "The beneficiary must have been employed abroad for one continuous year within the three years preceding the petitioner's filing of the initial L-1 petition or other employment-based NIV petition.",
+      "quote": "The beneficiary meets the requirement of having been employed abroad for one continuous year within the three years preceding the petitioner's filing of the initial L-1 petition or other employment-based NIV petition (such as an H-1B petition) specifically seeking the beneficiary's services to work for a qualifying organization in the United States (see 9 FAM 402.12-11 below);",
+      "must_contain": [
+        "402.12",
+        "11"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0000"
+    },
+    {
+      "question": "What is the maximum allowable period of stay in the United States for a beneficiary destined to a position requiring specialized knowledge?",
+      "answer": "The maximum allowable period of stay in the United States for a beneficiary destined to a position requiring specialized knowledge is five years.",
+      "quote": "If the beneficiary is destined to a position requiring specialized knowledge, their period of stay in the United States in L or H nonimmigrant status has not exceeded the five-year maximum allowable period of stay (see 9 FAM 402.12-14(C) below);",
+      "must_contain": [
+        "402.12",
+        "14"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0001"
+    },
+    {
+      "question": "What is the maximum allowable period of stay in the United States for a beneficiary destined to a managerial or executive position?",
+      "answer": "The maximum allowable period of stay in the United States for a beneficiary destined to a managerial or executive position is seven years.",
+      "quote": "If the beneficiary is destined to a position requiring managerial or executive capacity, their period of stay in the United States in L or H nonimmigrant status has not exceeded the seven-year maximum allowable period of stay (see 9 FAM 402.12-14(C) below);",
+      "must_contain": [
+        "402.12",
+        "14"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0002"
+    },
+    {
+      "question": "What must be true if an L-1B beneficiary will primarily work offsite at an unaffiliated employer location?",
+      "answer": "If an L-1B beneficiary will primarily work offsite at an unaffiliated employer location, the petitioner must have control and supervision over the beneficiary, and the beneficiary\u2019s specialized knowledge must be necessary to perform the work being supplied to the end-client.",
+      "quote": "If the L-1B beneficiary will primarily work offsite at an unaffiliated employer location, the petitioner must have control and supervision over the beneficiary, and the beneficiary\u2019s specialized knowledge must be necessary to perform the work being supplied to the end-client (for information on third party worksites, see 9 FAM 402.12-10 below);",
+      "must_contain": [
+        "402.12",
+        "10"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0003"
+    },
+    {
+      "question": "What form is used for an Intracompany Transferee Certificate of Eligibility?",
+      "answer": "Form I-129S is used for an Intracompany Transferee Certificate of Eligibility.",
+      "quote": "At these locations, such citizens of Canada shall present the original and two copies of Form I-129S, Intracompany Transferee Certificate of Eligibility, prepared by the approved organization, as well as three copies of Form I-797, Notice of Approval of Nonimmigrant Visa Petition.",
+      "must_contain": [
+        "I-129S",
+        "I-797"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0004"
+    },
+    {
+      "question": "How many copies of Form I-797 must Canadian citizens present when seeking L classification under approved blanket petitions?",
+      "answer": "Canadian citizens must present three copies of Form I-797 when seeking L classification under approved blanket petitions.",
+      "quote": "At these locations, such citizens of Canada shall present the original and two copies of Form I-129S, Intracompany Transferee Certificate of Eligibility, prepared by the approved organization, as well as three copies of Form I-797, Notice of Approval of Nonimmigrant Visa Petition.",
+      "must_contain": [
+        "I-129S",
+        "I-797"
+      ],
+      "citation": "8 CFR 214.2",
+      "source": "ecfr",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0005"
+    },
+    {
+      "question": "What is the definition of \"more likely than not\"?",
+      "answer": "More likely than not is defined as a greater than 50 percent probability of something occurring.",
+      "quote": "See INS v. Cardoza-Fonseca (PDF) , 480 U.S. 421 (1987) (defining more likely than not as a greater than 50 percent probability of something occurring).",
+      "must_contain": [
+        "50 percent",
+        "480",
+        "421",
+        "1987",
+        "50"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0006"
+    },
+    {
+      "question": "Which USCIS service centers participated in a joint agency pilot program for Canadian citizens seeking L-1 nonimmigrant status under NAFTA?",
+      "answer": "From April 30, 2018 to April 30, 2020, the California Service Center and the CBP Blaine, Washington POE participated in a joint agency pilot program for Canadian citizens seeking L-1 nonimmigrant status under NAFTA.",
+      "quote": "From April 30, 2018 to April 30, 2020, the California Service Center and the CBP Blaine, Washington POE participated in a joint agency pilot program for Canadian citizens seeking L-1 nonimmigrant status under NAFTA.",
+      "must_contain": [
+        "30",
+        "2018",
+        "2020"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0007"
+    },
+    {
+      "question": "What is the name of the act that implemented the United States-Mexico-Canada Agreement?",
+      "answer": "The United States-Mexico-Canada Agreement Implementation Act, Pub. L. 116-113 (PDF) (January 29, 2020) implemented the United States-Mexico-Canada Agreement.",
+      "quote": "See the United States-Mexico-Canada Agreement Implementation Act, Pub. L. 116-113 (PDF) (January 29, 2020).",
+      "must_contain": [
+        "116",
+        "113",
+        "29",
+        "2020"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0008"
+    },
+    {
+      "question": "How many additional days does an applicant have to respond to a NOID if USCIS mailed the request?",
+      "answer": "The applicant has up to 3 more days after the 30-day period for responding to a NOID in cases where USCIS has mailed the request.",
+      "quote": "The applicant has up to 3 more days after the 30-day period for responding to a NOID in cases where USCIS has mailed the request.",
+      "must_contain": [
+        "30"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0009"
+    },
+    {
+      "question": "What is the citation for the regulations regarding Prohibiting Certain Transactions with Respect to Iran?",
+      "answer": "The citation for the regulations regarding Prohibiting Certain Transactions with Respect to Iran is 60 FR 24757 (May 6, 1995).",
+      "quote": "See Prohibiting Certain Transactions with Respect to Iran (PDF) , 60 FR 24757 (May 6, 1995).",
+      "must_contain": [
+        "60",
+        "24757",
+        "1995"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0010"
+    },
+    {
+      "question": "How long must the beneficiary have been employed abroad by the petitioner or its related entities?",
+      "answer": "The beneficiary must have been employed abroad on a full-time basis for at least 1 of the last 3 years.",
+      "quote": "Evidence that the beneficiary was employed abroad by the petitioner, or its parent, branch, affiliate, or subsidiary, on a full-time basis for at least 1 of the last 3 years in a managerial, executive, or specialized knowledge capacity.",
+      "must_contain": [
+        "3 years"
+      ],
+      "citation": "Volume 2, Part L, Chapter 8 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0011"
+    },
+    {
+      "question": "What form do Canadian L-1 beneficiaries present when applying for L-1 classification under an approved blanket?",
+      "answer": "Canadian L-1 beneficiaries present the signed Form I-129.",
+      "quote": "In these cases, the beneficiary presents the signed Form I-129 , applicable fees, and supporting documentation to a CBP officer at certain POEs or certain pre-flight inspection stations.",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0012"
+    },
+    {
+      "question": "Which public law added the interpreter and translator provisions to the National Defense Authorization Act for Fiscal Year 2006?",
+      "answer": "Public Law 110-36 added the interpreter and translator provisions to the National Defense Authorization Act for Fiscal Year 2006.",
+      "quote": "Pub. L. 110-36 (PDF) added Section 1059(e) to the National Defense Authorization Act for Fiscal Year 2006, which added the interpreter and translator provisions.",
+      "must_contain": [
+        "110",
+        "36",
+        "1059",
+        "2006"
+      ],
+      "citation": "Volume 12, Part D, Chapter 5 - Modifications and Exceptions to Continuous Residence and Physical Presence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0013"
+    },
+    {
+      "question": "Where can I find the statutory definitions for \"managerial capacity\" and \"executive capacity\"?",
+      "answer": "The statutory definitions for \"managerial capacity\" and \"executive capacity\" can be found in INA 101(a)(44)(A) and INA 101(a)(44)(B).",
+      "quote": "See INA 101(a)(44)(A) and INA 101(a)(44)(B) for statutory definitions of the terms \u201cmanagerial capacity\u201d and \u201cexecutive capacity.\u201d",
+      "must_contain": [
+        "101",
+        "44"
+      ],
+      "citation": "Volume 12, Part D, Chapter 5 - Modifications and Exceptions to Continuous Residence and Physical Presence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0014"
+    },
+    {
+      "question": "Which INA sections deal with preserving residence and physical presence for certain applicants?",
+      "answer": "INA 316(b) and INA 316(c) deal with preserving residence and physical presence for certain applicants.",
+      "quote": "See INA 316(b) and INA 316(c) .",
+      "must_contain": [
+        "316"
+      ],
+      "citation": "Volume 12, Part D, Chapter 5 - Modifications and Exceptions to Continuous Residence and Physical Presence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0015"
+    },
+    {
+      "question": "Do persons performing religious duties as described in INA 317 need to meet the 1-year physical presence requirement before starting their duties outside the United States?",
+      "answer": "No, persons performing religious duties as described in INA 317 do not need to have met the 1-year physical presence requirement before starting their religious duties outside the United States.",
+      "quote": "Persons performing religious duties as described in INA 317 do not need to have met this 1-year physical presence requirement before starting their religious duties outside the United States, unlike other naturalization applicants filing Form N-470 who must meet this requirement before working outside the United States.",
+      "must_contain": [
+        "N-470",
+        "317"
+      ],
+      "citation": "Volume 12, Part D, Chapter 5 - Modifications and Exceptions to Continuous Residence and Physical Presence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0016"
+    },
+    {
+      "question": "What is the citation for more information about Form N-470?",
+      "answer": "More information about Form N-470 can be found in Chapter 3, Continuous Residence, Section D, Preserving Residence for Naturalization (Form N-470) [12 USCIS-PM D.3(D)].",
+      "quote": "For more information about Form N-470, see Chapter 3, Continuous Residence, Section D, Preserving Residence for Naturalization (Form N-470) [ 12 USCIS-PM D.3(D) ].",
+      "must_contain": [
+        "N-470",
+        "12"
+      ],
+      "citation": "Volume 12, Part D, Chapter 5 - Modifications and Exceptions to Continuous Residence and Physical Presence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0017"
+    },
+    {
+      "question": "What regulation provides information on timely filing and maintenance of status?",
+      "answer": "8 CFR 248.1(b) provides information on timely filing and maintenance of status.",
+      "quote": "See 8 CFR 248.1(b) for information on timely filing and maintenance of status, and circumstances when failure to file timely may be excused in the discretion of USCIS.",
+      "must_contain": [
+        "248.1"
+      ],
+      "citation": "Volume 2, Part L, Chapter 10 - Period of Stay",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0018"
+    },
+    {
+      "question": "What is the combined H and L stay limit in the United States?",
+      "answer": "The combined H and L stay in the United States is 5 years.",
+      "quote": "The beneficiary is subject to the 5-year limit because the combined H and L stay in the United States is 5 years.",
+      "must_contain": [
+        "5 years"
+      ],
+      "citation": "Volume 2, Part L, Chapter 10 - Period of Stay",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0019"
+    },
+    {
+      "question": "Under which INA sections can a beneficiary be?",
+      "answer": "A beneficiary can be under INA 101(a)(15)(H) or INA 101(a)(15)(L).",
+      "quote": "Under INA 101(a)(15)(H) or INA 101(a)(15)(L) .",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "Volume 2, Part L, Chapter 10 - Period of Stay",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0020"
+    },
+    {
+      "question": "What is the maximum period of admission for executives and managers under the L-1 visa classification?",
+      "answer": "The maximum period of admission for executives and managers is 7 years.",
+      "quote": "It increased the maximum period of admission for executives and managers from 6 to 7 years, while limiting persons possessing specialized knowledge to a maximum period of 5 years.",
+      "must_contain": [
+        "7 years",
+        "5 years"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0021"
+    },
+    {
+      "question": "What is the maximum period of admission for persons possessing specialized knowledge under the L-1 visa classification?",
+      "answer": "The maximum period of admission for persons possessing specialized knowledge is 5 years.",
+      "quote": "It increased the maximum period of admission for executives and managers from 6 to 7 years, while limiting persons possessing specialized knowledge to a maximum period of 5 years.",
+      "must_contain": [
+        "7 years",
+        "5 years"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0022"
+    },
+    {
+      "question": "When did Congress create the L-1 program?",
+      "answer": "Congress created the L-1 program in 1970.",
+      "quote": "In 1970, Congress created the L-1 program after concluding that existing immigration laws had restricted the transfer and development of personnel from abroad who were vital to the interests of U.S. businesses.",
+      "must_contain": [
+        "1970"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0023"
+    },
+    {
+      "question": "What immigration act created the L-1 visa classification as it substantially exists today?",
+      "answer": "The Immigration Act of 1990 (IMMACT 90) created the L-1 visa classification as it substantially exists today.",
+      "quote": "The Immigration Act of 1990 (IMMACT 90) created the L-1 visa classification as it substantially exists today.",
+      "must_contain": [
+        "1990",
+        "90"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0024"
+    },
+    {
+      "question": "How long must an alien have served the organization abroad to qualify for L-1 classification under IMMACT 90?",
+      "answer": "Under IMMACT 90, an alien must have served the organization abroad for 1 of the 3 years preceding admission.",
+      "quote": "IMMACT 90 also allowed aliens to qualify for L-1 classification by serving the organization abroad for 1 of the 3 years preceding admission.",
+      "must_contain": [
+        "3 years",
+        "90"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0025"
+    },
+    {
+      "question": "What form should L-2 dependents file to extend or change their nonimmigrant status?",
+      "answer": "L-2 dependents can file Form I-539 to extend or change their nonimmigrant status.",
+      "quote": "Although a separate petition is not required of L-2 dependents, such persons must apply for an L-2 visa at the U.S. consulate based on the L-1 principal\u2019s petition, or they can file an Application to Extend/Change Nonimmigrant Status ( Form I-539 ).",
+      "must_contain": [
+        "I-539"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0026"
+    },
+    {
+      "question": "What form can L-2 spouses file to obtain evidence of identity and employment authorization?",
+      "answer": "L-2 spouses can file Form I-765 to obtain evidence of identity and employment authorization.",
+      "quote": "Notwithstanding this change, L-2 spouses may continue to apply for an Employment Authorization Document to obtain evidence of identity and employment authorization by properly filing an Application for Employment Authorization ( Form I-765 ), with the appropriate fee, if applicable.",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0027"
+    },
+    {
+      "question": "What is the age limit for unmarried dependent children to receive L-2 classification?",
+      "answer": "Unmarried dependent children under the age of 21 may receive L-2 classification.",
+      "quote": "The spouse and unmarried dependent children (under the age of 21) of an L-1 beneficiary may, if eligible, be granted L-2 classification and be given the same validity dates as the L-1 principal.",
+      "must_contain": [
+        "21"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0028"
+    },
+    {
+      "question": "When did USCIS begin considering certain L-2 nonimmigrant dependent spouses employment authorized incident to status?",
+      "answer": "As of November 12, 2021, USCIS considers certain L-2 nonimmigrant dependent spouses employment authorized incident to status.",
+      "quote": "As of November 12, 2021, USCIS considers certain L-2 nonimmigrant dependent spouses employment authorized incident to status [10] who are no longer required to obtain employment authorization before engaging in employment.",
+      "must_contain": [
+        "12",
+        "2021",
+        "10"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0029"
+    },
+    {
+      "question": "How long must a beneficiary have been employed abroad prior to the individual petition filing for blanket L-1 purposes?",
+      "answer": "The beneficiary must have been employed abroad for 1 of the 3 years prior to the individual petition filing in a qualifying capacity.",
+      "quote": "Petitioners seeking to classify the individual beneficiary under the approved blanket petition must establish that the beneficiary was employed abroad for 1 of the 3 years prior to the individual petition filing in a qualifying capacity and must establish that the beneficiary will be employed in a qualifying capacity in the United States.",
+      "must_contain": [
+        "3 years"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0030"
+    },
+    {
+      "question": "What percentage of ownership is considered evidence of control by USCIS?",
+      "answer": "USCIS considers ownership of more than 50 percent of an organization as evidence of control.",
+      "quote": "USCIS considers ownership of more than 50 percent of an organization as evidence of control.",
+      "must_contain": [
+        "50 percent",
+        "50"
+      ],
+      "citation": "Volume 2, Part L, Chapter 5 - Ownership and Control",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0031"
+    },
+    {
+      "question": "What is control based on ownership of more than 50 percent called?",
+      "answer": "Control based on ownership of more than 50 percent is called de jure control.",
+      "quote": "Control based on ownership of more than 50 percent is called de jure control.",
+      "must_contain": [
+        "50 percent",
+        "50"
+      ],
+      "citation": "Volume 2, Part L, Chapter 5 - Ownership and Control",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0032"
+    },
+    {
+      "question": "Can an owner with 50 percent or less of a company exercise de facto control?",
+      "answer": "Yes, it is possible for an owner of 50 percent or less of a company to exercise de facto control over the organization.",
+      "quote": "However, it is possible for an owner of 50 percent or less of a company to exercise de facto control over the organization.",
+      "must_contain": [
+        "50 percent",
+        "50"
+      ],
+      "citation": "Volume 2, Part L, Chapter 5 - Ownership and Control",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0033"
+    },
+    {
+      "question": "What form is issued as evidence of employment authorization?",
+      "answer": "USCIS issues an Employment Authorization Document (Form I-766) as evidence of employment authorization.",
+      "quote": "USCIS issues an Employment Authorization Document (Form I-766) as evidence of employment authorization.",
+      "must_contain": [
+        "I-766"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0034"
+    },
+    {
+      "question": "For an L-1A beneficiary coming to the United States to set up a new office, what type of capacity must their 1 year of experience abroad have been in?",
+      "answer": "For an L-1A beneficiary coming to the United States to set up a new office, the 1 year of experience abroad must have been in an executive or managerial capacity.",
+      "quote": "In the case of an L-1A beneficiary who is coming to the United States to set up a new office, the 1 year of experience abroad must have been in an executive or managerial capacity.",
+      "must_contain": [
+        "1 year"
+      ],
+      "citation": "Volume 2, Part L, Chapter 2 - General Eligibility",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0035"
+    },
+    {
+      "question": "What is one example of a change that requires an amended petition?",
+      "answer": "A change in capacity of employment requires an amended petition.",
+      "quote": "Changes requiring amended petitions include: Changes in approved relationships; Additional qualifying organizations under a blanket petition; Change in capacity of employment (for example, from specialized knowledge position to a managerial or executive position); or Any information that would affect the beneficiary\u2019s eligibility under INA 101(a)(15)(L) .",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "Volume 2, Part L, Chapter 8 - Documentation and Evidence",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0036"
+    },
+    {
+      "question": "What is the citation for the definitions of L-1 executives and managers?",
+      "answer": "The definitions of L-1 executives and managers can be found in INA 101(a)(44), 8 CFR 214.2(l)(1)(ii)(B), and 8 CFR 214.2(l)(1)(ii)(C).",
+      "quote": "For the definitions of L-1 executives and managers, see INA 101(a)(44 ), 8 CFR 214.2(l)(1)(ii)(B) , and 8 CFR 214.2(l)(1)(ii)(C) .",
+      "must_contain": [
+        "101",
+        "44",
+        "214.2"
+      ],
+      "citation": "Volume 2, Part L, Chapter 3 - Managers and Executives (L-1A)",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0037"
+    },
+    {
+      "question": "What is the citation for the case Matter of Aphrodite Investments?",
+      "answer": "The citation for Matter of Aphrodite Investments is 17 I&N Dec. 530 (Comm. 1980).",
+      "quote": "See Matter of Aphrodite Investments (PDF) , 17 I&N Dec. 530 (Comm. 1980).",
+      "must_contain": [
+        "17",
+        "530",
+        "1980"
+      ],
+      "citation": "Volume 2, Part L, Chapter 3 - Managers and Executives (L-1A)",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0038"
+    },
+    {
+      "question": "Is there a base filing fee for a Form I-129S?",
+      "answer": "No, there is no base filing fee for a Form I-129S.",
+      "quote": "There is no base filing fee for a Form I-129S .",
+      "must_contain": [
+        "I-129S"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0039"
+    },
+    {
+      "question": "What is the Fraud Prevention and Detection Fee for an L-1 petitioner?",
+      "answer": "The Fraud Prevention and Detection Fee for an L-1 petitioner is $500.",
+      "quote": "the L-1 petitioner must pay a Fraud Prevention and Detection Fee of $500 when:",
+      "must_contain": [
+        "$500",
+        "500"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0040"
+    },
+    {
+      "question": "When did the Consolidated Appropriations Act of 2016 become law?",
+      "answer": "The Consolidated Appropriations Act of 2016 became law on December 18, 2015.",
+      "quote": "On December 18, 2015, the Consolidated Appropriations Act of 2016 (referred to as Public Law 114-113) became law.",
+      "must_contain": [
+        "18",
+        "2015",
+        "2016",
+        "114",
+        "113"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0041"
+    },
+    {
+      "question": "What is the additional fee imposed by Public Law 114-113 for certain L-1A and L-1B petitions?",
+      "answer": "Public Law 114-113 imposes an additional fee of $4,500 for certain L-1A and L-1B petitions.",
+      "quote": "Public Law 114-113 imposes an additional fee of $4,500 for certain L-1A and L-1B petitions beyond the base fee, Fraud Prevention and Detection Fee, as well as any premium processing fee, if applicable.",
+      "must_contain": [
+        "$4,500",
+        "114",
+        "113",
+        "4,500"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0042"
+    },
+    {
+      "question": "Until when is the Public Law 114-113 fee in effect?",
+      "answer": "The Public Law 114-113 fee is in effect until September 30, 2027.",
+      "quote": "This Public Law 114-113 fee is in effect until September 30, 2027.",
+      "must_contain": [
+        "114",
+        "113",
+        "30",
+        "2027"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0043"
+    },
+    {
+      "question": "Is the $500 fraud fee required if the beneficiary is changing status from H-1B with the same employer?",
+      "answer": "Yes, the $500 fraud fee is required if the beneficiary is changing status from H-1B with the same employer.",
+      "quote": "If the beneficiary is changing status from H-1B with the same employer, the $500 fraud fee is required because such a change is considered an initial grant of L-1 classification.",
+      "must_contain": [
+        "$500",
+        "500"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0044"
+    },
+    {
+      "question": "How long must an intracompany transferee beneficiary have been employed by the petitioner or an affiliate/subsidiary?",
+      "answer": "The beneficiary must have been employed continuously for one year within the three years preceding their application for admission into the United States.",
+      "quote": "While INA 101(a)(15)(L) requires the beneficiary of an intracompany transferee petition to have been employed continuously by the petitioner, or by an affiliate or subsidiary thereof, for one year within the three years preceding the beneficiary\u2019s application for admission into the United States, USCIS has provided guidance in Policy Memo 602-0167 clarifying that the proper point for determining the one-year qualifying experience requirement is the date the petitioner files the initial L-1 or other employment-based NIV petition (such as an H-1B petition) specifically seeking the beneficiary's services to work for a qualifying organization in the United States (the starting point in the applicant's application for admission to enable the beneficiary to work in the United States for the L-1 petition or a qualifying organization).",
+      "must_contain": [
+        "101",
+        "15",
+        "602",
+        "0167"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0045"
+    },
+    {
+      "question": "What type of employment is required for the qualifying experience?",
+      "answer": "The qualifying experience must have been continuous full-time employment.",
+      "quote": "While not expressly stated in the INA or regulations, INA 101(a)(15)(L) contemplates that the beneficiary\u2019s qualifying experience with the petitioner must have been continuous full-time employment, and not continuous part-time employment.",
+      "must_contain": [
+        "101",
+        "15"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0046"
+    },
+    {
+      "question": "What form is used for a Petition for a Nonimmigrant Worker?",
+      "answer": "A Petition for a Nonimmigrant Worker uses Form I-129.",
+      "quote": "However, a Petition for a Nonimmigrant Worker ( Form I-129 ) for an Iranian citizen may be approved if the Iranian is:",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0047"
+    },
+    {
+      "question": "When did the USMCA enter into force?",
+      "answer": "The USMCA entered into force on July 1, 2020.",
+      "quote": "The USMCA entered into force on July 1, 2020.",
+      "must_contain": [
+        "2020"
+      ],
+      "citation": "Volume 2, Part L, Chapter 9 - Adjudication",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0048"
+    },
+    {
+      "question": "What is the amount of the Consolidated Appropriations Act fee for blanket L-1 visas?",
+      "answer": "The Consolidated Appropriations Act fee is $4,500.",
+      "quote": "Consular sections must also collect the $4,500 Consolidated Appropriations Act fee from any applicants for blanket L-1 visas whose employers are subject to the fee.",
+      "must_contain": [
+        "$4,500",
+        "4,500"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0049"
+    },
+    {
+      "question": "Which form should be consulted to determine if a petitioning employer is subject to the Consolidated Appropriations Act fee?",
+      "answer": "To determine if the petitioning employer is subject to the fee, Part 1 of Form I-129S should be consulted.",
+      "quote": "To determine if the petitioning employer is subject to the fee, consult the two relevant questions in Part 1 of Form I-129S:",
+      "must_contain": [
+        "I-129S"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0050"
+    },
+    {
+      "question": "What ACRS code is used for the Consolidated Appropriations Act fee?",
+      "answer": "ACRS code 20 is used for the Consolidated Appropriations Act fee.",
+      "quote": "Use ACRS code 20 for this purpose.",
+      "must_contain": [
+        "20"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0051"
+    },
+    {
+      "question": "When is the $4,500 fee not collected for the re-use of Form I-129S?",
+      "answer": "The $4,500 fee is not collected for the re-use of Form I-129S if the applicant loses their passport or has a limited validity and applies for a new visa before the expiration of the Form I-129S.",
+      "quote": "If the applicant loses their passport or has a limited validity and applies for a new visa before the expiration of the Form I-129S, do not collect the $4,500 fee for the re-use of the Form I-129S.",
+      "must_contain": [
+        "I-129S",
+        "$4,500",
+        "4,500"
+      ],
+      "citation": "9 FAM 402.12",
+      "source": "fam",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0052"
+    },
+    {
+      "question": "What is the additional fee for certain H-1B petitions?",
+      "answer": "The additional fee for certain H-1B petitions is $4,000.",
+      "quote": "These petitioners must submit an additional fee of $4,000 for certain H-1B petitions and $4,500 for certain L-1A and L-1B petitions postmarked on or after December 18, 2015.",
+      "must_contain": [
+        "$4,000",
+        "$4,500",
+        "4,000",
+        "4,500",
+        "18",
+        "2015"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0053"
+    },
+    {
+      "question": "What is the additional fee for certain L-1A and L-1B petitions?",
+      "answer": "The additional fee for certain L-1A and L-1B petitions is $4,500.",
+      "quote": "These petitioners must submit an additional fee of $4,000 for certain H-1B petitions and $4,500 for certain L-1A and L-1B petitions postmarked on or after December 18, 2015.",
+      "must_contain": [
+        "$4,000",
+        "$4,500",
+        "4,000",
+        "4,500",
+        "18",
+        "2015"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0054"
+    },
+    {
+      "question": "When did the increased fees for H-1B and L-1 petitions become effective?",
+      "answer": "The increased fees for H-1B and L-1 petitions became effective for petitions postmarked on or after December 18, 2015.",
+      "quote": "These petitioners must submit an additional fee of $4,000 for certain H-1B petitions and $4,500 for certain L-1A and L-1B petitions postmarked on or after December 18, 2015.",
+      "must_contain": [
+        "$4,000",
+        "$4,500",
+        "4,000",
+        "4,500",
+        "18",
+        "2015"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0055"
+    },
+    {
+      "question": "Which petitioners are subject to the additional fees?",
+      "answer": "The additional fees apply to petitioners who employ 50 or more employees in the United States, with more than 50 percent of those employees in H-1B or L-1 nonimmigrant status.",
+      "quote": "The additional fees apply to petitioners who employ 50 or more employees in the United States, with more than 50 percent of those employees in H-1B or L-1 (including L-1A and L-1B) nonimmigrant status.",
+      "must_contain": [
+        "50 percent",
+        "50"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0056"
+    },
+    {
+      "question": "Until when are the Consolidated Appropriations Act of 2016 fees effective?",
+      "answer": "The Consolidated Appropriations Act of 2016 fees remain effective through September 30, 2027.",
+      "quote": "The Consolidated Appropriations Act of 2016 fees remain effective through September 30, 2027.",
+      "must_contain": [
+        "2016",
+        "30",
+        "2027"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0057"
+    },
+    {
+      "question": "What is the name of the act that increased fees for certain H-1B and L-1 petitioners?",
+      "answer": "The Consolidated Appropriations Act of 2016 increased fees for certain H-1B and L-1 petitioners.",
+      "quote": "The Consolidated Appropriations Act of 2016 [15] increases fees for certain H-1B and L-1 petitioners.",
+      "must_contain": [
+        "2016",
+        "15"
+      ],
+      "citation": "Volume 2, Part L, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0058"
+    },
+    {
+      "question": "What form must a petitioning employer file to classify a beneficiary as an L-1 nonimmigrant?",
+      "answer": "A petitioning employer must file a Petition for a Nonimmigrant Worker (Form I-129) to classify a beneficiary as an L-1 nonimmigrant.",
+      "quote": "USCIS requires a petitioning employer to file a Petition for a Nonimmigrant Worker ( Form I-129 ) with the required fee in order to classify a beneficiary as an L-1 nonimmigrant.",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0059"
+    },
+    {
+      "question": "What is the maximum time before a beneficiary's start date that an L-1 petition can be filed with USCIS?",
+      "answer": "An L-1 petition may not be filed with USCIS more than 6 months before the beneficiary's start date.",
+      "quote": "A petitioner may not file the L-1 petition with USCIS more than 6 months before the beneficiary\u2019s start date.",
+      "must_contain": [
+        "6 months"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0060"
+    },
+    {
+      "question": "How long should USCIS generally take to process L petitions?",
+      "answer": "USCIS should generally process L petitions within 30 days of receipt.",
+      "quote": "In general, USCIS should process L petitions within 30 days of receipt.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0061"
+    },
+    {
+      "question": "Is there a base filing fee for a Form I-129S?",
+      "answer": "No, there is no base filing fee for a Form I-129S.",
+      "quote": "There is no base filing fee for a Form I-129S .",
+      "must_contain": [
+        "I-129S"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0062"
+    },
+    {
+      "question": "What form is used for a Nonimmigrant Petition Based on Blanket L Petition?",
+      "answer": "The Nonimmigrant Petition Based on Blanket L Petition is done by filing Form I-129S.",
+      "quote": "This is done by filing the Nonimmigrant Petition Based on Blanket L Petition ( Form I-129S ) either with USCIS at the service center that approved the L-1 blanket petition, with the U.S. Department of State (DOS) at a U.S. embassy or consulate abroad, or with U.S. Customs and Border Protection (CBP) at a port-of-entry.",
+      "must_contain": [
+        "I-129S"
+      ],
+      "citation": "Volume 2, Part L, Chapter 7 - Filing",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0063"
+    },
+    {
+      "question": "Where can I find information regarding documentary requirements for new office cases?",
+      "answer": "Documentary requirements for new office cases can be found in 8 CFR 214.2(l)(3)(v).",
+      "quote": "See documentary requirements for new office cases in 8 CFR 214.2(l)(3)(v) and the discussion in Matter of Leblanc (PDF) , 13 I&N Dec. 816 (Reg. Comm. 1971).",
+      "must_contain": [
+        "214.2",
+        "13",
+        "816",
+        "1971"
+      ],
+      "citation": "Volume 2, Part L, Chapter 5 - Ownership and Control",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0064"
+    },
+    {
+      "question": "Where can I find information about intracompany transferees - L Visas?",
+      "answer": "Information about intracompany transferees - L Visas can be found in 9 FAM 402.12-12(b).",
+      "quote": "See 9 FAM 402.12-12(b) , Intracompany Transferees - L Visas.",
+      "must_contain": [
+        "402.12",
+        "12"
+      ],
+      "citation": "Volume 2, Part L, Chapter 5 - Ownership and Control",
+      "source": "uscis_pm",
+      "domain": "l1",
+      "generated": true,
+      "id": "gen-l1-0065"
+    }
+  ]
+}

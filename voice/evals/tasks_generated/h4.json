@@ -1,0 +1,314 @@
+{
+  "domain": "h4",
+  "cases": [
+    {
+      "question": "Are H-4 visa holders allowed to work in the United States?",
+      "answer": "Individuals in H-4 status are not authorized to accept employment while in the United States, unless specifically authorized by regulation or INA 106.",
+      "quote": "Individuals in H-4 status are not authorized to accept employment while in the United States other than when authorized pursuant to a regulation providing employment authorization to certain H-4 nonimmigrants or INA 106 (relating to battered spouses).",
+      "must_contain": [
+        "106"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0000"
+    },
+    {
+      "question": "Can domestic employees of H nonimmigrants obtain B-1 visas?",
+      "answer": "Yes, personal employees or domestic workers accompanying H nonimmigrant employers may be issued B-1 visas if they meet specific requirements.",
+      "quote": "Personal employees or domestic workers seeking to accompany or follow to join H nonimmigrant employers may be issued B-1 visas, if they meet the requirements of 9 FAM 402.2-5(D)(3).",
+      "must_contain": [
+        "402.2"
+      ],
+      "citation": "9 FAM 402.10",
+      "source": "fam",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0001"
+    },
+    {
+      "question": "What form is used to renew a previous EAD?",
+      "answer": "Form I-765 is used to renew a previous EAD.",
+      "quote": "The approval or denial of the application to renew the previous EAD using Form I-765; or",
+      "must_contain": [
+        "I-765"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0002"
+    },
+    {
+      "question": "Which dependents are not covered by this policy for employment authorization?",
+      "answer": "This policy does not apply to dependents of Employees of the Taipei Economic and Cultural Representative Office (TECRO) and Taipei Economic and Cultural Offices (TECO), or spouses of Long-Term Investors in the Commonwealth of the Northern Mariana Islands (E-2 CNMI Investors).",
+      "quote": "This policy does not apply to dependents (including spouses) of Employees of the Taipei Economic and Cultural Representative Office (TECRO) and Taipei Economic and Cultural Offices (TECO), who continue to be required to apply for employment authorization per 8 CFR 274a.12(c)(2) .",
+      "must_contain": [
+        "12"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0003"
+    },
+    {
+      "question": "What is the maximum duration for an automatic extension from the expiration date of the previous EAD?",
+      "answer": "An automatic extension will terminate after 180 days from the date of the expiration of the previous EAD.",
+      "quote": "180 days from the date of the expiration of the previous EAD.",
+      "must_contain": [
+        "180 days",
+        "180"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0004"
+    },
+    {
+      "question": "What form number is a Notice of Action for Form I-765?",
+      "answer": "A Notice of Action for Form I-765 is Form I-797C.",
+      "quote": "A Notice of Action (Form I-797C) for Form I-765 with Class requested in the same category as the expired EAD (either \u201c(a)(17),\u201d \u201c(a)(18),\u201d or \u201c(c)(26),\u201d as applicable), and showing that the renewal application was filed before the EAD expired; and",
+      "must_contain": [
+        "I-797C",
+        "I-765",
+        "17",
+        "18",
+        "26"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0005"
+    },
+    {
+      "question": "What form must a spouse or child of an FMG waiver recipient submit to change status from J-2 to H-4?",
+      "answer": "They must submit an Application to Extend/Change Nonimmigrant Status (Form I-539).",
+      "quote": "If a spouse or child of the FMG waiver recipient wishes to change status in the United States from J-2 to H-4, then they must submit an Application to Extend/Change Nonimmigrant Status ( Form I-539 ).",
+      "must_contain": [
+        "I-539"
+      ],
+      "citation": "Volume 2, Part D, Chapter 4 - Waiver of the Foreign Residence Requirement",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0006"
+    },
+    {
+      "question": "How long must a waiver recipient practice medicine in a designated area?",
+      "answer": "The waiver recipient must practice medicine for at least 3 years.",
+      "quote": "The waiver recipient must practice medicine for at least 3 years in an area designated by HHS as a HPSA, MUA, or MUP.",
+      "must_contain": [
+        "3 years"
+      ],
+      "citation": "Volume 2, Part D, Chapter 4 - Waiver of the Foreign Residence Requirement",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0007"
+    },
+    {
+      "question": "What form is the Certificate of Eligibility for Exchange Visitor (J-1) Status?",
+      "answer": "The Certificate of Eligibility for Exchange Visitor (J-1) Status is Form DS-2019.",
+      "quote": "Occasionally, the foreign residence requirement is not correctly annotated on the Certificate of Eligibility for Exchange Visitor (J-1) Status ( Form DS-2019 ) or on the visa foil or both.",
+      "must_contain": [
+        "2019"
+      ],
+      "citation": "Volume 2, Part D, Chapter 4 - Waiver of the Foreign Residence Requirement",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0008"
+    },
+    {
+      "question": "Is the absence or inclusion of a notation on a DS-2019 or visa foil conclusive regarding the foreign residence requirement?",
+      "answer": "No, the absence or inclusion of such a notation is not conclusive.",
+      "quote": "The absence or inclusion of such a notation on a DS-2019 or visa foil that the exchange visitor is subject to the requirement is not conclusive.",
+      "must_contain": [
+        "2019"
+      ],
+      "citation": "Volume 2, Part D, Chapter 4 - Waiver of the Foreign Residence Requirement",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0009"
+    },
+    {
+      "question": "What form should dependent spouses file to obtain an Employment Authorization Document?",
+      "answer": "Dependent spouses may file Form I-765, Application for Employment Authorization, to obtain an Employment Authorization Document.",
+      "quote": "To obtain an Employment Authorization Document (EAD or Form I-766) evidencing both identity and employment authorization, such dependent spouses may file an Application for Employment Authorization ( Form I-765 ).",
+      "must_contain": [
+        "I-766",
+        "I-765"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0010"
+    },
+    {
+      "question": "When did USCIS and CBP start issuing new Class of Admission (COA) codes for certain E and L spouses?",
+      "answer": "USCIS and CBP began issuing new Class of Admission (COA) codes for certain E and L spouses as of January 30, 2022.",
+      "quote": "As of January 30, 2022, USCIS and CBP began issuing Forms I-94 with the following new Class of Admission (COA) codes for certain E and L spouses: E-1S, E-2S, E-3S, and L-2S.",
+      "must_contain": [
+        "I-94",
+        "30",
+        "2022"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0011"
+    },
+    {
+      "question": "What is the maximum validity period for an EAD granted to E and L dependent spouses?",
+      "answer": "The maximum validity period for an EAD granted to E and L dependent spouses is 2 years.",
+      "quote": "USCIS generally grants the EAD with a validity period that aligns with the applicant\u2019s Form I-94 expiration date, not to exceed 2 years for E and L dependent spouses, or 3 years for H-4 dependent spouses.",
+      "must_contain": [
+        "I-94",
+        "2 years",
+        "3 years"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0012"
+    },
+    {
+      "question": "What is the maximum validity period for an EAD granted to H-4 dependent spouses?",
+      "answer": "The maximum validity period for an EAD granted to H-4 dependent spouses is 3 years.",
+      "quote": "USCIS generally grants the EAD with a validity period that aligns with the applicant\u2019s Form I-94 expiration date, not to exceed 2 years for E and L dependent spouses, or 3 years for H-4 dependent spouses.",
+      "must_contain": [
+        "I-94",
+        "2 years",
+        "3 years"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0013"
+    },
+    {
+      "question": "When did the automatic extension for EADs of E and L dependent spouses begin?",
+      "answer": "The automatic extension for EADs of E and L dependent spouses began on November 12, 2021.",
+      "quote": "Beginning November 12, 2021, the EAD of an E and L dependent spouse, and employment authorization and EAD of an H-4 dependent spouse, will be automatically extended for a period of up to 180 days if:",
+      "must_contain": [
+        "180 days",
+        "12",
+        "2021",
+        "180"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0014"
+    },
+    {
+      "question": "How long can an EAD be automatically extended for E, L, or H-4 dependent spouses?",
+      "answer": "An EAD can be automatically extended for a period of up to 180 days.",
+      "quote": "Beginning November 12, 2021, the EAD of an E and L dependent spouse, and employment authorization and EAD of an H-4 dependent spouse, will be automatically extended for a period of up to 180 days if:",
+      "must_contain": [
+        "180 days",
+        "12",
+        "2021",
+        "180"
+      ],
+      "citation": "Volume 10, Part B, Chapter 2 - Employment Authorization for Certain H-4, E, and L Nonimmigrant Dependent Spouses",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0015"
+    },
+    {
+      "question": "For cases filed under section 1 of the Act of November 2, 1966, when is a temporary absence disregarded for the applicant's \"last arrival\"?",
+      "answer": "A temporary absence is disregarded for the applicant's \"last arrival\" if the applicant was admitted or paroled after January 1, 1959, departed temporarily without abandoning residence, and was readmitted or paroled upon return.",
+      "quote": "If an applicant who was admitted or paroled subsequent to January 1, 1959, later departs from the United States temporarily with no intention of abandoning his or her residence, and is readmitted or paroled upon return, the temporary absence shall be disregarded for purposes of the applicant's \u201clast arrival\u201d into the United States in regard to cases filed under section 1 of the Act of November 2, 1966.",
+      "must_contain": [
+        "1959",
+        "1966"
+      ],
+      "citation": "8 CFR 245.2",
+      "source": "ecfr",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0016"
+    },
+    {
+      "question": "What is the maximum duration an H-3 trainee can be admitted to the United States?",
+      "answer": "H-3 trainees can be admitted for a maximum of 2 years.",
+      "quote": "H-3 trainees and externs should be admitted for the length of the training program, but for no longer than 2 years.",
+      "must_contain": [
+        "2 years"
+      ],
+      "citation": "Volume 2, Part J, Chapter 7 - Admissions, Extensions of Stay, and Change of Status",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0017"
+    },
+    {
+      "question": "What is the maximum duration an H-3 special education exchange visitor can be admitted to the United States?",
+      "answer": "H-3 visa special education exchange visitors can be admitted for a maximum of 18 months.",
+      "quote": "H-3 visa special education exchange visitors should be admitted for the length of the training program, but for no longer than 18 months.",
+      "must_contain": [
+        "18 months",
+        "18"
+      ],
+      "citation": "Volume 2, Part J, Chapter 7 - Admissions, Extensions of Stay, and Change of Status",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0018"
+    },
+    {
+      "question": "How long must H-3 trainees or special education exchange visitors reside outside the United States before they can seek an extension, change of status, or readmission in H-visa or L-visa status after spending their maximum allowable time in the U.S.?",
+      "answer": "They must reside outside the United States for the previous six months.",
+      "quote": "H-3 trainees and special education exchange visitors who respectively, have spent 2 years or 18 months in the United States, in either H-visa or L-visa classifications may not seek extension of, change of status to, or be readmitted in, either H-visa or L-visa status unless they have resided outside the United States for the previous six months.",
+      "must_contain": [
+        "2 years",
+        "18 months",
+        "18"
+      ],
+      "citation": "Volume 2, Part J, Chapter 7 - Admissions, Extensions of Stay, and Change of Status",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0019"
+    },
+    {
+      "question": "What form must a petitioner file to extend an H-3 nonimmigrant's stay?",
+      "answer": "The petitioner must file a Petition for a Nonimmigrant Worker (Form I-129) and H Classification Supplement to Form I-129.",
+      "quote": "To file for an extension, the petitioner must file another Petition for a Nonimmigrant Worker ( Form I-129 ) and H Classification Supplement to Form I-129, fully documented in the same manner as the first petition, and also include:\u200b",
+      "must_contain": [
+        "I-129"
+      ],
+      "citation": "Volume 2, Part J, Chapter 7 - Admissions, Extensions of Stay, and Change of Status",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0020"
+    },
+    {
+      "question": "What form do dependents of an H-3 beneficiary need to submit to extend or change their nonimmigrant status?",
+      "answer": "Dependents need to submit an Application To Extend/Change Nonimmigrant Status (Form I-539).",
+      "quote": "If the H-3 beneficiary has a dependent (a spouse, or unmarried child under the age of 21) in the United States, those dependents will need to submit an Application To Extend/Change Nonimmigrant Status ( Form I-539 ).",
+      "must_contain": [
+        "I-539",
+        "21"
+      ],
+      "citation": "Volume 2, Part J, Chapter 7 - Admissions, Extensions of Stay, and Change of Status",
+      "source": "uscis_pm",
+      "domain": "h4",
+      "generated": true,
+      "id": "gen-h4-0021"
+    }
+  ]
+}

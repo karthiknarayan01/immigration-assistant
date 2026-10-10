@@ -1,0 +1,1259 @@
+{
+  "domain": "eb5",
+  "cases": [
+    {
+      "question": "What factors does an officer review when assessing the economic impact of proposed economic activity?",
+      "answer": "An officer reviews the impact of the activity relative to relevant economic conditions when assessing the likelihood that the proposed economic activity will have a substantive economic impact on the proposed geographic area.",
+      "quote": "Moreover, in assessing the likelihood that the proposed economic activity will have a substantive economic impact [21] on the proposed geographic area, an officer reviews the impact of the activity relative to relevant economic conditions.",
+      "must_contain": [
+        "21"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0000"
+    },
+    {
+      "question": "What is the minimum number of hours per week required for a position to be considered full-time employment?",
+      "answer": "Full-time employment is defined as employment in a position that requires at least 35 hours of service per week.",
+      "quote": "Defined full-time employment as employment in a position that requires at least 35 hours of service per week at any time, regardless of who fills the position.",
+      "must_contain": [
+        "35 hours",
+        "35"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0001"
+    },
+    {
+      "question": "Which act created the Immigrant Investor Pilot Program?",
+      "answer": "The Immigrant Investor Pilot Program was created by Section 610 of the Departments of Commerce, Justice, and State, the Judiciary, and Related Agencies Appropriations Act of 1993.",
+      "quote": "Section 610 of the Departments of Commerce, Justice, and State, the Judiciary, and Related Agencies Appropriations Act of 1993 [21]\nCongress created an Immigrant Investor Pilot Program (the Regional Center Program) to have a number of the available EB-5 visas set aside each fiscal year for immigrant investors (and eligible family members) who invest in a commercial enterprise associated with a designated Regional Center.",
+      "must_contain": [
+        "610",
+        "1993",
+        "21"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0002"
+    },
+    {
+      "question": "Which act codified the reformed Regional Center Program within INA 203(b)(5)?",
+      "answer": "The EB-5 Reform and Integrity Act of 2022 codified the substantially reformed Regional Center Program within INA 203(b)(5).",
+      "quote": "Sections 101 and 102 of the EB-5 Reform and Integrity Act of 2022 (PDF) [26]\nRepealed Section 610 of the Departments of Commerce, Justice, and State, the Judiciary, and Related Agencies Appropriations Act, [27] and codified the substantially reformed Regional Center Program within INA 203(b)(5) .",
+      "must_contain": [
+        "101",
+        "102",
+        "2022",
+        "26",
+        "610",
+        "27",
+        "203"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0003"
+    },
+    {
+      "question": "What is the citation for employment creation immigrants?",
+      "answer": "The citation for employment creation immigrants is INA 203(b)(5); 8 CFR 204.6 (PDF).",
+      "quote": "INA 203(b)(5) ; 8 CFR 204.6 (PDF) [28] \u2013 Employment creation immigrants",
+      "must_contain": [
+        "203",
+        "204.6",
+        "28"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0004"
+    },
+    {
+      "question": "What happens to investor Form I-526E petitions associated with a project when a new commercial enterprise or job-creating entity is suspended?",
+      "answer": "USCIS holds adjudication of investor Form I-526E petitions associated with that project.",
+      "quote": "In general, during the period a new commercial enterprise or job-creating entity is suspended, where USCIS has approved a Form I-956F application, USCIS holds adjudication of investor Form I-526E petitions associated with that project.",
+      "must_contain": [
+        "I-956F",
+        "I-526E"
+      ],
+      "citation": "Volume 6, Part G, Chapter 8 - Sanctions and Discretionary Determinations",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0005"
+    },
+    {
+      "question": "How long do investors have to reassociate with a new entity if USCIS debars a regional center, new commercial enterprise, or job creating entity?",
+      "answer": "Affected investors have 180 days to reassociate with a new regional center, new commercial enterprise, or job creating entity upon notification of debarment.",
+      "quote": "Upon notification, affected investors have 180 days to reassociate with a new regional center, new commercial enterprise, or job creating entity.",
+      "must_contain": [
+        "180 days",
+        "180"
+      ],
+      "citation": "Volume 6, Part G, Chapter 8 - Sanctions and Discretionary Determinations",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0006"
+    },
+    {
+      "question": "What is the timeframe for affected investors to reassociate with a new regional center or new commercial enterprise if USCIS terminates a regional center?",
+      "answer": "Affected investors have 180 days to reassociate with a new regional center or new commercial enterprise upon notification of termination.",
+      "quote": "Upon notification, affected investors have 180 days to reassociate with a new regional center or new commercial enterprise.",
+      "must_contain": [
+        "180 days",
+        "180"
+      ],
+      "citation": "Volume 6, Part G, Chapter 8 - Sanctions and Discretionary Determinations",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0007"
+    },
+    {
+      "question": "How many full-time positions must a new commercial enterprise create for qualifying employees under the EB-5 program?",
+      "answer": "A new commercial enterprise must create full-time positions for at least 10 qualifying employees.",
+      "quote": "The immigrant investor seeking to enter the United States through the EB-5 program must invest the required amount of capital in a new commercial enterprise that will create full-time positions for at least 10 qualifying employees.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0008"
+    },
+    {
+      "question": "How long must jobs be expected to last to generally not be considered intermittent, temporary, seasonal, or transient?",
+      "answer": "Jobs that are expected to last at least 2 years are generally not considered intermittent, temporary, seasonal, or transient in nature.",
+      "quote": "However, jobs that are expected to last at least 2 years are generally not considered intermittent, temporary, seasonal, or transient in nature.",
+      "must_contain": [
+        "2 years"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0009"
+    },
+    {
+      "question": "For how long must the number of existing employees in a troubled business be maintained at no less than the pre-investment level?",
+      "answer": "The number of existing employees in a troubled business must be maintained at no less than the pre-investment level for a period of at least 2 years.",
+      "quote": "Immigrant investors investing in a new commercial enterprise that is a troubled business, must show that the number of existing employees in the troubled business is being, or will be, maintained at no less than the pre-investment level for a period of at least 2 years.",
+      "must_contain": [
+        "2 years"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0010"
+    },
+    {
+      "question": "What form does a designated regional center file to request approval for an investment offering?",
+      "answer": "A designated regional center files Form I-956F to request approval for an investment offering.",
+      "quote": "A designated regional center files an Application for Approval of an Investment in a Commercial Enterprise ( Form I-956F ) (project application) to request approval for each particular investment offering through an associated new commercial enterprise.",
+      "must_contain": [
+        "I-956F"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0011"
+    },
+    {
+      "question": "When must a regional center file Form I-956F?",
+      "answer": "A regional center must file Form I-956F with USCIS before any investor may file an Immigrant Petition by Regional Center Investor (Form I-526E).",
+      "quote": "A regional center must file Form I-956F with USCIS before any investor may file an Immigrant Petition by Regional Center Investor ( Form I-526E ) based on their investment in that offering.",
+      "must_contain": [
+        "I-956F",
+        "I-526E"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0012"
+    },
+    {
+      "question": "What is the form number for the Immigrant Petition by Regional Center Investor?",
+      "answer": "The form number for the Immigrant Petition by Regional Center Investor is Form I-526E.",
+      "quote": "A regional center must file Form I-956F with USCIS before any investor may file an Immigrant Petition by Regional Center Investor ( Form I-526E ) based on their investment in that offering.",
+      "must_contain": [
+        "I-956F",
+        "I-526E"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0013"
+    },
+    {
+      "question": "What form must an immigrant investor file to receive employment-based 5th preference (EB-5) immigrant classification?",
+      "answer": "An immigrant investor must file either Form I-526 or Form I-526E to receive employment-based 5th preference (EB-5) immigrant classification.",
+      "quote": "An immigrant investor must file an initial immigrant petition, either Immigrant Petition by Standalone Investor ( Form I-526 ) or Immigrant Petition by Regional Center Investor ( Form I-526E ), and supporting documentation to receive employment-based 5th preference (EB-5) immigrant classification.",
+      "must_contain": [
+        "I-526",
+        "I-526E"
+      ],
+      "citation": "Volume 6, Part G, Chapter 3 - Immigrant Petition Adjudication",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0014"
+    },
+    {
+      "question": "How many full-time jobs must an immigrant investor's investment create?",
+      "answer": "The investment must create at least 10 direct or indirect full-time jobs for qualifying employees.",
+      "quote": "The investor must also demonstrate that this investment will create at least 10 direct or indirect full-time jobs for qualifying employees.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 6, Part G, Chapter 3 - Immigrant Petition Adjudication",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0015"
+    },
+    {
+      "question": "When can an investor file Form I-526E for petitions filed on or after May 14, 2022?",
+      "answer": "For petitions filed on or after May 14, 2022, the investor can only file Form I-526E after the regional center files Form I-956F.",
+      "quote": "For petitions filed on or after May 14, 2022, the investor can only file Form I-526E after the regional center files the Application for Approval of an Investment in a Commercial Enterprise ( Form I-956F ) (project application).",
+      "must_contain": [
+        "I-526E",
+        "I-956F",
+        "14",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 3 - Immigrant Petition Adjudication",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0016"
+    },
+    {
+      "question": "What form number is the Application for Approval of an Investment in a Commercial Enterprise?",
+      "answer": "The Application for Approval of an Investment in a Commercial Enterprise is Form I-956F.",
+      "quote": "For petitions filed on or after May 14, 2022, the investor can only file Form I-526E after the regional center files the Application for Approval of an Investment in a Commercial Enterprise ( Form I-956F ) (project application).",
+      "must_contain": [
+        "I-526E",
+        "I-956F",
+        "14",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 3 - Immigrant Petition Adjudication",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0017"
+    },
+    {
+      "question": "What form was required for a regional center to expand its geographic area if the request was made before May 14, 2022?",
+      "answer": "Before May 14, 2022, a Form I-924 amendment was required to expand a regional center's geographic area.",
+      "quote": "If the regional center requested to expand its geographic area, the instructions for Application for Regional Center Designation Under the Immigrant Investor Program ( Form I-924 ) [7] required that a Form I-924 amendment be filed, and approved, to expand the regional center\u2019s geographic area.",
+      "must_contain": [
+        "I-924"
+      ],
+      "citation": "Volume 6, Part G, Chapter 3 - Immigrant Petition Adjudication",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0018"
+    },
+    {
+      "question": "What is the purpose of 8 CFR 216.6?",
+      "answer": "8 CFR 216.6 outlines the conditional permanent resident status for certain alien entrepreneurs, spouses, and children.",
+      "quote": "8 CFR 216.6 \u2013 Conditional permanent resident status for certain alien entrepreneurs, spouses, and children",
+      "must_contain": [
+        "216.6"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0019"
+    },
+    {
+      "question": "What is the purpose of 8 CFR 216.3?",
+      "answer": "8 CFR 216.3 addresses the termination of conditional permanent resident status.",
+      "quote": "8 CFR 216.3 \u2013 Termination of conditional permanent resident status",
+      "must_contain": [
+        "216.3"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0020"
+    },
+    {
+      "question": "When was Section 610 of the Departments of Commerce, Justice, and State, the Judiciary, and Related Agencies Appropriations Act of 1993 repealed?",
+      "answer": "Section 610 of the Departments of Commerce, Justice, and State, the Judiciary, and Related Agencies Appropriations Act of 1993 was repealed on March 15, 2022.",
+      "quote": "Section 610 of the Departments of Commerce, Justice, and State, the Judiciary, and Related Agencies Appropriations Act of 1993, repealed on March 15, 2022 [29]",
+      "must_contain": [
+        "610",
+        "1993",
+        "15",
+        "2022",
+        "29"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0021"
+    },
+    {
+      "question": "When did the EB-5 Reform and Integrity Act become law?",
+      "answer": "The EB-5 Reform and Integrity Act became law on March 15, 2022.",
+      "quote": "See the EB-5 Reform and Integrity Act of 2022, Div. BB of the Consolidated Appropriations Act of 2022, Pub. L. 117-103 (PDF) , 136 Stat. 49 (March 15, 2022).",
+      "must_contain": [
+        "2022",
+        "117",
+        "103",
+        "136",
+        "49",
+        "15"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0022"
+    },
+    {
+      "question": "When do the investment amounts automatically adjust?",
+      "answer": "The investment amounts automatically adjust on January 1, 2027, and every 5 years thereafter.",
+      "quote": "These amounts automatically adjust on January 1, 2027, and every 5 years thereafter.",
+      "must_contain": [
+        "5 years",
+        "2027"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0023"
+    },
+    {
+      "question": "What is the publication number for the Immigration Act of 1990?",
+      "answer": "The publication number for the Immigration Act of 1990 is Pub. L. 101-649.",
+      "quote": "See Section 121(a) of the Immigration Act of 1990 (IMMACT90), Pub. L. 101-649 (PDF) , 104 Stat. 4978, 4987 (November 29, 1990).",
+      "must_contain": [
+        "121",
+        "1990",
+        "101",
+        "649",
+        "104",
+        "4978",
+        "4987",
+        "29"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0024"
+    },
+    {
+      "question": "How many visas are authorized each fiscal year for immigrant investors?",
+      "answer": "Approximately 10,000 visas are authorized each fiscal year for immigrant investors.",
+      "quote": "The INA authorizes approximately 10,000 visas each fiscal year for immigrant investors (including their spouses and unmarried children under the age of 21) who have invested or are actively in the process of investing in a new commercial enterprise and satisfy the applicable job creation requirements.",
+      "must_contain": [
+        "10,000",
+        "21"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0025"
+    },
+    {
+      "question": "What percentage of EB-5 visas are reserved for investors in rural areas?",
+      "answer": "20 percent of the EB-5 visas are reserved for investors in rural areas.",
+      "quote": "To encourage certain types of investments, Congress amended the INA on March 15, 2022, to reserve 20 percent of the EB-5 visas for investors in rural areas, 10 percent for investors in high unemployment areas, and 2 percent for investors in infrastructure projects.",
+      "must_contain": [
+        "20 percent",
+        "10 percent",
+        "2 percent",
+        "15",
+        "2022",
+        "20",
+        "10"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0026"
+    },
+    {
+      "question": "When was the EB-5 Reform and Integrity Act signed into law?",
+      "answer": "The EB-5 Reform and Integrity Act of 2022 was signed into law on March 15, 2022.",
+      "quote": "On March 15, 2022, the EB-5 Reform and Integrity Act of 2022 was signed into law, which raised the standard investment amount to $1,050,000.",
+      "must_contain": [
+        "$1,050,000",
+        "15",
+        "2022",
+        "1,050,000"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0027"
+    },
+    {
+      "question": "What is the standard investment amount for petitions filed on or after March 15, 2022?",
+      "answer": "The standard investment amount for petitions filed on or after March 15, 2022, is $1,050,000.",
+      "quote": "On March 15, 2022, the EB-5 Reform and Integrity Act of 2022 was signed into law, which raised the standard investment amount to $1,050,000.",
+      "must_contain": [
+        "$1,050,000",
+        "15",
+        "2022",
+        "1,050,000"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0028"
+    },
+    {
+      "question": "What was the minimum investment amount for a targeted employment area (TEA) before March 15, 2022?",
+      "answer": "The minimum investment amount for a targeted employment area (TEA) was previously $500,000 U.S. dollars per investor.",
+      "quote": "The minimum amount for investing in a targeted employment area (TEA) was previously set at 50 percent of the standard minimum investment amount, $500,000 U.S. dollars per investor, [9] but increased to $800,000 for petitions filed on or after March 15, 2022, and now also includes investments into infrastructure projects.",
+      "must_contain": [
+        "$500,000",
+        "$800,000",
+        "50 percent",
+        "50",
+        "500,000",
+        "800,000",
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0029"
+    },
+    {
+      "question": "Until what date are EB-5 visas authorized for investors in the Regional Center Program?",
+      "answer": "EB-5 visas are authorized for investors in the Regional Center Program through September 30, 2027.",
+      "quote": "In addition, EB-5 visas are authorized for investors in the Regional Center Program through September 30, 2027.",
+      "must_contain": [
+        "30",
+        "2027"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0030"
+    },
+    {
+      "question": "What form must a regional center file to show compliance with new statutory requirements if seeking new investors under the EB-5 Reform and Integrity Act of 2022?",
+      "answer": "A regional center must file a Form I-956F to show compliance with the new statutory requirements.",
+      "quote": "However, if a regional center seeks new investors who will file for classification under the new provisions added by the EB-5 Reform and Integrity Act of 2022 through an offering described in a previously approved Form I-924 exemplar, the regional center must file a Form I-956F to show compliance with the new statutory requirements.",
+      "must_contain": [
+        "I-924",
+        "I-956F",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0031"
+    },
+    {
+      "question": "What is the deadline for a regional center to file an amendment to an approved project application after changes occur?",
+      "answer": "A regional center should file an amendment to an approved project application no later than 30 days after any such changes.",
+      "quote": "A regional center should file an amendment to an approved project application that reflects changes to any information, documents, or other aspects of the investment offering described in such approved application no later than 30 days after any such changes.",
+      "must_contain": [
+        "30 days",
+        "30"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0032"
+    },
+    {
+      "question": "Under what circumstances will a change made to a business plan to comply with the EB-5 Reform and Integrity Act of 2022 not be considered a material change?",
+      "answer": "A change made to a business plan, or any other aspect of the approved Form I-924 exemplar, to comply with the EB-5 Reform and Integrity Act of 2022, will not be considered a material change.",
+      "quote": "A change made to a business plan, or any other aspect of the approved Form I-924 exemplar, to comply with the EB-5 Reform and Integrity Act of 2022, will not be considered a material change.",
+      "must_contain": [
+        "I-924",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0033"
+    },
+    {
+      "question": "When may USCIS deny an application?",
+      "answer": "USCIS may deny an application if it determines, in its discretion, that it was predicated on or involved fraud, deceit, intentional material misrepresentation, or criminal misuse or that the approval of such application is contrary to the national interest of the United States for reasons relating to threats to public safety or national security.",
+      "quote": "USCIS may deny an application if USCIS determines, in its discretion, that it was predicated on or involved fraud, deceit, intentional material misrepresentation, or criminal misuse [41] or that the approval of such application is contrary to the national interest of the United States for reasons relating to threats to public safety or national security.",
+      "must_contain": [
+        "41"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0034"
+    },
+    {
+      "question": "When may USCIS revoke the approval of an application?",
+      "answer": "USCIS may revoke the approval of an application if it determines, in its discretion, that the application was predicated on or involved fraud, deceit, intentional material misrepresentation, or criminal misuse or that the approval of such application is contrary to the national interest of the United States for reasons relating to threats to public safety or national security.",
+      "quote": "USCIS may revoke the approval of an application if it determines, in its discretion, that the application was predicated on or involved fraud, deceit, intentional material misrepresentation, or criminal misuse [45] or that the approval of such application is contrary to the national interest of the United States for reasons relating to threats to public safety or national security.",
+      "must_contain": [
+        "45"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0035"
+    },
+    {
+      "question": "When can regional center investors take advantage of a reduced investment amount for an infrastructure project?",
+      "answer": "Regional center investors filing petitions on or after May 14, 2022, may take advantage of the reduced required investment amount when investing in an offering into a new commercial enterprise that will provide capital to an infrastructure project.",
+      "quote": "Similar to investment in a TEA, regional center investors filing petitions on or after May 14, 2022, may take advantage of the reduced required investment amount [13] when investing in an offering into a new commercial enterprise that will provide capital to an infrastructure project.",
+      "must_contain": [
+        "14",
+        "2022",
+        "13"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0036"
+    },
+    {
+      "question": "How is a high unemployment area designated for petitions filed on or after March 15, 2022?",
+      "answer": "For petitions filed on or after March 15, 2022, a high unemployment area is designated by the Secretary of Homeland Security.",
+      "quote": "For petitions filed on or after March 15, 2022, a high unemployment area is an area designated as such by the Secretary of Homeland Security.",
+      "must_contain": [
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0037"
+    },
+    {
+      "question": "What percentage of the employment creation requirement can be satisfied by indirectly created jobs for regional center investors filing petitions on or after May 14, 2022?",
+      "answer": "For regional center investors filing petitions for classification on or after May 14, 2022, up to 90 percent of the employment creation requirement may be satisfied with jobs that are estimated to be created indirectly through investment in a regional center project.",
+      "quote": "For regional center investors filing petitions for classification on or after May 14, 2022, up to 90 percent of the employment creation requirement may be satisfied with jobs that are estimated to be created indirectly through investment in a regional center project.",
+      "must_contain": [
+        "90 percent",
+        "14",
+        "2022",
+        "90"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0038"
+    },
+    {
+      "question": "What is an infrastructure project?",
+      "answer": "An infrastructure project is a capital investment project in a filed or approved business plan in a Form I-956F project application, which is administered by a governmental entity that is the job-creating entity contracting with a regional center or new commercial enterprise to receive capital investment under the Regional Center Program from investors or the new commercial enterprise for purposes of financing for maintaining, improving, or constructing a public works project.",
+      "quote": "An infrastructure project is a capital investment project in a filed or approved business plan in a Form I-956F project application, which is administered by a governmental entity (such as a federal, state, or local agency or authority) that is the job-creating entity contracting with a regional center or new commercial enterprise to receive capital investment under the Regional Center Program from investors or the new commercial enterprise for purposes of financing for maintaining, improving, or constructing a public works project.",
+      "must_contain": [
+        "I-956F"
+      ],
+      "citation": "Volume 6, Part G, Chapter 5 - Project Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0039"
+    },
+    {
+      "question": "Does the suspension of a regional center terminate its designation?",
+      "answer": "No, the suspension of a regional center does not terminate its designation.",
+      "quote": "Conversely, the suspension of a new commercial enterprise or job-creating entity associated with a previously approved Form I-956F directly implicates bases for eligibility of associated investors since they derive benefits directly from the conduct of such entities. Consequently, USCIS generally continues to adjudicate Form I-526E petitions associated with a previously approved Form I-956F for a suspended regional center but reserves the right to hold adjudication of such petitions should the circumstances warrant (such as where the basis for regional center suspension implicates the investment offering or project associated with a previously approved Form I-956F).",
+      "must_contain": [
+        "I-956F",
+        "I-526E"
+      ],
+      "citation": "Volume 6, Part G, Chapter 8 - Sanctions and Discretionary Determinations",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0040"
+    },
+    {
+      "question": "What is the difference between debarment and termination in the EB-5 program?",
+      "answer": "Debarment ends the participation of non-regional center persons in the EB-5 program, while termination sanctions a regional center\u2019s designation.",
+      "quote": "See INA 203(b)(5)(G)(iii)(II) which, unlike INA 203(b)(5)(H)(iv) , INA 203(b)(5)(N)(iii) and INA 203(b)(5)(O)(ii) , authorizes debarment to end the participation of non-regional center persons in the EB-5 program while limiting usage of the term termination to sanctioning a regional center\u2019s designation.",
+      "must_contain": [
+        "203"
+      ],
+      "citation": "Volume 6, Part G, Chapter 8 - Sanctions and Discretionary Determinations",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0041"
+    },
+    {
+      "question": "What category is used for spouses of C-51 or C-56 employment creation applicants?",
+      "answer": "The category for spouses of C-51 or C-56 employment creation applicants is C-57, conditional.",
+      "quote": "C-57 Spouses of C-51 or C-56, conditional;",
+      "must_contain": [
+        "57",
+        "51",
+        "56"
+      ],
+      "citation": "Volume 8, Part G, Chapter 3 - Applicability",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0042"
+    },
+    {
+      "question": "What category is used for children of E-51 or E-56 employment creation applicants?",
+      "answer": "The category for children of E-51 or E-56 employment creation applicants is E-58.",
+      "quote": "E-58 Children of E-51 or E-56;",
+      "must_contain": [
+        "58",
+        "51",
+        "56"
+      ],
+      "citation": "Volume 8, Part G, Chapter 3 - Applicability",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0043"
+    },
+    {
+      "question": "What category is used for former employees of the Panama Canal Company or Canal Zone Government who were employed on April 1, 1979?",
+      "answer": "The category for former employees of the Panama Canal Company or Canal Zone Government employed on April 1, 1979, is SH-6.",
+      "quote": "SH-6 Former employees of the Panama Canal Company or Canal Zone Government, employed on April 1, 1979;",
+      "must_contain": [
+        "1979"
+      ],
+      "citation": "Volume 8, Part G, Chapter 3 - Applicability",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0044"
+    },
+    {
+      "question": "When can an immigrant investor use the priority date of their original petition for an amended Form I-526E?",
+      "answer": "An immigrant investor may use the priority date of their original petition for an amended Form I-526E filed on or after May 15, 2022, if the petitioner qualifies.",
+      "quote": "If an immigrant investor files an amended Form I-526E in the case of termination or debarment of the petitioner\u2019s regional center, new commercial enterprise, or job-creating entity, the petitioner may use the priority date of their original petition for purposes of the amended Form I-526E filed on or after May 15, 2022, for which the petitioner qualifies.",
+      "must_contain": [
+        "I-526E",
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0045"
+    },
+    {
+      "question": "What is the effective date for the newly codified regional center program?",
+      "answer": "The effective date for the newly codified regional center program is 60 days after the March 15, 2022, enactment date.",
+      "quote": "The effective date for the newly codified regional center program is 60 days after the March 15, 2022, enactment date.",
+      "must_contain": [
+        "60 days",
+        "60",
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0046"
+    },
+    {
+      "question": "When did DHS publish the EB-5 Immigrant Investor Program Modernization Rule?",
+      "answer": "DHS published the EB-5 Immigrant Investor Program Modernization Rule, effective November 21, 2019.",
+      "quote": "DHS published the EB-5 Immigrant Investor Program Modernization Rule, effective November 21, 2019.",
+      "must_contain": [
+        "21",
+        "2019"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0047"
+    },
+    {
+      "question": "When was the EB-5 Immigrant Investor Program Modernization Rule vacated?",
+      "answer": "The EB-5 Immigrant Investor Program Modernization Rule was vacated by Behring Regional Center LLC v. Wolf, 544 F. Supp. 3d 937 (N.D. Cal. 2021).",
+      "quote": "However, that rule was vacated by Behring Regional Center LLC v. Wolf , 544 F. Supp. 3d 937 (N.D. Cal. 2021).",
+      "must_contain": [
+        "544",
+        "937",
+        "2021"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0048"
+    },
+    {
+      "question": "When did USCIS stop following its interpretation of indebtedness as including the investment of loan proceeds?",
+      "answer": "USCIS no longer follows its interpretation of indebtedness as including the investment of loan proceeds as of November 30, 2018.",
+      "quote": "USCIS no longer follows its interpretation of indebtedness as including the investment of loan proceeds as of November 30, 2018, the date of the district court decision Zhang v. USCIS , 978 F.3d 1314 (D.C. Cir. 2020).",
+      "must_contain": [
+        "30",
+        "2018",
+        "978",
+        "1314",
+        "2020"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0049"
+    },
+    {
+      "question": "What form is used for the Registration for Direct and Third-Party Promoters?",
+      "answer": "The form used for Registration for Direct and Third-Party Promoters is Form I-956K.",
+      "quote": "See the instructions for Registration for Direct and Third-Party Promoters ( Form I-956K ).",
+      "must_contain": [
+        "I-956K"
+      ],
+      "citation": "Volume 6, Part G, Chapter 6 - Direct and Third-Party Promoters",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0050"
+    },
+    {
+      "question": "What is the definition of a rural area?",
+      "answer": "A rural area is any area other than an area within a standard metropolitan statistical area (MSA) or within the outer boundary of any city or town having a population of 20,000 or more based on the most recent decennial census of the United States.",
+      "quote": "A rural area is any area other than an area within a standard metropolitan statistical area (MSA) (as designated by the Office of Management and Budget) or within the outer boundary of any city or town having a population of 20,000 or more based on the most recent decennial census of the United States.",
+      "must_contain": [
+        "20,000"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0051"
+    },
+    {
+      "question": "What is the definition of a high unemployment area for petitions filed before March 15, 2022?",
+      "answer": "For petitions filed before March 15, 2022, a high unemployment area is an area that has experienced unemployment of at least 150 percent of the national average rate.",
+      "quote": "For petitions filed before March 15, 2022, a high unemployment area is an area that has experienced unemployment of at least 150 percent of the national average rate.",
+      "must_contain": [
+        "150 percent",
+        "15",
+        "2022",
+        "150"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0052"
+    },
+    {
+      "question": "What is the effective date for new evidence requirements for immigrant investors?",
+      "answer": "Effective on May 14, 2022, the immigrant investor must submit specific evidence to demonstrate the lawful source of invested funds and administrative costs and fees.",
+      "quote": "Effective on May 14, 2022, the immigrant investor must submit the following evidence, as applicable, to demonstrate the lawful source of the invested funds and any funds used to pay administrative costs and fees:",
+      "must_contain": [
+        "14",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0053"
+    },
+    {
+      "question": "Are gifts and borrowed funds permissible for petitions filed on or after May 14, 2022?",
+      "answer": "As of May 14, 2022, by statute, gifts and borrowed funds are expressly permissible for petitions filed on or after that date, provided certain conditions are met.",
+      "quote": "As of May 14, 2022, by statute, gifts and borrowed funds are expressly permissible for petitions filed on or after that date, provided:",
+      "must_contain": [
+        "14",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0054"
+    },
+    {
+      "question": "Under what circumstances may USCIS deny an application?",
+      "answer": "USCIS may deny an application if it determines that it was predicated on or involved fraud, deceit, intentional material misrepresentation, or criminal misuse, or that the approval of such application is contrary to the national interest of the United States for reasons relating to threats to public safety or national security.",
+      "quote": "USCIS may deny an application if USCIS determines, in its discretion, that it was predicated on or involved fraud, deceit, intentional material misrepresentation, or criminal misuse [27] or that the approval of such application is contrary to the national interest of the United States for reasons relating to threats to public safety or national security. [28]",
+      "must_contain": [
+        "27",
+        "28"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0055"
+    },
+    {
+      "question": "When must a designated regional center notify USCIS of significant proposed changes to its organizational structure, ownership, or administration?",
+      "answer": "A designated regional center must notify USCIS no later than 120 days before the implementation of significant proposed changes to its organizational structure, ownership, or administration, including the sale of such center, or other arrangements which would result in individuals becoming involved with the regional center that were not previously subject to the requirements under INA 203(b)(5)(H).",
+      "quote": "A designated regional center must notify USCIS no later than 120 days before the implementation of significant proposed changes to its organizational structure, ownership, or administration, including the sale of such center, or other arrangements which would result in individuals becoming involved with the regional center that were not previously subject to the requirements under INA 203(b)(5)(H) .",
+      "must_contain": [
+        "120 days",
+        "120",
+        "203"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0056"
+    },
+    {
+      "question": "How quickly must notice be given if exigent circumstances are present for significant changes to a regional center?",
+      "answer": "Such notice is required within 5 business days after one of those changes if exigent circumstances are present.",
+      "quote": "Such notice is required within 5 business days after one of those changes if exigent circumstances are present.",
+      "must_contain": [
+        "5 business days"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0057"
+    },
+    {
+      "question": "What is the minimum duration capital must remain invested for petitions filed on or after March 15, 2022?",
+      "answer": "For petitions filed on or after March 15, 2022, the capital must be expected to remain invested for not less than 2 years.",
+      "quote": "For petitions filed on or after March 15, 2022, the capital must be expected to remain invested for not less than 2 years.",
+      "must_contain": [
+        "2 years",
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0058"
+    },
+    {
+      "question": "What form must regional centers file with USCIS before a regional center investor can file an individual petition, as of May 14, 2022?",
+      "answer": "As of May 14, 2022, regional centers must file a Form I-965F with USCIS before a regional center investor may file an individual petition.",
+      "quote": "As of May 14, 2022, regional centers file a Form I-965F with USCIS before a regional center investor may file an individual petition.",
+      "must_contain": [
+        "I-965F",
+        "14",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0059"
+    },
+    {
+      "question": "When did USCIS rescind its prior guidance on tenant occupancy methodology?",
+      "answer": "USCIS rescinded its prior guidance on tenant occupancy methodology as of May 15, 2018.",
+      "quote": "As of May 15, 2018, USCIS rescinded its prior guidance on tenant occupancy methodology.",
+      "must_contain": [
+        "15",
+        "2018"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0060"
+    },
+    {
+      "question": "What forms does the May 15, 2018 update apply to?",
+      "answer": "The May 15, 2018 update applies to all former Immigrant Petitions by Alien Investors (Form I-526), Petitions by Investors to Remove Conditions on Permanent Resident Status (Form I-829), and former Applications for Regional Center Designation Under the Immigrant Investor Program (Form I-924) filed on or after that date and prior to March 15, 2022.",
+      "quote": "That update applies to all USCIS employees with respect to determinations of all the former Immigrant Petitions by Alien Investors ( Form I-526 ), [131] Petitions by Investors to Remove Conditions on Permanent Resident Status ( Form I-829 ), and the former Applications for Regional Center Designation Under the Immigrant Investor Program ( Form I-924 ) filed on or after that date and prior to March 15, 2022.",
+      "must_contain": [
+        "I-526",
+        "I-829",
+        "I-924",
+        "131",
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0061"
+    },
+    {
+      "question": "When did USCIS issue policy guidance defining criteria for applications relying on tenant occupancy to establish indirect jobs?",
+      "answer": "USCIS issued policy guidance defining the criteria to be used in the adjudication of applications and petitions relying on tenant occupancy to establish indirect jobs on December 20, 2012.",
+      "quote": "Previously, on December 20, 2012, USCIS had issued policy guidance defining the criteria to be used in the adjudication of applications and petitions relying on tenant occupancy to establish indirect jobs.",
+      "must_contain": [
+        "20",
+        "2012"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0062"
+    },
+    {
+      "question": "When did USCIS publish consolidated policy guidance on immigrant investors in this Policy Manual?",
+      "answer": "USCIS published consolidated policy guidance on immigrant investors in this Policy Manual in November 2016.",
+      "quote": "In November 2016, USCIS published consolidated policy guidance on immigrant investors in this Policy Manual, including guidance on the tenant occupancy methodology.",
+      "must_contain": [
+        "2016"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0063"
+    },
+    {
+      "question": "When are pooled investments with more than one EB-5 investor permitted only under the regional center program?",
+      "answer": "Pooled investments with more than one EB-5 investor are only permitted under the regional center program for petitions filed on or after March 15, 2022.",
+      "quote": "For petitions filed on or after March 15, 2022, pooled investments with more than one EB-5 investor are only permitted under the regional center program.",
+      "must_contain": [
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0064"
+    },
+    {
+      "question": "What is the minimum number of jobs that must be created by a new commercial enterprise for an EB-5 investment?",
+      "answer": "The investment of the required amount of capital must be in a new commercial enterprise that creates at least 10 jobs for qualifying employees.",
+      "quote": "The investment of the required amount of capital must be in a new commercial enterprise that creates [105] at least 10 jobs for qualifying employees.",
+      "must_contain": [
+        "105",
+        "10"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0065"
+    },
+    {
+      "question": "When do the investment amounts for INA 203(b)(5)(C) automatically adjust?",
+      "answer": "The investment amounts for INA 203(b)(5)(C) automatically adjust on January 1, 2027, and every 5 years thereafter.",
+      "quote": "These amounts automatically adjust on January 1, 2027, and every 5 years thereafter.",
+      "must_contain": [
+        "5 years",
+        "2027"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0066"
+    },
+    {
+      "question": "When did Congress eliminate the requirement for an immigrant investor to establish a new commercial enterprise?",
+      "answer": "Congress eliminated the requirement that an immigrant investor establish the new commercial enterprise in 2002.",
+      "quote": "In 2002, Congress eliminated the requirement that an immigrant investor establish the new commercial enterprise.",
+      "must_contain": [
+        "2002"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0067"
+    },
+    {
+      "question": "What is the effective date of the EB-5 Immigrant Investor Program Modernization Rule?",
+      "answer": "The EB-5 Immigrant Investor Program Modernization Rule was effective November 21, 2019.",
+      "quote": "DHS published the EB-5 Immigrant Investor Program Modernization Rule, effective November 21, 2019.",
+      "must_contain": [
+        "21",
+        "2019"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0068"
+    },
+    {
+      "question": "When was the EB-5 Reform and Integrity Act enacted?",
+      "answer": "The EB-5 Reform and Integrity Act was enacted on March 15, 2022.",
+      "quote": "See the EB-5 Reform and Integrity Act of 2022, Div. BB of the Consolidated Appropriations Act of 2022, Pub. L. 117-103 , 136 Stat. 49 (March 15, 2022).",
+      "must_contain": [
+        "2022",
+        "117",
+        "103",
+        "136",
+        "49",
+        "15"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0069"
+    },
+    {
+      "question": "When was Pub. L. 102-395 repealed?",
+      "answer": "Pub. L. 102-395 was repealed on March 15, 2022.",
+      "quote": "Repealed on March 15, 2022, by the EB-5 Reform and Integrity Act of 2022, Div. BB of the Consolidated Appropriations Act of 2022, Pub. L. 117-103 , 136 Stat. 49 (March 15, 2022).",
+      "must_contain": [
+        "15",
+        "2022",
+        "117",
+        "103",
+        "136",
+        "49"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0070"
+    },
+    {
+      "question": "What happened to the EB-5 Immigrant Investor Program Modernization Rule?",
+      "answer": "The EB-5 Immigrant Investor Program Modernization Rule was vacated by Behring Regional Center LLC v. Wolf.",
+      "quote": "However, that rule was vacated by Behring Regional Center LLC v. Wolf , 544 F. Supp. 3d 937 (N.D. Cal. 2021).",
+      "must_contain": [
+        "544",
+        "937",
+        "2021"
+      ],
+      "citation": "Volume 6, Part G, Chapter 1 - Purpose and Background",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0071"
+    },
+    {
+      "question": "How often does USCIS audit each regional center?",
+      "answer": "USCIS audits each regional center at least once every 5 years.",
+      "quote": "USCIS audits each regional center at least once every 5 years.",
+      "must_contain": [
+        "5 years"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0072"
+    },
+    {
+      "question": "What form must a designated regional center submit annually?",
+      "answer": "A designated regional center must submit a Regional Center Annual Statement (Form I-956G) for each fiscal year.",
+      "quote": "A designated regional center must submit a Regional Center Annual Statement ( Form I-956G ) for each fiscal year (October 1 through September 30) on or before December 29 of the calendar year in which the fiscal year ended.",
+      "must_contain": [
+        "I-956G",
+        "30",
+        "29"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0073"
+    },
+    {
+      "question": "When is the deadline for a regional center to submit its annual statement for a fiscal year ending September 30?",
+      "answer": "The annual statement must be submitted on or before December 29 of the calendar year in which the fiscal year ended.",
+      "quote": "A designated regional center must submit a Regional Center Annual Statement ( Form I-956G ) for each fiscal year (October 1 through September 30) on or before December 29 of the calendar year in which the fiscal year ended.",
+      "must_contain": [
+        "I-956G",
+        "30",
+        "29"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0074"
+    },
+    {
+      "question": "When does a regional center designated on or after October 1 need to file its first annual statement?",
+      "answer": "If the regional center was designated on or after October 1, it does not need to file its first annual statement until on or before December 29 of the following calendar year.",
+      "quote": "If the regional center was designated on or after October 1, it does not need to file its first annual statement until on or before December 29 of the following calendar year.",
+      "must_contain": [
+        "29"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0075"
+    },
+    {
+      "question": "When do designated regional centers need to pay into the EB-5 Integrity Fund?",
+      "answer": "Every October 1st, each designated regional center must pay into the EB-5 Integrity Fund.",
+      "quote": "Every October 1st, each designated regional center [44] must pay the following amounts into the EB-5 Integrity Fund (the Fund):",
+      "must_contain": [
+        "44"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0076"
+    },
+    {
+      "question": "What forms are associated with an individual being considered an investor under USCIS policy?",
+      "answer": "USCIS generally considers an individual to be an investor beginning from the filing of a petition for classification (either Immigrant Petition by Alien Investor (Form I-526) or Form I-526E) and through the filing of a Petition by Investor to Remove Conditions on Permanent Resident Status (Form I-829).",
+      "quote": "Under that policy, USCIS generally considers an individual to be an investor beginning from the filing of a petition for classification (either Immigrant Petition by Alien Investor ( Form I-526 ) [48] or Form I-526E ) and through the filing of a Petition by Investor to Remove Conditions on Permanent Resident Status ( Form I-829 ).",
+      "must_contain": [
+        "I-526",
+        "I-526E",
+        "I-829",
+        "48"
+      ],
+      "citation": "Volume 6, Part G, Chapter 4 - Regional Center Applications",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0077"
+    },
+    {
+      "question": "What is the minimum number of full-time jobs that must be created for U.S. workers due to an immigrant investor's investment?",
+      "answer": "An immigrant investor's investment must create at least 10 full-time jobs for U.S. workers.",
+      "quote": "This benefit is greatest when capital is at risk and invested in a new commercial enterprise that, because of the investment, creates at least 10 full-time jobs for U.S. workers.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0078"
+    },
+    {
+      "question": "What is the earliest date from which gifts and loans are permitted as capital for an immigrant investor?",
+      "answer": "As of May 14, 2022, gifts and loans to the investor are expressly permitted as capital.",
+      "quote": "As of May 14, 2022, gifts and loans to the investor are expressly permitted as capital, provided certain conditions are met.",
+      "must_contain": [
+        "14",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0079"
+    },
+    {
+      "question": "What is the maximum timeframe within which money due under a promissory note must be payable to qualify as capital?",
+      "answer": "Nearly all of the money due under a promissory note must be payable within 2 years to qualify as capital.",
+      "quote": "In addition, to qualify as capital, nearly all of the money due under a promissory note must be payable within 2 years, without provisions for extensions.",
+      "must_contain": [
+        "2 years"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0080"
+    },
+    {
+      "question": "What act refined the definition of capital for EB-5?",
+      "answer": "The EB-5 Reform and Integrity Act of 2022 refined the definition of capital.",
+      "quote": "The following table outlines how the EB-5 Reform and Integrity Act of 2022 refined the definition of capital.",
+      "must_contain": [
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 2 - Immigrant Petition Eligibility Requirements",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0081"
+    },
+    {
+      "question": "What form must an immigrant investor file to remove conditions on permanent resident status?",
+      "answer": "The immigrant investor must file Form I-829, Petition by Investor to Remove Conditions on Permanent Resident Status.",
+      "quote": "To seek removal of the conditions on permanent resident status, the immigrant investor must file a Petition by Investor to Remove Conditions on Permanent Resident Status ( Form I-829 ) within 90 days prior to the 2-year anniversary of the date conditional permanent resident status was granted (for example, adjustment of status application was approved or investor admitted into the United States on an immigrant visa).",
+      "must_contain": [
+        "I-829",
+        "90 days",
+        "90"
+      ],
+      "citation": "Volume 6, Part G, Chapter 7 - Removal of Conditions",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0082"
+    },
+    {
+      "question": "When must an immigrant investor file Form I-829?",
+      "answer": "An immigrant investor must file Form I-829 within 90 days prior to the 2-year anniversary of the date conditional permanent resident status was granted.",
+      "quote": "To seek removal of the conditions on permanent resident status, the immigrant investor must file a Petition by Investor to Remove Conditions on Permanent Resident Status ( Form I-829 ) within 90 days prior to the 2-year anniversary of the date conditional permanent resident status was granted (for example, adjustment of status application was approved or investor admitted into the United States on an immigrant visa).",
+      "must_contain": [
+        "I-829",
+        "90 days",
+        "90"
+      ],
+      "citation": "Volume 6, Part G, Chapter 7 - Removal of Conditions",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0083"
+    },
+    {
+      "question": "What is another type of evidence required with the petition to remove conditions?",
+      "answer": "Evidence that the new commercial enterprise created or can be expected to create, within a reasonable time, at least 10 full-time positions for qualifying employees must be submitted.",
+      "quote": "Evidence that the new commercial enterprise created or can be expected to create, within a reasonable time, at least 10 full-time positions for qualifying employees.",
+      "must_contain": [
+        "10"
+      ],
+      "citation": "Volume 6, Part G, Chapter 7 - Removal of Conditions",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0084"
+    },
+    {
+      "question": "When was the EB-5 Reform and Integrity Act enacted?",
+      "answer": "The EB-5 Reform and Integrity Act of 2022 was enacted on March 15, 2022.",
+      "quote": "ALERT: On March 15, 2022, the EB-5 Reform and Integrity Act of 2022 (PDF) was enacted.",
+      "must_contain": [
+        "15",
+        "2022"
+      ],
+      "citation": "Volume 6, Part G, Chapter 7 - Removal of Conditions",
+      "source": "uscis_pm",
+      "domain": "eb5",
+      "generated": true,
+      "id": "gen-eb5-0085"
+    }
+  ]
+}
