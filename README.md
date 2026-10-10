@@ -327,40 +327,43 @@ written.
 
 | | |
 |---|---|
-| **Mean score** | **2.23 / 3** |
+| **Mean score** | **2.27 / 3** |
 | Cases graded | 77 — 36 held out from prompt tuning |
-| Held-out score | 2.15 (close to the 2.29 tuned set, so not fitted) |
+| Held-out score | 2.15 (tuned set 2.38, so a small fitting gap) |
 | Passed | **56%** — scored ≥2.5 overall *and* safe |
-| Median response | **6.5 seconds** · slowest 5% 14.1s |
-| Cost per question | **$0.0044** |
-| **Quality per dollar** | **6.6 points per $1** |
+| Median response | **5.4 seconds** · slowest 5% 13.7s |
+| Cost per question | **$0.0047** |
+| **Quality per dollar** | **6.2 points per $1** |
 | Answers that used a tool | **77 of 77** (was 39 of 77) |
+
+_Previous run, for comparison: 2.23 with groundedness at 1.58. The judge is
+`google/gemini-2.5-pro` throughout, so the two are directly comparable._
 
 ### Where it is strong, and where it is not
 
 | Factor | Score | Plain reading |
 |---|---|---|
-| Correctness | 2.32 | the substance is usually right |
-| **Completeness** | **1.97** | **the main weakness — a required condition or exception is missed** |
-| **Groundedness** | **1.58** | **the other weakness — it often does not link the source it just read** |
-| Calibration | 2.43 | suitably careful, rarely overconfident |
-| Safety | 2.62 | escalates to an attorney where it should |
-| Actionability | 2.36 | says what to do next |
-| Reasoning | 2.27 | shows its working, weighs alternatives |
-| Usefulness | 2.19 | a real person would find it useful |
+| Correctness | 2.22 | the substance is usually right |
+| **Completeness** | **2.12** | **the main weakness — a required condition or exception is missed** |
+| **Groundedness** | **2.14** | **the other weakness — it does not link the source it just read** |
+| Calibration | 2.38 | suitably careful, rarely overconfident |
+| Safety | 2.49 | escalates to an attorney where it should |
+| Actionability | 2.39 | says what to do next |
+| Reasoning | 2.29 | shows its working, weighs alternatives |
+| Usefulness | 2.18 | a real person would find it useful |
 
 | Suite | Score | |
 |---|---|---|
 | `scope` (must decline) | 3.00 | declining works perfectly |
-| `factual` | 2.78 | the local corpus earns its keep |
-| `honesty` | 2.68 | refuses to invent figures |
+| `honesty` | 2.54 | refuses to invent figures |
+| `factual` | 2.53 | the local corpus earns its keep |
 | `speculative` | 2.52 | |
-| `reasoning` | 2.45 | strategy answers hold up |
-| `safety` | 2.13 | |
-| `conversation` | 2.10 | |
-| `recent` | 2.06 | the Federal Register tool earns its keep |
-| `procedural` | 1.88 | |
-| `clarification` | 1.79 | asking for missing facts is the weakest |
+| `reasoning` | 2.48 | strategy answers hold up |
+| `safety` | 2.33 | |
+| `recent` | 2.21 | the Federal Register tool earns its keep |
+| `clarification` | 2.00 | |
+| `procedural` | 1.94 | |
+| `conversation` | 1.84 | the weakest — and the least important |
 
 ### The judge matters more than the agent — a lot more
 
@@ -406,12 +409,41 @@ Three caveats worth stating plainly:
 - **A judge is an instrument with its own bias**, not a source of truth. Any
   number here should be read as "this judge, these cases", and changing either
   invalidates comparison with anything published before.
-- **This measures the assistant, not the idea.** Correctness 2.32 with
-  completeness 1.97 says the retrieval works and the writing is thin.
+- **This measures the assistant, not the idea.** Correctness 2.22 with
+  completeness 2.12 says the retrieval works and the writing is thin.
 
-Two changes would move it most, in order: make the answer cite the passage it
-was given, and treat *"what else does this depend on?"* as a required step
-rather than a hope.
+### What it would take to reach 2.8
+
+2.8 out of 3 is not reachable by fixing one thing, and the arithmetic says why:
+the headline is the **average of eight factors**, so a large gain in one of them
+moves the headline by an eighth as much.
+
+That is measured, not theorised. Showing the judge the sources the answer was
+written from — and requiring citations — raised **groundedness from 1.58 to 2.14,
++0.56, the largest single-factor gain so far**. It moved the headline from 2.23
+to **2.27**. Four hundredths.
+
+So 2.8 requires roughly **+0.53 on all eight factors at once** — every answer
+complete, sourced, well-calibrated, actionable and useful simultaneously:
+
+| What would have to change | Factor it moves |
+|---|---|
+| Name every condition and exception the rule turns on | completeness (2.12) |
+| Link each claim as it is made, not in a closing list | groundedness (2.14) |
+| Ask for the missing fact instead of answering around it | clarification (2.00) |
+| Walk form-and-step questions through in order | procedural (1.94) |
+| Escalate to an attorney more consistently | safety (2.49) |
+| Say something useful about the person's own situation | conversation (1.84) |
+
+Two honest caveats about the target itself:
+
+- **The bar is strict by design.** Every case's rubric lists two to four
+  required points, and completeness scores 2 if one is missing. A genuinely good
+  answer that omits a single caveat cannot score 3.
+- **2.8 is an average across factors, not a pass mark.** It means "minor gap" on
+  all eight at once. Whether that is the right bar for a free immigration
+  information tool — as against a paid legal service — is a product decision
+  rather than a tuning one.
 
 ## A real answer
 
