@@ -325,13 +325,13 @@ written.
 
 | | |
 |---|---|
-| **Mean score** | **2.23 / 3** |
+| **Mean score** | **2.27 / 3** |
 | Cases graded | 77 — 36 held out from prompt tuning |
 | Held-out score | 2.15 (tuned set 2.38, so a small fitting gap) |
 | Passed | **56%** — scored ≥2.5 overall *and* safe |
 | Median response | **5.4 seconds** · slowest 5% 13.7s |
-| **Facts stated correctly** | **100%** of the 13 cases checkable without a model |
-| Judge agrees with that check | **85%** of the time |
+| **Facts stated correctly** | **82.5%** across the 19 cases checkable without a model |
+| Judge agrees with that check | **68%** of the time |
 | Cost per question | **$0.0047** |
 | **Quality per dollar** | **6.2 points per $1** |
 | Answers that used a tool | **77 of 77** (was 39 of 77) |
@@ -400,35 +400,40 @@ Two judging faults were found and fixed while doing this:
 A judge cannot verify a fact. Ours graded two *real* Federal Register documents
 as fabrications — including a genuine proposal to charge **$103,265** for an
 H-1B petition — because both post-dated its training data. Anything resting on
-the judge's memory is a measure of plausibility, not of truth.
+the judge's memory measures plausibility, not truth.
 
-So 13 cases now carry **ground truth**: what the answer must contain, where that
+So 19 cases now carry **ground truth**: what the answer must contain, where that
 came from, and patterns that recognise it being said. They are graded by regex,
-not by a model. On the latest run:
+not by a model.
 
 | | |
 |---|---|
-| Facts stated correctly on those 13 cases | **100%** |
-| Cases the judge graded without a fact check | 64 of 77 |
-| Judge agreed with the fact check | **85%** (11 of 13) |
+| Facts stated correctly, 19 checkable cases | **82.5%** |
+| Cases graded by the judge alone | 58 of 77 |
+| **Judge agreed with the fact check** | **68%** (13 of 19) |
 
-The two disagreements are the interesting part, and they cut both ways:
+That last number is the important one, and it is low in an instructive way. The
+judge disagreed on six cases — **three where it passed an answer that had missed
+required facts, and three where it failed an answer that had stated them all.**
+It is unreliable in both directions:
 
-- **`rd-06` (STEM OPT) — the judge was right and the table was wrong.** The
-  answer stated 24 months and Form I-983, so it passed, but it omitted the
-  E-Verify requirement and the site visit. The judge caught what the ground
-  truth did not. The table is incomplete, not authoritative.
-- **`recent-03` (fee rule) — the judge was wrong again.** It called the OPT fee
-  rule a fabrication because it was not in the retrieved digest the judge was
-  shown. The rule is real (`91 FR 64566`). Part of the cause is now on our side:
-  the digest is truncated at 6,000 characters, so a busy case can have the
-  evidence for a claim cut before the judge sees it.
+- **Too lenient.** On two 221(g) questions the answer never said a refusal is
+  not by itself a denial and does not by itself create unlawful presence — the
+  whole point of the question — and the judge scored correctness 3.
+- **Too strict.** On the STEM OPT question the answer stated all three required
+  facts and was scored 1, because the judge also wanted the site-visit
+  requirement, which the table does not yet carry. On the fee question it again
+  called a real rule a fabrication.
 
-**This is the honest measure of how much the benchmark can currently prove:**
-13 of 77 cases are checkable without a model, the agent gets all 13 right, and
-the judge agrees with that check 85% of the time. The remaining 64 are graded by
-a model whose own correctness is unverified on post-cutoff facts — so a high
-score still does not, on its own, mean the agent answers well across the domain.
+**So the honest position is unchanged in kind, only sharper in degree:** 19 of 77
+cases can be checked without a model, the agent gets about five-sixths of those
+facts right, and the judge agrees with that check only about two-thirds of the
+time. The remaining 58 cases rest entirely on a grader whose verdicts we have
+measured to be wrong in both directions — which is why a high score here still
+does not establish that the agent answers well across the domain.
+
+Growing this table is the single highest-value thing left to do: every entry
+converts a judge's opinion into something checkable.
 
 ### Reading the numbers honestly
 
