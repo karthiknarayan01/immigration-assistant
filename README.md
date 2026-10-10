@@ -92,23 +92,40 @@ one model for all of them is either wasteful or unsafe.
 
 | The job | What it has to be good at | What it uses | Why |
 |---|---|---|---|
-| Deciding what to look up, then writing the answer | Following a long list of rules, calling the right tool, and **not** inventing things | A cheap, capable model — `deepseek/deepseek-chat` | This runs several times per question, so it dominates cost. It needs to be accurate, not brilliant. |
-| Working through a scenario ("should I switch to EB-1?") | Weighing alternatives and reasoning step by step | A reasoning model — `deepseek/deepseek-r1`, set as `REASONER_MODEL` | Judgement questions benefit from a model that thinks before it answers. A lookup does not. |
-| Grading the answers (evals only) | Being a stricter, better reader than the assistant | A stronger model — `anthropic/claude-sonnet-5.5` | A model cannot fairly mark its own homework. |
+| Deciding what to look up, then writing the answer | Following a long list of rules, calling the right tool, and **not** inventing things | `google/gemini-2.5-flash` | This runs several times per question, so it dominates cost. What matters most is that it reliably *uses its tools* — see the benchmark below. |
+| Working through a scenario ("should I switch to EB-1?") | Weighing alternatives and reasoning step by step | Optional — `REASONER_MODEL`, **unset by default** | Judgement questions benefit from a model that thinks before answering. We tested `deepseek/deepseek-r1` here and it made things **worse**, so it is off until a candidate is measured to help. |
+| Grading the answers (evals only) | Being a stricter, better reader than the assistant | `anthropic/claude-sonnet-5.5` | A model cannot fairly mark its own homework. |
 
 Two things follow. First, **any of them can be swapped with one environment
 variable** — the app talks to any OpenAI-compatible endpoint, so `LLM_MODEL`,
 `REASONER_MODEL` and `JUDGE_MODEL` are configuration, not code. Second, **the
 reasoning model is only used when it helps**: a deliberately narrow rule sends
 scenario and comparison questions to it, and leaves "how many days is the grace
-period" on the cheap model. Paying for step-by-step thinking on a lookup is
-waste, not rigour.
+period" on the cheap model.
 
-**An honest note on how these were picked.** The defaults were chosen on
-reputation and price, not measurement — the cheapest capable model with a good
-record at following instructions and calling tools. That is a hypothesis, not a
-finding. The benchmark below is the experiment: it reports quality **per
-dollar**, so the model choice can be settled with evidence rather than vibes.
+**How the defaults were picked — and what changed.** The first choice was made
+on reputation and price: the cheapest capable model with a good record at
+following instructions and calling tools. That was a hypothesis, and the
+benchmark falsified part of it.
+
+Two models were run over the same 77 cases with the same judge. They scored
+**the same** (1.55 vs 1.48 — inside the noise), so the model was not the thing
+that mattered. What the runs *did* expose was that **half of all answers were
+never grounded**: 38 of 77 cases consulted no tool at all and answered from
+memory. Asking the models to try harder did not fix it, and neither did
+rewording the rule — so whether a lookup happens is now enforced in code rather
+than requested in a prompt.
+
+That enforcement is where the models finally differ. Forced lookups make
+`deepseek-chat` emit raw tool-call tokens into the answer text
+(`<｜tool▁calls▁begin｜>…`); `gemini-2.5-flash` stays clean. **That is the
+evidence behind the default**, and it is a failure you only find by running the
+thing.
+
+| Model | Mean score | Answered without looking anything up | Notes |
+|---|---|---|---|
+| `deepseek/deepseek-chat` | 1.55 | 38 / 77 | leaks tool-call tokens when the lookup is enforced |
+| `google/gemini-2.5-flash` | 1.48 → **1.55** | 40 / 77 → **0 / 77** | clean under enforcement; ~2.5× faster |
 
 ---
 
@@ -133,11 +150,11 @@ all, the assistant still answers but tells you it couldn't check a live source.
 The model is **any OpenAI-compatible endpoint**, so you are not locked to one
 provider. Recommended cheap setup:
 
-| Job | Model |
-|---|---|
-| Fact + search | `deepseek/deepseek-chat` |
-| Reasoning / strategy | `deepseek/deepseek-r1` (set `REASONER_MODEL`) |
-| Judge (evals) | `anthropic/claude-sonnet-5.5` (or another strong model) |
+| Job | Model | Why |
+|---|---|---|
+| Fact + search | `google/gemini-2.5-flash` | Cheap, fast, and — measured — clean when the lookup is enforced |
+| Reasoning / strategy | leave `REASONER_MODEL` unset | Enable it only if a candidate *measures* better; `deepseek-r1` measured worse |
+| Judge (evals) | `anthropic/claude-sonnet-5.5` | Must be stronger than, and unrelated to, the agent |
 
 ## 2. Run the backend
 
@@ -150,7 +167,7 @@ Fill in `.env`:
 
 ```bash
 LLM_API_KEY=sk-or-...
-LLM_MODEL=deepseek/deepseek-chat
+LLM_MODEL=google/gemini-2.5-flash
 LLM_FALLBACK_MODEL=meta-llama/llama-3.3-70b-instruct
 TAVILY_API_KEY=...
 ```
@@ -296,14 +313,124 @@ four of them — for a person to review.
 
 ## The benchmark
 
-<!-- BENCHMARK: filled from evals/results -->
-_Run in progress — this table is produced by the eval run and pasted in
-verbatim._
+77 cases, run end-to-end against the live agent with live search, every answer
+graded by a separate `anthropic/claude-sonnet-5.5`. The agent is
+`google/gemini-2.5-flash`, and a lookup is now mandatory before any answer is
+written.
+
+| | |
+|---|---|
+| **Mean score** | **1.55 / 3** |
+| Cases graded | 77 — 36 held out from prompt tuning |
+| Held-out score | 1.53 (no gap, so the score is not fitted to the cases) |
+| Median response | **6.5 seconds** · slowest 5% 14.1s |
+| Cost per question | **$0.0044** |
+| **Quality per dollar** | **4.6 points per $1** |
+| Answers that used a tool | **77 of 77** (was 39 of 77) |
+
+### Where it is strong, and where it is not
+
+| Factor | Score | Plain reading |
+|---|---|---|
+| Correctness | 1.75 | usually right, sometimes with a wrong detail |
+| **Completeness** | **1.49** | **the main weakness — a required condition or exception is missed** |
+| **Groundedness** | **1.08** | **the other weakness — it often does not link the source it just read** |
+| Calibration | 1.74 | suitably careful, rarely overconfident |
+| Safety | 1.60 | escalates to an attorney, but not consistently enough |
+| Actionability | 1.47 | says what to do next, sometimes thinly |
+| Reasoning | 1.44 | shows some working; strategy answers are weakest |
+| Usefulness | 1.70 | a real person would find it useful |
+
+| Suite | Score | |
+|---|---|---|
+| `scope` (must decline) | 2.50 | declining works reliably |
+| `safety` | 1.80 | |
+| `recent` | 1.74 | the Federal Register tool earns its keep |
+| `honesty` | 1.62 | |
+| `reasoning` | 1.60 | |
+| `factual` | 1.42 | |
+| `procedural` | 1.34 | |
+| `speculative` | 1.33 | |
+| `clarification` | 1.25 | |
+| `conversation` | 1.06 | the weakest — and the least important |
+
+### Reading the numbers honestly
+
+**1.55 out of 3 is a bad-looking number, and it is the honest one.** The judge's
+reasons are specific rather than vague — *"names Form I-485 but omits the
+medical exam"*, *"cites no links or dates"* — and they point at the same two
+things every time: an answer that is broadly right but incomplete, and a claim
+the agent read but did not cite. That is a fair description of the product
+today.
+
+Three caveats worth stating plainly:
+
+- **At 77 cases, a difference smaller than about 0.2 is noise.** The two model
+  runs (1.55 and 1.48) are the same result, not a ranking. A model bake-off
+  needs more cases per cell before small gaps mean anything.
+- **The safety number is the one to watch, not the mean.** 48% of answers were
+  graded below the safety floor. Some of those are questions that genuinely
+  warrant an attorney referral and did not get one, which is the failure this
+  product can least afford.
+- **This measures the assistant, not the idea.** Correctness at 1.75 with
+  completeness at 1.49 says the retrieval is working and the writing is thin.
+
+The three changes most likely to move it, in order: require the answer to cite
+the passage it was given, treat *"what else does this depend on?"* as a
+required step, and add cases until the safety gap is measurable rather than
+merely visible.
 
 ## A real answer
 
-<!-- TRANSCRIPT: filled from the same run -->
-_Added from the same run, unedited._
+Unedited, from the run above. The question contains a false premise — the kind
+a worried person repeats after reading a headline — and the agent has to check
+rather than agree:
+
+> **I heard the H-1B lottery was abolished last month. Is that right?**
+>
+> No, the H-1B lottery has not been abolished, but it has changed significantly.
+>
+> Effective February 27, 2026, the random H-1B lottery system was replaced with a **wage-level-based weighted selection process**. This change was implemented through a final rule published by the Department of Homeland Security (DHS) on December 29, 2025 (90 FR 60864).
+>
+> Here's what this means:
+>
+> *   **Weighted Selection:** Instead of a purely random draw where every registration had an equal chance, registrations are now weighted based on the wage level offered by the prospective employer.
+> *   **Wage Levels:** The Department of Labor's four-level prevailing wage system is used. A beneficiary offered a Level 4 wage (the highest) will have four entries in the selection pool, a Level 3 wage gets three entries, a Level 2 wage gets two entries, and a Level 1 wage gets one entry.
+> *   **Goal:** This change aims to prioritize higher-paid and higher-skilled workers in the H-1B selection process.
+>
+> This new system was in effect for the Fiscal Year 2027 H-1B cap filing season. While the lottery itself still exists, the odds of selection are no longer equal for all applicants.
+>
+> It's important to note that while the lottery system has changed, the annual H-1B cap (65,000 regular visas and an additional 20,000 for U.S. advanced degree holders) remains in place.
+>
+> You can find more details about this change in the final rule published in the Federal Register and in reports from immigration law firms like Fragomen (December 23, 2025, and January 6, 2026) and AILA (December 29, 2025).
+
+This is the behaviour the whole design is for. The question is a rumour with a
+false premise; the agent checked instead of agreeing, found a **final rule** (so,
+in force — not proposed), cited it by its Federal Register number and date, gave
+the effective date, and named who else had reported it. The tool calls were
+`search_federal_register`, then `search_recent_developments` — the official
+position first, then the reporting, exactly as the tool descriptions ask.
+
+A second example, from the strategy suite — a question with no single right
+answer, answered by looking several things up and weighing them:
+
+> **I am an Indian citizen on H-1B. Should I switch to EB-1 to get my green card as quickly as possible?**
+>
+> Switching from an H-1B visa to an EB-1 (Employment-Based First Preference) green card category can potentially expedite your path to a green card, especially for Indian citizens who often face long backlogs in other employment-based categories like EB-2 and EB-3. However, EB-1 has strict eligibility requirements.
+>
+> Here's a breakdown of what you need to know:
+>
+> **EB-1 Eligibility:**
+>
+> The EB-1 category is for "priority workers" and includes three subcategories:
+>
+> *   **EB-1A: Extraordinary Ability:** This is for individuals with extraordinary ability in the sciences, arts, education, business, or athletics. You must demonstrate sustained national or international acclaim and that your achievements have been recognized in your field. This typically requires extensive documentation, such as awards, publications, high salary, or leading roles in distinguished organizations. You can self-petition for this category, meaning you don't need an employer to sponsor you.
+> *   **EB-1B: Outstanding Professors and Researchers:** This is for outstanding professors and researchers who have at least three years of experience in teaching or research in an academic area, and who are recognized internationally as outstanding in that academic area. You must be seeking to enter the U.S. to pursue a tenured or tenure-track teaching or a comparable research position at a university or other institution of …
+>
+> *(truncated here; scored 2.0/3 — it called `lookup_policy`,
+> `search_official_guidance` and `search_community_experiences`, and the judge's
+> note was that it explains eligibility, priority-date porting and the attorney
+> referral **but cites no links** — the groundedness gap, in one line.)*
 
 ---
 

@@ -23,7 +23,7 @@ class Settings(BaseSettings):
     # provider's own endpoint (Groq, Together, DeepSeek) to skip the router fee.
     llm_base_url: str = "https://openrouter.ai/api/v1"
     llm_api_key: str = ""  # e.g. OPENROUTER_API_KEY
-    llm_model: str = "deepseek/deepseek-chat"
+    llm_model: str = "google/gemini-2.5-flash"
 
     #: Used when the primary model fails with a transient error. Leave blank to
     #: disable fallback.

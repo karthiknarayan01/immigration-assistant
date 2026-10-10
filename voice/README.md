@@ -15,7 +15,7 @@ model when the primary fails transiently:
 |---|---|
 | `LLM_BASE_URL` | OpenAI-compatible endpoint (default: OpenRouter) |
 | `LLM_API_KEY` | API key for that endpoint |
-| `LLM_MODEL` | primary model (e.g. `deepseek/deepseek-chat`) |
+| `LLM_MODEL` | primary model (e.g. `google/gemini-2.5-flash`) |
 | `LLM_FALLBACK_MODEL` | tried when the primary fails transiently |
 | `REASONER_MODEL` | optional reasoning model for strategy questions |
 | `JUDGE_MODEL` | judge model used by the evals |
@@ -43,7 +43,7 @@ gcloud run deploy immigration-voice \
   --region us-east4 \
   --timeout 3600 \
   --allow-unauthenticated \
-  --set-env-vars LLM_API_KEY=<key>,LLM_MODEL=deepseek/deepseek-chat,TAVILY_API_KEY=<key>
+  --set-env-vars LLM_API_KEY=<key>,LLM_MODEL=google/gemini-2.5-flash,TAVILY_API_KEY=<key>
 ```
 
 Before going public, set `ALLOWED_ORIGINS` to your Vercel domain instead of

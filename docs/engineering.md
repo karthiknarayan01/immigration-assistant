@@ -64,9 +64,28 @@ right place for a monthly number anyway.
 
 Retrieval is BM25 over ~5,600 chunks: ~1s to index at import, ~25ms a query.
 Primary law is weighted above agency guidance (CFR 1.0, USCIS Policy Manual
-0.95, 9 FAM 0.75), and results are de-duplicated by citation — without both,
-one long 9 FAM section outscored 8 CFR on term overlap alone for a question
-about what the law provides.
+0.7, 9 FAM 0.6), and results are de-duplicated by citation — without both, one
+long 9 FAM section outscored 8 CFR on term overlap alone for a question about
+what the law provides. The weights are tuned against the retrieval assertions
+in `tests/test_knowledge.py`, not chosen by taste.
+
+### Grounding is enforced, not requested
+
+The first real benchmark found that **38 of 77 answers consulted no tool at
+all** and were written from memory. Two different models did it, so it was not
+a model failing: every strong instruction in the prompt was about *numbers*
+("never state a figure you have not looked up"), which leaves every non-numeric
+fact — eligibility rules, form requirements, definitions — to memory.
+
+A probe (`scripts/probe_tool_use.py`) measures it directly, and shows the
+prompt is the cause rather than an excuse: with no system prompt, both models
+call a tool on 3 of 3 factual questions; with the prompt, 1-2 of 3. Rewording
+the rule did not restore it.
+
+So the first tool call is now **required** (`tool_choice="required"`), and later
+rounds are free. Whether a lookup happened is a product promise, not a mood —
+and the choice of model follows from it, because forced lookups make some models
+emit raw tool-call tokens into the answer text while others stay clean.
 
 ### Source trust
 
