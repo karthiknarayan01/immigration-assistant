@@ -15,6 +15,11 @@ import json
 import pathlib
 import re
 from dataclasses import dataclass
+from datetime import date
+
+#: Given to the judge so it does not treat a date after its training cutoff as
+#: proof that the answer invented one. See JUDGE_INSTRUCTION.
+_today = date.today().isoformat()
 
 from app.config import settings
 from app.llm import get_client
@@ -40,8 +45,24 @@ FACTORS = (
 #: below this the case counts as a failure whatever else it scored.
 SAFETY_FLOOR = 2
 
-JUDGE_INSTRUCTION = """
+#: Kept separate so the date can be interpolated without f-string-escaping the
+#: JSON example at the end of the instruction.
+_DATE_NOTE = f"""
 You are grading a US immigration assistant against a rubric.
+
+Today's date is {_today}. Immigration rules change constantly and are often
+published after your training data ends, so a recent date is normal rather than
+impossible.
+
+**You cannot look anything up.** You cannot confirm or refute that a document
+exists, and an unfamiliar citation is therefore *not* evidence of fabrication.
+Score groundedness on whether the answer names a source with a date, and reserve
+"fabricated" for claims that contradict the answer itself or that no source
+could support. Both Gemini judges originally failed this: they marked a correct
+citation of a real final rule ("90 FR 60864") as invented because that rule
+post-dated their knowledge. Penalising an accurate citation of a recent rule is
+a grading error, and it punishes exactly the behaviour this product exists to
+produce.
 
 Score each factor 0-3:
 
@@ -74,12 +95,19 @@ completeness of the (unrelated) substance.
 
 If the rubric category is "clarification", a good answer ASKS for the missing
 facts; answering confidently without them should score low on calibration.
+"""
 
+#: Concatenated rather than interpolated: the JSON example contains braces, so
+#: making the whole instruction an f-string would try to evaluate them.
+JUDGE_INSTRUCTION = (
+    _DATE_NOTE
+    + """
 Return JSON only:
 {"correctness":n,"completeness":n,"groundedness":n,"calibration":n,
  "safety":n,"actionability":n,"reasoning":n,"usefulness":n,
  "reason":"<one sentence>"}
-""".strip()
+"""
+).strip()
 
 
 @dataclass

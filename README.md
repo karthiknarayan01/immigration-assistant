@@ -94,7 +94,7 @@ one model for all of them is either wasteful or unsafe.
 |---|---|---|---|
 | Deciding what to look up, then writing the answer | Following a long list of rules, calling the right tool, and **not** inventing things | `google/gemini-2.5-flash` | This runs several times per question, so it dominates cost. What matters most is that it reliably *uses its tools* — see the benchmark below. |
 | Working through a scenario ("should I switch to EB-1?") | Weighing alternatives and reasoning step by step | Optional — `REASONER_MODEL`, **unset by default** | Judgement questions benefit from a model that thinks before answering. We tested `deepseek/deepseek-r1` here and it made things **worse**, so it is off until a candidate is measured to help. |
-| Grading the answers (evals only) | Being a stricter, better reader than the assistant | `anthropic/claude-sonnet-5.5` | A model cannot fairly mark its own homework. |
+| Grading the answers (evals only) | Being a stricter, better reader than the assistant | `google/gemini-2.5-pro` | Cheapest of the judges tried *and* the best calibrated — see the judge comparison below. A model cannot fairly mark its own homework. |
 
 Two things follow. First, **any of them can be swapped with one environment
 variable** — the app talks to any OpenAI-compatible endpoint, so `LLM_MODEL`,
@@ -125,7 +125,14 @@ thing.
 | Model | Mean score | Answered without looking anything up | Notes |
 |---|---|---|---|
 | `deepseek/deepseek-chat` | 1.55 | 38 / 77 | leaks tool-call tokens when the lookup is enforced |
-| `google/gemini-2.5-flash` | 1.48 → **1.55** | 40 / 77 → **0 / 77** | clean under enforcement; ~2.5× faster |
+| `google/gemini-2.5-flash` | 1.48 | 40 / 77 | clean under enforcement; ~2.5× faster |
+
+**The honest conclusion: the two agents measured the same.** The 0.07 gap is
+smaller than the noise at 77 cases, so the agent's model is *not* the lever —
+only the enforced lookup was. The choice between them rests on the one thing
+that did differ measurably: `deepseek-chat` corrupts its own answers when a
+lookup is required, and `gemini-2.5-flash` does not. The judge decision, below,
+turned out to matter far more.
 
 ---
 
@@ -154,7 +161,7 @@ provider. Recommended cheap setup:
 |---|---|---|
 | Fact + search | `google/gemini-2.5-flash` | Cheap, fast, and — measured — clean when the lookup is enforced |
 | Reasoning / strategy | leave `REASONER_MODEL` unset | Enable it only if a candidate *measures* better; `deepseek-r1` measured worse |
-| Judge (evals) | `anthropic/claude-sonnet-5.5` | Must be stronger than, and unrelated to, the agent |
+| Judge (evals) | `google/gemini-2.5-pro` | Must be stronger than, and unrelated to, the agent |
 
 ## 2. Run the backend
 
@@ -314,71 +321,97 @@ four of them — for a person to review.
 ## The benchmark
 
 77 cases, run end-to-end against the live agent with live search, every answer
-graded by a separate `anthropic/claude-sonnet-5.5`. The agent is
-`google/gemini-2.5-flash`, and a lookup is now mandatory before any answer is
+graded by a separate `google/gemini-2.5-pro`. The agent is
+`google/gemini-2.5-flash`, and a lookup is mandatory before any answer is
 written.
 
 | | |
 |---|---|
-| **Mean score** | **1.55 / 3** |
+| **Mean score** | **2.23 / 3** |
 | Cases graded | 77 — 36 held out from prompt tuning |
-| Held-out score | 1.53 (no gap, so the score is not fitted to the cases) |
+| Held-out score | 2.15 (close to the 2.29 tuned set, so not fitted) |
+| Passed | **56%** — scored ≥2.5 overall *and* safe |
 | Median response | **6.5 seconds** · slowest 5% 14.1s |
 | Cost per question | **$0.0044** |
-| **Quality per dollar** | **4.6 points per $1** |
+| **Quality per dollar** | **6.6 points per $1** |
 | Answers that used a tool | **77 of 77** (was 39 of 77) |
 
 ### Where it is strong, and where it is not
 
 | Factor | Score | Plain reading |
 |---|---|---|
-| Correctness | 1.75 | usually right, sometimes with a wrong detail |
-| **Completeness** | **1.49** | **the main weakness — a required condition or exception is missed** |
-| **Groundedness** | **1.08** | **the other weakness — it often does not link the source it just read** |
-| Calibration | 1.74 | suitably careful, rarely overconfident |
-| Safety | 1.60 | escalates to an attorney, but not consistently enough |
-| Actionability | 1.47 | says what to do next, sometimes thinly |
-| Reasoning | 1.44 | shows some working; strategy answers are weakest |
-| Usefulness | 1.70 | a real person would find it useful |
+| Correctness | 2.32 | the substance is usually right |
+| **Completeness** | **1.97** | **the main weakness — a required condition or exception is missed** |
+| **Groundedness** | **1.58** | **the other weakness — it often does not link the source it just read** |
+| Calibration | 2.43 | suitably careful, rarely overconfident |
+| Safety | 2.62 | escalates to an attorney where it should |
+| Actionability | 2.36 | says what to do next |
+| Reasoning | 2.27 | shows its working, weighs alternatives |
+| Usefulness | 2.19 | a real person would find it useful |
 
 | Suite | Score | |
 |---|---|---|
-| `scope` (must decline) | 2.50 | declining works reliably |
-| `safety` | 1.80 | |
-| `recent` | 1.74 | the Federal Register tool earns its keep |
-| `honesty` | 1.62 | |
-| `reasoning` | 1.60 | |
-| `factual` | 1.42 | |
-| `procedural` | 1.34 | |
-| `speculative` | 1.33 | |
-| `clarification` | 1.25 | |
-| `conversation` | 1.06 | the weakest — and the least important |
+| `scope` (must decline) | 3.00 | declining works perfectly |
+| `factual` | 2.78 | the local corpus earns its keep |
+| `honesty` | 2.68 | refuses to invent figures |
+| `speculative` | 2.52 | |
+| `reasoning` | 2.45 | strategy answers hold up |
+| `safety` | 2.13 | |
+| `conversation` | 2.10 | |
+| `recent` | 2.06 | the Federal Register tool earns its keep |
+| `procedural` | 1.88 | |
+| `clarification` | 1.79 | asking for missing facts is the weakest |
+
+### The judge matters more than the agent — a lot more
+
+This is the most important caveat, and it came out of trying to save money on
+grading. The same 77 answers, re-scored by three different judges:
+
+| Judge | Mean | Pass | "Unsafe" | Cost per run |
+|---|---|---|---|---|
+| `anthropic/claude-sonnet-5.5` | 1.63 | 6% | 44% | ~$0.32 |
+| **`google/gemini-2.5-pro`** (shipped) | **2.23** | **56%** | **9%** | ~$0.24 |
+| `google/gemini-3.6-flash` | 2.33 | 61% | 8% | ~$0.12 |
+
+The agent's own model changed the score by **0.07**. The judge changes it by
+**0.70** — ten times as much. So the number means nothing without saying who
+graded it.
+
+Two judging faults were found and fixed while doing this:
+
+- **Both Gemini judges marked a *correct* citation as fabricated.** The answer
+  cited a real final rule — *"90 FR 60864"*, published 2025-12-29, effective
+  2026-02-27 — and both judges called it invented, because the rule post-dated
+  their knowledge. The judge prompt now states the current date and says
+  explicitly that a citation it cannot check is not a fabrication. That one
+  change moved the Gemini score from 1.90 to 2.23, and the answer now scores
+  3.0/3.
+- **Claude's "unsafe" verdicts were largely its own error.** In 27 cases it
+  marked an answer unsafe while its written reason described a good answer
+  ("uses the stated nationality, avoids quoting a wait time from memory"). That
+  is a judge conflating safety with general quality, and it is why the shipped
+  judge is Gemini: cheaper *and* better calibrated here.
 
 ### Reading the numbers honestly
 
-**1.55 out of 3 is a bad-looking number, and it is the honest one.** The judge's
-reasons are specific rather than vague — *"names Form I-485 but omits the
-medical exam"*, *"cites no links or dates"* — and they point at the same two
-things every time: an answer that is broadly right but incomplete, and a claim
-the agent read but did not cite. That is a fair description of the product
-today.
+**2.23 out of 3, on any judge, is a mid-range score, not a finished product.**
+The two things holding it back are consistent and specific: an answer that is
+right but misses a condition, and a claim the agent read but did not cite.
 
 Three caveats worth stating plainly:
 
-- **At 77 cases, a difference smaller than about 0.2 is noise.** The two model
-  runs (1.55 and 1.48) are the same result, not a ranking. A model bake-off
-  needs more cases per cell before small gaps mean anything.
-- **The safety number is the one to watch, not the mean.** 48% of answers were
-  graded below the safety floor. Some of those are questions that genuinely
-  warrant an attorney referral and did not get one, which is the failure this
-  product can least afford.
-- **This measures the assistant, not the idea.** Correctness at 1.75 with
-  completeness at 1.49 says the retrieval is working and the writing is thin.
+- **At 77 cases a gap under ~0.2 is noise.** The two agent models measured
+  1.55 and 1.48 — the same result, not a ranking. Only the judge's 0.70 spread
+  is a real signal.
+- **A judge is an instrument with its own bias**, not a source of truth. Any
+  number here should be read as "this judge, these cases", and changing either
+  invalidates comparison with anything published before.
+- **This measures the assistant, not the idea.** Correctness 2.32 with
+  completeness 1.97 says the retrieval works and the writing is thin.
 
-The three changes most likely to move it, in order: require the answer to cite
-the passage it was given, treat *"what else does this depend on?"* as a
-required step, and add cases until the safety gap is measurable rather than
-merely visible.
+Two changes would move it most, in order: make the answer cite the passage it
+was given, and treat *"what else does this depend on?"* as a required step
+rather than a hope.
 
 ## A real answer
 
@@ -427,10 +460,11 @@ answer, answered by looking several things up and weighing them:
 > *   **EB-1A: Extraordinary Ability:** This is for individuals with extraordinary ability in the sciences, arts, education, business, or athletics. You must demonstrate sustained national or international acclaim and that your achievements have been recognized in your field. This typically requires extensive documentation, such as awards, publications, high salary, or leading roles in distinguished organizations. You can self-petition for this category, meaning you don't need an employer to sponsor you.
 > *   **EB-1B: Outstanding Professors and Researchers:** This is for outstanding professors and researchers who have at least three years of experience in teaching or research in an academic area, and who are recognized internationally as outstanding in that academic area. You must be seeking to enter the U.S. to pursue a tenured or tenure-track teaching or a comparable research position at a university or other institution of …
 >
-> *(truncated here; scored 2.0/3 — it called `lookup_policy`,
+> *(truncated here; scored 2.89/3 — it called `lookup_policy`,
 > `search_official_guidance` and `search_community_experiences`, and the judge's
-> note was that it explains eligibility, priority-date porting and the attorney
-> referral **but cites no links** — the groundedness gap, in one line.)*
+> note was that it "correctly identifies the high eligibility bar and the
+> context of Indian backlogs". The 0.11 it lost is the groundedness gap: it
+> still cites no links.)*
 
 ---
 
