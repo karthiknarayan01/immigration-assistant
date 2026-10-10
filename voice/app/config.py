@@ -59,8 +59,6 @@ class Settings(BaseSettings):
     # providers' crawlers, never fetched directly.
     tavily_api_key: str = ""
     exa_api_key: str = ""
-    parallel_api_key: str = ""
-    xai_api_key: str = ""
 
     # ── Tool budget ─────────────────────────────────────────────────────────
     tool_timeout_secs: float = 12.0

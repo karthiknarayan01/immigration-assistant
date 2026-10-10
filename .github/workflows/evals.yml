@@ -58,7 +58,6 @@ jobs:
           LLM_MODEL: ${{ vars.LLM_MODEL }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
-          PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
         # Fails fast on a missing key or an empty balance, rather than 20
         # minutes of cases all failing the same way.
         run: PYTHONPATH=. uv run python scripts/check_services.py || true
@@ -74,8 +73,6 @@ jobs:
           LLM_PRICES: ${{ vars.LLM_PRICES }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           EXA_API_KEY: ${{ secrets.EXA_API_KEY }}
-          PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
         run: |
           set -o pipefail
           # A push-triggered run has no inputs at all, so default them here

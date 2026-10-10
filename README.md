@@ -66,7 +66,7 @@ call:
 | `search_official_guidance` | Current fees, processing times, the visa bulletin, USCIS policy |
 | `search_federal_register` | Official rulemaking. States outright whether each document is **in force**, **proposed**, a notice, or an executive order |
 | `search_recent_developments` | Press coverage and what immigration lawyers are saying |
-| `search_community_experiences` | What applicants report in practice (forums and X), gated as anecdote |
+| `search_community_experiences` | What applicants report in practice, from forums, gated as anecdote |
 
 ## How much you can trust an answer
 
@@ -147,8 +147,6 @@ One repo: the Python backend (`voice/`) and the Next.js frontend (`frontend/`).
 | **OpenRouter** (or any OpenAI-compatible endpoint) | The model, swappable by env var | Pay per token; cheap open models are a fraction of a cent |
 | **Tavily** | Official-source search | Free tier, then ~$0.008/search |
 | **Exa** (optional) | Better semantic search | Free tier |
-| **Parallel** (optional) | Forum and Reddit search | Free tier available |
-| **xAI** (optional) | Searching X for early signal | Pay per call |
 | **Vercel** | Hosting the web app | Free tier is enough |
 
 Only the model key and **one** search key are required. With no search keys at

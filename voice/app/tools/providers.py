@@ -260,63 +260,13 @@ async def _exa(
     ]
 
 
-async def _parallel(client: httpx.AsyncClient, query: str, limit: int) -> list[SearchHit]:
-    """Parallel's search, used for community sources.
-
-    Far better forum coverage than the general providers: the same query
-    returns ten relevant Reddit threads here versus two from Tavily, and
-    none at all from Exa. It still does not date forum posts, so the
-    undated-story handling in credibility.py stays necessary.
-
-    Domain filtering goes in the query text — the API rejects a
-    source_policy field with a 422.
-    """
-    response = await client.post(
-        "https://api.parallel.ai/v1/search",
-        headers={"x-api-key": settings.parallel_api_key},
-        json={
-            "objective": f"First-hand personal accounts about: {query}",
-            "search_queries": [f"site:reddit.com {query}"],
-            # ~700ms. "advanced" is ~3s, too slow to sit inside a voice turn.
-            "mode": "fast",
-        },
-    )
-    response.raise_for_status()
-
-    hits: list[SearchHit] = []
-    for position, item in enumerate(response.json().get("results", [])[:limit]):
-        url = item.get("url", "")
-        excerpts = item.get("excerpts") or []
-        hits.append(
-            SearchHit(
-                title=item.get("title") or "",
-                url=url,
-                text=" ".join(excerpts)[:1500],
-                tier=classify(url),
-                published=_parse_date(item.get("publish_date")),
-                relevance=_rank_relevance(position),
-            )
-        )
-    return hits
-
-
 async def search_community(query: str, *, limit: int = 8) -> list[SearchHit]:
-    """Find forum accounts, preferring the provider that actually indexes them."""
-    if settings.parallel_api_key:
-        deadline = time.monotonic() + settings.tool_timeout_secs * RETRY_DEADLINE_FRACTION
-        try:
-            return _rank(
-                await _attempt(
-                    lambda: _parallel(get_client(), query, limit),
-                    deadline=deadline,
-                    what="parallel",
-                )
-            )
-        except Exception as error:  # noqa: BLE001 - fall back, don't fail the turn
-            _record_failure(error)
+    """Find first-hand forum accounts.
 
-    # Without Parallel, a plain unconstrained search still surfaces some
-    # threads; pinning it to reddit.com collapses relevance instead.
+    An unconstrained search rather than one pinned to reddit.com: pinning it
+    collapses relevance, and the anecdotal-URL filter drops the non-forum hits
+    afterwards anyway.
+    """
     return await search(f"{query} reddit", limit=limit)
 
 

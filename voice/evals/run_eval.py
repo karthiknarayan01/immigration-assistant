@@ -315,8 +315,6 @@ async def main() -> int:
     if args.no_tools:
         settings.tavily_api_key = ""
         settings.exa_api_key = ""
-        settings.parallel_api_key = ""
-        settings.xai_api_key = ""
         print("running with search DISABLED (simulating exhausted credits)\n")
 
     cases = load_cases()

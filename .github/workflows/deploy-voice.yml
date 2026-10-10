@@ -64,7 +64,7 @@ jobs:
             --timeout 3600 \
             --allow-unauthenticated \
             --quiet \
-            --set-env-vars "LLM_MODEL=${{ vars.LLM_MODEL }},LLM_FALLBACK_MODEL=${{ vars.LLM_FALLBACK_MODEL }},REASONER_MODEL=${{ vars.REASONER_MODEL }},LLM_API_KEY=${{ secrets.OPENROUTER_API_KEY }},TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }},EXA_API_KEY=${{ secrets.EXA_API_KEY }},PARALLEL_API_KEY=${{ secrets.PARALLEL_API_KEY }},XAI_API_KEY=${{ secrets.XAI_API_KEY }}"
+            --set-env-vars "LLM_MODEL=${{ vars.LLM_MODEL }},LLM_FALLBACK_MODEL=${{ vars.LLM_FALLBACK_MODEL }},REASONER_MODEL=${{ vars.REASONER_MODEL }},LLM_API_KEY=${{ secrets.OPENROUTER_API_KEY }},TAVILY_API_KEY=${{ secrets.TAVILY_API_KEY }},EXA_API_KEY=${{ secrets.EXA_API_KEY }}"
 
       - name: Smoke test the new revision
         run: |
