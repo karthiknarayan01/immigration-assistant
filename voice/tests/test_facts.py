@@ -69,10 +69,11 @@ def test_facts_are_never_asserted_without_a_citation():
 def test_ground_truth_covers_the_objective_factual_suites():
     """A floor, not a target: these are the cases where a fact is knowable.
 
-    Set low on purpose. The honest position is that 13 of 77 cases are
+    Set just below the current count so growth is expected but shrinkage
+    fails. The honest position is that 19 of 77 cases are
     deterministically checkable today and the rest are not, and that a
     regression which shrinks this should fail rather than pass quietly.
     """
-    assert len(FACTS) >= 12
+    assert len(FACTS) >= 18
     for case_id in ("fact-03", "proc-02", "reason-02", "rd-06"):
         assert case_id in FACTS, f"{case_id} lost its ground truth"

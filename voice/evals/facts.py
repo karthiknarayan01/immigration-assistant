@@ -28,7 +28,6 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-
 @dataclass(frozen=True)
 class Fact:
     """One authoritative statement an answer must contain."""
@@ -37,7 +36,6 @@ class Fact:
     citation: str
     #: Any one of these matching counts as the fact being stated.
     patterns: tuple[str, ...]
-
 
 @dataclass
 class FactResult:
@@ -56,7 +54,6 @@ class FactResult:
     @property
     def complete(self) -> bool:
         return not self.missing
-
 
 #: Keyed by eval case id. Only cases with an objective, checkable fact appear.
 FACTS: dict[str, tuple[Fact, ...]] = {
@@ -106,6 +103,59 @@ FACTS: dict[str, tuple[Fact, ...]] = {
         Fact("There is a 60-day grace period", "8 CFR 214.1(l)(2)", (r"\b60\b",)),
         Fact("It is capped by the remaining validity on the petition or I-94", "8 CFR 214.1(l)(2)", (r"I-?94", r"validity", r"petition")),
     ),
+    "rd-13": (
+        Fact("The period of admission is set by the I-94, not the visa", "8 CFR 214.2(b)(1)", (r"I-?94",)),
+        Fact(
+            "A B visitor may be admitted for up to one year (six months is typical)",
+            "8 CFR 214.2(b)(1)",
+            (r"one year", r"1 year", r"12 months", r"six months", r"6 months"),
+        ),
+        Fact("An extension of stay is requested on Form I-539", "8 CFR 214.2", (r"I-?539",)),
+    ),
+    "rd-20": (
+        Fact(
+            "A 221(g) refusal leaves the case in administrative processing rather than decided",
+            "INA 221(g) / 9 FAM 306.2",
+            (r"administrative processing", r"221[^.]{0,90}(pending|processing|not final)"),
+        ),
+        Fact(
+            "It is not by itself a denial and does not by itself create unlawful presence",
+            "INA 221(g) / INA 212(a)(9)(B)",
+            (r"not automatically", r"does not by itself", r"not a (final )?denial", r"separate"),
+        ),
+    ),
+    "rd-22": (
+        Fact(
+            "A 221(g) refusal leaves the case in administrative processing rather than decided",
+            "INA 221(g) / 9 FAM 306.2",
+            (r"administrative processing", r"221[^.]{0,90}(pending|processing|not final)"),
+        ),
+        Fact(
+            "It is not by itself a denial and does not by itself create unlawful presence",
+            "INA 221(g) / INA 212(a)(9)(B)",
+            (r"not automatically", r"does not by itself", r"not a (final )?denial", r"separate"),
+        ),
+    ),
+    "rd-25": (
+        Fact(
+            "An approved I-140 survives revocation once adjustment has been pending 180 days",
+            "AC21 / 8 CFR 205.1(a)(3)(iii)(C)",
+            (r"\b180\b",),
+        ),
+        Fact("A 60-day grace period may apply after employment ends", "8 CFR 214.1(l)(2)", (r"\b60\b",)),
+    ),
+    "rd-26": (
+        Fact(
+            "Cap-exempt employers include universities and affiliated nonprofits",
+            "INA 214(g)(5) / 8 CFR 214.2(h)(19)(iii)",
+            (r"higher education", r"universit"),
+        ),
+        Fact(
+            "They also include nonprofit and government research organisations",
+            "INA 214(g)(5)",
+            (r"nonprofit", r"non-profit", r"research"),
+        ),
+    ),
     "rd-06": (
         Fact("The STEM OPT extension is 24 months", "8 CFR 214.2(f)(10)(ii)(C)", (r"\b24\b",)),
         Fact("It requires a training plan, Form I-983", "8 CFR 214.2(f)(10)(ii)(C)", (r"I-?983", r"training plan")),
@@ -120,6 +170,14 @@ FACTS: dict[str, tuple[Fact, ...]] = {
             (r"103,?265", r"\$103"),
         ),
         Fact("The change is proposed, not in force", "91 FR 54817", (r"proposed", r"not (yet )?in (force|effect)", r"not final")),
+    ),
+    "recent-08": (
+        Fact(
+            "A proposed rule would set a $103,265 fee for H-1B cap-subject petitions",
+            "91 FR 54817 (proposed rule, 2026-08-25)",
+            (r"103,?265", r"\$103"),
+        ),
+        Fact("It is proposed, not in force", "91 FR 54817", (r"proposed", r"not (yet )?in (force|effect)", r"not final")),
     ),
     "recent-05": (
         Fact("The H-1B lottery has not been abolished", "90 FR 60864 (final rule, 2025-12-29)", (r"not been abolished", r"has not been (abolished|eliminated)", r"still exists")),
@@ -136,18 +194,16 @@ BEHAVIOURAL_ONLY = frozenset("""
     adv-08 conv-01 conv-02 conv-03 conv-04 honest-01 honest-02
     honest-03 honest-04 mt-01 mt-02 mt-03 mt-04 mt-05
     rd-02 rd-05 rd-07 rd-08 rd-09 rd-10 rd-11
-    rd-12 rd-13 rd-14 rd-15 rd-16 rd-18 rd-19
-    rd-20 rd-22 rd-23 rd-24 rd-25 rd-26 reason-03
-    reason-04 recent-01 recent-02 recent-04 recent-06 recent-07 recent-08
-    safety-01 safety-02 safety-03 safety-04 scope-01 scope-02 scope-03
-    scope-04 spec-01 spec-02 spec-03 spec-04 strat-01 strat-02
-    strat-03
+    rd-12 rd-14 rd-15 rd-16 rd-18 rd-19 rd-23
+    rd-24 reason-03 reason-04 recent-01 recent-02 recent-04 recent-06
+    recent-07 safety-01 safety-02 safety-03 safety-04 scope-01 scope-02
+    scope-03 scope-04 spec-01 spec-02 spec-03 spec-04 strat-01
+    strat-02 strat-03
 """.split())
 
 
 def facts_for(case_id: str) -> tuple[Fact, ...]:
     return FACTS.get(case_id, ())
-
 
 def check(case_id: str, answer: str) -> FactResult | None:
     """Check an answer against the ground truth, with no model involved."""

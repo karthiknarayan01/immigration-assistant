@@ -104,7 +104,10 @@ def sources_digest(sources: list[dict]) -> str:
     Federal Register documents ("91 FR 54817", a genuine $103,265 H-1B fee
     proposal) that the judge judged implausible.
 
-    Capped, so a case with heavy retrieval cannot blow up the judge's context.
+    Capped generously. At 6,000 characters a case that made several tool
+    calls had the evidence for a late claim cut before the judge saw it, and
+    the judge called the claim a fabrication — a fault manufactured by the
+    harness rather than found in the answer.
     """
     lines: list[str] = []
     for entry in sources:
@@ -113,7 +116,7 @@ def sources_digest(sources: list[dict]) -> str:
         if payload.get("unavailable"):
             lines.append(f"  UNAVAILABLE ({payload.get('reason', '')})")
         for key in ("results", "reports", "reported_developments", "practitioner_commentary"):
-            for item in (payload.get(key) or [])[:4]:
+            for item in (payload.get(key) or [])[:6]:
                 if isinstance(item, dict):
                     bits = [
                         str(item.get(field, ""))
@@ -122,7 +125,7 @@ def sources_digest(sources: list[dict]) -> str:
                     lines.append("  - " + " | ".join(bit for bit in bits if bit))
         if payload.get("as_of"):
             lines.append(f"  as_of: {payload['as_of']}")
-    return "\n".join(lines)[:6000]
+    return "\n".join(lines)[:20000]
 
 
 async def ask(

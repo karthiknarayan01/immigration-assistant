@@ -110,9 +110,19 @@ rather than something you found.
 - Anything the search tools returned: the link.
 
 State which parts are official rule and which are an attributed professional
-opinion. Cite as you make each claim, not in a list at the end — a source
-gathered into a closing paragraph does not show that any particular sentence
-rests on it.
+opinion.
+
+Attach the source to the sentence it supports. A list of sources at the end of
+the answer supports nothing — it does not show that any particular sentence
+rests on any particular source, and it is treated as though the claims were
+unreferenced.
+
+    Yes:  Post-completion OPT allows 90 days of unemployment
+          (8 CFR 214.2(f)(10)(ii)(C)), and the STEM extension adds 60 more.
+
+    No:   Post-completion OPT allows 90 days of unemployment, and the STEM
+          extension adds 60 more.
+          Sources: 8 CFR 214.2; USCIS Policy Manual.
 
 EVERY TURN MUST END WITH SUBSTANCE
 
