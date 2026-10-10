@@ -94,7 +94,7 @@ one model for all of them is either wasteful or unsafe.
 |---|---|---|---|
 | Deciding what to look up, then writing the answer | Following a long list of rules, calling the right tool, and **not** inventing things | A cheap, capable model — `deepseek/deepseek-chat` | This runs several times per question, so it dominates cost. It needs to be accurate, not brilliant. |
 | Working through a scenario ("should I switch to EB-1?") | Weighing alternatives and reasoning step by step | A reasoning model — `deepseek/deepseek-r1`, set as `REASONER_MODEL` | Judgement questions benefit from a model that thinks before it answers. A lookup does not. |
-| Grading the answers (evals only) | Being a stricter, better reader than the assistant | A stronger model — `anthropic/claude-3.5-sonnet` | A model cannot fairly mark its own homework. |
+| Grading the answers (evals only) | Being a stricter, better reader than the assistant | A stronger model — `anthropic/claude-sonnet-5.5` | A model cannot fairly mark its own homework. |
 
 Two things follow. First, **any of them can be swapped with one environment
 variable** — the app talks to any OpenAI-compatible endpoint, so `LLM_MODEL`,
@@ -137,7 +137,7 @@ provider. Recommended cheap setup:
 |---|---|
 | Fact + search | `deepseek/deepseek-chat` |
 | Reasoning / strategy | `deepseek/deepseek-r1` (set `REASONER_MODEL`) |
-| Judge (evals) | `anthropic/claude-3.5-sonnet` (or another strong model) |
+| Judge (evals) | `anthropic/claude-sonnet-5.5` (or another strong model) |
 
 ## 2. Run the backend
 

@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     reasoner_model: str = ""
 
     #: Judge model for evals — stronger than the agent under test.
-    judge_model: str = "anthropic/claude-3.5-sonnet"
+    judge_model: str = "anthropic/claude-sonnet-5.5"
 
     #: Per-model prices for the eval report's cost column, as JSON:
     #:   {"deepseek/deepseek-chat": [0.27, 1.10], "deepseek/deepseek-r1": [0.55, 2.19]}

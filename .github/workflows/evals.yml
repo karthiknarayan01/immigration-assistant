@@ -27,6 +27,11 @@ on:
         description: "Run with search disabled (degraded-mode check)"
         type: boolean
         default: false
+  # Lets the suite run from a branch while this file is not yet on the default
+  # branch, since GitHub only registers workflow_dispatch there. Scoped to a
+  # branch nobody pushes, so it costs nothing once this is merged.
+  push:
+    branches: [eval-run]
 
 concurrency:
   group: evals-${{ github.ref }}
