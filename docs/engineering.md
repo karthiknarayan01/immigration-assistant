@@ -69,6 +69,45 @@ long 9 FAM section outscored 8 CFR on term overlap alone for a question about
 what the law provides. The weights are tuned against the retrieval assertions
 in `tests/test_knowledge.py`, not chosen by taste.
 
+### Retrieval is the bottleneck, and tuning has run out
+
+The generated benchmark made this measurable for the first time. Of 144
+questions drawn directly from the corpus, the agent's tools returned the very
+section the question came from only **60% of the time** — and in a further third
+of those cases it retrieved the section and still did not state the fact.
+
+So roughly **40% of failures are retrieval**: the agent cannot state a fact it
+never saw. That is a different problem from reasoning, and it needs a different
+fix.
+
+Two lexical fixes were tried, measured, and **rejected**:
+
+- **Source weights.** FAM and Policy Manual were weighted down to 0.7/0.6
+  against a single retrieval case, in a corpus where 60% of the generated
+  questions come from the Policy Manual. Raising them to 0.95/0.9 moved
+  retrieval to 64.6% and lifted naturalization from 25% to 41.7%, but left
+  overall accuracy flat and broke two retrieval tests.
+- **Morphological expansion.** BM25 treats "revoked", "revocation" and "revoke"
+  as unrelated, which is wrong for legal text. Adding weighted family heads
+  widened recall but measured *worse* on retrieval (56.9%) and was reverted.
+
+Across three runs the numbers were 51.4%, 52.8% and 50.7% — with 144 cases the
+standard error is about four points, so **none of these differences is
+distinguishable from noise**. The honest conclusion is that lexical tuning is
+exhausted: the remaining failures are vocabulary mismatch between a
+natural-language question and statutory text, and that needs semantic
+retrieval.
+
+That means an embedding dependency — `onnxruntime` with a small ONNX model
+(~90 MB) is the lightest option, `sentence-transformers` needs torch — fused
+with the existing BM25. It is a real dependency decision rather than a tweak,
+which is why it has not been made unilaterally.
+
+Two caveats on the measurement itself: 144 cases cannot resolve a four-point
+effect, so the full 707 should be run before any of this is called settled; and
+`citation appears in the tool results` is a coarse proxy for "the agent found
+the passage".
+
 ### Grounding is enforced, not requested
 
 The first real benchmark found that **38 of 77 answers consulted no tool at
