@@ -77,10 +77,14 @@ jobs:
           PARALLEL_API_KEY: ${{ secrets.PARALLEL_API_KEY }}
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
         run: |
+          set -o pipefail
+          # A push-triggered run has no inputs at all, so default them here
+          # rather than passing empty strings to argparse.
+          SPLIT="${{ inputs.split }}"; SPLIT="${SPLIT:-all}"
+          LIMIT="${{ inputs.limit }}"; LIMIT="${LIMIT:-0}"
+          NO_TOOLS="${{ inputs.no_tools && '--no-tools' || '' }}"
           PYTHONPATH=. uv run python evals/run_eval.py \
-            --split ${{ inputs.split }} \
-            --limit ${{ inputs.limit }} \
-            ${{ inputs.no_tools && '--no-tools' || '' }} | tee eval_output.txt
+            --split "$SPLIT" --limit "$LIMIT" $NO_TOOLS | tee eval_output.txt
 
       - uses: actions/upload-artifact@v4
         if: always()
