@@ -137,6 +137,7 @@ async def _execute_tool(
     *,
     on_status: Callable[[StatusEvent | None], Awaitable[None]] | None,
     on_tool: Callable[[str, dict], Awaitable[None]] | None,
+    on_tool_result: Callable[[str, dict], Awaitable[None]] | None,
     round_index: int,
 ) -> dict:
     """Run one tool handler, returning its result for the model.
@@ -185,6 +186,12 @@ async def _execute_tool(
     )
     result = params.result or {"error": "no handler"}
     log_tool_result(name, result)
+    # Handed to the eval harness so the judge can see what was retrieved. An
+    # LLM judge cannot verify a citation from its own knowledge, and a correct
+    # citation of a surprising recent rule looks exactly like an invention
+    # unless the judge is shown the source it came from.
+    if on_tool_result is not None:
+        await on_tool_result(name, result)
     return result
 
 
@@ -217,6 +224,7 @@ async def stream_answer(
     *,
     on_status: Callable[[StatusEvent | None], Awaitable[None]] | None = None,
     on_tool: Callable[[str, dict], Awaitable[None]] | None = None,
+    on_tool_result: Callable[[str, dict], Awaitable[None]] | None = None,
     usage_sink: dict | None = None,
 ) -> AsyncIterator[str]:
     """Answer one question, yielding text as it is produced.
@@ -356,7 +364,12 @@ async def stream_answer(
             tool_results = []
             for call_id, name, arguments in callables:
                 result = await _execute_tool(
-                    name, arguments, on_status=status, on_tool=on_tool, round_index=round_index
+                    name,
+                    arguments,
+                    on_status=status,
+                    on_tool=on_tool,
+                    on_tool_result=on_tool_result,
+                    round_index=round_index,
                 )
                 tool_results.append({"role": "tool", "tool_call_id": call_id, "content": json.dumps(result)})
             messages.extend(tool_results)

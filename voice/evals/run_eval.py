@@ -94,28 +94,70 @@ def load_cases() -> list[dict]:
     return cases
 
 
-async def ask(question: str, history: list[dict] | None = None) -> tuple[str, list[str], dict, float]:
+def sources_digest(sources: list[dict]) -> str:
+    """A compact rendering of what the tools returned, for the judge.
+
+    The judge cannot look anything up, so a *correct* citation of a recent rule
+    is indistinguishable from an invention unless it is shown the material the
+    answer was written from. Two cases were scored near zero for citing real
+    Federal Register documents ("91 FR 54817", a genuine $103,265 H-1B fee
+    proposal) that the judge judged implausible.
+
+    Capped, so a case with heavy retrieval cannot blow up the judge's context.
+    """
+    lines: list[str] = []
+    for entry in sources:
+        payload = entry.get("result") or {}
+        lines.append(f"[{entry.get('tool', '?')}]")
+        if payload.get("unavailable"):
+            lines.append(f"  UNAVAILABLE ({payload.get('reason', '')})")
+        for key in ("results", "reports", "reported_developments", "practitioner_commentary"):
+            for item in (payload.get(key) or [])[:4]:
+                if isinstance(item, dict):
+                    bits = [
+                        str(item.get(field, ""))
+                        for field in ("title", "citation", "url", "published", "status", "effective_on")
+                    ]
+                    lines.append("  - " + " | ".join(bit for bit in bits if bit))
+        if payload.get("as_of"):
+            lines.append(f"  as_of: {payload['as_of']}")
+    return "\n".join(lines)[:6000]
+
+
+async def ask(
+    question: str, history: list[dict] | None = None
+) -> tuple[str, list[str], dict, float, list[dict]]:
     """Put one question to the agent, running any tools it calls for real.
 
-    Returns the answer, the ordered tools used, summed token usage, and wall
-    time. Multi-turn cases pass their prior turns as `history`, so the
-    context-handling path is exercised rather than assumed.
+    Returns the answer, the ordered tools used, summed token usage, wall time,
+    and what the tools returned — the last so the judge can check an answer
+    against its sources instead of against its own memory. Multi-turn cases
+    pass their prior turns as `history`, so the context-handling path is
+    exercised rather than assumed.
     """
     tools_used: list[str] = []
     chunks: list[str] = []
     usage: dict = {}
+    sources: list[dict] = []
 
     async def on_tool(name: str, _arguments: dict) -> None:
         tools_used.append(name)
 
+    async def on_tool_result(name: str, result: dict) -> None:
+        sources.append({"tool": name, "result": result})
+
     started = time.perf_counter()
     async for chunk in stream_answer(
-        history or [], question, on_tool=on_tool, usage_sink=usage
+        history or [],
+        question,
+        on_tool=on_tool,
+        on_tool_result=on_tool_result,
+        usage_sink=usage,
     ):
         chunks.append(chunk)
     latency_ms = (time.perf_counter() - started) * 1000
 
-    return "".join(chunks).strip(), tools_used, usage, latency_ms
+    return "".join(chunks).strip(), tools_used, usage, latency_ms, sources
 
 
 def _is_subsequence(seq: list[str], sub: list[str]) -> bool:
@@ -293,7 +335,7 @@ async def main() -> int:
         new_request(session_id="eval")
         try:
             with measure("user_turn", "turn", case_id=case["id"]):
-                answer, tools_used, usage, latency_ms = await with_backoff(
+                answer, tools_used, usage, latency_ms, sources = await with_backoff(
                     lambda: ask(case["question"], case.get("history")), what="agent"
                 )
         except Exception as error:  # noqa: BLE001 - one bad case must not end the run
@@ -303,7 +345,9 @@ async def main() -> int:
             continue
 
         try:
-            verdict = await with_backoff(lambda: judge(case, answer, tools_used), what="judge")
+            verdict = await with_backoff(
+                lambda: judge(case, answer, tools_used, sources_digest(sources)), what="judge"
+            )
         except Exception as error:  # noqa: BLE001 - a dead judge must not end the run
             unjudged.append({"id": case["id"], "error": f"{type(error).__name__}: {error}"})
             print(f"[{index:>2}/{len(cases)}] {case['id']:<8} JUDGE FAILED ({type(error).__name__})", flush=True)
@@ -327,6 +371,7 @@ async def main() -> int:
             "question": case["question"],
             "answer": answer,
             "tools_used": tools_used,
+            "sources": sources_digest(sources),
             "expects_tools": case.get("expects_tools", []),
             "domain": case.get("domain", "unset"),
             "difficulty": case.get("difficulty", "unset"),

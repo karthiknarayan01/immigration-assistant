@@ -64,6 +64,13 @@ post-dated their knowledge. Penalising an accurate citation of a recent rule is
 a grading error, and it punishes exactly the behaviour this product exists to
 produce.
 
+**When retrieved sources are supplied, judge against them.** If a claim matches
+what the assistant retrieved, it is correct — however surprising, unusual or
+large the figure looks. Do not judge a rule, fee or deadline against your own
+sense of what is plausible: a genuine proposal set an H-1B fee at $103,265, and
+a judge that called that "absurd" scored a correct, well-cited answer near zero.
+Where a claim is supported by the retrieved material, treat it as verified.
+
 Score each factor 0-3:
 
 - correctness:   is the substance accurate and correct, per the requirements
@@ -151,7 +158,7 @@ def task_guidance(task: str) -> str:
     )
 
 
-async def judge(case: dict, answer: str, tools_used: list[str]) -> Verdict:
+async def judge(case: dict, answer: str, tools_used: list[str], sources: str = "") -> Verdict:
     payload = json.dumps(
         {
             "question": case["question"],
@@ -159,6 +166,10 @@ async def judge(case: dict, answer: str, tools_used: list[str]) -> Verdict:
             "requires": case.get("requires", []),
             "forbids": case.get("forbids", []),
             "tools_used": tools_used,
+            # What the tools actually returned. Without this the judge can only
+            # compare the answer to its own memory, which is how it came to call
+            # real Federal Register citations fabrications.
+            "retrieved_sources": sources or "(none recorded)",
             "answer": answer or "(the assistant said nothing)",
         },
         indent=2,

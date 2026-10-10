@@ -46,7 +46,9 @@ async def rejudge(rows: list[dict], cases_by_id: dict, *, model: str) -> list[di
             return None
         async with semaphore:
             try:
-                verdict = await judge(case, row["answer"], row.get("tools_used", []))
+                verdict = await judge(
+                    case, row["answer"], row.get("tools_used", []), row.get("sources", "")
+                )
             except Exception as error:  # noqa: BLE001 - reported, not fatal
                 print(f"    {row['id']}: judge failed ({type(error).__name__})")
                 return None
