@@ -122,7 +122,7 @@ _FORM = re.compile(r"\b(?:Form\s+)?([ING]-\s?\d{2,4}[A-Z]?)\b", re.IGNORECASE)
 _MONEY = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?")
 _FIGURE = re.compile(r"\b(\d[\d,]*(?:\.\d+)?)\b")
 _UNIT = re.compile(
-    r"\b\d[\d,]*\s*(?:business\s+days?|days?|months?|years?|weeks?|hours?|percent|%)\b",
+    r"\b\d[\d,]*(?:\.\d+)?\s*(?:business\s+days?|days?|months?|years?|weeks?|hours?|percent|%)\b",
     re.IGNORECASE,
 )
 
@@ -139,11 +139,18 @@ def key_tokens(quote: str) -> list[str]:
     tokens += [re.sub(r"\s+", "", m) for m in _MONEY.findall(quote)]
     tokens += [m for m in _UNIT.findall(quote)]
     for figure in _FIGURE.findall(quote):
-        # Two digits or more, or a decimal. A lone "1" is not evidence.
-        if not (len(figure.split(".")[0].replace(",", "")) >= 2 or "." in figure):
+        digits = figure.split(".")[0].replace(",", "")
+        # A bare "20" or "101" is a section fragment or a stray count, and a
+        # correct answer has no reason to echo it — the first run's most-missed
+        # tokens were exactly these. Keep only figures long enough to be a real
+        # quantity, and only if they are not part of a form number ("I-20" must
+        # not also yield "20").
+        # Bare decimals are section references ("204.1", "1241.6"), not
+        # quantities — and an answer citing INA 241.6 instead of 8 CFR 1241.6
+        # is correct while failing that match. Quantities carry a unit, and
+        # _UNIT has already taken those.
+        if len(digits) < 4:
             continue
-        # "I-20" must not also yield the token "20": a bare 20 would match
-        # "20 days" and pass an answer that never mentioned the form.
         if any(figure in form for form in forms):
             continue
         tokens.append(figure)

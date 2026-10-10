@@ -53,13 +53,32 @@ def load(domains: list[str]) -> list[dict]:
     return cases
 
 
+def retrieved_source(case: dict, sources: list[dict]) -> bool:
+    """Did the tools return the very section this question came from?
+
+    This separates the two failure modes that a single low score conflates: the
+    agent could not find the passage, or it found it and did not use it. The
+    first is a retrieval problem; the second is a writing problem, and they need
+    different fixes.
+    """
+    wanted = normalise(case.get("citation", ""))
+    if not wanted:
+        return False
+    for entry in sources:
+        if wanted and wanted in normalise(json.dumps(entry.get("result") or {})):
+            return True
+    return False
+
+
 async def one(case: dict) -> dict:
     started = time.perf_counter()
+    sources: list[dict] = []
     try:
-        answer, _, _, _, _ = await ask(case["question"])
+        answer, tools_used, _, _, sources = await ask(case["question"])
     except Exception as error:  # noqa: BLE001 - one bad case is not fatal
-        answer = f"__error__ {type(error).__name__}"
+        answer, tools_used = f"__error__ {type(error).__name__}", []
     latency = (time.perf_counter() - started) * 1000
+    found = retrieved_source(case, sources)
     stated = [t for t in case["must_contain"] if has_token(answer, t)]
     missing = [t for t in case["must_contain"] if not has_token(answer, t)]
     return {
@@ -70,6 +89,8 @@ async def one(case: dict) -> dict:
         "stated": stated,
         "missing": missing,
         "accurate": not missing,
+        "retrieved_source": found,
+        "tools_used": tools_used,
         "partial": round(len(stated) / len(case["must_contain"]), 3),
         "latency_ms": round(latency, 1),
     }
@@ -110,10 +131,19 @@ async def main() -> int:
         "accurate_pct": round(100 * sum(r["accurate"] for r in rows) / len(rows), 1),
         "partial_mean": round(statistics.mean(r["partial"] for r in rows), 3),
         "median_latency_ms": round(statistics.median(r["latency_ms"] for r in rows), 1),
+        "retrieved_pct": round(100 * sum(r["retrieved_source"] for r in rows) / len(rows), 1),
+        # The gap between these two is the whole diagnosis.
+        "retrieved_but_unstated_pct": round(
+            100
+            * sum(1 for r in rows if r["retrieved_source"] and not r["accurate"])
+            / max(1, sum(r["retrieved_source"] for r in rows)),
+            1,
+        ),
         "by_domain": {
             domain: {
                 "cases": len(bucket),
                 "accurate_pct": round(100 * sum(r["accurate"] for r in bucket) / len(bucket), 1),
+                "retrieved_pct": round(100 * sum(r["retrieved_source"] for r in bucket) / len(bucket), 1),
             }
             for domain, bucket in sorted(by_domain.items())
         },
@@ -123,6 +153,8 @@ async def main() -> int:
 
     print()
     print(f"accurate: {report['accurate_pct']}%   partial: {report['partial_mean']}   median {report['median_latency_ms']}ms")
+    print(f"retrieved the source section: {report['retrieved_pct']}%")
+    print(f"retrieved it but did not state the fact: {report['retrieved_but_unstated_pct']}%")
     for domain, stats in report["by_domain"].items():
         print(f"  {domain:16} {stats['accurate_pct']:>5}%  ({stats['cases']} cases)")
     print(f"wrote {args.out}")
