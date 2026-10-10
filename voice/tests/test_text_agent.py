@@ -125,7 +125,7 @@ async def test_a_successful_round_does_not_also_run_the_fallback(monkeypatch):
     original = _with_models("primary/model", "", "fallback/model")
     called: list[str] = []
 
-    async def fake_stream_chat(client, *, model, messages, tools, temperature=0):
+    async def fake_stream_chat(client, *, model, messages, tools, temperature=0, tool_choice=None):
         called.append(model)
         yield ChatDelta(content="An answer.")
 
@@ -139,3 +139,40 @@ async def test_a_successful_round_does_not_also_run_the_fallback(monkeypatch):
 
     assert "".join(chunks).strip() == "An answer."
     assert called == ["primary/model"], f"the fallback ran despite success: {called}"
+
+
+async def test_the_first_lookup_is_required_and_later_ones_are_not(monkeypatch):
+    """Grounding is mandatory until something has been looked up.
+
+    Left to itself the model answered ordinary factual questions from memory in
+    roughly half of all eval cases, on two different models, and neither a
+    longer prompt nor a rewording fixed it. So the first tool call is forced;
+    after that the model is free to answer.
+    """
+    from app import text_agent
+    from app.llm import ChatDelta
+
+    original = _with_models("primary/model", "")
+    seen: list[str | None] = []
+
+    async def fake_stream_chat(client, *, model, messages, tools, temperature=0, tool_choice=None):
+        seen.append(tool_choice)
+        if len(seen) == 1:
+            # Round one: the forced lookup.
+            yield ChatDelta(tool_calls=[{"id": "c1", "name": "lookup_policy", "arguments": {"query": "fee"}}])
+        else:
+            yield ChatDelta(content="Answered.")
+
+    async def fake_execute_tool(name, arguments, **kwargs):
+        return {"results": [], "count": 0}
+
+    try:
+        monkeypatch.setattr(text_agent, "stream_chat", fake_stream_chat)
+        monkeypatch.setattr(text_agent, "_execute_tool", fake_execute_tool)
+        async for _ in text_agent.stream_answer([], "What is the H-1B filing fee?"):
+            pass
+    finally:
+        _restore(original)
+
+    assert seen[0] == "required", "the first round must force a lookup"
+    assert seen[-1] is None, "later rounds must not force a lookup"

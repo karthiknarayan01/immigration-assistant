@@ -252,6 +252,13 @@ async def stream_answer(
     #: text from the next. A paragraph break is inserted between rounds.
     text_already_yielded = False
 
+    #: Until something has actually been looked up, a tool call is required
+    #: rather than optional. Left to itself the model answers ordinary factual
+    #: questions from memory — measured at roughly half of all cases, on two
+    #: different models — and an ungrounded answer is the failure this app
+    #: exists to prevent. After the first lookup it is free to answer.
+    force_tools = True
+
     for round_index in range(MAX_TOOL_ROUNDS):
         segment_start = time.perf_counter()
         first_token_ms: float | None = None
@@ -278,7 +285,11 @@ async def stream_answer(
                 first_token_ms = None
                 try:
                     async for delta in stream_chat(
-                        client, model=model, messages=messages, tools=tools
+                        client,
+                        model=model,
+                        messages=messages,
+                        tools=tools,
+                        tool_choice="required" if force_tools else None,
                     ):
                         if first_token_ms is None and (delta.content or delta.tool_calls):
                             first_token_ms = (time.perf_counter() - segment_start) * 1000
@@ -349,6 +360,7 @@ async def stream_answer(
                 )
                 tool_results.append({"role": "tool", "tool_call_id": call_id, "content": json.dumps(result)})
             messages.extend(tool_results)
+            force_tools = False  # it has looked something up; let it answer now
             continue
 
         # No tool call: this round produced the answer.

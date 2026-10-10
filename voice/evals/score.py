@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 from dataclasses import dataclass
 
 from app.config import settings
@@ -136,20 +137,38 @@ async def judge(case: dict, answer: str, tools_used: list[str]) -> Verdict:
     )
     instruction = JUDGE_INSTRUCTION + task_guidance(case.get("task", ""))
     client = get_client()
-    response = await client.chat.completions.create(
-        model=JUDGE_MODEL,
-        messages=[
-            {"role": "system", "content": instruction},
-            {"role": "user", "content": payload},
-        ],
-        temperature=0,
-        response_format={"type": "json_object"},
-    )
-    text = (response.choices[0].message.content or "").strip()
-    try:
-        data = json.loads(text)
-    except (json.JSONDecodeError, TypeError):
-        return Verdict({f: 0 for f in FACTORS}, "judge returned unparseable output")
+
+    # A judge that answers in prose instead of JSON is a harness fault, not a
+    # bad answer. Scoring it zero silently punishes the agent for a parsing
+    # failure — two cases read as 0.00 that way in the first real run — so this
+    # retries once, tries to salvage the JSON object from the text, and then
+    # raises, which the harness records as *unjudged* rather than as zero.
+    data = None
+    last = ""
+    for attempt in range(2):
+        response = await client.chat.completions.create(
+            model=JUDGE_MODEL,
+            messages=[
+                {"role": "system", "content": instruction},
+                {"role": "user", "content": payload},
+            ],
+            temperature=0,
+            response_format={"type": "json_object"},
+        )
+        last = (response.choices[0].message.content or "").strip()
+        try:
+            data = json.loads(last)
+            break
+        except (json.JSONDecodeError, TypeError):
+            match = re.search(r"\{.*\}", last, re.DOTALL)
+            if match:
+                try:
+                    data = json.loads(match.group(0))
+                    break
+                except json.JSONDecodeError:
+                    pass
+    if not isinstance(data, dict):
+        raise ValueError(f"judge returned unparseable output: {last[:120]!r}")
 
     scores = {}
     for factor in FACTORS:
