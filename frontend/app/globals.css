@@ -78,7 +78,12 @@ body {
   }
 }
 
-.streaming-caret::after {
+/* The caret belongs at the end of the text, not on a line of its own. An
+   ::after on the container cannot do that any more: assistant answers are now
+   markdown blocks, so the container-level pseudo-element lands below them.
+   Hanging it on the last child works for both cases — after the final markdown
+   block for an answer, and after the span for a user's plain text. */
+.streaming-caret > :last-child::after {
   content: "";
   display: inline-block;
   width: 7px;
