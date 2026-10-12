@@ -1,5 +1,11 @@
 export const runtime = "nodejs";
 
+// The backend streams a full tool-using turn, and a cold Cloud Run instance
+// adds to that: a measured round-trip took 15 seconds. Vercel's default
+// function limit is 10, so the proxy was being killed mid-stream — the browser
+// saw a request that simply never finished. 60 is the Hobby ceiling.
+export const maxDuration = 60;
+
 interface ChatRequestBody {
   summary?: string;
   recentMessages?: { role: string; content: string }[];
